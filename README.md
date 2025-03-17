@@ -8,7 +8,7 @@
 
 ### Namespaces   
 
-A **namespace** is a way to group symbols (like variables, functions, etc.) and organize them in a way that ensures they don’t clash with other symbols from different parts of your program. Think of it as a "bag" that holds related functions or variables, giving them a meaningful and scoped name.
+A **namespace** is a way to group related declarations (such as variables, functions, and classes) to organize code and prevent name conflicts. Think of it as a "bag" that holds related entities, giving them a meaningful and scoped name.
 
 **Example:**
 ```cpp
