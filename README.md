@@ -53,7 +53,7 @@ The `::` operator is used to access elements within a namespace. For example:
 
 ```cpp
 Foo::g_var   // Accesses the 'g_var' defined in the 'Foo' namespace
-::g_var      // Accesses the global 'g_var' (outside any namespace)
+::g_var      // Accesses the global 'g_var' (outside any namespace); same as using 'g_var' 
 ```
 
 ---
