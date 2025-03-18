@@ -381,7 +381,7 @@ public:
 #include "Example.hpp"
 
 // Constructor definition
-Example::Example(char p1, int p2, float p3); a1(p1), a2(p2), a3(p2) { // Initalization list 
+Example::Example(char p1, int p2, float p3) : a1(p1), a2(p2), a3(p2) { // Initalization list 
     std::cout << "Constructor called" << std::endl;
     std::cout << "this->a1: " << this->a1 << std::endl;
     std::cout << "this->a2: " << this->a2 << std::endl;
