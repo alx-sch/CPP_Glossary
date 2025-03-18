@@ -79,6 +79,10 @@ The `std` namespace is the default namespace for the C++ Standard Library. It co
 std::cout << "Hello, world!" << std::endl;
 ```
 
+<div align="right">
+  <b><a href="#top">↥ back to top</a></b>
+</div>
+</br>
 ---
 
 ### Stdio Streams
@@ -109,7 +113,12 @@ int main(void) {
 - Uses `cin` (standard input) and `cout` (standard output) instead of `scanf` and `printf`.
 - The `<<` operator is used for output, and `>>` is used for input.
 
-For more details, check out the official C++ documentation: [https://cplusplus.com/reference/iostream/](https://cplusplus.com/reference/iostream/)
+For more details, check out the official C++ documentation: [cplusplus.com - I/O Stream](https://cplusplus.com/reference/iostream/)
+
+<div align="right">
+  <b><a href="#top">↥ back to top</a></b>
+</div>
+</br>
 
 ---
 
@@ -186,6 +195,14 @@ int main(void) {
 - Constructors initialize objects when they are created.
 - Destructors handle cleanup when objects are destroyed.
 - Instance creation automatically triggers the constructor and destructor.
+
+
+<div align="right">
+  <b><a href="#top">↥ back to top</a></b>
+</div>
+</br>
+
+For more details, refer to: [cplusplus.com - Classes](https://cplusplus.com/doc/tutorial/classes/)
 
 ---
 
