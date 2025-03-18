@@ -5,7 +5,6 @@
 </p>
 
 
-
 ## Table of Contents
 <div id="top"></div>  
   
@@ -13,9 +12,10 @@
   - [Namespace](#namespaces)
   - [Stdio Streams](#stdio-streams)
   - [Classes and Instances](#classes-and-instances)
+  - [Member Attributes and Member Functions](#member-attributes-and-member-functions)
+  - 
  
 ---
-
 
 ## CPP_00:
 
@@ -120,7 +120,6 @@ For more details, check out the official C++ documentation: [cplusplus.com - I/O
 <div align="right">
   <b><a href="#top">↥ back to top</a></b>
 </div>
-</br>
 
 ---
 
@@ -184,9 +183,9 @@ Example::~Example(void) {
 #include "Example.hpp"
 
 int main(void) {
-    Sample instance_1; // Constructor is called
+    Sample    inst; // Constructor is called
 
-    return 0; // Destructor is called when instance_1 goes out of scope
+    return 0; // Destructor is called when 'inst' goes out of scope
 }
 ```
 
@@ -205,6 +204,80 @@ For more details, refer to: [cplusplus.com - Classes](https://cplusplus.com/doc/
 </div>
 
 ---
+
+### Member Attributes and Member Functions
+
+In C++, a **member attribute** is simply a variable that belongs to a class and is associated with an instance of the class. These attributes are used to store data specific to the class objects. Similarly, **member functions** are functions that belong to a class and operate on its data (attributes). These functions can be used to modify or access member attributes and carry out specific actions.
+
+```cpp
+// Example.hpp
+
+#ifndef EXAMPLE_HPP
+# define EXAMPLE_HPP
+
+class Example {
+public:
+    int foo;    // Declaration of member attribute (variable)
+ 
+    Example( void );  // Constructor declaration
+    ~Example( void ); // Destructor declaration
+
+    void bar( void ); // Declaration of member function
+};
+
+#endif
+```
+
+```cpp
+// Example.cpp
+
+#include <iostream>
+#include "Example.hpp"
+
+// Constructor definition
+Example::Example(void) {
+    std::cout << "Constructor called" << std::endl;
+}
+
+// Destructor definition
+Example::~Example(void) {
+    std::cout << "Destructor called" << std::endl;
+}
+
+// Member function definition
+void Example::bar(void) {
+    std::cout << "Member function bar called" << std::endl;
+}
+
+```
+
+```cpp
+// Main.cpp
+
+#include <iostream>
+#include "Example.hpp"
+
+int main( void ) {
+    Example inst;  // Creating an instance of Example (Constructor is called)
+
+    inst.foo = 42; // Accessing member attribute 'foo'
+    std::cout << "inst.foo: " << inst.foo << std::endl; // Printing 'foo'
+
+    inst.bar(); // Calling member function 'bar'
+
+    return (0);  // Destructor is called automatically when 'inst' goes out of scope
+}
+```
+
+For more details, refer to: [cplusplus.com - Class Member Functions](https://www.tutorialspoint.com/cplusplus/cpp_class_member_functions.htm)
+
+<div align="right">
+  <b><a href="#top">↥ back to top</a></b>
+</div>
+
+--- 
+
+
 
 #endif
 
