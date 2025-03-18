@@ -82,7 +82,6 @@ std::cout << "Hello, world!" << std::endl;
 <div align="right">
   <b><a href="#top">↥ back to top</a></b>
 </div>
-</br>
 
 ---
 
