@@ -4,7 +4,20 @@
     <img src="https://github.com/alx-sch/42_CPP_00-04/blob/main/.assets/img/cpp_badge.png" alt="cpp_badge.png" />
 </p>
 
-## CPP 00:
+
+
+## Table of Contents
+<div id="top"></div>  
+  
+- [CPP_00](#cpp_00)
+  - [Namespace](#namespaces)
+  - [Stdio Streams](#stdio-streams)
+  - [Classes and Instances](#classes-and-instances)
+ 
+---
+
+
+## CPP_00:
 
 ### Namespaces   
 
@@ -68,14 +81,147 @@ std::cout << "Hello, world!" << std::endl;
 
 ---
 
+### Stdio Streams
 
+C++ provides a more convenient way to handle input and output compared to C. In C, functions like `write` and `read` are used for I/O manipulation, often requiring manual file descriptor handling and buffer management.
 
+In C++, there is no need to set up file descriptors or manage buffers manually: Standard streams like `cin` and `cout` handle this for you. The language introduces two operators, `>>` and `<<`, to facilitate data flow.
 
+**Example: Basic I/O in C++:**
+```cpp
+#include <iostream>
 
+char    buff[512];
 
-stdio streams: standard input / output + error output   
+int main(void) {
+    std::cout << "Hello world!" << std::endl;
 
-class and instances: object-oriented programming   
+    std::cout << "Input a word: ";
+    std::cin >> buff;
+    std::cout << "You entered: [" << buff << "]" << std::endl;
+
+    return (0);
+}
+```
+
+**Key Differences from C:**
+- No need to manually set up file descriptors or buffers.
+- Uses `cin` (standard input) and `cout` (standard output) instead of `scanf` and `printf`.
+- The `<<` operator is used for output, and `>>` is used for input.
+
+For more details, check out the official C++ documentation: [https://cplusplus.com/reference/iostream/](https://cplusplus.com/reference/iostream/)
+
+---
+
+### Classes and Instances
+
+In C++, objects are instances of **classes**. A class defines a blueprint for creating objects, encapsulating both data and behavior.
+
+#### Declaring a Class:
+
+```cpp
+// Example.hpp
+
+#ifndef EXAMPLE_HPP
+# define EXAMPLE_HPP
+
+class Example {
+public:
+    Example( void );   // Constructor (same name as the class)
+    ~Example( void );  // Destructor (same name with '~' prefix)
+};
+
+#endif
+```
+
+- **Constructor** (`Example(void)`) is automatically called when an instance of the class is created.
+- **Destructor** (`~Example(void)`) is called when an instance is destroyed.
+- Unlike functions, constructors and destructors **do not have a return type**.
+
+---
+
+#### Defining the Class Methods:
+
+Class methods in C++ are functions that are defined inside a class. They describe the behavior of the class and operate on its data.
+
+```cpp
+// Example.cpp
+
+#include <iostream>
+#include "Example.hpp"
+
+Example::Example(void) {
+    std::cout << "Constructor called" << std::endl;
+}
+
+Example::~Example(void) {
+    std::cout << "Destructor called" << std::endl;
+}
+```
+
+- The scope resolution operator (`::`) is used to define class methods outside the class declaration.
+- The constructor is executed automatically when an instance is created.
+- The destructor is executed automatically when an instance goes out of scope or is deleted.
+  
+---
+
+#### Creating an Instance:
+
+```cpp
+// Main.cpp
+
+#include "Example.hpp"
+
+int main(void) {
+    Sample instance_1; // Constructor is called
+
+    return 0; // Destructor is called when instance_1 goes out of scope
+}
+```
+
+---
+
+#### Key Takeaways:
+- Classes encapsulate data and behavior.
+- Constructors initialize objects when they are created.
+- Destructors handle cleanup when objects are destroyed.
+- Instance creation automatically triggers the constructor and destructor.
+
+---
+
+#endif
+
+assign the class (notice that it's same syntax as namespaces).
+no return type for constructor / deconstructuro 
+
+#include <iostream>
+#include "sample_class.hpp"
+
+Sample::Sample( void ) {
+    sstd::out << "Constructor called" << std::endl;
+    return ;
+}
+
+Sample::~Sample( void ) {
+    sstd::out << "Deconstructor called" << std::endl;
+    return ;
+}
+
+Whenever new instance of class is created" constructir is called,
+when instance is delted: deconstructor is called.
+
+create instance"
+
+#include "Sample_class.hpp"
+
+int    main( void ) {
+    Sample    instance_1; // Constructor is called
+
+    return (0);    // deconstructor is called
+}
+
+---
+
 
 member attribute and member function, method: member function   
 
