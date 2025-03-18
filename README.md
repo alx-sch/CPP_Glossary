@@ -13,7 +13,7 @@
   - [Stdio Streams](#stdio-streams)
   - [Classes and Instances](#classes-and-instances)
   - [Member Attributes and Member Functions](#member-attributes-and-member-functions)
-  - 
+  - [This Pointer](#this-pointer)
  
 ---
 
@@ -26,16 +26,16 @@ A **namespace** is a way to group related declarations (such as variables, funct
 **Example:**
 ```cpp
 int g_var = 1;
-int fct( void ) { return 42; }
+int fct(void) {return 42;}
 
 namespace Foo {
     int g_var = 2;
-    int fct( void ) { return 40; }
+    int fct(void) {return 40;}
 }
 
 namespace Bar {
     int g_var = 3;
-    int fct( void ) { return 2; }
+    int fct(void) {return 2;}
 }
 ```
 
@@ -137,8 +137,8 @@ In C++, objects are instances of **classes**. A class defines a blueprint for cr
 
 class Example {
 public:
-    Example( void );   // Constructor (same name as the class)
-    ~Example( void );  // Destructor (same name with '~' prefix)
+    Example(void);   // Constructor (same name as the class)
+    ~Example(void);  // Destructor (same name with '~' prefix)
 };
 
 #endif
@@ -184,8 +184,7 @@ Example::~Example(void) {
 
 int main(void) {
     Sample    inst; // Constructor is called
-
-    return 0; // Destructor is called when 'inst' goes out of scope
+    return (0); // Destructor is called when 'inst' goes out of scope
 }
 ```
 
@@ -219,10 +218,10 @@ class Example {
 public:
     int foo;    // Declaration of member attribute (variable)
  
-    Example( void );  // Constructor declaration
-    ~Example( void ); // Destructor declaration
+    Example(void);  // Constructor declaration
+    ~Example(void); // Destructor declaration
 
-    void bar( void ); // Declaration of member function
+    void bar(void); // Declaration of member function
 };
 
 #endif
@@ -257,7 +256,7 @@ void Example::bar(void) {
 #include <iostream>
 #include "Example.hpp"
 
-int main( void ) {
+int main(void) {
     Example inst;  // Creating an instance of Example (Constructor is called)
 
     inst.foo = 42; // Accessing member attribute 'foo'
@@ -277,55 +276,81 @@ For more details, refer to: [cplusplus.com - Class Member Functions](https://www
 
 --- 
 
+### This Pointer
 
+In C++, the `this` pointer refers to the current instance of the class. It is an implicit pointer passed to all non-static member functions, which allows those functions to access and modify the data members of the object they belong to.
+
+Using `this` is often unnecessary when there's no name conflict, but it becomes useful when a local variable or function parameter has the same name as a member attribute.
+
+```cpp
+// Example.hpp
+
+#ifndef EXAMPLE_HPP
+# define EXAMPLE_HPP
+
+class Example {
+public:
+    int foo;    // Declaration of member attribute (variable)
+ 
+    Example(void);  // Constructor declaration
+    ~Example(void); // Destructor declaration
+
+    void bar(void); // Declaration of member function
+};
 
 #endif
+```
 
-assign the class (notice that it's same syntax as namespaces).
-no return type for constructor / deconstructuro 
+```cpp
+// Example.cpp
 
 #include <iostream>
-#include "sample_class.hpp"
+#include "Example.hpp"
 
-Sample::Sample( void ) {
-    sstd::out << "Constructor called" << std::endl;
-    return ;
+// Constructor definition
+Example::Example(void) {
+    std::cout << "Constructor called" << std::endl;
+
+    // Using 'this' to refer to the current object's member attribute
+    this->foo = 42; 
+    std::cout << "this->foo: " << this->foo << std::endl;
+
+    // Calling the member function 'bar' using 'this'
+    this->bar();
 }
 
-Sample::~Sample( void ) {
-    sstd::out << "Deconstructor called" << std::endl;
-    return ;
+// Destructor definition
+Example::~Example(void) {
+    std::cout << "Destructor called" << std::endl;
 }
 
-Whenever new instance of class is created" constructir is called,
-when instance is delted: deconstructor is called.
-
-create instance"
-
-#include "Sample_class.hpp"
-
-int    main( void ) {
-    Sample    instance_1; // Constructor is called
-
-    return (0);    // deconstructor is called
+// Member function definition
+void Example::bar(void) {
+    std::cout << "Member function bar called" << std::endl;
 }
+```
+
+```cpp
+// Main.cpp
+
+#include "Example.hpp"
+
+int main(void) {
+    Example inst;  // Creating an instance of Example, which calls the constructor
+    return (0);  // Destructor is called when 'inst' goes out of scope
+}
+```
+
+The output will be the same as the [previous example](#member-attributes-and-member-functions), showing the constructor and destructor messages as well as the `bar()` function call.
+
+<div align="right">
+  <b><a href="#top">↥ back to top</a></b>
+</div>
 
 ---
 
 
-member attribute and member function, method: member function   
 
-instance variable: -> this   
-
-list initialization: create   
-
-constants   
-
-encapsulation: private + public    
-
-class vs struct
-
-acessor: access / update private attributes
 
 comparison: (e.g. running test)
 
