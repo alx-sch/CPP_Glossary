@@ -14,6 +14,7 @@
   - [Classes and Instances](#classes-and-instances)
   - [Member Attributes and Member Functions](#member-attributes-and-member-functions)
   - [This Pointer](#this-pointer)
+  - [Initialization List](#initialization-list)
  
 ---
 
@@ -349,6 +350,56 @@ The output will be the same as the [previous example](#member-attributes-and-mem
 
 ---
 
+### Initialization List
+
+In C++, when a constructor is called, the member variables of the class need to be initialized. While member variables can be assigned values inside the constructor's body (as done [above](#this-pointer)), it's more efficient to initialize them directly in the constructor's initialization list.   
+
+The **initialization list** allows you to initialize member variables before entering the constructor body. It is generally used when you need to set values for const members, reference members, or when you want to ensure the variables are initialized before the constructor body executes.  
+
+Here’s how it works:
+```cpp
+// Example.hpp
+
+#ifndef EXAMPLE_HPP
+# define EXAMPLE_HPP
+
+class Example {
+public:
+    int    a1;
+    char   a2;
+    float  a3;  
+ 
+    Example(char p1, int p2, float p3);  // Constructor accepting parameters
+    ~Example(void); 
+};
+```
+
+```cpp
+// Example.cpp
+
+#include <iostream>
+#include "Example.hpp"
+
+// Constructor definition
+Example::Example(char p1, int p2, float p3); a1(p1), a2(p2), a3(p2) { // Initalization list 
+    std::cout << "Constructor called" << std::endl;
+    std::cout << "this->a1: " << this->a1 << std::endl;
+    std::cout << "this->a2: " << this->a2 << std::endl;
+    std::cout << "this->a3: " << this->a3 << std::endl;
+
+}
+
+// Destructor definition
+Example::~Example(void) {
+    std::cout << "Destructor called" << std::endl;
+}
+```
+
+<div align="right">
+  <b><a href="#top">↥ back to top</a></b>
+</div>
+
+---
 
 
 
