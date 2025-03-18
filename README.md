@@ -79,6 +79,8 @@ The `std` namespace is the default namespace for the C++ Standard Library. It co
 std::cout << "Hello, world!" << std::endl;
 ```
 
+For more details, check out: [cplusplus.com - Namespaces](https://cplusplus.com/doc/oldtutorial/namespaces/)
+
 <div align="right">
   <b><a href="#top">↥ back to top</a></b>
 </div>
@@ -196,13 +198,11 @@ int main(void) {
 - Destructors handle cleanup when objects are destroyed.
 - Instance creation automatically triggers the constructor and destructor.
 
+For more details, refer to: [cplusplus.com - Classes](https://cplusplus.com/doc/tutorial/classes/)
 
 <div align="right">
   <b><a href="#top">↥ back to top</a></b>
 </div>
-</br>
-
-For more details, refer to: [cplusplus.com - Classes](https://cplusplus.com/doc/tutorial/classes/)
 
 ---
 
