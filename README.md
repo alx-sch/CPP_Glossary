@@ -356,7 +356,7 @@ In C++, when a constructor is called, the class's member variables need to be in
 
 An **initialization list** allows you to initialize member variables before entering the constructor body. This is particularly useful when  
 1. Initializing **const** members (since they cannot be assigned later).
-2. Initializing reference members (as references must be assigned at construction).
+2. Initializing **reference** members (as references must be assigned at construction).
 3. Ensuring **efficient initialization** by directly initializing members instead of using assignment inside the constructor body, which may involve extra operations.
 
 Here’s how it works:
