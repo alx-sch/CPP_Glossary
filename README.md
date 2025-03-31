@@ -352,9 +352,12 @@ The output will be the same as the [previous example](#member-attributes-and-mem
 
 ### Initialization List
 
-In C++, when a constructor is called, the member variables of the class need to be initialized. While member variables can be assigned values inside the constructor's body (as done [above](#this-pointer)), it's more efficient to initialize them directly in the constructor's initialization list.   
+In C++, when a constructor is called, the class's member variables need to be initialized. While you can assign values inside the constructor body (as done [above](#this-pointer)), using an initialization list is often more efficient and sometimes necessary.  
 
-The **initialization list** allows you to initialize member variables before entering the constructor body. It is generally used when you need to set values for const members, reference members, or when you want to ensure the variables are initialized before the constructor body executes.  
+An **initialization list** allows you to initialize member variables before entering the constructor body. This is particularly useful when  
+1. Initializing **const** members (since they cannot be assigned later).
+2. Initializing reference members (as references must be assigned at construction), e.g. `int &ref`.
+3. Ensuring **efficient initialization** by directly initializing members instead of using assignment inside the constructor body, which may involve extra operations.
 
 Here’s how it works:
 ```cpp
