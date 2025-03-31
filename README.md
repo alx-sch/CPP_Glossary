@@ -375,6 +375,8 @@ public:
     Example(char p1, int p2, float p3);  // Constructor accepting parameters
     ~Example(void); 
 };
+
+#endif
 ```
 
 ```cpp
