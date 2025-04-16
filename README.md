@@ -1,4 +1,4 @@
-# C++ 
+# C++ Glossary
 
 <p align="center">
     <img src="https://github.com/alx-sch/42_CPP_00-04/blob/main/.assets/img/cpp_badge.png" alt="cpp_badge.png" />
