@@ -54,10 +54,10 @@ In the example above, the global variable `g_var` and function `fct` are defined
 You can create an alias for an existing namespace to shorten its reference:
 
 ```cpp
-namespace Muf = Bar;
+namespace Muf = VeeeeryLongName;
 ```
 
-Now, `Muf` is an alias for `Bar`, and you can access `Bar`'s members using `Muf`.
+Now, `Muf` is an alias for `VeeeeryLongName`, and you can access `VeeeeryLongName`'s members using `Muf`.
 
 ---
 
