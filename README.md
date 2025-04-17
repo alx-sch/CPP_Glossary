@@ -98,7 +98,7 @@ C++ provides a more convenient way to handle input and output compared to C. In 
 
 In C++, there is no need to set up file descriptors or manage buffers manually: Standard streams like `cin` and `cout` handle this for you. The language introduces two operators, `>>` and `<<`, to facilitate data flow.
 
-**Example: Basic I/O in C++:**
+**Basic I/O in C++:**
 ```cpp
 #include <iostream>
 
