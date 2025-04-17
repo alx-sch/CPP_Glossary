@@ -152,6 +152,7 @@ public:
 - **Constructor** (`Example()`) is automatically called when an instance of the class is created.
 - **Destructor** (`~Example()`) is automatically called when an instance is destroyed or goes out of scope.
 - Unlike functions, constructors and destructors **do not have a return type**.
+- You don't *need* to explicitly define a constructor or destructor — the compiler automatically provides default ones. However, if you want to initialize member variables or define custom behavior when an object is created or destroyed, you should provide your own.
 
 ---
 
