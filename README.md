@@ -26,16 +26,16 @@ A **namespace** is a way to group related declarations (such as variables, funct
 **Example:**
 ```cpp
 int g_var = 1;
-int fct(void) {return 42;}
+int fct(void) { return 42; }
 
 namespace Foo {
     int g_var = 2;
-    int fct(void) {return 40;}
+    int fct(void) { return 40; }
 }
 
 namespace Bar {
     int g_var = 3;
-    int fct(void) {return 2;}
+    int fct(void) { return 2; }
 }
 ```
 
@@ -53,6 +53,11 @@ In the example above, the global variable `g_var` and function `fct` are defined
 You can create an alias for an existing namespace to shorten its reference:
 
 ```cpp
+namespace VeeeeryLongName {
+    int var = 3;
+    int fct(void) { return 42; }
+}
+
 namespace Muf = VeeeeryLongName;
 ```
 
@@ -106,7 +111,7 @@ int main(void) {
     std::cin >> buff;
     std::cout << "You entered: [" << buff << "]" << std::endl;
 
-    return (0);
+    return 0;
 }
 ```
 
@@ -184,7 +189,7 @@ Example::~Example(void) {
 
 int main(void) {
     Sample    inst; // Constructor is called
-    return (0); // Destructor is called when 'inst' goes out of scope
+    return 0; // Destructor is called when 'inst' goes out of scope
 }
 ```
 
@@ -264,7 +269,7 @@ int main(void) {
 
     inst.bar(); // Calling member function 'bar'
 
-    return (0);  // Destructor is called automatically when 'inst' goes out of scope
+    return 0;  // Destructor is called automatically when 'inst' goes out of scope
 }
 ```
 
@@ -337,7 +342,7 @@ void Example::bar(void) {
 
 int main(void) {
     Example inst;  // Creating an instance of Example, which calls the constructor
-    return (0);  // Destructor is called when 'inst' goes out of scope
+    return 0;  // Destructor is called when 'inst' goes out of scope
 }
 ```
 
@@ -405,7 +410,7 @@ Example::~Example(void) {
 
 int main(void) {
     Example inst('A', 99, 42.42f);  // Creating an instance with valid values
-    return (0); 
+    return 0; 
 }
 ```
 
