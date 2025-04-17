@@ -150,7 +150,7 @@ public:
 ```
 
 - **Constructor** (`Example()`) is automatically called when an instance of the class is created.
-- **Destructor** (`~Example()`) is automatically called when an instance is destroyed / goes out of scope.
+- **Destructor** (`~Example()`) is automatically called when an instance is destroyed or goes out of scope.
 - Unlike functions, constructors and destructors **do not have a return type**.
 
 ---
