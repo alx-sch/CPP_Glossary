@@ -176,8 +176,6 @@ Example::~Example() {
 ```
 
 - The scope resolution operator (`::`) is used to define class methods outside the class declaration.
-- The constructor is executed automatically when an instance is created.
-- The destructor is executed automatically when an instance goes out of scope or is deleted.
   
 ---
 
