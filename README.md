@@ -104,7 +104,7 @@ In C++, there is no need to set up file descriptors or manage buffers manually: 
 
 char    buff[512];
 
-int main(void) {
+int main() {
     std::cout << "Hello world!" << std::endl;
 
     std::cout << "Input a word: ";
@@ -142,15 +142,15 @@ In C++, objects are instances of **classes**. A class defines a blueprint for cr
 
 class Example {
 public:
-    Example(void);   // Constructor (same name as the class)
-    ~Example(void);  // Destructor (same name with '~' prefix)
+    Example();   // Constructor (same name as the class)
+    ~Example();  // Destructor (same name with '~' prefix)
 };
 
 #endif
 ```
 
-- **Constructor** (`Example(void)`) is automatically called when an instance of the class is created.
-- **Destructor** (`~Example(void)`) is called when an instance is destroyed.
+- **Constructor** (`Example()`) is automatically called when an instance of the class is created.
+- **Destructor** (`~Example()`) is automatically called when an instance is destroyed / goes out of scope.
 - Unlike functions, constructors and destructors **do not have a return type**.
 
 ---
@@ -165,11 +165,11 @@ Class methods in C++ are functions that are defined inside a class. They describ
 #include <iostream>
 #include "Example.hpp"
 
-Example::Example(void) {
+Example::Example() {
     std::cout << "Constructor called" << std::endl;
 }
 
-Example::~Example(void) {
+Example::~Example() {
     std::cout << "Destructor called" << std::endl;
 }
 ```
@@ -187,7 +187,7 @@ Example::~Example(void) {
 
 #include "Example.hpp"
 
-int main(void) {
+int main() {
     Sample    inst; // Constructor is called
     return 0; // Destructor is called when 'inst' goes out of scope
 }
@@ -223,10 +223,10 @@ class Example {
 public:
     int foo;    // Declaration of member attribute (variable)
  
-    Example(void);  // Constructor declaration
-    ~Example(void); // Destructor declaration
+    Example();  // Constructor declaration
+    ~Example(); // Destructor declaration
 
-    void bar(void); // Declaration of member function
+    void bar(); // Declaration of member function
 };
 
 #endif
@@ -239,17 +239,17 @@ public:
 #include "Example.hpp"
 
 // Constructor definition
-Example::Example(void) {
+Example::Example() {
     std::cout << "Constructor called" << std::endl;
 }
 
 // Destructor definition
-Example::~Example(void) {
+Example::~Example() {
     std::cout << "Destructor called" << std::endl;
 }
 
 // Member function definition
-void Example::bar(void) {
+void Example::bar() {
     std::cout << "Member function bar called" << std::endl;
 }
 
@@ -261,7 +261,7 @@ void Example::bar(void) {
 #include <iostream>
 #include "Example.hpp"
 
-int main(void) {
+int main() {
     Example inst;  // Creating an instance of Example (Constructor is called)
 
     inst.foo = 42; // Accessing member attribute 'foo'
@@ -297,10 +297,10 @@ class Example {
 public:
     int foo;    // Declaration of member attribute (variable)
  
-    Example(void);  // Constructor declaration
-    ~Example(void); // Destructor declaration
+    Example();  // Constructor declaration
+    ~Example(); // Destructor declaration
 
-    void bar(void); // Declaration of member function
+    void bar(); // Declaration of member function
 };
 
 #endif
@@ -313,7 +313,7 @@ public:
 #include "Example.hpp"
 
 // Constructor definition
-Example::Example(void) {
+Example::Example() {
     std::cout << "Constructor called" << std::endl;
 
     // Using 'this' to refer to the current object's member attribute
@@ -325,12 +325,12 @@ Example::Example(void) {
 }
 
 // Destructor definition
-Example::~Example(void) {
+Example::~Example() {
     std::cout << "Destructor called" << std::endl;
 }
 
 // Member function definition
-void Example::bar(void) {
+void Example::bar() {
     std::cout << "Member function bar called" << std::endl;
 }
 ```
@@ -340,7 +340,7 @@ void Example::bar(void) {
 
 #include "Example.hpp"
 
-int main(void) {
+int main() {
     Example inst;  // Creating an instance of Example, which calls the constructor
     return 0;  // Destructor is called when 'inst' goes out of scope
 }
@@ -377,7 +377,7 @@ public:
     float  a3;  
  
     Example(char p1, int p2, float p3);  // Constructor accepting parameters
-    ~Example(void); 
+    ~Example(); 
 };
 
 #endif
@@ -398,7 +398,7 @@ Example::Example(char p1, int p2, float p3) : a1(p2), a2(p1), a3(p3) { // Inital
 }
 
 // Destructor definition
-Example::~Example(void) {
+Example::~Example() {
     std::cout << "Destructor called" << std::endl;
 }
 ```
@@ -408,7 +408,7 @@ Example::~Example(void) {
 
 #include "Example.hpp"
 
-int main(void) {
+int main() {
     Example inst('A', 99, 42.42f);  // Creating an instance with valid values
     return 0; 
 }
