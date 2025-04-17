@@ -8,13 +8,12 @@
 ## Table of Contents
 <div id="top"></div>  
   
-- [CPP_00](#cpp_00)
-  - [Namespace](#namespaces)
-  - [Stdio Streams](#stdio-streams)
-  - [Classes and Instances](#classes-and-instances)
-  - [Member Attributes and Member Functions](#member-attributes-and-member-functions)
-  - [This Pointer](#this-pointer)
-  - [Initialization List](#initialization-list)
+- [Namespaces](#namespaces)
+- [Stdio Streams](#stdio-streams)
+- [Classes and Instances](#classes-and-instances)
+- [Member Attributes and Member Functions](#member-attributes-and-member-functions)
+- [This Pointer](#this-pointer)
+- [Initialization List](#initialization-list)
  
 ---
 
