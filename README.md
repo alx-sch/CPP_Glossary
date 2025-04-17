@@ -157,7 +157,7 @@ public:
 
 #### Defining Class Methods:
 
-Class methods in C++ are functions that are defined inside a class. They describe the behavior of the class and operate on its data.
+Class methods in C++ are functions defined inside a class. They describe the behavior of the class and operate on its data.
 
 ```cpp
 // Example.cpp
