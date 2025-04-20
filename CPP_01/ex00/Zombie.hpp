@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/20 19:13:29 by codespace         #+#    #+#             */
-/*   Updated: 2025/04/20 20:30:58 by codespace        ###   ########.fr       */
+/*   Updated: 2025/04/20 20:54:40 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define ZOMBIE_HPP
 
 # include <string>
-# include <iostream>
 
 class Zombie {
 public:
@@ -27,8 +26,5 @@ public:
 private:
     std::string name; 
 };
-
-Zombie*         newZombie( std::string name );
-void            randomChump( std::string name );
 
 #endif

@@ -6,7 +6,7 @@
 #    By: codespace <codespace@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/07 15:37:51 by aschenk           #+#    #+#              #
-#    Updated: 2025/04/20 20:44:38 by codespace        ###   ########.fr        #
+#    Updated: 2025/04/20 21:03:53 by codespace        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,9 @@ NAME :=			BraiiiiiiinnnzzzZ
 
 # SOURCE FILES
 SRCS :=			main.cpp \
-				Zombie.cpp 
+				Zombie.cpp  \
+				newZombie.cpp \
+				randomChump.cpp 
 				
 # OBJECT FILES
 OBJS_DIR :=		obj
