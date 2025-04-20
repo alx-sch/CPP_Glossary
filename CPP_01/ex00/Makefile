@@ -6,7 +6,7 @@
 #    By: codespace <codespace@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/07 15:37:51 by aschenk           #+#    #+#              #
-#    Updated: 2025/04/20 20:18:57 by codespace        ###   ########.fr        #
+#    Updated: 2025/04/20 20:44:38 by codespace        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ OBJS :=			$(SRCS:%.cpp=$(OBJS_DIR)/%.o)
 
 # COMPILER
 CC :=			c++
+#CC :=			clang++
 CFLAGS :=		-std=c++98
 CFLAGS +=		-Werror -Wextra -Wall
 CFLAGS +=		-Wpedantic
