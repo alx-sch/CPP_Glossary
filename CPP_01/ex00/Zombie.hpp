@@ -6,7 +6,7 @@
 /*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/20 19:13:29 by codespace         #+#    #+#             */
-/*   Updated: 2025/04/20 20:54:40 by codespace        ###   ########.fr       */
+/*   Updated: 2025/04/21 08:45:40 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,10 @@
 
 class Zombie {
 public:
-    Zombie( void );
+    Zombie( std::string name );
     ~Zombie( void );
 
     void        announce( void );
-    void        setName( std::string name );
     
 private:
     std::string name; 
