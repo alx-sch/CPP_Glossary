@@ -1,29 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   HumanB.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/22 13:29:01 by aschenk           #+#    #+#             */
-/*   Updated: 2025/04/22 16:35:30 by aschenk          ###   ########.fr       */
+/*   Created: 2025/04/22 15:37:44 by aschenk           #+#    #+#             */
+/*   Updated: 2025/04/22 15:56:26 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
-#include "Zombie.hpp"
+#include "HumanB.hpp"
 
-Zombie	*zombieHorde( int N, std::string name );
+HumanB::HumanB( const std::string &name ) : name(name), weapon(NULL) {}
+HumanB::~HumanB( void ) {}
 
-int	main( void ) {
-	int		N = 5;
-	Zombie	*horde = zombieHorde( N, "Horde" );
-
-	for ( int i = 0; i < N; ++i ) {
-		std::cout << i << ": ";
-		horde[i].announce();
-	}
-	delete[] horde;
-
-	return 0;
+void	HumanB::attack( void ) const {
+	if (!weapon)
+	std::cout << name << " tries to attack but has no weapon! " << std::endl;
+	else
+		std::cout << name << " attacks with their " << weapon->getType() << std::endl;
 }
+
+void	HumanB::setWeapon( Weapon &new_weapon) {
+	weapon =  &new_weapon;
+}
+

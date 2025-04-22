@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Zombie.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/20 19:13:29 by codespace         #+#    #+#             */
-/*   Updated: 2025/04/21 08:45:40 by codespace        ###   ########.fr       */
+/*   Created: 2025/04/22 13:00:39 by aschenk           #+#    #+#             */
+/*   Updated: 2025/04/22 16:39:05 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,15 @@
 
 # include <string>
 
-class Zombie {
-public:
-    Zombie( std::string name );
-    ~Zombie( void );
+class	Zombie {
+	public: 
+		Zombie( std::string zombie_name );
+		~Zombie( void );
 
-    void        announce( void );
-    
-private:
-    std::string name; 
+		void		announce( void );
+
+	private:
+		std::string	name;
 };
 
 #endif

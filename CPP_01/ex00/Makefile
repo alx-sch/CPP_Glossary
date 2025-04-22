@@ -3,14 +3,14 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: codespace <codespace@student.42.fr>        +#+  +:+       +#+         #
+#    By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/11/07 15:37:51 by aschenk           #+#    #+#              #
-#    Updated: 2025/04/21 08:41:43 by codespace        ###   ########.fr        #
+#    Created: 2025/04/22 12:51:26 by aschenk           #+#    #+#              #
+#    Updated: 2025/04/22 13:47:12 by aschenk          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME :=			BraiiiiiiinnnzzzZ
+NAME :=			braiiiiiiinnnzzzZ
 
 # SOURCE FILES
 SRCS :=			main.cpp \
@@ -23,8 +23,7 @@ OBJS_DIR :=		obj
 OBJS :=			$(SRCS:%.cpp=$(OBJS_DIR)/%.o)
 
 # COMPILER
-#CC :=			c++
-CC :=			clang++
+CC :=			c++
 CFLAGS :=		-std=c++98
 CFLAGS +=		-Werror -Wextra -Wall
 CFLAGS +=		-Wpedantic
@@ -92,3 +91,4 @@ re:	fclean all
 
 # Makes that make rules are invoked even if files of the same name happen to be in the directory.
 .PHONY: all clean fclean re
+	

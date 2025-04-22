@@ -1,29 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   HumanB.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/22 13:29:01 by aschenk           #+#    #+#             */
-/*   Updated: 2025/04/22 16:35:30 by aschenk          ###   ########.fr       */
+/*   Created: 2025/04/22 15:26:10 by aschenk           #+#    #+#             */
+/*   Updated: 2025/04/22 15:56:44 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <iostream>
-#include "Zombie.hpp"
+#ifndef HUMANB_HPP
+# define HUMANB_HPP
 
-Zombie	*zombieHorde( int N, std::string name );
+# include <string>
+# include "Weapon.hpp"
 
-int	main( void ) {
-	int		N = 5;
-	Zombie	*horde = zombieHorde( N, "Horde" );
+class HumanB {
+	public:
+		HumanB( const std::string &name );
+		~HumanB( void );
 
-	for ( int i = 0; i < N; ++i ) {
-		std::cout << i << ": ";
-		horde[i].announce();
-	}
-	delete[] horde;
+		void		attack( void ) const; // const as attacks only prints and doesn't modify
+		void		setWeapon( Weapon &weapon );
 
-	return 0;
-}
+	private:
+		std::string	name;
+		Weapon		*weapon; // Pointer allows for "no weapon" case (nullptr)
+};
+
+#endif

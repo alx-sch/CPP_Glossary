@@ -1,29 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   HumanA.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/22 13:29:01 by aschenk           #+#    #+#             */
-/*   Updated: 2025/04/22 16:35:30 by aschenk          ###   ########.fr       */
+/*   Created: 2025/04/22 14:25:05 by aschenk           #+#    #+#             */
+/*   Updated: 2025/04/22 17:01:34 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <iostream>
-#include "Zombie.hpp"
+#ifndef HUMANA_HPP
+# define HUMANA_HPP
 
-Zombie	*zombieHorde( int N, std::string name );
+# include <string>
+# include "Weapon.hpp"
 
-int	main( void ) {
-	int		N = 5;
-	Zombie	*horde = zombieHorde( N, "Horde" );
+class	HumanA {
+	public:
+		HumanA(const std::string &nameProvided, Weapon &initial_weapon );
+		~HumanA( void );
 
-	for ( int i = 0; i < N; ++i ) {
-		std::cout << i << ": ";
-		horde[i].announce();
-	}
-	delete[] horde;
+		void		attack( void ) const; // const as attacks only prints and doesn't modify
 
-	return 0;
-}
+	private:
+		std::string	name;
+		Weapon		&weapon; // Reference as there is always a weapon
+};
+
+#endif

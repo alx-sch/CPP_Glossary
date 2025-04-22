@@ -1,11 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   Weapon.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/07 15:37:54 by aschenk           #+#    #+#             */
-/*   Updated: 2024/11/07 15:37:55 by aschenk          ###   ########.fr       */
+/*   Created: 2025/04/22 14:06:11 by aschenk           #+#    #+#             */
+/*   Updated: 2025/04/22 16:57:35 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#ifndef WEAPON_HPP
+# define WEAPON_HPP
+
+# include <string>
+
+class	Weapon {
+	public:
+		Weapon( std::string typeProvided );
+		~Weapon( void );
+
+		std::string	getType( void );
+		void		setType( std::string newType );
+
+	private:
+		std::string			type;
+};
+
+#endif

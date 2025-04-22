@@ -3,16 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   randomChump.cpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
+/*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/20 20:48:33 by codespace         #+#    #+#             */
-/*   Updated: 2025/04/21 08:44:45 by codespace        ###   ########.fr       */
+/*   Created: 2025/04/22 13:14:30 by aschenk           #+#    #+#             */
+/*   Updated: 2025/04/22 16:49:02 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Zombie.hpp"
 
-void    randomChump( std::string name ) {
-    Zombie z( name );       // Create a Zombie on the stack
-    z.announce();
-} // Goes out of scope and is destroyed automatically
+// Creates a new zombie with `name` on the stack, let it announce, 
+// and zombie is then destroyed, going out of scope.
+void	randomChump( std::string name ) {
+	Zombie z( name ); 
+	z.announce();
+} 

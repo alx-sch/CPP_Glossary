@@ -1,29 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   Weapon.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/22 13:29:01 by aschenk           #+#    #+#             */
-/*   Updated: 2025/04/22 16:35:30 by aschenk          ###   ########.fr       */
+/*   Created: 2025/04/22 14:13:52 by aschenk           #+#    #+#             */
+/*   Updated: 2025/04/22 16:58:06 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <iostream>
-#include "Zombie.hpp"
+#include "Weapon.hpp"
 
-Zombie	*zombieHorde( int N, std::string name );
+// Contructor with weapon provided
+Weapon::Weapon( std::string typeProvided ) : type( typeProvided ) {}
 
-int	main( void ) {
-	int		N = 5;
-	Zombie	*horde = zombieHorde( N, "Horde" );
+Weapon::~Weapon( void ) {}
 
-	for ( int i = 0; i < N; ++i ) {
-		std::cout << i << ": ";
-		horde[i].announce();
-	}
-	delete[] horde;
+std::string	Weapon::getType( void ) {
+	return type;
+}
 
-	return 0;
+void	Weapon::setType( std::string newType ) {
+	type = newType;
 }

@@ -3,19 +3,19 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: codespace <codespace@student.42.fr>        +#+  +:+       +#+         #
+#    By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/11/07 15:37:51 by aschenk           #+#    #+#              #
-#    Updated: 2025/04/20 21:42:12 by codespace        ###   ########.fr        #
+#    Created: 2025/04/22 13:22:40 by aschenk           #+#    #+#              #
+#    Updated: 2025/04/22 13:47:28 by aschenk          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME :=			Moar_brainz
+NAME :=			moar_brainz
 
 # SOURCE FILES
 SRCS :=			main.cpp \
-				Zombie.cpp \
-				zombieHorde.cpp 
+				Zombie.cpp  \
+				zombieHorde.cpp
 				
 # OBJECT FILES
 OBJS_DIR :=		obj
@@ -23,7 +23,6 @@ OBJS :=			$(SRCS:%.cpp=$(OBJS_DIR)/%.o)
 
 # COMPILER
 CC :=			c++
-CC :=			clang++
 CFLAGS :=		-std=c++98
 CFLAGS +=		-Werror -Wextra -Wall
 CFLAGS +=		-Wpedantic
@@ -48,6 +47,7 @@ RED :=			\033[91m
 all:		$(NAME)
 
 # Target $(NAME) depends on object files $(OBJS)
+# Print out l once program is compiled.
 $(NAME):	$(OBJS)
 	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
 	@echo "$(BOLD)$(YELLOW)\n$(NAME) successfully compiled.$(RESET)"
@@ -90,3 +90,4 @@ re:	fclean all
 
 # Makes that make rules are invoked even if files of the same name happen to be in the directory.
 .PHONY: all clean fclean re
+	
