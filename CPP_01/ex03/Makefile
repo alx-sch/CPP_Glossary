@@ -6,26 +6,38 @@
 #    By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/22 13:43:02 by aschenk           #+#    #+#              #
-#    Updated: 2025/04/22 15:47:13 by aschenk          ###   ########.fr        #
+#    Updated: 2025/04/23 11:08:50 by aschenk          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME :=			unnecessary_violence
 
 # SOURCE FILES
-SRCS :=			main.cpp \
+SRCS_DIR :=		src
+SRCS_FILES :=	main.cpp \
 				Weapon.cpp \
 				HumanA.cpp \
 				HumanB.cpp 
+
+SRCS :=			$(addprefix $(SRCS_DIR)/, $(SRCS_FILES))
 				
 # OBJECT FILES
 OBJS_DIR :=		obj
 OBJS :=			$(SRCS:%.cpp=$(OBJS_DIR)/%.o)
 
+# HEADER FILES
+HDRS_DIR :=		include
+HDRS_FILES :=	Weapon.hpp \
+				HumanA.hpp \
+				HumanB.hpp
+
+HDRS :=			$(addprefix $(HDRS_DIR)/, $(HDRS_FILES))
+
 # COMPILER
 CC :=			c++
 CFLAGS :=		-std=c++98
 CFLAGS +=		-Werror -Wextra -Wall
+CFLAGS +=		-I$(HDRS_DIR)
 CFLAGS +=		-Wpedantic
 #CFLAGS +=		-g
 
@@ -61,7 +73,7 @@ $(NAME):	$(OBJS)
 # -c:		Generates o. files without linking.
 # -$<:		Represents the first prerequisite (the c. file).
 # -o $@:	Output file name;  '$@' is replaced with target name (the o. file).
-$(OBJS_DIR)/%.o:	%.cpp
+$(OBJS_DIR)/%.o:	%.cpp $(HDRS)
 	@mkdir -p $(@D)
 	@$(eval SRC_NUM := $(shell expr $(SRC_NUM) + 1))
 	@$(eval PERCENT := $(shell printf "%.0f" $(shell echo "scale=4; $(SRC_NUM) / $(TOTAL_SRCS) * 100" | bc)))
@@ -78,6 +90,7 @@ $(OBJS_DIR)/%.o:	%.cpp
 # Rule to remove all generated object files.
 clean:
 	@rm -rf $(OBJS_DIR)
+	@rm -f $(HDRS_DIR)/*.gch
 	@echo "$(BOLD)$(RED)$(NAME) object files removed.$(RESET)"
 
 # Rule to remove all generated object files and the program executable.

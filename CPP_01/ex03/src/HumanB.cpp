@@ -1,31 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   HumanA.hpp                                         :+:      :+:    :+:   */
+/*   HumanB.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/22 14:25:05 by aschenk           #+#    #+#             */
-/*   Updated: 2025/04/22 17:01:34 by aschenk          ###   ########.fr       */
+/*   Created: 2025/04/22 15:37:44 by aschenk           #+#    #+#             */
+/*   Updated: 2025/04/23 14:49:49 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef HUMANA_HPP
-# define HUMANA_HPP
+#include <iostream>
+#include <HumanB.hpp>
 
-# include <string>
-# include "Weapon.hpp"
+HumanB::HumanB(std::string name) : name(name), weapon(NULL) {}
+HumanB::~HumanB() {}
 
-class	HumanA {
-	public:
-		HumanA(const std::string &nameProvided, Weapon &initial_weapon );
-		~HumanA( void );
+void	HumanB::attack() {
+	if (!weapon)
+		std::cout << name << " tries to attack but has no weapon!\n";
+	else
+		std::cout << name << " attacks with their " << weapon->getType() << std::endl;
+}
 
-		void		attack( void ) const; // const as attacks only prints and doesn't modify
-
-	private:
-		std::string	name;
-		Weapon		&weapon; // Reference as there is always a weapon
-};
-
-#endif
+void	HumanB::setWeapon(Weapon &new_weapon) {
+	weapon =  &new_weapon;
+}

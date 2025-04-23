@@ -1,19 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   newZombie.cpp                                      :+:      :+:    :+:   */
+/*   HumanA.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/22 13:12:20 by aschenk           #+#    #+#             */
-/*   Updated: 2025/04/23 10:04:13 by aschenk          ###   ########.fr       */
+/*   Created: 2025/04/22 14:25:05 by aschenk           #+#    #+#             */
+/*   Updated: 2025/04/23 10:49:04 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Zombie.hpp"
+#ifndef HUMANA_HPP
+# define HUMANA_HPP
 
-// Creates a new zombie with `name` on the heap.
-Zombie	*newZombie( std::string name ) {
-	Zombie* z = new Zombie(name);
-	return z;
-}
+# include <string>
+# include "Weapon.hpp"
+
+// HumanA alywas has a weapon.  
+class	HumanA {
+	public:
+		HumanA(std::string nameProvided, Weapon &initialWeapon);
+		~HumanA();
+
+		void		attack();
+
+	private:
+		std::string	name;
+		Weapon		&weapon; // Reference as there is always a weapon
+};
+
+#endif

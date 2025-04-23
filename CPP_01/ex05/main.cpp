@@ -1,29 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   HumanB.cpp                                         :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/22 15:37:44 by aschenk           #+#    #+#             */
-/*   Updated: 2025/04/22 15:56:26 by aschenk          ###   ########.fr       */
+/*   Created: 2025/04/23 16:02:27 by aschenk           #+#    #+#             */
+/*   Updated: 2025/04/23 17:18:02 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
-#include "HumanB.hpp"
+#include "Harl.hpp"
 
-HumanB::HumanB( const std::string &name ) : name(name), weapon(NULL) {}
-HumanB::~HumanB( void ) {}
+int	main() {
+	Harl	harl;
 
-void	HumanB::attack( void ) const {
-	if (!weapon)
-	std::cout << name << " tries to attack but has no weapon! " << std::endl;
-	else
-		std::cout << name << " attacks with their " << weapon->getType() << std::endl;
+	harl.complain("DEBUG");
+	harl.complain("INFO");
+	harl.complain("WARNING");
+	harl.complain("ERROR");
+
+	harl.complain("NO LEVEL"); // level not defined 
+	
+	return 0;
 }
-
-void	HumanB::setWeapon( Weapon &new_weapon) {
-	weapon =  &new_weapon;
-}
-

@@ -5,25 +5,23 @@
 #                                                     +:+ +:+         +:+      #
 #    By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/04/22 12:51:26 by aschenk           #+#    #+#              #
-#    Updated: 2025/04/23 10:50:14 by aschenk          ###   ########.fr        #
+#    Created: 2025/04/22 13:43:02 by aschenk           #+#    #+#              #
+#    Updated: 2025/04/23 16:08:31 by aschenk          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME :=			braiiiiiiinnnzzzZ
+NAME :=			harl_2.0
 
 # SOURCE FILES
 SRCS :=			main.cpp \
-				Zombie.cpp  \
-				newZombie.cpp \
-				randomChump.cpp 
+				Harl.cpp
 				
 # OBJECT FILES
 OBJS_DIR :=		obj
 OBJS :=			$(SRCS:%.cpp=$(OBJS_DIR)/%.o)
 
 # HEADER FILES
-HDRS :=			Zombie.hpp 
+HDRS :=			Harl.hpp 
 
 # COMPILER
 CC :=			c++

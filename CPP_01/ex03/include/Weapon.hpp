@@ -1,26 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Weapon.cpp                                         :+:      :+:    :+:   */
+/*   Weapon.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/22 14:13:52 by aschenk           #+#    #+#             */
-/*   Updated: 2025/04/22 16:58:06 by aschenk          ###   ########.fr       */
+/*   Created: 2025/04/22 14:06:11 by aschenk           #+#    #+#             */
+/*   Updated: 2025/04/23 10:11:50 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Weapon.hpp"
+#ifndef WEAPON_HPP
+# define WEAPON_HPP
 
-// Contructor with weapon provided
-Weapon::Weapon( std::string typeProvided ) : type( typeProvided ) {}
+# include <string>
 
-Weapon::~Weapon( void ) {}
+class	Weapon {
+	public:
+		Weapon(std::string typeProvided);
+		~Weapon();
 
-std::string	Weapon::getType( void ) {
-	return type;
-}
+		std::string	getType();
+		void		setType(std::string newType);
 
-void	Weapon::setType( std::string newType ) {
-	type = newType;
-}
+	private:
+		std::string	type;
+};
+
+#endif

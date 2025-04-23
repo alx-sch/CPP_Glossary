@@ -6,7 +6,7 @@
 #    By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/22 13:22:40 by aschenk           #+#    #+#              #
-#    Updated: 2025/04/22 13:47:28 by aschenk          ###   ########.fr        #
+#    Updated: 2025/04/23 10:50:19 by aschenk          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,9 @@ SRCS :=			main.cpp \
 # OBJECT FILES
 OBJS_DIR :=		obj
 OBJS :=			$(SRCS:%.cpp=$(OBJS_DIR)/%.o)
+
+# HEADER FILES
+HDRS :=			Zombie.hpp 
 
 # COMPILER
 CC :=			c++
@@ -60,7 +63,7 @@ $(NAME):	$(OBJS)
 # -c:		Generates o. files without linking.
 # -$<:		Represents the first prerequisite (the c. file).
 # -o $@:	Output file name;  '$@' is replaced with target name (the o. file).
-$(OBJS_DIR)/%.o:	%.cpp
+$(OBJS_DIR)/%.o:	%.cpp $(HDRS)
 	@mkdir -p $(@D)
 	@$(eval SRC_NUM := $(shell expr $(SRC_NUM) + 1))
 	@$(eval PERCENT := $(shell printf "%.0f" $(shell echo "scale=4; $(SRC_NUM) / $(TOTAL_SRCS) * 100" | bc)))
@@ -77,6 +80,7 @@ $(OBJS_DIR)/%.o:	%.cpp
 # Rule to remove all generated object files.
 clean:
 	@rm -rf $(OBJS_DIR)
+	@rm -f *.gch 
 	@echo "$(BOLD)$(RED)$(NAME) object files removed.$(RESET)"
 
 # Rule to remove all generated object files and the program executable.

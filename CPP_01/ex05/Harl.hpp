@@ -1,34 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   Harl.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/22 15:12:15 by aschenk           #+#    #+#             */
-/*   Updated: 2025/04/22 16:32:17 by aschenk          ###   ########.fr       */
+/*   Created: 2025/04/23 16:09:28 by aschenk           #+#    #+#             */
+/*   Updated: 2025/04/23 17:12:39 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <iostream>
-#include "HumanA.hpp"
-#include "HumanB.hpp"
-#include "Weapon.hpp"
+#pragma once
 
-int	main() {
-	Weapon	club = Weapon("crude spiked club");
+#include <string>
 
-	HumanA	bob("Bob", club);
+#define RED		"\033[1;31m"	// ERROR
+#define YELLOW	"\033[1;33m"	// WARNING
+#define BLUE	"\033[34m"		// INFO
+#define MAGENTA	"\033[35m" 		// DEBUG
+#define RESET	"\033[0m"
 
-	bob.attack();
-	club.setType("super bloody club");
-	bob.attack();
+class	Harl {
+	private:
+		void	debug();
+		void	info();
+		void	warning();
+		void	error();
 
-	HumanB	pete("Pete");
-	pete.attack();
-	pete.setWeapon(club);
-	pete.attack();
-	
-	
-	return 0;
-}
+	public:
+		void	complain(std::string level);
+};

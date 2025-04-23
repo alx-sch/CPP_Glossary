@@ -6,7 +6,7 @@
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/22 13:00:39 by aschenk           #+#    #+#             */
-/*   Updated: 2025/04/22 16:49:41 by aschenk          ###   ########.fr       */
+/*   Updated: 2025/04/23 10:11:07 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,11 @@
 
 class	Zombie {
 	public: 
-		Zombie( void );
-		~Zombie( void );
+		Zombie();
+		~Zombie();
 
-		void		announce( void );
-		void		setName ( std::string name );
+		void		announce();
+		void		setName (std::string name);
 
 	private:
 		std::string	name;
