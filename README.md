@@ -15,6 +15,7 @@
 - [This Pointer](#this-pointer)
 - [Initialization List](#initialization-list)
 - [Const](#const)
+- [Visibility (public/privat)](#visibility-privatepublic)
  
 ---
 
