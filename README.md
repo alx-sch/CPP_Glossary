@@ -17,6 +17,7 @@
 - [Const](#const)
 - [Visibility (public/private)](#visibility-privatepublic)
 - [Class vs Struct](#class-vs-struct)
+- [Static](#static)
  
 ---
 
@@ -438,7 +439,7 @@ public:
 
 ---
 
-### Visibility (`private`/`public`)
+### Visibility (private/public)
 
 C++ classes use access specifiers to control visibility. These determine what parts of your code can access the members of a class.
 
@@ -467,7 +468,7 @@ public:
 - Accessible from **outside** the class.
 - Use for functions or data you want other code to interact with.
 
-Rule of thumb: Keep members `private` and provide `public` functions to interact with them (like getters/setters).
+Keep members `private` and provide `public` functions to interact with them (like getters/setters).
 
 <div align="right">
   <b><a href="#top">↥ back to top</a></b>
@@ -496,4 +497,27 @@ struct MyStruct {
 </div>
 
 ---
+
+### Static
+
+```cpp
+class Example {
+public:
+    static int count;        // Shared by all instances (class-level)
+    static void sayHi();     // Can be called without an object: Example::sayHi();
+    int value;               // Normal instance member
+};
+```
+- `static` data members belong to the class, not each object.
+- `static` member functions can’t access non-static members (no `this` pointer)
+- You must define static members outside the class (unless also `const`): int `Example::count = 0;`
+
+Use `static` for shared state or utility functions that don’t depend on a specific object.
+
+<div align="right">
+  <b><a href="#top">↥ back to top</a></b>
+</div>
+
+---
+
 
