@@ -15,6 +15,7 @@
 - [This Pointer](#this-pointer)
 - [Initialization List](#initialization-list)
 - [Const](#const)
+- [Visibility (public/private)](#visibility-privatepublic)
  
 ---
 
@@ -415,13 +416,13 @@ You can use it for variables, functions, and pointers. It’s useful for writing
 ```cpp
 class Example {
 private:
-    int            a;
-    const float    pi;  // Can be initialized here...
+    int            _a;
+    const float    _pi;  // Can be initialized here...
 
 public:
-    Example(float value) : pi(value) {}  // ...or via constructor initializer lists
+    Example(float value) : _pi(value) {}  // ...or via constructor initializer lists
 
-    int getA() const {return a;}  // This function promises not to modify the object
+    int getA() const {return _a;}  // This function promises not to modify the object
 
     // Pointer variations:
     const int*         p1;  // Pointer to const int (can't change the value)
@@ -436,16 +437,39 @@ public:
 
 ---
 
-float const    pi; --> can be initialzied later via list init
-fct const --> fct should never change the instance of the class
+### Visibility (`private`/`public`)
 
+C++ classes use access specifiers to control visibility. These determine what parts of your code can access the members of a class.
 
-comparison: (e.g. running test)
+The two most common are:
+- `private`: only accessible inside the class
+- `public`: accessible from outside the class
 
-non-member
+```cpp
+class Example {
+private:
+    int    _secret;     // Convention: private members often start with an underscore
+    void   _hide() {}   // Used internally by the class
 
-pointer's to member: not possible to have pointers to member functions
+public:
+    int    value;       // Public variable (can be accessed from outside)
+    int    getSecret() {return _secret;}    // Public function (part of the interface)
+};
+```
 
+`private`:
+- Default for class members (if you don’t specify).
+- Only accessible from **within** the class.
+- Useful for internal data or helper functions.
 
- classes, member functions, stdio streams, initialization lists, static, const
-- CPP_01: Memory allocation, pointers to members, references, switch statement;
+`public`:
+- Accessible from **outside** the class.
+- Use for functions or data you want other code to interact with.
+
+Rule of thumb: Keep members `private` and provide `public` functions to interact with them (like getters/setters).
+
+<div align="right">
+  <b><a href="#top">↥ back to top</a></b>
+</div>
+
+---
