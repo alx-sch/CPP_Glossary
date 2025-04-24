@@ -16,7 +16,7 @@
 - [Initialization List](#initialization-list)
 - [Const](#const)
 - [Visibility (public/private)](#visibility-privatepublic)
-- [Classes vs Structs](#classes-vs-structs)
+- [Class vs Struct](#class-vs-struct)
  
 ---
 
@@ -475,7 +475,7 @@ Rule of thumb: Keep members `private` and provide `public` functions to interact
 
 ---
 
-### Classes vs Structs
+### Class vs Struct
 
 In C++, `class` and `struct` are functionally the same, except for the default visibility:
 - `class`: members are `private` by default
