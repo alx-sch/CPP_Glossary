@@ -16,6 +16,7 @@
 - [Initialization List](#initialization-list)
 - [Const](#const)
 - [Visibility (public/private)](#visibility-privatepublic)
+- [Classes vs Structs](#classes-vs-structs)
  
 ---
 
@@ -416,13 +417,13 @@ You can use it for variables, functions, and pointers. It’s useful for writing
 ```cpp
 class Example {
 private:
-    int            _a;
-    const float    _pi;  // Can be initialized here...
+    int            a;
+    const float    pi;  // Can be initialized here...
 
 public:
     Example(float value) : _pi(value) {}  // ...or via constructor initializer lists
 
-    int getA() const {return _a;}  // This function promises not to modify the object
+    int getA() const {return a;}  // This function promises not to modify the object
 
     // Pointer variations:
     const int*         p1;  // Pointer to const int (can't change the value)
@@ -473,3 +474,26 @@ Rule of thumb: Keep members `private` and provide `public` functions to interact
 </div>
 
 ---
+
+### Classes vs Structs
+
+In C++, `class` and `struct` are functionally the same, except for the default visibility:
+- `class`: members are `private` by default
+- `struct`: members are `public` by default
+
+```cpp
+class MyClass {
+    int x;       // private by default
+};
+
+struct MyStruct {
+    int x;       // public by default
+};
+```
+
+<div align="right">
+  <b><a href="#top">↥ back to top</a></b>
+</div>
+
+---
+
