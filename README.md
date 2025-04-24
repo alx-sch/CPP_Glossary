@@ -14,6 +14,7 @@
 - [Member Attributes and Member Functions](#member-attributes-and-member-functions)
 - [This Pointer](#this-pointer)
 - [Initialization List](#initialization-list)
+- [Const](#const)
  
 ---
 
@@ -137,16 +138,13 @@ In C++, objects are instances of **classes**. A class defines a blueprint for cr
 ```cpp
 // Example.hpp
 
-#ifndef EXAMPLE_HPP
-# define EXAMPLE_HPP
+#pragma once
 
 class Example {
 public:
     Example();   // Constructor (same name as the class)
     ~Example();  // Destructor (same name with '~' prefix)
 };
-
-#endif
 ```
 
 - **Constructor** (`Example()`) is automatically called when an instance of the class is created.
@@ -215,8 +213,7 @@ In C++, a **member attribute** is simply a variable that belongs to a class and 
 ```cpp
 // Example.hpp
 
-#ifndef EXAMPLE_HPP
-# define EXAMPLE_HPP
+#pragma once
 
 class Example {
 public:
@@ -227,8 +224,6 @@ public:
 
     void bar(); // Declaration of member function
 };
-
-#endif
 ```
 
 ```cpp
@@ -251,7 +246,6 @@ Example::~Example() {
 void Example::bar() {
     std::cout << "Member function bar called" << std::endl;
 }
-
 ```
 
 ```cpp
@@ -289,8 +283,7 @@ Using `this` is often unnecessary when there's no name conflict, but it becomes 
 ```cpp
 // Example.hpp
 
-#ifndef EXAMPLE_HPP
-# define EXAMPLE_HPP
+#pragma once
 
 class Example {
 public:
@@ -301,8 +294,6 @@ public:
 
     void bar(); // Declaration of member function
 };
-
-#endif
 ```
 
 ```cpp
@@ -366,8 +357,7 @@ Here’s how it works:
 ```cpp
 // Example.hpp
 
-#ifndef EXAMPLE_HPP
-# define EXAMPLE_HPP
+#pragma once
 
 class Example {
 public:
@@ -378,8 +368,6 @@ public:
     Example(char p1, int p2, float p3);  // Constructor accepting parameters
     ~Example(); 
 };
-
-#endif
 ```
 
 ```cpp
@@ -419,6 +407,37 @@ int main() {
 
 ---
 
+### Const
+
+The `const` keyword tells the compiler (and readers) that something should not be modified.
+You can use it for variables, functions, and pointers. It’s useful for writing safer code and avoiding accidental changes.
+
+```cpp
+class Example {
+private:
+    int            a;
+    const float    pi;  // Can be initialized here...
+
+public:
+    Example(float value) : pi(value) {}  // ...or via constructor initializer lists
+
+    int getA() const {return a;}  // This function promises not to modify the object
+
+    // Pointer variations:
+    const int*         p1;  // Pointer to const int (can't change the value)
+    int* const         p2;  // Const pointer to int (can't change the pointer)
+    const int* const   p3;  // Const pointer to const int (can't change either)
+};
+```
+
+<div align="right">
+  <b><a href="#top">↥ back to top</a></b>
+</div>
+
+---
+
+float const    pi; --> can be initialzied later via list init
+fct const --> fct should never change the instance of the class
 
 
 comparison: (e.g. running test)
