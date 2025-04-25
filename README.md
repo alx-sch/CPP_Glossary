@@ -20,7 +20,7 @@
 - [Static](#static)
 - [Pointers to Class Members](#pointers-to-class-members)
 - [Memory Allocation](#memory-allocation)
-- [References](#reference)
+- [References](#references)
  
 ---
 
