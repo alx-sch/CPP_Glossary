@@ -20,6 +20,7 @@
 - [Static](#static)
 - [Pointers to Class Members](#pointers-to-class-members)
 - [Memory Allocation](#memory-allocation)
+- [References](#reference)
  
 ---
 
@@ -595,6 +596,35 @@ int main() {
    return 0;
 }
 ```
+
+---
+
+### References
+
+In C++ there are references, which are an alias for an existing variable (like a pointer that is const and alway unreferenced) 
+
+```cpp
+int     a = 10;
+int&    ref = a;  // ref is now an alias for a
+
+ref = 20;         // modifies a, since ref refers to a
+
+std::cout << a;   // prints 20
+```
+
+#### References vs Pointers
+| Feature             | Reference         | Pointer            |
+|---------------------|-------------------|--------------------|
+| Can be reassigned   | ❌ No              | ✅ Yes             |
+| Can be null         | ❌ No              | ✅ Yes             |
+| Must be initialized | ✅ Yes             | ❌ No              |
+| Syntax              | `int& x = y;`      | `int* x = &y;`     |
+| Dereferencing       | Implicit (`x`)     | Explicit (`*x`)    |
+
+References are often preferred when you want to:
+- Avoid copying large objects
+- Guarantee that something valid is being referred to
+- Keep syntax clean (no `*` or `->` needed)
 
 <div align="right">
 <b><a href="#top">↥ back to top</a></b>
