@@ -92,6 +92,13 @@ The `std` namespace is the default namespace for the C++ Standard Library. It co
 std::cout << "Hello, world!" << std::endl;
 ```
 
+If you include the line `using namespace std;` at the beginning of your code, you no longer need to prefix standard library components with `std::`:
+```cpp
+using namespace std;
+
+cout << "Hello, world!" << endl;
+```
+
 For more details, check out: [cplusplus.com - Namespaces](https://cplusplus.com/doc/oldtutorial/namespaces/)
 
 <div align="right">
@@ -703,6 +710,9 @@ fstream file("data.bin", ios::in | ios::out | ios::binary);
 - Use `getline()` for line-by-line reading, and `>>` for formatted extraction (e.g., reading integers or floating-point numbers).
 
 For more details, see the [C++ File I/O tutorial on cplusplus.com](https://cplusplus.com/doc/tutorial/files/).
+
+### 
+adhoc polymorphism
 
 <div align="right">
 <b><a href="#top">↥ back to top</a></b>
