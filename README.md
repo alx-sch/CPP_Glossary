@@ -21,6 +21,7 @@
 - [Pointers to Class Members](#pointers-to-class-members)
 - [Memory Allocation](#memory-allocation)
 - [References](#references)
+- [File Streams](#file-streams)
  
 ---
 
@@ -605,7 +606,7 @@ In C++ there are references, which are an alias for an existing variable (like a
 
 ```cpp
 int     a = 10;
-int&    ref = a;  // ref is now an alias for a
+int     &ref = a; // ref is now an alias for a
 
 ref = 20;         // modifies a, since ref refers to a
 
@@ -631,4 +632,81 @@ References are often preferred when you want to:
 </div>
 
 ---
+
+### File Streams
+
+File streams in C++ are used to read from and write to files. They are part of the `<fstream>` header.
+Classes for for reading, writing, and read/write streams are `ifstream`, `ofstream`, and `fstream`, respectively.
+
+**Reading from a File**
+```cpp
+#include <iostream>
+#include <fstream>
+
+int main() {
+    std::ifstream    inFile("example.txt");  // Open the file for reading
+    std::string      line;  // String to store each line read from the file
+
+    // Check if the file was successfully opened
+    if (inFile.is_open()) {
+        // Read the file line by line until the end of the file
+        while (std::getline(inFile, line)) {
+            std::cout << line << std::endl;  // Output the line to the terminal
+        }
+        inFile.close();  // Close the file after reading
+    } else {
+        std::cout << "Unable to open file\n";
+    }
+
+    return 0;
+}
+```
+
+**Writing to a File**
+```cpp
+#include <iostream>
+#include <fstream>
+
+int main() {
+    std::ofstream    outFile("example.txt");  // Open the file for writing
+
+     // Check if the file was successfully opened
+    if (outFile.is_open()) {
+        outFile << "Hello, world!\n";  // Write text to the file
+        outFile << "Writing to files in C++.\n";  // Write another line
+        outFile.close();  // Close the file after writing
+    } else {
+        std::cout << "Unable to open file";
+    }
+
+    return 0;
+}
+```
+
+**File Modes**
+You can open files in different modes using flags like:
+
+- `ios::in` – read (default for `ofstream` and `fstream`)
+- `ios::out` – write (default for `ifstream` and `fstream`)
+- `ios::app` – append
+- `ios::trunc` – truncate
+- `ios::binary` – binary mode
+
+Example:
+```cpp
+fstream file("data.bin", ios::in | ios::out | ios::binary);
+```
+
+**Best Practices**
+- Always check if a file is open before reading or writing.
+- Close files after use to free up resources.
+- Use `getline()` for line-by-line reading, and `>>` for formatted extraction (e.g., reading integers or floating-point numbers).
+
+
+<div align="right">
+<b><a href="#top">↥ back to top</a></b>
+</div>
+
+---
+
 
