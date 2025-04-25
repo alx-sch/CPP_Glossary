@@ -19,6 +19,7 @@
 - [Class vs Struct](#class-vs-struct)
 - [Static](#static)
 - [Pointers to Class Members](#pointers-to-class-members)
+- [Memory Allocation](#memory-allocation)
  
 ---
 
@@ -562,12 +563,38 @@ int main() {
 
     // Call member function via pointer to instance
     (instPtr->*f_ptr)();
+
+    return 0;
 }
 ```
 **Notes**
 - Use `.*` with objects and `->*` with pointers to objects.
 - Parentheses are required when calling member functions via pointers to avoid syntax ambiguity.
 - These pointers are useful when implementing things like callback mechanisms, or selecting behavior at runtime based on a table of member function pointers.
+
+<div align="right">
+<b><a href="#top">↥ back to top</a></b>
+</div>
+
+---
+
+### Memory Allocation
+
+While you can use `malloc` and `free` in C++ as in C, this can cause issues with objects since their constructors and destructors won’t be called.    
+The safe way to allocate and deallocate memory in C++ is by using `new` and `delete`:
+```cpp
+int main() {
+   Person    bob("bob");               // Stack allocation (automatically destroyed)
+   Person    *jim = new Person("jim"); // Heap allocation (manual deletion required)
+
+   int       *arr = new int[5];        // Use `new[]` to allocate arrays
+
+   delete    jim;                      // Free memory for single object
+   delete[]  arr;                      // Use `delete[]` for arrays
+
+   return 0;
+}
+```
 
 <div align="right">
 <b><a href="#top">↥ back to top</a></b>
