@@ -543,7 +543,7 @@ int main() {
     int Example::*ptr = nullptr;
 
     // Pointer to member function that is `const` and returns `void`
-    void (Example::*f_ptr)() const;
+    void (Example::*f_ptr)() const; // <- Note parentheses
 
     // Assign the member pointer
     ptr = &Example::foo;
@@ -558,7 +558,7 @@ int main() {
     f_ptr = &Example::sayHi;
 
     // Call member function via instance
-    (inst.*f_ptr)(); // <- Note parentheses
+    (inst.*f_ptr)();
 
     // Call member function via pointer to instance
     (instPtr->*f_ptr)();
