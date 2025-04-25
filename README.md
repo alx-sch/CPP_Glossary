@@ -14,6 +14,14 @@
 - [Member Attributes and Member Functions](#member-attributes-and-member-functions)
 - [This Pointer](#this-pointer)
 - [Initialization List](#initialization-list)
+- [Const](#const)
+- [Visibility (public/private)](#visibility-privatepublic)
+- [Class vs Struct](#class-vs-struct)
+- [Static](#static)
+- [Pointers to Class Members](#pointers-to-class-members)
+- [Memory Allocation](#memory-allocation)
+- [References](#references)
+- [File Streams](#file-streams)
  
 ---
 
@@ -137,16 +145,13 @@ In C++, objects are instances of **classes**. A class defines a blueprint for cr
 ```cpp
 // Example.hpp
 
-#ifndef EXAMPLE_HPP
-# define EXAMPLE_HPP
+#pragma once
 
 class Example {
 public:
     Example();   // Constructor (same name as the class)
     ~Example();  // Destructor (same name with '~' prefix)
 };
-
-#endif
 ```
 
 - **Constructor** (`Example()`) is automatically called when an instance of the class is created.
@@ -215,8 +220,7 @@ In C++, a **member attribute** is simply a variable that belongs to a class and 
 ```cpp
 // Example.hpp
 
-#ifndef EXAMPLE_HPP
-# define EXAMPLE_HPP
+#pragma once
 
 class Example {
 public:
@@ -227,8 +231,6 @@ public:
 
     void bar(); // Declaration of member function
 };
-
-#endif
 ```
 
 ```cpp
@@ -251,7 +253,6 @@ Example::~Example() {
 void Example::bar() {
     std::cout << "Member function bar called" << std::endl;
 }
-
 ```
 
 ```cpp
@@ -289,8 +290,7 @@ Using `this` is often unnecessary when there's no name conflict, but it becomes 
 ```cpp
 // Example.hpp
 
-#ifndef EXAMPLE_HPP
-# define EXAMPLE_HPP
+#pragma once
 
 class Example {
 public:
@@ -301,8 +301,6 @@ public:
 
     void bar(); // Declaration of member function
 };
-
-#endif
 ```
 
 ```cpp
@@ -366,8 +364,7 @@ Here’s how it works:
 ```cpp
 // Example.hpp
 
-#ifndef EXAMPLE_HPP
-# define EXAMPLE_HPP
+#pragma once
 
 class Example {
 public:
@@ -378,8 +375,6 @@ public:
     Example(char p1, int p2, float p3);  // Constructor accepting parameters
     ~Example(); 
 };
-
-#endif
 ```
 
 ```cpp
@@ -419,14 +414,299 @@ int main() {
 
 ---
 
+### Const
+
+The `const` keyword tells the compiler (and readers) that something should not be modified.
+You can use it for variables, functions, and pointers. It’s useful for writing safer code and avoiding accidental changes.
+
+```cpp
+class Example {
+private:
+    int            a;
+    const float    pi;  // Can be initialized here...
+
+public:
+    Example(float value) : _pi(value) {}  // ...or via constructor initializer lists
+
+    int getA() const {return a;}  // This function promises not to modify the object
+
+    // Pointer variations:
+    const int*         p1;  // Pointer to const int (can't change the value)
+    int* const         p2;  // Const pointer to int (can't change the pointer)
+    const int* const   p3;  // Const pointer to const int (can't change either)
+};
+```
+
+<div align="right">
+  <b><a href="#top">↥ back to top</a></b>
+</div>
+
+---
+
+### Visibility (private/public)
+
+C++ classes use access specifiers to control visibility. These determine what parts of your code can access the members of a class.
+
+The two most common are:
+- `private`: only accessible inside the class
+- `public`: accessible from outside the class
+
+```cpp
+class Example {
+private:
+    int    _secret;     // Convention: private members often start with an underscore
+    void   _hide() {}   // Used internally by the class
+
+public:
+    int    value;       // Public variable (can be accessed from outside)
+    int    getSecret() {return _secret;}    // Public function (part of the interface)
+};
+```
+
+`private`:
+- Default for class members (if you don’t specify).
+- Only accessible from **within** the class.
+- Useful for internal data or helper functions.
+
+`public`:
+- Accessible from **outside** the class.
+- Use for functions or data you want other code to interact with.
+
+Keep members `private` and provide `public` functions to interact with them (like getters/setters).
+
+<div align="right">
+  <b><a href="#top">↥ back to top</a></b>
+</div>
+
+---
+
+### Class vs Struct
+
+In C++, `class` and `struct` are functionally the same, except for the default visibility:
+- `class`: members are `private` by default
+- `struct`: members are `public` by default
+
+```cpp
+class MyClass {
+    int x;       // private by default
+};
+
+struct MyStruct {
+    int x;       // public by default
+};
+```
+
+<div align="right">
+  <b><a href="#top">↥ back to top</a></b>
+</div>
+
+---
+
+### Static
+
+```cpp
+class Example {
+public:
+    static int count;        // Shared by all instances (class-level)
+    static void sayHi();     // Can be called without an object: Example::sayHi();
+    int value;               // Normal instance member
+};
+```
+- `static` data members belong to the class, not each object.
+- `static` member functions can’t access non-static members (no `this` pointer)
+- You must define static members outside the class (unless also `const`): int `Example::count = 0;`
+
+Use `static` for shared state or utility functions that don’t depend on a specific object.
+
+<div align="right">
+  <b><a href="#top">↥ back to top</a></b>
+</div>
+
+---
+
+### Pointers to Class Members
+
+C++ allows pointers not just to regular variables and functions, but also to class members. These are special pointers because they don't point to memory directly, but instead require an object to be used.
+
+```cpp
+class Example {
+public:
+    int    foo;
+
+    void    sayHi() const;
+};
+```
+Using Pointers to Members:
+```cpp
+int main() {
+    Example    inst;
+    Example*   instPtr = &inst;
+
+    // Pointer to member variable of type `int`
+    int Example::*ptr = nullptr;
+
+    // Pointer to member function that is `const` and returns `void`
+    void (Example::*f_ptr)() const; // <- Note parentheses
+
+    // Assign the member pointer
+    ptr = &Example::foo;
+
+    // Access member variable via instance
+    inst.*ptr = 21;
+
+    // Access member variable via pointer to instance
+    instPtr->*ptr = 42;
+
+    // Assign member function pointer
+    f_ptr = &Example::sayHi;
+
+    // Call member function via instance
+    (inst.*f_ptr)();
+
+    // Call member function via pointer to instance
+    (instPtr->*f_ptr)();
+
+    return 0;
+}
+```
+**Notes**
+- Use `.*` with objects and `->*` with pointers to objects.
+- Parentheses are required when calling member functions via pointers to avoid syntax ambiguity.
+- These pointers are useful when implementing things like callback mechanisms, or selecting behavior at runtime based on a table of member function pointers.
+
+<div align="right">
+<b><a href="#top">↥ back to top</a></b>
+</div>
+
+---
+
+### Memory Allocation
+
+While you can use `malloc` and `free` in C++ as in C, this can cause issues with objects since their constructors and destructors won’t be called.    
+The safe way to allocate and deallocate memory in C++ is by using `new` and `delete`:
+```cpp
+int main() {
+   Person    bob("bob");               // Stack allocation (automatically destroyed)
+   Person    *jim = new Person("jim"); // Heap allocation (manual deletion required)
+
+   int       *arr = new int[5];        // Use `new[]` to allocate arrays
+
+   delete    jim;                      // Free memory for single object
+   delete[]  arr;                      // Use `delete[]` for arrays
+
+   return 0;
+}
+```
+
+---
+
+### References
+
+In C++ there are references, which are an alias for an existing variable (like a pointer that is const and alway unreferenced) 
+
+```cpp
+int     a = 10;
+int     &ref = a; // ref is now an alias for a
+
+ref = 20;         // modifies a, since ref refers to a
+
+std::cout << a;   // prints 20
+```
+
+#### References vs Pointers
+| Feature             | Reference         | Pointer            |
+|---------------------|-------------------|--------------------|
+| Can be reassigned   | ❌ No              | ✅ Yes             |
+| Can be null         | ❌ No              | ✅ Yes             |
+| Must be initialized | ✅ Yes             | ❌ No              |
+| Syntax              | `int& x = y;`      | `int* x = &y;`     |
+| Dereferencing       | Implicit (`x`)     | Explicit (`*x`)    |
+
+References are often preferred when you want to:
+- Avoid copying large objects
+- Guarantee that something valid is being referred to
+- Keep syntax clean (no `*` or `->` needed)
+
+<div align="right">
+<b><a href="#top">↥ back to top</a></b>
+</div>
+
+---
+
+### File Streams
+
+File streams in C++ are used to read from and write to files. They are part of the `<fstream>` header.
+Classes for for reading, writing, and read/write streams are `ifstream`, `ofstream`, and `fstream`, respectively.
+
+**Reading from a File**
+```cpp
+#include <iostream>
+#include <fstream>
+
+int main() {
+    std::ifstream    inFile("example.txt");  // Open the file for reading
+    std::string      line;  // String to store each line read from the file
+
+    // Check if the file was successfully opened
+    if (inFile.is_open()) {
+        // Read the file line by line until the end of the file
+        while (std::getline(inFile, line)) {
+            std::cout << line << std::endl;  // Output the line to the terminal
+        }
+        inFile.close();  // Close the file after reading
+    } else {
+        std::cout << "Unable to open file\n";
+    }
+
+    return 0;
+}
+```
+
+**Writing to a File**
+```cpp
+#include <iostream>
+#include <fstream>
+
+int main() {
+    std::ofstream    outFile("example.txt");  // Open the file for writing
+
+     // Check if the file was successfully opened
+    if (outFile.is_open()) {
+        outFile << "Hello, world!\n";  // Write text to the file
+        outFile << "Writing to files in C++.\n";  // Write another line
+        outFile.close();  // Close the file after writing
+    } else {
+        std::cout << "Unable to open file";
+    }
+
+    return 0;
+}
+```
+
+**File Modes**
+You can open files in different modes using flags like:
+
+- `ios::in` – read (default for `ofstream` and `fstream`)
+- `ios::out` – write (default for `ifstream` and `fstream`)
+- `ios::app` – append
+- `ios::trunc` – truncate
+- `ios::binary` – binary mode
+
+Example:
+```cpp
+fstream file("data.bin", ios::in | ios::out | ios::binary);
+```
+
+**Best Practices**
+- Always check if a file is open before reading or writing.
+- Close files after use to free up resources.
+- Use `getline()` for line-by-line reading, and `>>` for formatted extraction (e.g., reading integers or floating-point numbers).
 
 
-comparison: (e.g. running test)
+<div align="right">
+<b><a href="#top">↥ back to top</a></b>
+</div>
 
-non-member
-
-pointer's to member: not possible to have pointers to member functions
+---
 
 
- classes, member functions, stdio streams, initialization lists, static, const
-- CPP_01: Memory allocation, pointers to members, references, switch statement;
