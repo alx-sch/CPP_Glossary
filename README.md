@@ -702,6 +702,7 @@ fstream file("data.bin", ios::in | ios::out | ios::binary);
 - Close files after use to free up resources.
 - Use `getline()` for line-by-line reading, and `>>` for formatted extraction (e.g., reading integers or floating-point numbers).
 
+For more details, see the [C++ File I/O tutorial on cplusplus.com](https://cplusplus.com/doc/tutorial/files/).
 
 <div align="right">
 <b><a href="#top">↥ back to top</a></b>
