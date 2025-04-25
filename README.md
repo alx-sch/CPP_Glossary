@@ -18,6 +18,7 @@
 - [Visibility (public/private)](#visibility-privatepublic)
 - [Class vs Struct](#class-vs-struct)
 - [Static](#static)
+- [Pointers to Class Members](#pointers-to-class-members)
  
 ---
 
@@ -520,4 +521,57 @@ Use `static` for shared state or utility functions that don’t depend on a spec
 
 ---
 
+### Pointers to Class Members
+
+C++ allows pointers not just to regular variables and functions, but also to class members. These are special pointers because they don't point to memory directly, but instead require an object to be used.
+
+```cpp
+class Example {
+public:
+    int    foo;
+
+    void    sayHi() const;
+};
+```
+Using Pointers to Members:
+```cpp
+int main() {
+    Example    inst;
+    Example*   instPtr = &inst;
+
+    // Pointer to member variable of type `int`
+    int Example::*ptr = nullptr;
+
+    // Pointer to member function that is `const` and returns `void`
+    void (Example::*f_ptr)() const;
+
+    // Assign the member pointer
+    ptr = &Example::foo;
+
+    // Access member variable via instance
+    inst.*ptr = 21;
+
+    // Access member variable via pointer to instance
+    instPtr->*ptr = 42;
+
+    // Assign member function pointer
+    f_ptr = &Example::sayHi;
+
+    // Call member function via instance
+    (inst.*f_ptr)(); // <- Note parentheses
+
+    // Call member function via pointer to instance
+    (instPtr->*f_ptr)();
+}
+```
+**Notes**
+- Use `.*` with objects and `->*` with pointers to objects.
+- Parentheses are required when calling member functions via pointers to avoid syntax ambiguity.
+- These pointers are useful when implementing things like callback mechanisms, or selecting behavior at runtime based on a table of member function pointers.
+
+<div align="right">
+<b><a href="#top">↥ back to top</a></b>
+</div>
+
+---
 
