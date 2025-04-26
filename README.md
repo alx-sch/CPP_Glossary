@@ -22,6 +22,7 @@
 - [Memory Allocation](#memory-allocation)
 - [References](#references)
 - [File Streams](#file-streams)
+- [Overloading](#overloading)
  
 ---
 
@@ -54,8 +55,6 @@ In the example above, the global variable `g_var` and function `fct` are defined
 - Namespaces allow you to split your code into logical components and avoid name collisions.
 - You can have variables or functions with the same name in different namespaces.
 
----
-
 #### Namespace Aliasing:    
 
 You can create an alias for an existing namespace to shorten its reference:
@@ -71,8 +70,6 @@ namespace Muf = VeeeeryLongName;
 
 Now, `Muf` is an alias for `VeeeeryLongName`, and you can access `VeeeeryLongName`'s members using `Muf`.
 
----
-
 #### Scope Resolution Operator (`::`):  
 
 The `::` operator is used to access elements within a namespace. For example:
@@ -81,8 +78,6 @@ The `::` operator is used to access elements within a namespace. For example:
 Foo::g_var   // Accesses the 'g_var' defined in the 'Foo' namespace
 ::g_var      // Accesses the global 'g_var' (outside any namespace); same as using 'g_var' 
 ```
-
----
 
 #### Standard Namespace:
 
@@ -166,8 +161,6 @@ public:
 - Unlike functions, constructors and destructors **do not have a return type**.
 - You don't *need* to explicitly define a constructor or destructor — the compiler automatically provides default ones. However, if you want to initialize member variables or define custom behavior when an object is created or destroyed, you should provide your own.
 
----
-
 #### Defining Class Methods:
 
 Class methods in C++ are functions defined inside a class. They describe the behavior of the class and operate on its data.
@@ -188,8 +181,6 @@ Example::~Example() {
 ```
 
 - The scope resolution operator (`::`) is used to define class methods outside the class declaration.
-  
----
 
 #### Creating an Instance:
 
@@ -203,8 +194,6 @@ int main() {
     return 0; // Destructor is called when 'inst' goes out of scope
 }
 ```
-
----
 
 #### Key Takeaways:
 - Classes encapsulate data and behavior.
@@ -711,13 +700,88 @@ fstream file("data.bin", ios::in | ios::out | ios::binary);
 
 For more details, see the [C++ File I/O tutorial on cplusplus.com](https://cplusplus.com/doc/tutorial/files/).
 
-### 
-adhoc polymorphism
+<div align="right">
+<b><a href="#top">↥ back to top</a></b>
+</div>
+
+---
+
+### Overloading
+Overloading (or ad-hoc polymorphism) allows multiple functions or operators to have the same name but different parameters and behaviors.   
+
+#### Function Overloading
+
+Function overloading means writing multiple functions with the same name but with different numbers of parameters or parameter types.    
+The compiler picks the right version based on what you pass in.
+
+Example:
+```cpp
+#include <iostream>
+
+void my_print(int i) {
+    std::cout << "Integer: " << i << std::endl;
+}
+
+void my_print(double d) {
+    std::cout << "Double: " << d << std::endl;
+}
+
+void my_print(const std::string& s) {
+    std::cout << "String: " << s << std::endl;
+}
+
+int main() {
+    my_print(10);          // Calls my_print(int)
+    my_print(3.14);        // Calls my_print(double)
+    my_print("Hello");     // Calls my_print(const std::string&)
+}
+```
+
+#### Operator Overloading
+
+C++ also allows operator overloading, where you redefine the meaning of built-in operators (like `+`, `<<`, `==`) for your custom types.
+
+Example: Addition of points:
+```
+#include <iostream>
+
+struct Point {
+    int x, y;
+
+    Point(int x, int y) : x(x), y(y) {}
+
+    Point operator+(const Point &other) const {
+        return Point(x + other.x, y + other.y);
+    }
+};
+
+int main() {
+    Point a(1, 2);
+    Point b(3, 4);
+
+    Point c = a + b;  // Calls operator+
+    std::cout << c.x << ", " << c.y << std::endl; // Prints '4, 6'
+}
+```
+
+Breaking down `Point operator+(const Point& other) const`:
+| Part                  | Meaning                                                |
+|------------------------|--------------------------------------------------------|
+| `Point`                | Return type: a new `Point` will be returned.            |
+| `operator+`            | Special function name for overloading `+`.              |
+| `(const Point &other)` | Takes another `Point` as a const reference (safe and fast). |
+| `const` (at end)       | Guarantees that `this` won't be changed.                |
+
+What happens when you write `a + b`?
+- `a` becomes `this` inside `operator+`
+- `b` becomes the `other` parameter
+- C++ treats `a + b` like: `a.operator+(b)`
 
 <div align="right">
 <b><a href="#top">↥ back to top</a></b>
 </div>
 
 ---
+
 
 
