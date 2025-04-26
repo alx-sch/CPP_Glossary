@@ -742,7 +742,7 @@ int main() {
 C++ also allows operator overloading, where you redefine the meaning of built-in operators (like `+`, `<<`, `==`) for your custom types.
 
 Example: Addition of points:
-```
+```cpp
 #include <iostream>
 
 struct Point {
