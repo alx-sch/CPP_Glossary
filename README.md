@@ -748,7 +748,7 @@ struct Point {
     Point(int x, int y) : x(x), y(y) {}
 
     Point operator+(const Point &other) const {
-        return Point(x + other.x, y + other.y);
+        return Point(x + other.x, y + other.y); // or:  return Point(this->x + other.x, this->y + other.y
     }
 };
 
