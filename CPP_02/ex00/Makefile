@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+         #
+#    By: codespace <codespace@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/24 13:00:08 by aschenk           #+#    #+#              #
-#    Updated: 2025/04/24 16:51:18 by aschenk          ###   ########.fr        #
+#    Updated: 2025/04/27 23:33:39 by codespace        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ SRCS :=			main.cpp \
 # OBJECT FILES
 OBJS_DIR :=		obj
 OBJS :=			$(SRCS:%.cpp=$(OBJS_DIR)/%.o)
+DEPS :=			$(OBJS:.o=.d)
 
 # COMPILER
 CC :=			c++
@@ -59,6 +60,8 @@ $(NAME):	$(OBJS)
 # -c:		Generates o. files without linking.
 # -$<:		Represents the first prerequisite (the c. file).
 # -o $@:	Output file name;  '$@' is replaced with target name (the o. file).
+# -MMD:		Generates a dependency file for each source file.
+# -MP:		Prevents make from failing if the header file is deleted.
 $(OBJS_DIR)/%.o:	%.cpp
 	@mkdir -p $(@D)
 	@$(eval SRC_NUM := $(shell expr $(SRC_NUM) + 1))
@@ -71,7 +74,7 @@ $(OBJS_DIR)/%.o:	%.cpp
 	@if [ $(PERCENT) -eq 100 ]; then printf "$(GREEN)"; fi
 	@printf "%d/%d - " $(SRC_NUM) $(TOTAL_SRCS)
 	@printf "%d%% $(RESET)" $(PERCENT)
-	@$(CC) $(CFLAGS) -D BUFFER_SIZE=$(BUFFER_SIZE) -D FD_SIZE=$(FD_SIZE) -c $< -o $@
+	@$(CC) $(CFLAGS) -c -MMD -MP $< -o $@
 
 # Rule to remove all generated object files.
 clean:
@@ -90,4 +93,7 @@ re:	fclean all
 
 # Makes that make rules are invoked even if files of the same name happen to be in the directory.
 .PHONY: all clean fclean re
+
+# Include dependency files if they exist
+-include $(DEPS)
 	

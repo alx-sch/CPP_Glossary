@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+         #
+#    By: codespace <codespace@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/16 12:24:25 by aschenk           #+#    #+#              #
-#    Updated: 2024/11/04 11:36:05 by aschenk          ###   ########.fr        #
+#    Updated: 2025/04/27 20:00:29 by codespace        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -79,7 +79,7 @@ $(OBJS_DIR)/%.o:	%.cpp
 	@if [ $(PERCENT) -eq 100 ]; then printf "$(GREEN)"; fi
 	@printf "%d/%d - " $(SRC_NUM) $(TOTAL_SRCS)
 	@printf "%d%% $(RESET)" $(PERCENT)
-	@$(CC) $(CFLAGS) -D BUFFER_SIZE=$(BUFFER_SIZE) -D FD_SIZE=$(FD_SIZE) -c $< -o $@
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 # Rule to remove all generated object files.
 clean:

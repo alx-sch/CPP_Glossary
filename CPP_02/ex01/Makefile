@@ -5,39 +5,26 @@
 #                                                     +:+ +:+         +:+      #
 #    By: codespace <codespace@student.42.fr>        +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/10/16 12:24:25 by aschenk           #+#    #+#              #
-#    Updated: 2025/04/27 20:00:39 by codespace        ###   ########.fr        #
+#    Created: 2025/04/27 20:11:52 by codespace         #+#    #+#              #
+#    Updated: 2025/04/27 21:03:07 by codespace        ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME :=			phonebook
+NAME :=			fixPnt_Class
 
 # SOURCE FILES
-SRCS_DIR :=		src
-SRCS_FILES :=	main.cpp \
-				utils.cpp \
-				PhoneBook.cpp \
-				Contacts.cpp
-
-SRCS :=			$(addprefix $(SRCS_DIR)/, $(SRCS_FILES))
-
+SRCS :=			main.cpp \
+				Fixed.cpp  
+				
 # OBJECT FILES
 OBJS_DIR :=		obj
-OBJS :=			$(SRCS:$(SRCS_DIR)/%.cpp=$(OBJS_DIR)/%.o)
-
-# HEADER FILES
-HDRS_DIR :=		include
-HDRS_FILES :=	main.hpp \
-				config.hpp \
-				PhoneBook.hpp \
-				Contacts.hpp
-HDRS :=			$(addprefix $(HDRS_DIR)/, $(HDRS_FILES))
+OBJS :=			$(SRCS:%.cpp=$(OBJS_DIR)/%.o)
+DEPS :=			$(OBJS:.o=.d)
 
 # COMPILER
 CC :=			c++
 CFLAGS :=		-std=c++98
 CFLAGS +=		-Werror -Wextra -Wall
-CFLAGS +=		-I$(HDRS_DIR)
 CFLAGS +=		-Wpedantic
 #CFLAGS +=		-g
 
@@ -60,19 +47,10 @@ RED :=			\033[91m
 all:		$(NAME)
 
 # Target $(NAME) depends on object files $(OBJS)
-# Print out logo once program is compiled.
+# Print out l once program is compiled.
 $(NAME):	$(OBJS)
 	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
 	@echo "$(BOLD)$(YELLOW)\n$(NAME) successfully compiled.$(RESET)"
-
-	@echo -n "$(BOLD)$(GREEN)"
-	@echo " ____  _   _  _____  _  _  ____  ____  _____  _____  _  _ "
-	@echo "(  _ \( )_( )(  _  )( \( )( ___)(  _ \(  _  )(  _  )( )/ )"
-	@echo " )___/ ) _ (  )(_)(  )  (  )__)  ) _ < )(_)(  )(_)(  )  ( "
-	@echo "(__)  (_) (_)(_____)(_)\_)(____)(____/(_____)(_____)(_)\_)"
-	@echo -n "$(RESET)"
-
-	@echo "\n$(BOLD)$(YELLOW)Usage: './$(NAME)'$(RESET)"
 
 ## COMPILATION PROGRESS BAR ##
 # Rule to define how to generate object files (%.o) from corresponding
@@ -82,7 +60,7 @@ $(NAME):	$(OBJS)
 # -c:		Generates o. files without linking.
 # -$<:		Represents the first prerequisite (the c. file).
 # -o $@:	Output file name;  '$@' is replaced with target name (the o. file).
-$(OBJS_DIR)/%.o:	$(SRCS_DIR)/%.cpp $(HDRS)
+$(OBJS_DIR)/%.o:	%.cpp
 	@mkdir -p $(@D)
 	@$(eval SRC_NUM := $(shell expr $(SRC_NUM) + 1))
 	@$(eval PERCENT := $(shell printf "%.0f" $(shell echo "scale=4; $(SRC_NUM) / $(TOTAL_SRCS) * 100" | bc)))
@@ -94,11 +72,12 @@ $(OBJS_DIR)/%.o:	$(SRCS_DIR)/%.cpp $(HDRS)
 	@if [ $(PERCENT) -eq 100 ]; then printf "$(GREEN)"; fi
 	@printf "%d/%d - " $(SRC_NUM) $(TOTAL_SRCS)
 	@printf "%d%% $(RESET)" $(PERCENT)
-	@$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) -c -MMD -MP $< -o $@
 
 # Rule to remove all generated object files.
 clean:
 	@rm -rf $(OBJS_DIR)
+	@rm -f *.gch 
 	@echo "$(BOLD)$(RED)$(NAME) object files removed.$(RESET)"
 
 # Rule to remove all generated object files and the program executable.
@@ -112,3 +91,7 @@ re:	fclean all
 
 # Makes that make rules are invoked even if files of the same name happen to be in the directory.
 .PHONY: all clean fclean re
+
+# Include dependency files if they exist
+-include $(DEPS)
+	
