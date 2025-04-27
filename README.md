@@ -788,7 +788,7 @@ int main() {
 | `(const Point &other)` | Takes another `Point` as a const reference (safe and fast). |
 | `const` (at end)       | Guarantees that `this` won't be changed.                |
 
-For comparison,  `operator=` works similarly to  `operator+`, but instead of creating a new  `Point`, it modifies the existing object.
+For comparison,  `operator=` works similarly to  `operator+`, but instead of creating a new  `Point`, it modifies the existing current object ( `*this ` returning  `Point& `).
 
 **What happens when you write `a + b`?**
 - `a` becomes `this` inside `operator+`.
