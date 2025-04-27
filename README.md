@@ -9,10 +9,12 @@
 <div id="top"></div>  
   
 - [Namespaces](#namespaces)
-- [Stdio Streams](#stdio-streams)
+- [Stdio Streams](#i/o-streams)
+- [File Streams](#file-streams)
 - [Classes and Instances](#classes-and-instances)
 - [Member Attributes and Member Functions](#member-attributes-and-member-functions)
 - [This Pointer](#this-pointer)
+- [References](#references)
 - [Initialization List](#initialization-list)
 - [Const](#const)
 - [Visibility (public/private)](#visibility-privatepublic)
@@ -20,8 +22,6 @@
 - [Static](#static)
 - [Pointers to Class Members](#pointers-to-class-members)
 - [Memory Allocation](#memory-allocation)
-- [References](#references)
-- [File Streams](#file-streams)
 - [Overloading](#overloading)
  
 ---
@@ -102,7 +102,7 @@ For more details, check out: [cplusplus.com - Namespaces](https://cplusplus.com/
 
 ---
 
-### Stdio Streams
+### I/O Streams
 
 C++ provides a more convenient way to handle input and output compared to C. In C, functions like `write` and `read` are used for I/O manipulation, often requiring manual file descriptor handling and buffer management.
 
@@ -134,6 +134,83 @@ For more details, check out the official C++ documentation: [cplusplus.com - I/O
 
 <div align="right">
   <b><a href="#top">↥ back to top</a></b>
+</div>
+
+---
+
+### File Streams
+
+File streams in C++ are used to read from and write to files. They are part of the `<fstream>` header.
+Classes for for reading, writing, and read/write streams are `ifstream`, `ofstream`, and `fstream`, respectively.
+
+**Reading from a File**
+```cpp
+#include <iostream>
+#include <fstream>
+
+int main() {
+    std::ifstream    inFile("example.txt");  // Open the file for reading
+    std::string      line;  // String to store each line read from the file
+
+    // Check if the file was successfully opened
+    if (inFile.is_open()) {
+        // Read the file line by line until the end of the file
+        while (std::getline(inFile, line)) {
+            std::cout << line << std::endl;  // Output the line to the terminal
+        }
+        inFile.close();  // Close the file after reading
+    } else {
+        std::cout << "Unable to open file\n";
+    }
+
+    return 0;
+}
+```
+
+**Writing to a File**
+```cpp
+#include <iostream>
+#include <fstream>
+
+int main() {
+    std::ofstream    outFile("example.txt");  // Open the file for writing
+
+     // Check if the file was successfully opened
+    if (outFile.is_open()) {
+        outFile << "Hello, world!\n";  // Write text to the file
+        outFile << "Writing to files in C++.\n";  // Write another line
+        outFile.close();  // Close the file after writing
+    } else {
+        std::cout << "Unable to open file";
+    }
+
+    return 0;
+}
+```
+
+**File Modes**
+You can open files in different modes using flags like:
+
+- `ios::in` – read (default for `ofstream` and `fstream`)
+- `ios::out` – write (default for `ifstream` and `fstream`)
+- `ios::app` – append
+- `ios::trunc` – truncate
+- `ios::binary` – binary mode
+
+Example:
+```cpp
+fstream file("data.bin", ios::in | ios::out | ios::binary);
+```
+
+**Best Practices**
+- Always check if a file is open before reading or writing.
+- Close files after use to free up resources.
+- Use `getline()` for line-by-line reading, and `>>` for formatted extraction (e.g., reading integers or floating-point numbers).
+
+For more details, see the [C++ File I/O tutorial on cplusplus.com](https://cplusplus.com/doc/tutorial/files/).
+
+<div align="right">
+<b><a href="#top">↥ back to top</a></b>
 </div>
 
 ---
@@ -343,6 +420,39 @@ The output will be the same as the [previous example](#member-attributes-and-mem
 
 <div align="right">
   <b><a href="#top">↥ back to top</a></b>
+</div>
+
+---
+
+### References
+
+In C++ there are references, which are an alias for an existing variable (like a pointer that is const and alway unreferenced) 
+
+```cpp
+int     a = 10;
+int     &ref = a; // ref is now an alias for a
+
+ref = 20;         // modifies a, since ref refers to a
+
+std::cout << a;   // prints 20
+```
+
+#### References vs Pointers
+| Feature             | Reference         | Pointer            |
+|---------------------|-------------------|--------------------|
+| Can be reassigned   | ❌ No              | ✅ Yes             |
+| Can be null         | ❌ No              | ✅ Yes             |
+| Must be initialized | ✅ Yes             | ❌ No              |
+| Syntax              | `int& x = y;`      | `int* x = &y;`     |
+| Dereferencing       | Implicit (`x`)     | Explicit (`*x`)    |
+
+References are often preferred when you want to:
+- Avoid copying large objects
+- Guarantee that something valid is being referred to
+- Keep syntax clean (no `*` or `->` needed)
+
+<div align="right">
+<b><a href="#top">↥ back to top</a></b>
 </div>
 
 ---
@@ -593,116 +703,6 @@ int main() {
    return 0;
 }
 ```
-
----
-
-### References
-
-In C++ there are references, which are an alias for an existing variable (like a pointer that is const and alway unreferenced) 
-
-```cpp
-int     a = 10;
-int     &ref = a; // ref is now an alias for a
-
-ref = 20;         // modifies a, since ref refers to a
-
-std::cout << a;   // prints 20
-```
-
-#### References vs Pointers
-| Feature             | Reference         | Pointer            |
-|---------------------|-------------------|--------------------|
-| Can be reassigned   | ❌ No              | ✅ Yes             |
-| Can be null         | ❌ No              | ✅ Yes             |
-| Must be initialized | ✅ Yes             | ❌ No              |
-| Syntax              | `int& x = y;`      | `int* x = &y;`     |
-| Dereferencing       | Implicit (`x`)     | Explicit (`*x`)    |
-
-References are often preferred when you want to:
-- Avoid copying large objects
-- Guarantee that something valid is being referred to
-- Keep syntax clean (no `*` or `->` needed)
-
-<div align="right">
-<b><a href="#top">↥ back to top</a></b>
-</div>
-
----
-
-### File Streams
-
-File streams in C++ are used to read from and write to files. They are part of the `<fstream>` header.
-Classes for for reading, writing, and read/write streams are `ifstream`, `ofstream`, and `fstream`, respectively.
-
-**Reading from a File**
-```cpp
-#include <iostream>
-#include <fstream>
-
-int main() {
-    std::ifstream    inFile("example.txt");  // Open the file for reading
-    std::string      line;  // String to store each line read from the file
-
-    // Check if the file was successfully opened
-    if (inFile.is_open()) {
-        // Read the file line by line until the end of the file
-        while (std::getline(inFile, line)) {
-            std::cout << line << std::endl;  // Output the line to the terminal
-        }
-        inFile.close();  // Close the file after reading
-    } else {
-        std::cout << "Unable to open file\n";
-    }
-
-    return 0;
-}
-```
-
-**Writing to a File**
-```cpp
-#include <iostream>
-#include <fstream>
-
-int main() {
-    std::ofstream    outFile("example.txt");  // Open the file for writing
-
-     // Check if the file was successfully opened
-    if (outFile.is_open()) {
-        outFile << "Hello, world!\n";  // Write text to the file
-        outFile << "Writing to files in C++.\n";  // Write another line
-        outFile.close();  // Close the file after writing
-    } else {
-        std::cout << "Unable to open file";
-    }
-
-    return 0;
-}
-```
-
-**File Modes**
-You can open files in different modes using flags like:
-
-- `ios::in` – read (default for `ofstream` and `fstream`)
-- `ios::out` – write (default for `ifstream` and `fstream`)
-- `ios::app` – append
-- `ios::trunc` – truncate
-- `ios::binary` – binary mode
-
-Example:
-```cpp
-fstream file("data.bin", ios::in | ios::out | ios::binary);
-```
-
-**Best Practices**
-- Always check if a file is open before reading or writing.
-- Close files after use to free up resources.
-- Use `getline()` for line-by-line reading, and `>>` for formatted extraction (e.g., reading integers or floating-point numbers).
-
-For more details, see the [C++ File I/O tutorial on cplusplus.com](https://cplusplus.com/doc/tutorial/files/).
-
-<div align="right">
-<b><a href="#top">↥ back to top</a></b>
-</div>
 
 ---
 
