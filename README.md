@@ -9,9 +9,9 @@
 <div id="top"></div>  
   
 - [Namespaces](#namespaces)
-- [Stdio Streams](#io-streams)
+- [I/O Streams](#io-streams)
 - [File Streams](#file-streams)
-- [Classes and Instances](#classes-and-instances)
+- [Classes Members](#class-members)
 - [Member Attributes and Member Functions](#member-attributes-and-member-functions)
 - [This Pointer](#this-pointer)
 - [References](#references)
@@ -286,7 +286,7 @@ For more details, refer to: [cplusplus.com - Classes](https://cplusplus.com/doc/
 
 ---
 
-### Member Attributes and Member Functions
+### Class Members
 
 In C++, a **member attribute** is simply a variable that belongs to a class and is associated with an instance of the class. These attributes are used to store data specific to the class objects. Similarly, **member functions** are functions that belong to a class and operate on its data (attributes). These functions can be used to modify or access member attributes and carry out specific actions.
 
