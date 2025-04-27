@@ -752,8 +752,18 @@ struct Point {
 
     Point(int x, int y) : x(x), y(y) {}
 
+    // Overloading the '+' operator for adding two Points
     Point operator+(const Point &other) const {
-        return Point(x + other.x, y + other.y); // or: return Point(this->x + other.x, this->y + other.y);
+        return Point(x + other.x, y + other.y); // or: `return Point(this->x + other.x, this->y + other.y);`
+    }
+
+    // Overloading the '=' operator for assigning one Point to another
+    Point &operator=(const Point &other) {
+        if (this != &other) {  // Check for self-assignment
+            x = other.x;
+            y = other.y;
+        }
+        return *this;  // Return *this to allow chained assignments (`a = b = c;`, right-to-left evaluation)
     }
 };
 
@@ -761,8 +771,12 @@ int main() {
     Point a(1, 2);
     Point b(3, 4);
 
-    Point c = a + b;  // Calls operator+
+    Point c = a + b;  // Calls `operator+`
     std::cout << c.x << ", " << c.y << std::endl; // Prints '4, 6'
+
+    Point d(0, 0);
+    d = c;  // Calls `operator=`, assigns c to d
+    std::cout << d.x << ", " << d.y << std::endl;  // Prints '4, 6'
 }
 ```
 
@@ -774,10 +788,18 @@ Breaking down `Point operator+(const Point& other) const`:
 | `(const Point &other)` | Takes another `Point` as a const reference (safe and fast). |
 | `const` (at end)       | Guarantees that `this` won't be changed.                |
 
+For comparison,  `operator= ` works similarly to  `operator+ `, but instead of creating a new  `Point `, it modifies the existing object.
+
 What happens when you write `a + b`?
-- `a` becomes `this` inside `operator+`
-- `b` becomes the `other` parameter
-- C++ treats `a + b` like: `a.operator+(b)`
+- `a` becomes `this` inside `operator+`.
+- `b` becomes the `other` parameter.
+- C++ treats `a + b` like: `a.operator+(b)`.
+
+What happens when you write `d = c`?
+- The `operator=` is called on `d`, with `c` as the argument, just like `d.operator=(c)`.
+- Inside `operator=`, the values of `c` (the `x` and `y` of `Point c`) are copied into `d`.
+- The assignment operator checks for self-assignment (e.g., `d = d`), ensuring the object isn't assigned to itself.
+- After the assignment, `d` holds the same values as `c`.
 
 <div align="right">
 <b><a href="#top">↥ back to top</a></b>
