@@ -4,29 +4,26 @@
     <img src="https://github.com/alx-sch/42_CPP_00-04/blob/main/.assets/img/cpp_badge.png" alt="cpp_badge.png" />
 </p>
 
-
 ## Table of Contents
 <div id="top"></div>  
   
 - [Namespaces](#namespaces)
 - [I/O Streams](#io-streams)
 - [File Streams](#file-streams)
-- [Classes Members](#class-members)
-- [Member Attributes and Member Functions](#member-attributes-and-member-functions)
+- [Classes and Instances](#classes-and-instances)
+- [Class Members](#class-mmebers)
 - [This Pointer](#this-pointer)
 - [References](#references)
 - [Initialization List](#initialization-list)
 - [Const](#const)
+- [Static](#static)
 - [Visibility (public/private)](#visibility-privatepublic)
 - [Class vs Struct](#class-vs-struct)
-- [Static](#static)
 - [Pointers to Class Members](#pointers-to-class-members)
 - [Memory Allocation](#memory-allocation)
 - [Overloading](#overloading)
  
 ---
-
-## CPP_00:
 
 ### Namespaces   
 
@@ -459,7 +456,7 @@ References are often preferred when you want to:
 
 ### Initialization List
 
-In C++, when a constructor is called, the class's member variables need to be initialized. While you can assign values inside the constructor body (as done [above](#this-pointer)), using an initialization list is often more efficient and sometimes necessary.  
+In C++, when a constructor is called, the class's member variables need to be initialized. While you can assign values inside the constructor body (as done [here](#this-pointer)), using an initialization list is often more efficient and sometimes necessary.  
 
 An **initialization list** allows you to initialize member variables before entering the constructor body. This is particularly useful when  
 1. Initializing **const** members (since they cannot be assigned later).
@@ -549,6 +546,26 @@ public:
 
 ---
 
+### Static
+
+```cpp
+class Example {
+public:
+    static int count;        // Shared by all instances (class-level)
+    static void sayHi();     // Can be called without an object: Example::sayHi();
+    int value;               // Normal instance member
+};
+```
+- `static` data members belong to the class, not each object.
+- `static` member functions can’t access non-static members (no `this` pointer)
+- You must define static members outside the class (unless also `const`): int `Example::count = 0;`
+
+Use `static` for shared state or utility functions that don’t depend on a specific object.
+
+<div align="right">
+  <b><a href="#top">↥ back to top</a></b>
+</div>
+
 ### Visibility (private/public)
 
 C++ classes use access specifiers to control visibility. These determine what parts of your code can access the members of a class.
@@ -601,28 +618,6 @@ struct MyStruct {
     int x;       // public by default
 };
 ```
-
-<div align="right">
-  <b><a href="#top">↥ back to top</a></b>
-</div>
-
----
-
-### Static
-
-```cpp
-class Example {
-public:
-    static int count;        // Shared by all instances (class-level)
-    static void sayHi();     // Can be called without an object: Example::sayHi();
-    int value;               // Normal instance member
-};
-```
-- `static` data members belong to the class, not each object.
-- `static` member functions can’t access non-static members (no `this` pointer)
-- You must define static members outside the class (unless also `const`): int `Example::count = 0;`
-
-Use `static` for shared state or utility functions that don’t depend on a specific object.
 
 <div align="right">
   <b><a href="#top">↥ back to top</a></b>
