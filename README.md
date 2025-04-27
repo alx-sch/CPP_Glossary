@@ -566,6 +566,8 @@ Use `static` for shared state or utility functions that don’t depend on a spec
   <b><a href="#top">↥ back to top</a></b>
 </div>
 
+---
+
 ### Visibility (private/public)
 
 C++ classes use access specifiers to control visibility. These determine what parts of your code can access the members of a class.
