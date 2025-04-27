@@ -4,7 +4,8 @@
     <img src="https://github.com/alx-sch/42_CPP_00-04/blob/main/.assets/img/cpp_badge.png" alt="cpp_badge.png" />
 </p>
 
-[cplusplus.com](https://cplusplus.com/) is a great resource for all things C++. Most of the entries in this glossary are based on or match up with what you'll find there.
+[cplusplus.com](https://cplusplus.com/) is a great resource for all things C++.   
+Most of the entries in this glossary are based on or match up with what you'll find there.
 
 ---
 
