@@ -9,7 +9,7 @@
 <div id="top"></div>  
   
 - [Namespaces](#namespaces)
-- [Stdio Streams](#i/o-streams)
+- [Stdio Streams](#io-streams)
 - [File Streams](#file-streams)
 - [Classes and Instances](#classes-and-instances)
 - [Member Attributes and Member Functions](#member-attributes-and-member-functions)
