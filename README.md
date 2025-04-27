@@ -780,7 +780,7 @@ int main() {
 }
 ```
 
-Breaking down `Point operator+(const Point& other) const`:
+**Breaking down `Point operator+(const Point& other) const`:**
 | Part                  | Meaning                                                |
 |------------------------|--------------------------------------------------------|
 | `Point`                | Return type: a new `Point` will be returned.            |
@@ -788,14 +788,14 @@ Breaking down `Point operator+(const Point& other) const`:
 | `(const Point &other)` | Takes another `Point` as a const reference (safe and fast). |
 | `const` (at end)       | Guarantees that `this` won't be changed.                |
 
-For comparison,  `operator= ` works similarly to  `operator+ `, but instead of creating a new  `Point `, it modifies the existing object.
+For comparison,  `operator=` works similarly to  `operator+`, but instead of creating a new  `Point`, it modifies the existing object.
 
-What happens when you write `a + b`?
+**What happens when you write `a + b`?**
 - `a` becomes `this` inside `operator+`.
 - `b` becomes the `other` parameter.
 - C++ treats `a + b` like: `a.operator+(b)`.
 
-What happens when you write `d = c`?
+**What happens when you write `d = c`?**
 - The `operator=` is called on `d`, with `c` as the argument, just like `d.operator=(c)`.
 - Inside `operator=`, the values of `c` (the `x` and `y` of `Point c`) are copied into `d`.
 - The assignment operator checks for self-assignment (e.g., `d = d`), ensuring the object isn't assigned to itself.
