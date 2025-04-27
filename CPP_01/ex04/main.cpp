@@ -33,7 +33,7 @@ int	main(int argc, char **argv) {
 	}
 
 	// Open input file
-	std::ifstream input(argv[1]);
+	std::ifstream	input(argv[1]);
 	if (!input) {
 		std::cerr << "Error opening file '" << argv[1] << "': " << strerror(errno) << std::endl;
 		return 1;
@@ -45,11 +45,11 @@ int	main(int argc, char **argv) {
 
 	// Read each line and append it to 'content'
 	while (std::getline(input, line)) {
-    	content += line + "\n";  // Add each line followed by a newline character
+    		content += line + "\n";  // Add each line followed by a newline character
 	}
 	input.close();	
 
-	std::string replaced = replaceAll(content, s1, s2);
+	std::string	replaced = replaceAll(content, s1, s2);
 
 	// Load 'replaced' string into output file.
 	std::ofstream	output((std::string(argv[1]) + ".replace").c_str()); // In C++98, std::ofstream only takes a const char* as the filename argument
