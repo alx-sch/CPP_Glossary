@@ -3,28 +3,35 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: codespace <codespace@student.42.fr>        +#+  +:+       +#+         #
+#    By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/24 13:00:08 by aschenk           #+#    #+#              #
-#    Updated: 2025/04/27 23:33:39 by codespace        ###   ########.fr        #
+#    Updated: 2025/04/29 17:45:28 by aschenk          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME :=			first_orthodox_canon_form
+NAME :=			ScavTrap
 
 # SOURCE FILES
-SRCS :=			main.cpp \
-				Fixed.cpp  
+SRCS_DIR :=		src
+SRCS_FILES :=	main.cpp \
+				ClapTrap.cpp
+				
+SRCS :=			$(addprefix $(SRCS_DIR)/, $(SRCS_FILES))
 				
 # OBJECT FILES
 OBJS_DIR :=		obj
 OBJS :=			$(SRCS:%.cpp=$(OBJS_DIR)/%.o)
 DEPS :=			$(OBJS:.o=.d)
 
+# HEADER FILES
+HDRS_DIR :=		include
+
 # COMPILER
 CC :=			c++
 CFLAGS :=		-std=c++98
 CFLAGS +=		-Werror -Wextra -Wall
+CFLAGS +=		-I$(HDRS_DIR)
 CFLAGS +=		-Wpedantic
 #CFLAGS +=		-g
 
@@ -96,4 +103,3 @@ re:	fclean all
 
 # Include dependency files if they exist
 -include $(DEPS)
-	

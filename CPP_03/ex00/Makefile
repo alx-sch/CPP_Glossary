@@ -6,7 +6,7 @@
 #    By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/29 15:38:25 by aschenk           #+#    #+#              #
-#    Updated: 2025/04/29 17:26:29 by aschenk          ###   ########.fr        #
+#    Updated: 2025/04/29 17:45:34 by aschenk          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ DEPS :=			$(OBJS:.o=.d)
 CC :=			c++
 CFLAGS :=		-std=c++98
 CFLAGS +=		-Werror -Wextra -Wall
-CFLAGS +=		-Wpedantic
+#CFLAGS +=		-Wpedantic
 #CFLAGS +=		-g
 
 # Used for progress bar
@@ -96,4 +96,3 @@ re:	fclean all
 
 # Include dependency files if they exist
 -include $(DEPS)
-	
