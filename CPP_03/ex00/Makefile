@@ -6,11 +6,11 @@
 #    By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/29 15:38:25 by aschenk           #+#    #+#              #
-#    Updated: 2025/04/29 15:39:15 by aschenk          ###   ########.fr        #
+#    Updated: 2025/04/29 17:26:29 by aschenk          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME :=			ClapTrap_00
+NAME :=			ClapTrap
 
 # SOURCE FILES
 SRCS :=			main.cpp \
