@@ -6,7 +6,7 @@
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 15:39:35 by aschenk           #+#    #+#             */
-/*   Updated: 2025/04/29 17:40:09 by aschenk          ###   ########.fr       */
+/*   Updated: 2025/04/30 13:31:06 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,9 @@ ClapTrap::~ClapTrap() {
 
 /// GAME FUNCTIONS //
 
+// ClapTrap attacks the `target` (testing, not an interactive object) and causes
+// `_attackDamage`, costing 1 energy point.
+// Cannot attack if it has 0 `_hitPoints` or `_energyPoints`.
 void	ClapTrap::attack(const std::string& target) {
 	// HP and energy left?
 	if (_hitPoints > 0 && _energyPoints > 0) {
@@ -68,6 +71,8 @@ void	ClapTrap::attack(const std::string& target) {
 	}
 }
 
+// ClapTrap takes `amount` of damage, reducing its `_hitPoints`.
+// If `amount` >= `_hitPoints`, ClapTrap is rendered inactive with 0 HP.
 void	ClapTrap::takeDamage(unsigned int amount) {
 	std::cout << "ClapTrap " << _name << " takes " << amount << " points of damage!\n";
 	
@@ -83,6 +88,8 @@ void	ClapTrap::takeDamage(unsigned int amount) {
 	}
 }
 
+// ClapTrap restores `amount` of `_hitPoints`, costing 1 `_energyPoint`.
+// Cannot repair if it has 0 `_hitPoints` or `_energyPoints`.
 void	ClapTrap::beRepaired(unsigned int amount) {
 	// HP and energy left?
 	if (_hitPoints > 0 && _energyPoints > 0) {
