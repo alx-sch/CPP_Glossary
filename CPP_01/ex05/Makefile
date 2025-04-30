@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: codespace <codespace@student.42.fr>        +#+  +:+       +#+         #
+#    By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/22 13:43:02 by aschenk           #+#    #+#              #
-#    Updated: 2025/04/27 20:02:10 by codespace        ###   ########.fr        #
+#    Updated: 2025/04/29 20:05:17 by aschenk          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 

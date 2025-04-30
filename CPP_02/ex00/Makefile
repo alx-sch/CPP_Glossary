@@ -5,10 +5,11 @@
 #                                                     +:+ +:+         +:+      #
 #    By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/04/24 13:00:08 by aschenk           #+#    #+#              #
-#    Updated: 2025/04/30 11:29:51 by aschenk          ###   ########.fr        #
+#    Created: Invalid date        by                   #+#    #+#              #
+#    Updated: 2025/04/30 11:44:45 by aschenk          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
 
 NAME :=			first_orthodox_canon_form
 
