@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: codespace <codespace@student.42.fr>        +#+  +:+       +#+         #
+#    By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/16 12:24:25 by aschenk           #+#    #+#              #
-#    Updated: 2025/04/27 20:00:29 by codespace        ###   ########.fr        #
+#    Updated: 2025/04/30 11:34:57 by aschenk          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ OBJS_DIR :=		obj
 OBJS :=			$(SRCS:%.cpp=$(OBJS_DIR)/%.o)
 
 # COMPILER
-CC :=			c++
+CXX :=			c++
 CFLAGS :=		-std=c++98
 CFLAGS +=		-Werror -Wextra -Wall
 CFLAGS +=		-Wpedantic
@@ -45,9 +45,10 @@ RED :=			\033[91m
 all:		$(NAME)
 
 # Target $(NAME) depends on object files $(OBJS)
-# Print out l once program is compiled.
+# Compiles and links all o. files into the final binary.
+# Print out logo once program is compiled.
 $(NAME):	$(OBJS)
-	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
+	@$(CXX) $(CFLAGS) $(OBJS) -o $(NAME)
 	@echo "$(BOLD)$(YELLOW)\n$(NAME) successfully compiled.$(RESET)"
 
 	@echo -n "$(BOLD)$(GREEN)"
@@ -60,9 +61,7 @@ $(NAME):	$(OBJS)
 	@echo "\n$(BOLD)$(YELLOW)Usage: './$(NAME) [<message to shout>]'$(RESET)"
 
 ## COMPILATION PROGRESS BAR ##
-# Rule to define how to generate object files (%.o) from corresponding
-# source files (%.c). Each .o file depends on the associated .c file and the
-# project header files.
+# Compiles individual .cpp files into .o object files without linking.
 # Last line:
 # -c:		Generates o. files without linking.
 # -$<:		Represents the first prerequisite (the c. file).
@@ -79,7 +78,7 @@ $(OBJS_DIR)/%.o:	%.cpp
 	@if [ $(PERCENT) -eq 100 ]; then printf "$(GREEN)"; fi
 	@printf "%d/%d - " $(SRC_NUM) $(TOTAL_SRCS)
 	@printf "%d%% $(RESET)" $(PERCENT)
-	@$(CC) $(CFLAGS) -c $< -o $@
+	@$(CXX) $(CFLAGS) -c $< -o $@
 
 # Rule to remove all generated object files.
 clean:

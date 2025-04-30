@@ -6,7 +6,7 @@
 #    By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/24 13:00:08 by aschenk           #+#    #+#              #
-#    Updated: 2025/04/29 17:45:28 by aschenk          ###   ########.fr        #
+#    Updated: 2025/04/30 11:28:26 by aschenk          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ DEPS :=			$(OBJS:.o=.d)
 HDRS_DIR :=		include
 
 # COMPILER
-CC :=			c++
+CXX :=			c++
 CFLAGS :=		-std=c++98
 CFLAGS +=		-Werror -Wextra -Wall
 CFLAGS +=		-I$(HDRS_DIR)
@@ -54,9 +54,10 @@ RED :=			\033[91m
 all:		$(NAME)
 
 # Target $(NAME) depends on object files $(OBJS)
+# Compiles and links all o. files into the final binary.
 # Print out l once program is compiled.
 $(NAME):	$(OBJS)
-	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
+	@$(CXX) $(CFLAGS) $(OBJS) -o $(NAME)
 	@echo "$(BOLD)$(YELLOW)\n$(NAME) successfully compiled.$(RESET)"
 
 ## COMPILATION PROGRESS BAR ##
@@ -81,7 +82,7 @@ $(OBJS_DIR)/%.o:	%.cpp
 	@if [ $(PERCENT) -eq 100 ]; then printf "$(GREEN)"; fi
 	@printf "%d/%d - " $(SRC_NUM) $(TOTAL_SRCS)
 	@printf "%d%% $(RESET)" $(PERCENT)
-	@$(CC) $(CFLAGS) -c -MMD -MP $< -o $@
+	@$(CXX) $(CFLAGS) -c -MMD -MP $< -o $@
 
 # Rule to remove all generated object files.
 clean:

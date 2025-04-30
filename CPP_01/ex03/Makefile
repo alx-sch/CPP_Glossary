@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: codespace <codespace@student.42.fr>        +#+  +:+       +#+         #
+#    By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/22 13:43:02 by aschenk           #+#    #+#              #
-#    Updated: 2025/04/27 20:01:20 by codespace        ###   ########.fr        #
+#    Updated: 2025/04/30 11:31:58 by aschenk          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ HDRS_FILES :=	Weapon.hpp \
 HDRS :=			$(addprefix $(HDRS_DIR)/, $(HDRS_FILES))
 
 # COMPILER
-CC :=			c++
+CXX :=			c++
 CFLAGS :=		-std=c++98
 CFLAGS +=		-Werror -Wextra -Wall
 CFLAGS +=		-I$(HDRS_DIR)
@@ -60,19 +60,20 @@ RED :=			\033[91m
 all:		$(NAME)
 
 # Target $(NAME) depends on object files $(OBJS)
+# Compiles and links all o. files into the final binary.
 # Print out l once program is compiled.
 $(NAME):	$(OBJS)
-	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
+	@$(CXX) $(CFLAGS) $(OBJS) -o $(NAME)
 	@echo "$(BOLD)$(YELLOW)\n$(NAME) successfully compiled.$(RESET)"
 
 ## COMPILATION PROGRESS BAR ##
-# Rule to define how to generate object files (%.o) from corresponding
-# source files (%.c). Each .o file depends on the associated .c file and the
-# project header files.
+# Compiles individual .cpp files into .o object files without linking.
 # Last line:
 # -c:		Generates o. files without linking.
 # -$<:		Represents the first prerequisite (the c. file).
 # -o $@:	Output file name;  '$@' is replaced with target name (the o. file).
+# -MMD:		Generates a dependency file for each source file.
+# -MP:		Prevents make from failing if the header file is deleted.
 $(OBJS_DIR)/%.o:	%.cpp $(HDRS)
 	@mkdir -p $(@D)
 	@$(eval SRC_NUM := $(shell expr $(SRC_NUM) + 1))
@@ -85,7 +86,7 @@ $(OBJS_DIR)/%.o:	%.cpp $(HDRS)
 	@if [ $(PERCENT) -eq 100 ]; then printf "$(GREEN)"; fi
 	@printf "%d/%d - " $(SRC_NUM) $(TOTAL_SRCS)
 	@printf "%d%% $(RESET)" $(PERCENT)
-	@$(CC) $(CFLAGS) -c $< -o $@
+	@$(CXX) $(CFLAGS) -c -MMD -MP $< -o $@
 
 # Rule to remove all generated object files.
 clean:
