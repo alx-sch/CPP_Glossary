@@ -6,12 +6,12 @@
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 15:39:35 by aschenk           #+#    #+#             */
-/*   Updated: 2025/05/02 16:56:57 by aschenk          ###   ########.fr       */
+/*   Updated: 2025/05/02 16:58:22 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
-#include "ClapTrap.hpp"
+#include <ClapTrap.hpp>
 
 // ORTHODOX CANONICAL FORM //
 
@@ -20,7 +20,7 @@ ClapTrap::ClapTrap()
 		_hitPoints(10),
 		_energyPoints(10),
 		_attackDamage(0) {
-	std::cout << _name << ": Default constructor called.\n";
+	std::cout << "ClapTrap " << _name << ": Default constructor called.\n";
 }
 
 ClapTrap::ClapTrap(std::string name)
@@ -28,7 +28,7 @@ ClapTrap::ClapTrap(std::string name)
 		_hitPoints(10),
 		_energyPoints(10),
 		_attackDamage(0) {
-	std::cout << _name << ": Parameterized constructor called.\n";
+	std::cout << "ClapTrap " << _name << ": Parameterized constructor called.\n";
 }
 
 ClapTrap::ClapTrap(const ClapTrap& other) 
@@ -36,11 +36,11 @@ ClapTrap::ClapTrap(const ClapTrap& other)
 		_hitPoints(other._hitPoints),
 		_energyPoints(other._energyPoints),
 		_attackDamage(other._attackDamage) {
-	std::cout << _name << ": Copy constructor called.\n";
+	std::cout << "ClapTrap " << _name << ": Copy constructor called.\n";
 }
 
 ClapTrap& ClapTrap::operator=(const ClapTrap &other) {
-	std::cout << _name << ": Copy assignment operator called.\n";
+	std::cout << "ClapTrap " << _name << ": Copy assignment operator called.\n";
 	if (this != &other) {
 		_name = other._name;
 		_hitPoints = other._hitPoints;
@@ -51,14 +51,14 @@ ClapTrap& ClapTrap::operator=(const ClapTrap &other) {
 }
 
 ClapTrap::~ClapTrap() {
-	std::cout << _name << ": Destructor called.\n";
+	std::cout << "ClapTrap " << _name << ": Destructor called.\n";
 }
 
 /// GAME FUNCTIONS //
 
 // ClapTrap attacks the `target` (testing, not an interactive object) and causes
-// `_attackDamage`, costing 1 `_energyPoint`.
-// ClapTrap remains inactive if no `_hitPoints` or `_energyPoints` are left (0).
+// `_attackDamage`, costing 1 energy point.
+// Cannot attack if it has 0 `_hitPoints` or `_energyPoints`.
 void	ClapTrap::attack(const std::string& target) {
 	// HP and energy left?
 	if (_hitPoints > 0 && _energyPoints > 0) {
@@ -74,17 +74,16 @@ void	ClapTrap::attack(const std::string& target) {
 // ClapTrap takes `amount` of damage, reducing its `_hitPoints`.
 // If `amount` >= `_hitPoints`, ClapTrap is rendered inactive with 0 HP.
 void	ClapTrap::takeDamage(unsigned int amount) {
-	std::cout << "ClapTrap " << _name << " takes " << amount << " points of damage!\n";
+	std::cout << _name << " takes " << amount << " points of damage!\n";
 	
 	// Amount of damage less than current HP.
 	if (amount < _hitPoints) {
 		_hitPoints -= amount;	// Reduce HP by damage amount
-		std::cout << "ClapTrap " << _name << " still got " << _hitPoints
-		<< " hit points left.\n";
+		std::cout << _name << " still got " << _hitPoints << " hit points left.\n";
 	}
 	else { // Damage is greater than or equal to current HP -> dead!
 		_hitPoints = 0;	// Set HP to 0, as it can't go negative.
-		std::cout << "ClapTrap " << _name << " has no more hit points left and is kaputt!\n";
+		std::cout << _name << " has no more hit points left and is kaputt!\n";
 	}
 }
 
@@ -95,11 +94,11 @@ void	ClapTrap::beRepaired(unsigned int amount) {
 	if (_hitPoints > 0 && _energyPoints > 0) {
 		_hitPoints += amount;
 		_energyPoints -= 1;
-		std::cout << "ClapTrap " << _name << " repairs itself and gains " << amount
+		std::cout << _name << " repairs itself and gains " << amount
 		<< " hit points!\n";
 		std::cout << "ClapTrap " << _name << " now has " << _hitPoints << " hit points.\n";
 	}
 	else { // NO HP or energy left! 
-		std::cout << "ClapTrap " << _name << " is kaputt! It can't repair itself.\n";
+		std::cout << _name << " is kaputt! It can't repair itself.\n";
 	}
 }

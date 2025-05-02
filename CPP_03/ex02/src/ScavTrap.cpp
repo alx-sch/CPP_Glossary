@@ -6,10 +6,9 @@
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 17:40:31 by aschenk           #+#    #+#             */
-/*   Updated: 2025/05/02 16:57:43 by aschenk          ###   ########.fr       */
+/*   Updated: 2025/05/02 15:12:42 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include <iostream>
 #include <ScavTrap.hpp>
@@ -27,7 +26,7 @@ ScavTrap::ScavTrap(std::string name) : ClapTrap(name) {
 	_hitPoints = 100; // Re-define base values
 	_energyPoints = 50;
 	_attackDamage = 20;
-	std::cout << "ScavTrap " << _name << ": Parameterized constructor called.\n";
+	std::cout << "ScavTrap " << _name << ": Parameterized (name) constructor called.\n";
 }
 
 ScavTrap::ScavTrap(const ScavTrap& other) : ClapTrap(other) {

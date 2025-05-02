@@ -48,3 +48,9 @@ what about behavior from one class but not another?
 
 --> diamon heritage
 
+ Summary: What virtual does
+Prevents multiple copies of a base class in a diamond inheritance pattern.
+
+Ensures that the base class (ClapTrap) is shared across all intermediate classes (FragTrap, ScavTrap).
+
+Requires the most derived class (DiamondTrap) to construct the shared base.

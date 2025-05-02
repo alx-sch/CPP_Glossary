@@ -6,31 +6,30 @@
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 17:40:31 by aschenk           #+#    #+#             */
-/*   Updated: 2025/05/02 16:57:43 by aschenk          ###   ########.fr       */
+/*   Updated: 2025/05/02 17:09:29 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include <iostream>
 #include <ScavTrap.hpp>
 
 // ORTHODOX CANONICAL FORM //
 
-ScavTrap::ScavTrap() : ClapTrap() { // Initialize base class ClapTrap with default name
+ScavTrap::ScavTrap() { // Initialize base class ClapTrap with default name
 	_hitPoints = 100; // Re-define base values
 	_energyPoints = 50;
 	_attackDamage = 20;
 	std::cout << "ScavTrap " << _name << ": Default constructor called.\n";
 }
 
-ScavTrap::ScavTrap(std::string name) : ClapTrap(name) {
+ScavTrap::ScavTrap(std::string name) : _name(name) {
 	_hitPoints = 100; // Re-define base values
 	_energyPoints = 50;
 	_attackDamage = 20;
 	std::cout << "ScavTrap " << _name << ": Parameterized constructor called.\n";
 }
 
-ScavTrap::ScavTrap(const ScavTrap& other) : ClapTrap(other) {
+ScavTrap::ScavTrap(const ScavTrap& other) {
 	std::cout << "ScavTrap " << _name << ": Copy constructor called.\n";
 }
 
