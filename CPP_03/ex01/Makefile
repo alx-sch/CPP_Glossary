@@ -6,7 +6,7 @@
 #    By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/24 13:00:08 by aschenk           #+#    #+#              #
-#    Updated: 2025/04/30 11:28:26 by aschenk          ###   ########.fr        #
+#    Updated: 2025/05/02 14:45:48 by aschenk          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,8 @@ NAME :=			ScavTrap
 # SOURCE FILES
 SRCS_DIR :=		src
 SRCS_FILES :=	main.cpp \
-				ClapTrap.cpp
+				ClapTrap.cpp \
+				ScavTrap.cpp
 				
 SRCS :=			$(addprefix $(SRCS_DIR)/, $(SRCS_FILES))
 				
@@ -61,9 +62,7 @@ $(NAME):	$(OBJS)
 	@echo "$(BOLD)$(YELLOW)\n$(NAME) successfully compiled.$(RESET)"
 
 ## COMPILATION PROGRESS BAR ##
-# Rule to define how to generate object files (%.o) from corresponding
-# source files (%.c). Each .o file depends on the associated .c file and the
-# project header files.
+# Compiles individual .cpp files into .o object files without linking.
 # Last line:
 # -c:		Generates o. files without linking.
 # -$<:		Represents the first prerequisite (the c. file).
