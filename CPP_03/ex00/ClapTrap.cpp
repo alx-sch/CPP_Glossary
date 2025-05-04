@@ -6,7 +6,7 @@
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 15:39:35 by aschenk           #+#    #+#             */
-/*   Updated: 2025/05/04 19:17:04 by aschenk          ###   ########.fr       */
+/*   Updated: 2025/05/04 19:43:43 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ ClapTrap::ClapTrap()
 		_hitPoints(10),
 		_energyPoints(10),
 		_attackDamage(0) {
-	std::cout << "🐣 " << BLUE << _name << RESET << ": Default constructor called.\n";
+	std::cout << "🐣 " << BLUE << _name << RESET << ": " << GREEN << "ClapTrap" << RESET 
+	<< " default constructor called.\n";
 }
 
 ClapTrap::ClapTrap(std::string name)
@@ -28,7 +29,8 @@ ClapTrap::ClapTrap(std::string name)
 		_hitPoints(10),
 		_energyPoints(10),
 		_attackDamage(0) {
-	std::cout << "🐣 " << BLUE << _name << RESET ": Parameterized constructor called.\n";
+	std::cout << "🐣 " << BLUE << _name << RESET << ": " << GREEN << "ClapTrap" << RESET
+	<< " parameterized constructor called.\n";
 }
 
 ClapTrap::ClapTrap(const ClapTrap& other) 
@@ -36,22 +38,24 @@ ClapTrap::ClapTrap(const ClapTrap& other)
 		_hitPoints(other._hitPoints),
 		_energyPoints(other._energyPoints),
 		_attackDamage(other._attackDamage) {
-	std::cout << "🐣 " << BLUE << _name << RESET ": Copy constructor called.\n";
+	std::cout << "🐣 " << BLUE << _name << RESET << ": " << GREEN << "ClapTrap" << RESET 
+	<< " copy constructor called.\n";
 }
 
 ClapTrap& ClapTrap::operator=(const ClapTrap &other) {
-	std::cout << "🐣 " << BLUE << _name << RESET << ": Copy assignment operator called.\n";
 	if (this != &other) {
 		_name = other._name;
 		_hitPoints = other._hitPoints;
 		_energyPoints = other._energyPoints;
 		_attackDamage = other._attackDamage;
 	}
+	std::cout << "🐣 " << BLUE << _name << RESET << ": " << GREEN << "ClapTrap" << RESET 
+	<< " copy assignment operator called.\n";
 	return *this;
 }
 
 ClapTrap::~ClapTrap() {
-	std::cout << "🏁 " << BLUE << _name << RESET << ": Destructor called.\n";
+	std::cout << "🏁 " << BLUE << _name << RESET << ": " << GREEN << "ClapTrap" << RESET << " destructor called.\n";
 }
 
 /// GAME FUNCTIONS //
