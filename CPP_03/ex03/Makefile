@@ -6,11 +6,11 @@
 #    By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/02 15:01:32 by aschenk           #+#    #+#              #
-#    Updated: 2025/05/02 15:54:34 by aschenk          ###   ########.fr        #
+#    Updated: 2025/05/04 15:03:54 by aschenk          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME :=			FragTrap
+NAME :=			DiamondTrap
 
 # SOURCE FILES
 SRCS_DIR :=		src
@@ -35,8 +35,8 @@ CXX :=			c++
 CFLAGS :=		-std=c++98
 CFLAGS +=		-Werror -Wextra -Wall
 CFLAGS +=		-I$(HDRS_DIR)
-CFLAGS +=		-Wshadow
-CFLAGS +=		-Wpedantic
+CFLAGS +=		-Wshadow	# Warning on shadowing: A variable in a closer (inner) scope has the same name as a variable in an outer scope, effectively "hiding" or "shadowing" the outer one in that scope.
+CFLAGS +=		-Wpedantic  # Enforces strict ISO C++ compliance.
 #CFLAGS +=		-g
 
 # Used for progress bar

@@ -6,7 +6,7 @@
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 15:43:15 by aschenk           #+#    #+#             */
-/*   Updated: 2025/05/02 16:59:12 by aschenk          ###   ########.fr       */
+/*   Updated: 2025/05/04 16:58:49 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,34 @@ DiamondTrap inherits from both FragTrap and ScavTrap.
 #include <iostream>
 #include <DiamondTrap.hpp>
 
-DiamondTrap::DiamondTrap()
-	:	ScavTrap("NoName_clap_name"), // To be passed to ClapTrap
-		FragTrap("NoName_clap_name"),
-		_name("NoName") {
-	//this->_hitPoints = FragTrap::_hitPoints; // Pull from FragTrap / ScavTrap defaults
-	//this->_energyPoints = ScavTrap::_energyPoints;
-	//this->_attackDamage = FragTrap::_attackDamage;
+DiamondTrap::DiamondTrap() 
+	:	ClapTrap("NoName_clap_name"),	// Initialize ClapTrap with default name
+		_name("NoName") { 				// Set _name specifically for DiamondTrap
+	this->_hitPoints = FragTrap::_hitPoints; // Pull from FragTrap / ScavTrap defaults
+	this->_energyPoints = ScavTrap::_energyPoints;
+	this->_attackDamage = FragTrap::_attackDamage;
 	
 	std::cout << "DiamondTrap " << _name << ": Default constructor called.\n";
+	std::cout << "HP: " << _hitPoints << "\n";
+	std::cout << "EP: " << _energyPoints << "\n";
+	std::cout << "AD: " << _attackDamage << "\n\n";
 }
+
+DiamondTrap::DiamondTrap(std::string name)
+	:	ScavTrap(name),					// Initialize ScavTrap
+		FragTrap(name),					// Initialize FragTrap
+		_name(name) {					// Set _name specifically for DiamondTrap
+	this->_hitPoints = FragTrap::_hitPoints;  // Pull from FragTrap
+	this->_energyPoints = ScavTrap::_energyPoints; // Pull from ScavTrap
+	this->_attackDamage = FragTrap::_attackDamage;  // Pull from FragTrap
+
+	std::cout << "DiamondTrap " << _name << ": Parameterized constructor called.\n\n";
+	std::cout << "HP: " << _hitPoints << "\n";
+	std::cout << "EP: " << _energyPoints << "\n";
+	std::cout << "AD: " << _attackDamage << "\n\n";
+}
+
+
 
 // DiamondTrap::DiamondTrap(const std::string name)
 // 	:	FragTrap(name), 

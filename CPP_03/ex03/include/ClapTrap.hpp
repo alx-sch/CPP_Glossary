@@ -6,7 +6,7 @@
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 15:39:32 by aschenk           #+#    #+#             */
-/*   Updated: 2025/05/02 17:13:48 by aschenk          ###   ########.fr       */
+/*   Updated: 2025/05/04 14:53:47 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ class ClapTrap {
 		ClapTrap(std::string name);
 		ClapTrap(const ClapTrap& other);
 		ClapTrap& operator=(const ClapTrap& other);
-		virtual ~ClapTrap(); // If a class is intended to be used as a base class (esp. if used polymorphically), make its destructor virtual.
+		~ClapTrap(); // If a class is intended to be used as a base class (esp. if used polymorphically), make its destructor virtual.
 
 		void	attack(const std::string& target);
 		void	takeDamage(unsigned int amount);

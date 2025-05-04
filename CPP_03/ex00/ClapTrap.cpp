@@ -6,7 +6,7 @@
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 15:39:35 by aschenk           #+#    #+#             */
-/*   Updated: 2025/05/02 16:56:57 by aschenk          ###   ########.fr       */
+/*   Updated: 2025/05/04 19:17:04 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ ClapTrap::ClapTrap()
 		_hitPoints(10),
 		_energyPoints(10),
 		_attackDamage(0) {
-	std::cout << _name << ": Default constructor called.\n";
+	std::cout << "🐣 " << BLUE << _name << RESET << ": Default constructor called.\n";
 }
 
 ClapTrap::ClapTrap(std::string name)
@@ -28,7 +28,7 @@ ClapTrap::ClapTrap(std::string name)
 		_hitPoints(10),
 		_energyPoints(10),
 		_attackDamage(0) {
-	std::cout << _name << ": Parameterized constructor called.\n";
+	std::cout << "🐣 " << BLUE << _name << RESET ": Parameterized constructor called.\n";
 }
 
 ClapTrap::ClapTrap(const ClapTrap& other) 
@@ -36,11 +36,11 @@ ClapTrap::ClapTrap(const ClapTrap& other)
 		_hitPoints(other._hitPoints),
 		_energyPoints(other._energyPoints),
 		_attackDamage(other._attackDamage) {
-	std::cout << _name << ": Copy constructor called.\n";
+	std::cout << "🐣 " << BLUE << _name << RESET ": Copy constructor called.\n";
 }
 
 ClapTrap& ClapTrap::operator=(const ClapTrap &other) {
-	std::cout << _name << ": Copy assignment operator called.\n";
+	std::cout << "🐣 " << BLUE << _name << RESET << ": Copy assignment operator called.\n";
 	if (this != &other) {
 		_name = other._name;
 		_hitPoints = other._hitPoints;
@@ -51,7 +51,7 @@ ClapTrap& ClapTrap::operator=(const ClapTrap &other) {
 }
 
 ClapTrap::~ClapTrap() {
-	std::cout << _name << ": Destructor called.\n";
+	std::cout << "🏁 " << BLUE << _name << RESET << ": Destructor called.\n";
 }
 
 /// GAME FUNCTIONS //
@@ -62,29 +62,30 @@ ClapTrap::~ClapTrap() {
 void	ClapTrap::attack(const std::string& target) {
 	// HP and energy left?
 	if (_hitPoints > 0 && _energyPoints > 0) {
+		std::cout << "⚔️  " << BLUE << _name << RESET << " attacks " << RED << target << RESET << 
+		", causing " << YELLOW << _attackDamage << " damage" << RESET << "!\n";
 		_energyPoints -= 1;
-		std::cout << "ClapTrap " << _name << " attacks " << target
-		<< ", causing " << _attackDamage << " points of damage!\n";
 	}
 	else { // NO HP or energy left! 
-		std::cout << "ClapTrap " << _name << " is kaputt! It can't attack.\n";
+		std::cout << "☠️  " << BLUE << _name << RESET << " is kaputt! It can't attack.\n";
 	}
 }
 
 // ClapTrap takes `amount` of damage, reducing its `_hitPoints`.
 // If `amount` >= `_hitPoints`, ClapTrap is rendered inactive with 0 HP.
 void	ClapTrap::takeDamage(unsigned int amount) {
-	std::cout << "ClapTrap " << _name << " takes " << amount << " points of damage!\n";
+	std::cout << "🩸 " << BLUE << _name << RESET << " takes " << YELLOW << amount << " damage" << RESET <<"!\n";
 	
 	// Amount of damage less than current HP.
 	if (amount < _hitPoints) {
 		_hitPoints -= amount;	// Reduce HP by damage amount
-		std::cout << "ClapTrap " << _name << " still got " << _hitPoints
-		<< " hit points left.\n";
+		std::cout << "ℹ️  " << BLUE << _name << RESET << " got " << YELLOW << _hitPoints 
+		<< " HP" << RESET " left.\n";
 	}
 	else { // Damage is greater than or equal to current HP -> dead!
 		_hitPoints = 0;	// Set HP to 0, as it can't go negative.
-		std::cout << "ClapTrap " << _name << " has no more hit points left and is kaputt!\n";
+		std::cout << "☠️  " << BLUE << _name << RESET << " got " << YELLOW << _hitPoints
+		<< " HP" << RESET << " left. It's kaputt!\n";
 	}
 }
 
@@ -95,11 +96,29 @@ void	ClapTrap::beRepaired(unsigned int amount) {
 	if (_hitPoints > 0 && _energyPoints > 0) {
 		_hitPoints += amount;
 		_energyPoints -= 1;
-		std::cout << "ClapTrap " << _name << " repairs itself and gains " << amount
-		<< " hit points!\n";
-		std::cout << "ClapTrap " << _name << " now has " << _hitPoints << " hit points.\n";
+		std::cout << "💉 " << BLUE << _name << RESET << " repairs itself and gains " << YELLOW << amount
+		<< " HP" << RESET << "!\n";
+		std::cout << "ℹ️  " << BLUE << _name << RESET << " now has " << YELLOW << _hitPoints << " HP" << RESET << ".\n";
 	}
 	else { // NO HP or energy left! 
-		std::cout << "ClapTrap " << _name << " is kaputt! It can't repair itself.\n";
+		std::cout << "☠️  " << BLUE << _name << RESET << " is kaputt! It can't repair itself.\n";
 	}
+}
+
+// GETTERS //
+
+std::string	ClapTrap::getName() const {
+	return _name;
+}
+
+unsigned int	ClapTrap::getHitPoints() const {
+	return _hitPoints;
+}
+
+unsigned int	ClapTrap::getEnergyPoints() const {
+	return _energyPoints;
+}
+
+unsigned int	ClapTrap::getAttackDamage() const {
+	return _attackDamage;
 }

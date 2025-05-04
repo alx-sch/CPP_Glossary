@@ -6,7 +6,7 @@
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 15:03:15 by aschenk           #+#    #+#             */
-/*   Updated: 2025/05/02 16:58:31 by aschenk          ###   ########.fr       */
+/*   Updated: 2025/05/04 17:23:49 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,15 @@
 
 // ORTHODOX CANONICAL FORM //
 
-FragTrap::FragTrap() : ClapTrap() { // Initialize base class ClapTrap with default name
-	_hitPoints = 100; // Re-define base values
-	_energyPoints = 100;
-	_attackDamage = 30;
+FragTrap::FragTrap() { // Initialize base class ClapTrap with default name
+	_hitPoints = _hitPointsInit; // Re-define base values
+	_energyPoints = _energyPoints;
+	_attackDamage = _attackDamageInit;
 	std::cout << "FragTrap " << _name << ": Default constructor called.\n";
 }
 
-FragTrap::FragTrap(std::string name) : ClapTrap(name) {
+FragTrap::FragTrap(std::string name) : ClapTrap(name + "_clap_name"){
+	(void)name; // Avoid unused variable warning
 	_hitPoints = 100; // Re-define base values
 	_energyPoints = 100;
 	_attackDamage = 30;

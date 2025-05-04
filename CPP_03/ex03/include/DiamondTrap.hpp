@@ -6,7 +6,7 @@
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 15:42:52 by aschenk           #+#    #+#             */
-/*   Updated: 2025/05/02 16:43:03 by aschenk          ###   ########.fr       */
+/*   Updated: 2025/05/04 16:05:31 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ DiamondTrap inherits from both FragTrap and ScavTrap.
 #include "FragTrap.hpp"
 #include "ScavTrap.hpp"
 
-class DiamondTrap : virtual public ScavTrap, virtual public FragTrap {
+class DiamondTrap : public ScavTrap, public FragTrap {
 	private:
 		std::string	_name; // same name as ClapTrap
 

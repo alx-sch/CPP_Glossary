@@ -6,7 +6,7 @@
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 17:40:31 by aschenk           #+#    #+#             */
-/*   Updated: 2025/05/02 17:09:29 by aschenk          ###   ########.fr       */
+/*   Updated: 2025/05/04 17:24:22 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,21 @@
 // ORTHODOX CANONICAL FORM //
 
 ScavTrap::ScavTrap() { // Initialize base class ClapTrap with default name
-	_hitPoints = 100; // Re-define base values
-	_energyPoints = 50;
-	_attackDamage = 20;
+	_hitPoints = _hitPointsInit; // Re-define base values
+	_energyPoints = _energyPointsInit;
+	_attackDamage = _attackDamageInit;
 	std::cout << "ScavTrap " << _name << ": Default constructor called.\n";
 }
 
-ScavTrap::ScavTrap(std::string name) : _name(name) {
+ScavTrap::ScavTrap(std::string name) : ClapTrap(name + "_clap_name") {
+	//(void)name; // Avoid unused variable warning
 	_hitPoints = 100; // Re-define base values
 	_energyPoints = 50;
 	_attackDamage = 20;
 	std::cout << "ScavTrap " << _name << ": Parameterized constructor called.\n";
 }
 
-ScavTrap::ScavTrap(const ScavTrap& other) {
+ScavTrap::ScavTrap(const ScavTrap& other) : ClapTrap(other) {
 	std::cout << "ScavTrap " << _name << ": Copy constructor called.\n";
 }
 
@@ -72,5 +73,3 @@ void	ScavTrap::guardGate() {
 		std::cout << "ScavTrap " << _name << " is kaputt and can't guard anything anymore!\n";
 	}
 }
-
-
