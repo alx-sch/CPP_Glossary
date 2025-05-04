@@ -6,12 +6,13 @@
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 15:39:30 by aschenk           #+#    #+#             */
-/*   Updated: 2025/05/04 19:41:16 by aschenk          ###   ########.fr       */
+/*   Updated: 2025/05/04 19:52:03 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 #include "ClapTrap.hpp"
+#include "colors.hpp"
 
 template <typename T>
 void	getStatus(const T& unit) {
