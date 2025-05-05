@@ -6,7 +6,7 @@
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 15:39:35 by aschenk           #+#    #+#             */
-/*   Updated: 2025/05/05 01:51:13 by aschenk          ###   ########.fr       */
+/*   Updated: 2025/05/05 08:27:11 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,10 @@ ClapTrap& ClapTrap::operator=(const ClapTrap &other) {
 		_energyPoints = other._energyPoints;
 		_attackDamage = other._attackDamage;
 	}
+	
 	std::cout << "🐣 " << BLUE << _name << RESET << ": " << GREEN << "ClapTrap" << RESET 
 	<< " copy assignment operator called.\n";
+	
 	return *this;
 }
 

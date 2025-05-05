@@ -6,7 +6,7 @@
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 17:40:31 by aschenk           #+#    #+#             */
-/*   Updated: 2025/05/05 02:21:05 by aschenk          ###   ########.fr       */
+/*   Updated: 2025/05/05 08:28:06 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ ScavTrap::ScavTrap() : ClapTrap() { // Initialize base class ClapTrap with defau
 	_hitPoints = 100; // Re-define base values
 	_energyPoints = 50;
 	_attackDamage = 20;
+	
 	std::cout << "🐣 " << BLUE << _name << RESET << ": " << GREEN << "ScavTrap" << RESET 
 	<< " default constructor called.\n";
 }
@@ -28,6 +29,7 @@ ScavTrap::ScavTrap(std::string name) : ClapTrap(name) {
 	_hitPoints = 100; // Re-define base values
 	_energyPoints = 50;
 	_attackDamage = 20;
+	
 	std::cout << "🐣 " << BLUE << _name << RESET << ": " << GREEN << "ScavTrap" << RESET
 	<< " parameterized constructor called.\n";
 }
@@ -41,8 +43,10 @@ ScavTrap& ScavTrap::operator=(const ScavTrap &other) {
 	if (this != &other) {
 		ClapTrap::operator=(other); // Delegate copy assignment to ClapTrap
 	}
+	
 	std::cout << "🐣 " << BLUE << _name << RESET << ": " << GREEN << "ScavTrap" << RESET 
 	<< " copy assignment operator called.\n";
+	
 	return *this;
 }
 

@@ -6,44 +6,53 @@
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 15:03:15 by aschenk           #+#    #+#             */
-/*   Updated: 2025/05/04 17:23:49 by aschenk          ###   ########.fr       */
+/*   Updated: 2025/05/05 08:29:58 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 #include <FragTrap.hpp>
+#include <colors.hpp>
 
 // ORTHODOX CANONICAL FORM //
 
-FragTrap::FragTrap() { // Initialize base class ClapTrap with default name
-	_hitPoints = _hitPointsInit; // Re-define base values
-	_energyPoints = _energyPoints;
-	_attackDamage = _attackDamageInit;
-	std::cout << "FragTrap " << _name << ": Default constructor called.\n";
-}
-
-FragTrap::FragTrap(std::string name) : ClapTrap(name + "_clap_name"){
-	(void)name; // Avoid unused variable warning
+FragTrap::FragTrap() : ClapTrap() { // Initialize base class ClapTrap with default name
 	_hitPoints = 100; // Re-define base values
 	_energyPoints = 100;
 	_attackDamage = 30;
-	std::cout << "FragTrap " << _name << ": Parameterized constructor called.\n";
+	
+	std::cout << "🐣 " << BLUE << _name << RESET << ": " << GREEN << "FragTrap" << RESET 
+	<< " default constructor called.\n";
+}
+
+FragTrap::FragTrap(std::string name) : ClapTrap(name) {
+	_hitPoints = 100; // Re-define base values
+	_energyPoints = 100;
+	_attackDamage = 30;
+	
+	std::cout << "🐣 " << BLUE << _name << RESET << ": " << GREEN << "FragTrap" << RESET
+	<< " parameterized constructor called.\n";
 }
 
 FragTrap::FragTrap(const FragTrap& other) : ClapTrap(other) {
-	std::cout << "FragTrap " << _name << ": Copy constructor called.\n";
+	std::cout << "🐣 " << BLUE << _name << RESET << ": " << GREEN << "FragTrap" << RESET 
+	<< " copy constructor called.\n";
 }
 
 FragTrap& FragTrap::operator=(const FragTrap &other) {
-	std::cout << "FragTrap " << _name << ": Copy assignment operator called.\n";
 	if (this != &other) {
 		ClapTrap::operator=(other); // Call base class assignment operator
 	}
+	
+	std::cout << "🐣 " << BLUE << _name << RESET << ": " << GREEN << "FragTrap" << RESET 
+	<< " copy assignment operator called.\n";
+	
 	return *this;
 }
 
 FragTrap::~FragTrap() {
-	std::cout << "FragTrap " << _name << ": Destructor called.\n";
+	std::cout << "🏁 " << BLUE << _name << RESET << ": " << GREEN << "FragTrap" << RESET
+	<< " destructor called.\n";
 }
 
 /// GAME FUNCTIONS //
@@ -52,9 +61,9 @@ FragTrap::~FragTrap() {
 // It can only be used if it has more than 0 `_hitPoints`.
 void	FragTrap::highFivesGuys() {
 	if (_hitPoints > 0) {
-		std::cout << "FragTrap " << _name << " requests a high five! ✋😄\n";
+		std::cout << "✋ " << BLUE << _name << RESET " requests a high five! *SMACK*\n";
 	}
 	else {
-		std::cout << "FragTrap " << _name << " is kaputt and can't lift it's hands anymore!\n";
+		std::cout << "☠️  " << BLUE << _name << RESET << " is kaputt! It can't lift a finger.\n";
 	}
 }
