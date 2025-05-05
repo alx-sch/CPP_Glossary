@@ -6,7 +6,7 @@
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 15:42:52 by aschenk           #+#    #+#             */
-/*   Updated: 2025/05/04 16:05:31 by aschenk          ###   ########.fr       */
+/*   Updated: 2025/05/05 15:39:28 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ DiamondTrap inherits from both FragTrap and ScavTrap.
 
 #pragma once
 
-#include "FragTrap.hpp"
-#include "ScavTrap.hpp"
+#include <ScavTrap.hpp>
+#include <FragTrap.hpp>
 
 class DiamondTrap : public ScavTrap, public FragTrap {
 	private:
@@ -33,4 +33,6 @@ class DiamondTrap : public ScavTrap, public FragTrap {
 		~DiamondTrap();
 
 		void	whoAmI(); // new ability
+
+		std::string		getName() const; // Override ClapTrap's getName()
 };

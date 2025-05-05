@@ -6,7 +6,7 @@
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 19:51:17 by aschenk           #+#    #+#             */
-/*   Updated: 2025/05/05 01:29:42 by aschenk          ###   ########.fr       */
+/*   Updated: 2025/05/05 14:00:43 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,4 +17,5 @@
 #define BLUE	"\033[1;34m"
 #define GREEN	"\033[1;32m"
 #define GREY	"\033[30m"
+#define MAGENTA	"\033[1;35m"
 #define RESET	"\033[0m"

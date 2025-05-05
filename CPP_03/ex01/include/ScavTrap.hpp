@@ -6,7 +6,7 @@
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 17:40:40 by aschenk           #+#    #+#             */
-/*   Updated: 2025/05/02 14:09:54 by aschenk          ###   ########.fr       */
+/*   Updated: 2025/05/05 14:23:36 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,11 @@
 #include <ClapTrap.hpp>
 
 class ScavTrap : public ClapTrap {
+	private:
+		static const unsigned int	_DEFAULT_HIT_POINTS;
+		static const unsigned int	_DEFAULT_ENERGY_POINTS;
+		static const unsigned int	_DEFAULT_ATTACK_DAMAGE;
+		
 	public:
 		ScavTrap();
 		ScavTrap(std::string name);

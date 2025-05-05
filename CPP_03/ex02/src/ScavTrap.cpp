@@ -6,7 +6,7 @@
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 17:40:31 by aschenk           #+#    #+#             */
-/*   Updated: 2025/05/05 08:28:06 by aschenk          ###   ########.fr       */
+/*   Updated: 2025/05/05 14:30:45 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,27 @@
 #include <ScavTrap.hpp>
 #include <colors.hpp>
 
+// Initialize default values
+
+const unsigned int	ScavTrap::_DEFAULT_HIT_POINTS		= 100;
+const unsigned int	ScavTrap::_DEFAULT_ENERGY_POINTS	= 50;
+const unsigned int	ScavTrap::_DEFAULT_ATTACK_DAMAGE	= 20;
+
 // ORTHODOX CANONICAL FORM //
 
 ScavTrap::ScavTrap() : ClapTrap() { // Initialize base class ClapTrap with default name
-	_hitPoints = 100; // Re-define base values
-	_energyPoints = 50;
-	_attackDamage = 20;
+	_hitPoints = _DEFAULT_HIT_POINTS; // Re-define base values
+	_energyPoints = _DEFAULT_ENERGY_POINTS;
+	_attackDamage = _DEFAULT_ATTACK_DAMAGE;
 	
 	std::cout << "🐣 " << BLUE << _name << RESET << ": " << GREEN << "ScavTrap" << RESET 
 	<< " default constructor called.\n";
 }
 
 ScavTrap::ScavTrap(std::string name) : ClapTrap(name) {
-	_hitPoints = 100; // Re-define base values
-	_energyPoints = 50;
-	_attackDamage = 20;
+	_hitPoints = _DEFAULT_HIT_POINTS; // Re-define base values
+	_energyPoints = _DEFAULT_ENERGY_POINTS;
+	_attackDamage = _DEFAULT_ATTACK_DAMAGE;
 	
 	std::cout << "🐣 " << BLUE << _name << RESET << ": " << GREEN << "ScavTrap" << RESET
 	<< " parameterized constructor called.\n";
