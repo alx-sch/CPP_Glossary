@@ -6,7 +6,7 @@
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 15:43:15 by aschenk           #+#    #+#             */
-/*   Updated: 2025/05/05 08:50:31 by aschenk          ###   ########.fr       */
+/*   Updated: 2025/05/05 19:08:49 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ DiamondTrap inherits from both FragTrap and ScavTrap.
 */
 
 #include <iostream>
-#include <DiamondTrap.hpp>
-#include <colors.hpp>
+#include "DiamondTrap.hpp"
+#include "colors.hpp"
 
 DiamondTrap::DiamondTrap() 
 	:	ClapTrap("NoName_clap_name"),	// Initialize ClapTrap with default name

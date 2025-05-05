@@ -6,11 +6,14 @@
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 15:39:32 by aschenk           #+#    #+#             */
-/*   Updated: 2025/05/04 19:51:15 by aschenk          ###   ########.fr       */
+/*   Updated: 2025/05/05 18:49:09 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string>
+#ifndef CLAPTRAP_HPP
+# define CLAPTRAP_HPP
+
+# include <string>
 
 class ClapTrap {
 	private:
@@ -35,3 +38,5 @@ class ClapTrap {
 		unsigned int	getEnergyPoints() const;
 		unsigned int	getAttackDamage() const;
 };
+
+#endif

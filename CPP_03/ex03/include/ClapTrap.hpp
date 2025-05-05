@@ -6,13 +6,14 @@
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 15:39:32 by aschenk           #+#    #+#             */
-/*   Updated: 2025/05/04 19:52:22 by aschenk          ###   ########.fr       */
+/*   Updated: 2025/05/05 18:52:52 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#pragma once
+#ifndef CLAPTRAP_HPP
+# define CLAPTRAP_HPP
 
-#include <string>
+# include <string>
 
 class ClapTrap {
 	protected:
@@ -37,3 +38,5 @@ class ClapTrap {
 		unsigned int	getEnergyPoints() const;
 		unsigned int	getAttackDamage() const;
 };
+
+#endif

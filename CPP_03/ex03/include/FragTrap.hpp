@@ -6,14 +6,15 @@
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 15:02:54 by aschenk           #+#    #+#             */
-/*   Updated: 2025/05/05 08:16:42 by aschenk          ###   ########.fr       */
+/*   Updated: 2025/05/05 19:08:14 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#pragma once
+#ifndef FRAGTRAP_HPP
+# define FRAGTRAP_HPP
 
-#include <string>
-#include <ClapTrap.hpp>
+# include <string>
+# include "ClapTrap.hpp"
 
 class FragTrap : virtual public ClapTrap {
 	protected:
@@ -30,3 +31,5 @@ class FragTrap : virtual public ClapTrap {
 
 		void	highFivesGuys(); // new ability
 };
+
+#endif

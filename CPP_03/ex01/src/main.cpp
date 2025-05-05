@@ -6,15 +6,17 @@
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 17:35:51 by aschenk           #+#    #+#             */
-/*   Updated: 2025/05/05 02:37:13 by aschenk          ###   ########.fr       */
+/*   Updated: 2025/05/05 18:59:23 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
-#include <ClapTrap.hpp>
-#include <ScavTrap.hpp>
-#include <colors.hpp>
+#include "ClapTrap.hpp"
+#include "ScavTrap.hpp"
+#include "colors.hpp"
 
+// Prints the name, HP, EP, and attack damage of a unit.
+// The unit must have getName(), getHitPoints(), getEnergyPoints(), and getAttackDamage().
 template <typename T>
 void	getStatus(const T& unit) {
 	std::cout << "Name: " << BLUE << unit.getName() << RESET << "\n";

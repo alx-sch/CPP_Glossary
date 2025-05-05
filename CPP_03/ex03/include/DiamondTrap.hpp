@@ -6,7 +6,7 @@
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 15:42:52 by aschenk           #+#    #+#             */
-/*   Updated: 2025/05/04 16:05:31 by aschenk          ###   ########.fr       */
+/*   Updated: 2025/05/05 18:53:33 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,11 @@ FragTrap and ScavTrap inherit from ClapTrap.
 DiamondTrap inherits from both FragTrap and ScavTrap.
 */
 
-#pragma once
+#ifndef DIAMONDTRAP_HPP
+# define DIAMONDTRAP_HPP
 
-#include "FragTrap.hpp"
-#include "ScavTrap.hpp"
+# include "FragTrap.hpp"
+# include "ScavTrap.hpp"
 
 class DiamondTrap : public ScavTrap, public FragTrap {
 	private:
@@ -34,3 +35,5 @@ class DiamondTrap : public ScavTrap, public FragTrap {
 
 		void	whoAmI(); // new ability
 };
+
+#endif

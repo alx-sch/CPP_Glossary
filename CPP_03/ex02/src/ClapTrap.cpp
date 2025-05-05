@@ -6,13 +6,13 @@
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 15:39:35 by aschenk           #+#    #+#             */
-/*   Updated: 2025/05/05 08:27:11 by aschenk          ###   ########.fr       */
+/*   Updated: 2025/05/05 19:00:14 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
-#include <ClapTrap.hpp>
-#include <colors.hpp>
+#include "ClapTrap.hpp"
+#include "colors.hpp"
 
 // ORTHODOX CANONICAL FORM //
 

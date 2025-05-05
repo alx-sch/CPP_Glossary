@@ -6,7 +6,7 @@
 #    By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/02 15:01:32 by aschenk           #+#    #+#              #
-#    Updated: 2025/05/04 15:03:54 by aschenk          ###   ########.fr        #
+#    Updated: 2025/05/05 19:15:24 by aschenk          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,12 +32,12 @@ HDRS_DIR :=		include
 
 # COMPILER
 CXX :=			c++
-CFLAGS :=		-std=c++98
-CFLAGS +=		-Werror -Wextra -Wall
-CFLAGS +=		-I$(HDRS_DIR)
-CFLAGS +=		-Wshadow	# Warning on shadowing: A variable in a closer (inner) scope has the same name as a variable in an outer scope, effectively "hiding" or "shadowing" the outer one in that scope.
-CFLAGS +=		-Wpedantic  # Enforces strict ISO C++ compliance.
-#CFLAGS +=		-g
+CXXFLAGS :=		-std=c++98
+CXXFLAGS +=		-Werror -Wextra -Wall
+CXXFLAGS +=		-I$(HDRS_DIR)
+CXXFLAGS +=		-Wshadow	# Warning on shadowing: A variable in a closer (inner) scope has the same name as a variable in an outer scope, effectively "hiding" or "shadowing" the outer one in that scope.
+CXXFLAGS +=		-Wpedantic  # Enforces strict ISO C++ compliance.
+#CXXFLAGS +=	-g
 
 # Used for progress bar
 TOTAL_SRCS :=	$(words $(SRCS))
@@ -61,7 +61,7 @@ all:		$(NAME)
 # Compiles and links all o. files into the final binary.
 # Print out l once program is compiled.
 $(NAME):	$(OBJS)
-	@$(CXX) $(CFLAGS) $(OBJS) -o $(NAME)
+	@$(CXX) $(CXXFLAGS) $(OBJS) -o $(NAME)
 	@echo "$(BOLD)$(YELLOW)\n$(NAME) successfully compiled.$(RESET)"
 
 ## COMPILATION PROGRESS BAR ##
@@ -84,7 +84,7 @@ $(OBJS_DIR)/%.o:	%.cpp
 	@if [ $(PERCENT) -eq 100 ]; then printf "$(GREEN)"; fi
 	@printf "%d/%d - " $(SRC_NUM) $(TOTAL_SRCS)
 	@printf "%d%% $(RESET)" $(PERCENT)
-	@$(CXX) $(CFLAGS) -c -MMD -MP $< -o $@
+	@$(CXX) $(CXXFLAGS) -c -MMD -MP $< -o $@
 
 # Rule to remove all generated object files.
 clean:

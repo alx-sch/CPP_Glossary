@@ -6,14 +6,15 @@
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 17:40:40 by aschenk           #+#    #+#             */
-/*   Updated: 2025/05/05 08:14:55 by aschenk          ###   ########.fr       */
+/*   Updated: 2025/05/05 19:08:27 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#pragma once
+#ifndef SCAVTRAP_HPP
+# define SCAVTRAP_HPP
 
-#include <string>
-#include <ClapTrap.hpp>
+# include <string>
+# include "ClapTrap.hpp"
 
 class ScavTrap : virtual public ClapTrap {
 	protected:
@@ -31,3 +32,5 @@ class ScavTrap : virtual public ClapTrap {
 		void	attack(const std::string& target); // Override inherited attack fct
 		void	guardGate(); // new ability
 };
+
+#endif

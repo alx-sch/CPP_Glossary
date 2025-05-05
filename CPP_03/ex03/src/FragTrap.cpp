@@ -6,13 +6,13 @@
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 15:03:15 by aschenk           #+#    #+#             */
-/*   Updated: 2025/05/05 08:29:58 by aschenk          ###   ########.fr       */
+/*   Updated: 2025/05/05 19:09:11 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
-#include <FragTrap.hpp>
-#include <colors.hpp>
+#include "FragTrap.hpp"
+#include "colors.hpp"
 
 // ORTHODOX CANONICAL FORM //
 

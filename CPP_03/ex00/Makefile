@@ -6,27 +6,34 @@
 #    By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/04/29 15:38:25 by aschenk           #+#    #+#              #
-#    Updated: 2025/04/30 11:29:39 by aschenk          ###   ########.fr        #
+#    Updated: 2025/05/05 19:16:53 by aschenk          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME :=			ClapTrap
 
 # SOURCE FILES
-SRCS :=			main.cpp \
+SRCS_DIR :=		src
+SRCS_FILES :=	main.cpp \
 				ClapTrap.cpp
-				
+
+SRCS :=			$(addprefix $(SRCS_DIR)/, $(SRCS_FILES))
+
 # OBJECT FILES
 OBJS_DIR :=		obj
 OBJS :=			$(SRCS:%.cpp=$(OBJS_DIR)/%.o)
 DEPS :=			$(OBJS:.o=.d)
 
+# HEADER FILES
+HDRS_DIR :=		include
+
 # COMPILER
 CXX :=			c++
-CFLAGS :=		-std=c++98
-CFLAGS +=		-Werror -Wextra -Wall
-#CFLAGS +=		-Wpedantic
-#CFLAGS +=		-g
+CXXFLAGS :=		-std=c++98
+CXXFLAGS +=		-Werror -Wextra -Wall
+CXXFLAGS +=		-I$(HDRS_DIR)
+CXXFLAGS +=		-Wpedantic # Enforces strict ISO C++ compliance.
+#CXXFLAGS +=	-g
 
 # Used for progress bar
 TOTAL_SRCS :=	$(words $(SRCS))
@@ -50,7 +57,7 @@ all:		$(NAME)
 # Compiles and links all o. files into the final binary.
 # Print out l once program is compiled.
 $(NAME):	$(OBJS)
-	@$(CXX) $(CFLAGS) $(OBJS) -o $(NAME)
+	@$(CXX) $(CXXFLAGS) $(OBJS) -o $(NAME)
 	@echo "$(BOLD)$(YELLOW)\n$(NAME) successfully compiled.$(RESET)"
 
 ## COMPILATION PROGRESS BAR ##
@@ -73,7 +80,7 @@ $(OBJS_DIR)/%.o:	%.cpp
 	@if [ $(PERCENT) -eq 100 ]; then printf "$(GREEN)"; fi
 	@printf "%d/%d - " $(SRC_NUM) $(TOTAL_SRCS)
 	@printf "%d%% $(RESET)" $(PERCENT)
-	@$(CXX) $(CFLAGS) -c -MMD -MP $< -o $@
+	@$(CXX) $(CXXFLAGS) -c -MMD -MP $< -o $@
 
 # Rule to remove all generated object files.
 clean:

@@ -6,13 +6,13 @@
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 17:40:31 by aschenk           #+#    #+#             */
-/*   Updated: 2025/05/05 08:30:25 by aschenk          ###   ########.fr       */
+/*   Updated: 2025/05/05 19:09:57 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
-#include <ScavTrap.hpp>
-#include <colors.hpp>
+#include "ScavTrap.hpp"
+#include "colors.hpp"
 
 // ORTHODOX CANONICAL FORM //
 
@@ -82,5 +82,3 @@ void	ScavTrap::guardGate() {
 		std::cout << "☠️  " << BLUE << _name << RESET << " is kaputt! It can't guard anything.\n";
 	}
 }
-
-
