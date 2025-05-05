@@ -6,7 +6,7 @@
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 15:39:35 by aschenk           #+#    #+#             */
-/*   Updated: 2025/05/04 19:51:51 by aschenk          ###   ########.fr       */
+/*   Updated: 2025/05/05 01:35:36 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ void	ClapTrap::beRepaired(unsigned int amount) {
 
 // GETTERS //
 
-std::string	ClapTrap::getName() const {
+std::string		ClapTrap::getName() const {
 	return _name;
 }
 

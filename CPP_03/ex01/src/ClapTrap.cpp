@@ -6,12 +6,13 @@
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 15:39:35 by aschenk           #+#    #+#             */
-/*   Updated: 2025/05/04 19:26:01 by aschenk          ###   ########.fr       */
+/*   Updated: 2025/05/05 01:51:13 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
-#include "ClapTrap.hpp"
+#include <ClapTrap.hpp>
+#include <colors.hpp>
 
 // ORTHODOX CANONICAL FORM //
 
@@ -20,7 +21,8 @@ ClapTrap::ClapTrap()
 		_hitPoints(10),
 		_energyPoints(10),
 		_attackDamage(0) {
-	std::cout << "🐣 " << BLUE << _name << RESET << ": ClapTrap default constructor called.\n";
+	std::cout << "🐣 " << BLUE << _name << RESET << ": " << GREEN << "ClapTrap" << RESET 
+	<< " default constructor called.\n";
 }
 
 ClapTrap::ClapTrap(std::string name)
@@ -28,7 +30,8 @@ ClapTrap::ClapTrap(std::string name)
 		_hitPoints(10),
 		_energyPoints(10),
 		_attackDamage(0) {
-	std::cout << "🐣 " << BLUE << _name << RESET << ": ClapTrap parameterized constructor called.\n";
+	std::cout << "🐣 " << BLUE << _name << RESET << ": " << GREEN << "ClapTrap" << RESET
+	<< " parameterized constructor called.\n";
 }
 
 ClapTrap::ClapTrap(const ClapTrap& other) 
@@ -36,22 +39,25 @@ ClapTrap::ClapTrap(const ClapTrap& other)
 		_hitPoints(other._hitPoints),
 		_energyPoints(other._energyPoints),
 		_attackDamage(other._attackDamage) {
-	std::cout << "🐣 " << BLUE << _name << RESET << ": ClapTrap copy constructor called.\n";
+	std::cout << "🐣 " << BLUE << _name << RESET << ": " << GREEN << "ClapTrap" << RESET 
+	<< " copy constructor called.\n";
 }
 
 ClapTrap& ClapTrap::operator=(const ClapTrap &other) {
-	std::cout << "🐣 " << BLUE << _name << RESET << ": ClapTrap copy assignment operator called.\n";
 	if (this != &other) {
 		_name = other._name;
 		_hitPoints = other._hitPoints;
 		_energyPoints = other._energyPoints;
 		_attackDamage = other._attackDamage;
 	}
+	std::cout << "🐣 " << BLUE << _name << RESET << ": " << GREEN << "ClapTrap" << RESET 
+	<< " copy assignment operator called.\n";
 	return *this;
 }
 
 ClapTrap::~ClapTrap() {
-	std::cout << "🏁 " << BLUE << _name << RESET << ": ClapTrap destructor called.\n";
+	std::cout << "🏁 " << BLUE << _name << RESET << ": " << GREEN << "ClapTrap" << RESET
+	<< " destructor called.\n";
 }
 
 /// GAME FUNCTIONS //
@@ -107,7 +113,7 @@ void	ClapTrap::beRepaired(unsigned int amount) {
 
 // GETTERS //
 
-std::string	ClapTrap::getName() const {
+std::string		ClapTrap::getName() const {
 	return _name;
 }
 

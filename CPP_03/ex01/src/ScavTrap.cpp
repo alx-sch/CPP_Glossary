@@ -6,13 +6,13 @@
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 17:40:31 by aschenk           #+#    #+#             */
-/*   Updated: 2025/05/02 16:57:43 by aschenk          ###   ########.fr       */
+/*   Updated: 2025/05/05 02:20:41 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include <iostream>
 #include <ScavTrap.hpp>
+#include <colors.hpp>
 
 // ORTHODOX CANONICAL FORM //
 
@@ -20,30 +20,35 @@ ScavTrap::ScavTrap() : ClapTrap() { // Initialize base class ClapTrap with defau
 	_hitPoints = 100; // Re-define base values
 	_energyPoints = 50;
 	_attackDamage = 20;
-	std::cout << "ScavTrap " << _name << ": Default constructor called.\n";
+	std::cout << "🐣 " << BLUE << _name << RESET << ": " << GREEN << "ScavTrap" << RESET 
+	<< " default constructor called.\n";
 }
 
 ScavTrap::ScavTrap(std::string name) : ClapTrap(name) {
 	_hitPoints = 100; // Re-define base values
 	_energyPoints = 50;
 	_attackDamage = 20;
-	std::cout << "ScavTrap " << _name << ": Parameterized constructor called.\n";
+	std::cout << "🐣 " << BLUE << _name << RESET << ": " << GREEN << "ScavTrap" << RESET
+	<< " parameterized constructor called.\n";
 }
 
-ScavTrap::ScavTrap(const ScavTrap& other) : ClapTrap(other) {
-	std::cout << "ScavTrap " << _name << ": Copy constructor called.\n";
+ScavTrap::ScavTrap(const ScavTrap& other) : ClapTrap(other) { // Delegate copy constructor to ClapTrap
+	std::cout << "🐣 " << BLUE << _name << RESET << ": " << GREEN << "ScavTrap" << RESET 
+	<< " copy constructor called.\n";
 }
 
 ScavTrap& ScavTrap::operator=(const ScavTrap &other) {
-	std::cout << "ScavTrap " << _name << ": Copy assignment operator called.\n";
 	if (this != &other) {
-		ClapTrap::operator=(other); // Call base class assignment operator
+		ClapTrap::operator=(other); // Delegate copy assignment to ClapTrap
 	}
+	std::cout << "🐣 " << BLUE << _name << RESET << ": " << GREEN << "ScavTrap" << RESET 
+	<< " copy assignment operator called.\n";
 	return *this;
 }
 
 ScavTrap::~ScavTrap() {
-	std::cout << "ScavTrap " << _name << ": Destructor called.\n";
+	std::cout << "🏁 " << BLUE << _name << RESET << ": " << GREEN << "ScavTrap" << RESET
+	<< " destructor called.\n";
 }
 
 /// GAME FUNCTIONS //
@@ -54,12 +59,12 @@ ScavTrap::~ScavTrap() {
 void	ScavTrap::attack(const std::string& target) {
 	// HP and energy left?
 	if (_hitPoints > 0 && _energyPoints > 0) {
+		std::cout << "👀 " << BLUE << _name << RESET << " stares at " << RED << target << RESET << 
+		" intensively, causing " << YELLOW << _attackDamage << " damage" << RESET << "!\n";
 		_energyPoints -= 1;
-		std::cout << "ScavTrap " << _name << " stares at " << target
-		<< " intensively, causing " << _attackDamage << " points of damage!\n";
 	}
 	else { // NO HP or energy left! 
-		std::cout << "ClapTrap " << _name << " is kaputt! It can't attack.\n";
+		std::cout << "☠️  " << BLUE << _name << RESET << " is kaputt! It can't attack.\n";
 	}
 }
 
@@ -67,10 +72,10 @@ void	ScavTrap::attack(const std::string& target) {
 // It can only be used if it has more than 0 `_hitPoints`.
 void	ScavTrap::guardGate() {
 	if (_hitPoints > 0) {
-		std::cout << "ScavTrap " << _name << " is now in Gate Keeper mode.\n";
+		std::cout << "🛡️  " << BLUE << _name << RESET " is guarding the gate!\n";;
 	}
 	else {
-		std::cout << "ScavTrap " << _name << " is kaputt and can't guard anything anymore!\n";
+		std::cout << "☠️  " << BLUE << _name << RESET << " is kaputt! It can't guard anything.\n";
 	}
 }
 
