@@ -6,7 +6,7 @@
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 15:43:15 by aschenk           #+#    #+#             */
-/*   Updated: 2025/05/05 19:29:01 by aschenk          ###   ########.fr       */
+/*   Updated: 2025/05/05 19:47:33 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,8 @@ DiamondTrap::~DiamondTrap() {
 
 // Displays the DiamondTrap's own name (_name) and the inherited ClapTrap name (ClapTrap::_name).
 void	DiamondTrap::whoAmI() {
-	if (_hitPoints > 0) {
+	if (_hitPoints > 0 && _energyPoints > 0) {
+		_energyPoints -= 1;
 		std::cout << "💎 " << BLUE << _name << RESET << ": " << "My " << GREEN << "DiamondTrap" << RESET 
 		<< " name is: '" << YELLOW << _name << RESET << "'.\n";
 		std::cout << "💎 " << BLUE << _name << RESET << ": " << "My " << GREEN << "ClapTrap" << RESET 

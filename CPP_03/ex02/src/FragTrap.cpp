@@ -6,13 +6,19 @@
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 15:03:15 by aschenk           #+#    #+#             */
-/*   Updated: 2025/05/05 19:27:50 by aschenk          ###   ########.fr       */
+/*   Updated: 2025/05/05 19:56:12 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 #include "FragTrap.hpp"
 #include "colors.hpp"
+
+// Initialize default values
+
+const unsigned int	ScavTrap::_DEFAULT_HIT_POINTS		= 100;
+const unsigned int	ScavTrap::_DEFAULT_ENERGY_POINTS	= 100;
+const unsigned int	ScavTrap::_DEFAULT_ATTACK_DAMAGE	= 30;
 
 // ORTHODOX CANONICAL FORM //
 
@@ -60,7 +66,8 @@ FragTrap::~FragTrap() {
 // FragTrap requests a high five from the user.
 // It can only be used if it has more than 0 `_hitPoints`.
 void	FragTrap::highFivesGuys() {
-	if (_hitPoints > 0) {
+	if (_hitPoints > 0 && _energyPoints > 0) {
+		_energyPoints -= 1;
 		std::cout << "✋ " << BLUE << _name << RESET " requests a high five! *SMACK*\n";
 	}
 	else {

@@ -6,7 +6,7 @@
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 17:35:51 by aschenk           #+#    #+#             */
-/*   Updated: 2025/05/05 19:00:44 by aschenk          ###   ########.fr       */
+/*   Updated: 2025/05/05 21:09:27 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	main() {
 		std::cout << "== ClapTrap Test == \n";
 		std::cout << "=================== \n\n" << RESET;
 
-		std::cout << YELLOW << "CONSTRUCTION\n\n" << RESET;
+		std::cout << YELLOW << "-- CONSTRUCTION --\n\n" << RESET;
 		
 		std::cout << GREY << "ClapTrap clappy(\"Clappy\");\n" << RESET;
 		ClapTrap	clappy("Clappy");
@@ -61,8 +61,9 @@ int	main() {
 		std::cout << GREY << "\ngetStatus(noName);\n" << RESET;
 		getStatus(noName);
 
-		std::cout << YELLOW << "\nACTIONS\n\n" << RESET;
+		std::cout << YELLOW << "\n-- ACTIONS --\n\n" << RESET;
 
+		std::cout << GREY << "ClapTrap 'clappy' in battle:\n" << RESET;
 		clappy.attack("Evil Foe");
 		getStatus(clappy);
 		clappy.takeDamage(4);
@@ -74,14 +75,14 @@ int	main() {
 		clappy.attack("End Boss");
 		clappy.beRepaired(999);
 
-		std::cout << YELLOW << "\nDECONSTRUCTION\n\n" << RESET;
+		std::cout << YELLOW << "\n-- DECONSTRUCTION --\n\n" << RESET;
 	}	
 	{ // ScavTrap Test
 		std::cout << MAGENTA << "\n=================== \n";
 		std::cout << "== ScavTrap Test == \n";
 		std::cout << "=================== \n\n" << RESET;
 
-		std::cout << YELLOW << "CONSTRUCTION\n\n" << RESET;
+		std::cout << YELLOW << "-- CONSTRUCTION --\n\n" << RESET;
 		
 		std::cout << GREY << "ScavTrap scavvy(\"Scavvy\");\n" << RESET;
 		ScavTrap	scavvy("Scavvy");
@@ -109,29 +110,29 @@ int	main() {
 		std::cout << GREY << "\ngetStatus(noName);\n" << RESET;
 		getStatus(noName);
 
-		std::cout << YELLOW << "\nACTIONS\n\n" << RESET;
+		std::cout << YELLOW << "\n-- ACTIONS --\n\n" << RESET;
 
 		scavvy.attack("Evil Foe");
 		getStatus(scavvy);
 		scavvy.takeDamage(4);
 		getStatus(scavvy);
-		scavvy.beRepaired(2);
+		scavvy.beRepaired(99);
 		getStatus(scavvy);
 		scavvy.guardGate();
-		scavvy.takeDamage(99);
+		scavvy.takeDamage(999);
 		getStatus(scavvy);
 		scavvy.attack("End Boss");
 		scavvy.guardGate();
 		scavvy.beRepaired(999);
 
-		std::cout << YELLOW << "\nDECONSTRUCTION\n\n" << RESET;
+		std::cout << YELLOW << "\n-- DECONSTRUCTION --\n\n" << RESET;
 	}
 	{ // FragTrap Test
 		std::cout << MAGENTA << "\n=================== \n";
 		std::cout << "== FragTrap Test == \n";
 		std::cout << "=================== \n\n" << RESET;
 
-		std::cout << YELLOW << "CONSTRUCTION\n\n" << RESET;
+		std::cout << YELLOW << "-- CONSTRUCTION --\n\n" << RESET;
 		
 		std::cout << GREY << "FragTrap fraggy(\"Fraggy\");\n" << RESET;
 		FragTrap	fraggy("Fraggy");
@@ -159,22 +160,22 @@ int	main() {
 		std::cout << GREY << "\ngetStatus(noName);\n" << RESET;
 		getStatus(noName);
 
-		std::cout << YELLOW << "\nACTIONS\n\n" << RESET;
+		std::cout << YELLOW << "\n-- ACTIONS --\n\n" << RESET;
 
 		fraggy.attack("Evil Foe");
 		getStatus(fraggy);
 		fraggy.takeDamage(4);
 		getStatus(fraggy);
-		fraggy.beRepaired(2);
+		fraggy.beRepaired(99);
 		getStatus(fraggy);
 		fraggy.highFivesGuys();
-		fraggy.takeDamage(99);
+		fraggy.takeDamage(999);
 		getStatus(fraggy);
 		fraggy.attack("End Boss");
 		fraggy.highFivesGuys();
 		fraggy.beRepaired(999);
 
-		std::cout << YELLOW << "\nDECONSTRUCTION\n\n" << RESET;
+		std::cout << YELLOW << "\n-- DECONSTRUCTION --\n\n" << RESET;
 	}
 	
 	return 0;

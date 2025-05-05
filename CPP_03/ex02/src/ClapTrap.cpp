@@ -6,13 +6,20 @@
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 15:39:35 by aschenk           #+#    #+#             */
-/*   Updated: 2025/05/05 19:27:21 by aschenk          ###   ########.fr       */
+/*   Updated: 2025/05/05 20:46:08 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 #include "ClapTrap.hpp"
 #include "colors.hpp"
+
+// Initialize default values
+
+const std::string	ClapTrap::_DEFAULT_NAME				= "NoName";
+const unsigned int	ClapTrap::_DEFAULT_HIT_POINTS		= 10;
+const unsigned int	ClapTrap::_DEFAULT_ENERGY_POINTS	= 10;
+const unsigned int	ClapTrap::_DEFAULT_ATTACK_DAMAGE	= 0;
 
 // ORTHODOX CANONICAL FORM //
 

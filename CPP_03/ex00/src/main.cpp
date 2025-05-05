@@ -6,7 +6,7 @@
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 15:39:30 by aschenk           #+#    #+#             */
-/*   Updated: 2025/05/05 18:56:58 by aschenk          ###   ########.fr       */
+/*   Updated: 2025/05/05 21:08:03 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	main() {
 		std::cout << "== ClapTrap Test == \n";
 		std::cout << "=================== \n\n" << RESET;
 
-		std::cout << YELLOW << "CONSTRUCTION\n\n" << RESET;
+		std::cout << YELLOW << "-- CONSTRUCTION --\n\n" << RESET;
 		
 		std::cout << GREY << "ClapTrap clappy(\"Clappy\");\n" << RESET;
 		ClapTrap	clappy("Clappy");
@@ -59,8 +59,9 @@ int	main() {
 		std::cout << GREY << "\ngetStatus(noName);\n" << RESET;
 		getStatus(noName);
 
-		std::cout << YELLOW << "\nACTIONS\n\n" << RESET;
+		std::cout << YELLOW << "\n-- ACTIONS --\n\n" << RESET;
 
+		std::cout << GREY << "ClapTrap 'clappy' in battle:\n" << RESET;
 		clappy.attack("Evil Foe");
 		getStatus(clappy);
 		clappy.takeDamage(4);
@@ -72,7 +73,7 @@ int	main() {
 		clappy.attack("End Boss");
 		clappy.beRepaired(999);
 
-		std::cout << YELLOW << "\nDECONSTRUCTION\n\n" << RESET;
+		std::cout << YELLOW << "\n-- DECONSTRUCTION --\n\n" << RESET;
 	}
 
 	return 0;

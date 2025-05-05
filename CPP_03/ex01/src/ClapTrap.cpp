@@ -6,7 +6,7 @@
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 15:39:35 by aschenk           #+#    #+#             */
-/*   Updated: 2025/05/05 19:26:26 by aschenk          ###   ########.fr       */
+/*   Updated: 2025/05/05 20:46:45 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,21 @@
 #include "ClapTrap.hpp"
 #include "colors.hpp"
 
+// Initialize default values
+
+const std::string	ClapTrap::_DEFAULT_NAME				= "NoName";
+const unsigned int	ClapTrap::_DEFAULT_HIT_POINTS		= 10;
+const unsigned int	ClapTrap::_DEFAULT_ENERGY_POINTS	= 10;
+const unsigned int	ClapTrap::_DEFAULT_ATTACK_DAMAGE	= 0;
+
 // ORTHODOX CANONICAL FORM //
 
 ClapTrap::ClapTrap() 
 	:	_name(_DEFAULT_NAME),
 		_hitPoints(_DEFAULT_HIT_POINTS),
 		_energyPoints(_DEFAULT_ENERGY_POINTS),
-		_attackDamage(_DEFAULT_ATTACK_DAMAGE) {
+		_attackDamage(_DEFAULT_ATTACK_DAMAGE),
+		_maxHitPoints(_DEFAULT_HIT_POINTS) {
 	std::cout << "🐣 " << BLUE << _name << RESET << ": " << GREEN << "ClapTrap" << RESET 
 	<< " default constructor called.\n";
 }
@@ -29,7 +37,8 @@ ClapTrap::ClapTrap(std::string name)
 	:	_name(name),
 		_hitPoints(_DEFAULT_HIT_POINTS),
 		_energyPoints(_DEFAULT_ENERGY_POINTS),
-		_attackDamage(_DEFAULT_ATTACK_DAMAGE) {
+		_attackDamage(_DEFAULT_ATTACK_DAMAGE),
+		_maxHitPoints(_DEFAULT_HIT_POINTS) {
 	std::cout << "🐣 " << BLUE << _name << RESET << ": " << GREEN << "ClapTrap" << RESET
 	<< " parameterized constructor called.\n";
 }
@@ -38,7 +47,8 @@ ClapTrap::ClapTrap(const ClapTrap& other)
 	:	_name(other._name),
 		_hitPoints(other._hitPoints),
 		_energyPoints(other._energyPoints),
-		_attackDamage(other._attackDamage) {
+		_attackDamage(other._attackDamage),
+		_maxHitPoints(other._maxHitPoints) {
 	std::cout << "🐣 " << BLUE << _name << RESET << ": " << GREEN << "ClapTrap" << RESET 
 	<< " copy constructor called.\n";
 }

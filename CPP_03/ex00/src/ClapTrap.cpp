@@ -6,7 +6,7 @@
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 15:39:35 by aschenk           #+#    #+#             */
-/*   Updated: 2025/05/05 19:25:27 by aschenk          ###   ########.fr       */
+/*   Updated: 2025/05/05 20:53:53 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,11 @@ ClapTrap::ClapTrap(const ClapTrap& other)
 	<< " copy constructor called.\n";
 }
 
-ClapTrap& ClapTrap::operator=(const ClapTrap &other) {
+ClapTrap::~ClapTrap() {
+	std::cout << "🏁 " << BLUE << _name << RESET << ": " << GREEN << "ClapTrap" << RESET << " destructor called.\n";
+}
+
+ClapTrap&	ClapTrap::operator=(const ClapTrap &other) {
 	if (this != &other) {
 		_name = other._name;
 		_hitPoints = other._hitPoints;
@@ -62,10 +66,6 @@ ClapTrap& ClapTrap::operator=(const ClapTrap &other) {
 	<< " copy assignment operator called.\n";
 	
 	return *this;
-}
-
-ClapTrap::~ClapTrap() {
-	std::cout << "🏁 " << BLUE << _name << RESET << ": " << GREEN << "ClapTrap" << RESET << " destructor called.\n";
 }
 
 /// GAME FUNCTIONS //

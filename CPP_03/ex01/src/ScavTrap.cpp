@@ -6,7 +6,7 @@
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 17:40:31 by aschenk           #+#    #+#             */
-/*   Updated: 2025/05/05 19:26:43 by aschenk          ###   ########.fr       */
+/*   Updated: 2025/05/05 21:04:14 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,19 @@
 #include "ScavTrap.hpp"
 #include "colors.hpp"
 
+// Initialize default values
+
+const unsigned int	ScavTrap::_DEFAULT_HIT_POINTS		= 100;
+const unsigned int	ScavTrap::_DEFAULT_ENERGY_POINTS	= 50;
+const unsigned int	ScavTrap::_DEFAULT_ATTACK_DAMAGE	= 20;
+
 // ORTHODOX CANONICAL FORM //
 
 ScavTrap::ScavTrap() : ClapTrap() { // Initialize base class ClapTrap with default name
 	_hitPoints = _DEFAULT_HIT_POINTS; // Re-define base values
 	_energyPoints = _DEFAULT_ENERGY_POINTS;
 	_attackDamage = _DEFAULT_ATTACK_DAMAGE;
+	_maxHitPoints = _DEFAULT_HIT_POINTS;
 	
 	std::cout << "🐣 " << BLUE << _name << RESET << ": " << GREEN << "ScavTrap" << RESET 
 	<< " default constructor called.\n";
@@ -75,8 +82,9 @@ void	ScavTrap::attack(const std::string& target) {
 // ScavTrap enters Gate Keeper mode.
 // It can only be used if it has more than 0 `_hitPoints`.
 void	ScavTrap::guardGate() {
-	if (_hitPoints > 0) {
-		std::cout << "🛡️  " << BLUE << _name << RESET " is guarding the gate!\n";;
+	if (_hitPoints > 0 && _energyPoints > 0) {
+		_energyPoints -= 1;
+		std::cout << "🛡️  " << BLUE << _name << RESET " is guarding the gate!\n";
 	}
 	else {
 		std::cout << "☠️  " << BLUE << _name << RESET << " is kaputt! It can't guard anything.\n";

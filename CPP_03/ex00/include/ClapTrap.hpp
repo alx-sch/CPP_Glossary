@@ -6,7 +6,7 @@
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 15:39:32 by aschenk           #+#    #+#             */
-/*   Updated: 2025/05/05 19:24:36 by aschenk          ###   ########.fr       */
+/*   Updated: 2025/05/05 20:56:44 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ class ClapTrap {
 		ClapTrap();
 		ClapTrap(std::string name);
 		ClapTrap(const ClapTrap& other);
-		ClapTrap& operator=(const ClapTrap& other);
 		~ClapTrap();
+		ClapTrap&	operator=(const ClapTrap& other);
 
 		void	attack(const std::string& target);
 		void	takeDamage(unsigned int amount);

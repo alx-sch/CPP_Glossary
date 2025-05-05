@@ -6,7 +6,7 @@
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 17:40:40 by aschenk           #+#    #+#             */
-/*   Updated: 2025/05/05 19:25:47 by aschenk          ###   ########.fr       */
+/*   Updated: 2025/05/05 20:43:57 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ class ScavTrap : public ClapTrap {
 		ScavTrap& operator=(const ScavTrap& other);
 		~ScavTrap();
 
-		void	attack(const std::string& target); // Override inherited attack fct
+		void	attack(const std::string& target); // Override ClapTrap's attack()
 		void	guardGate(); // new ability
 };
 

@@ -6,13 +6,19 @@
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 17:40:31 by aschenk           #+#    #+#             */
-/*   Updated: 2025/05/05 19:29:58 by aschenk          ###   ########.fr       */
+/*   Updated: 2025/05/05 19:55:42 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 #include "ScavTrap.hpp"
 #include "colors.hpp"
+
+// Initialize default values
+
+const unsigned int	ScavTrap::_DEFAULT_HIT_POINTS		= 100;
+const unsigned int	ScavTrap::_DEFAULT_ENERGY_POINTS	= 50;
+const unsigned int	ScavTrap::_DEFAULT_ATTACK_DAMAGE	= 20;
 
 // ORTHODOX CANONICAL FORM //
 
@@ -75,7 +81,8 @@ void	ScavTrap::attack(const std::string& target) {
 // ScavTrap enters Gate Keeper mode.
 // It can only be used if it has more than 0 `_hitPoints`.
 void	ScavTrap::guardGate() {
-	if (_hitPoints > 0) {
+	if (_hitPoints > 0 && _energyPoints > 0) {
+		_energyPoints -= 1;
 		std::cout << "🛡️  " << BLUE << _name << RESET " is guarding the gate!\n";;
 	}
 	else {
