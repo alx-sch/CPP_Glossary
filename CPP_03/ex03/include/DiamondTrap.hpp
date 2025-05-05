@@ -6,7 +6,7 @@
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 15:42:52 by aschenk           #+#    #+#             */
-/*   Updated: 2025/05/05 18:53:33 by aschenk          ###   ########.fr       */
+/*   Updated: 2025/05/05 19:28:31 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ class DiamondTrap : public ScavTrap, public FragTrap {
 		~DiamondTrap();
 
 		void	whoAmI(); // new ability
+
+		std::string		getName() const; // Override ClapTrap's getName()
 };
 
 #endif

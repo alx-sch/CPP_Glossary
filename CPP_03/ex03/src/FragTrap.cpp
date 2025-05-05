@@ -6,7 +6,7 @@
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 15:03:15 by aschenk           #+#    #+#             */
-/*   Updated: 2025/05/05 19:09:11 by aschenk          ###   ########.fr       */
+/*   Updated: 2025/05/05 19:29:21 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,31 +17,31 @@
 // ORTHODOX CANONICAL FORM //
 
 FragTrap::FragTrap() : ClapTrap() { // Initialize base class ClapTrap with default name
-	_hitPoints = 100; // Re-define base values
-	_energyPoints = 100;
-	_attackDamage = 30;
+	_hitPoints = _DEFAULT_HIT_POINTS; // Re-define base values
+	_energyPoints = _DEFAULT_ENERGY_POINTS;
+	_attackDamage = _DEFAULT_ATTACK_DAMAGE;
 	
 	std::cout << "🐣 " << BLUE << _name << RESET << ": " << GREEN << "FragTrap" << RESET 
 	<< " default constructor called.\n";
 }
 
 FragTrap::FragTrap(std::string name) : ClapTrap(name) {
-	_hitPoints = 100; // Re-define base values
-	_energyPoints = 100;
-	_attackDamage = 30;
+	_hitPoints = _DEFAULT_HIT_POINTS; // Re-define base values
+	_energyPoints = _DEFAULT_ENERGY_POINTS;
+	_attackDamage = _DEFAULT_ATTACK_DAMAGE;
 	
 	std::cout << "🐣 " << BLUE << _name << RESET << ": " << GREEN << "FragTrap" << RESET
 	<< " parameterized constructor called.\n";
 }
 
-FragTrap::FragTrap(const FragTrap& other) : ClapTrap(other) {
+FragTrap::FragTrap(const FragTrap& other) : ClapTrap(other) { // Delegate copy constructor to ClapTrap
 	std::cout << "🐣 " << BLUE << _name << RESET << ": " << GREEN << "FragTrap" << RESET 
 	<< " copy constructor called.\n";
 }
 
 FragTrap& FragTrap::operator=(const FragTrap &other) {
 	if (this != &other) {
-		ClapTrap::operator=(other); // Call base class assignment operator
+		ClapTrap::operator=(other);
 	}
 	
 	std::cout << "🐣 " << BLUE << _name << RESET << ": " << GREEN << "FragTrap" << RESET 

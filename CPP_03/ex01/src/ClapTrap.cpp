@@ -6,7 +6,7 @@
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 15:39:35 by aschenk           #+#    #+#             */
-/*   Updated: 2025/05/05 18:59:07 by aschenk          ###   ########.fr       */
+/*   Updated: 2025/05/05 19:26:26 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,19 @@
 // ORTHODOX CANONICAL FORM //
 
 ClapTrap::ClapTrap() 
-	:	_name("NoName"),
-		_hitPoints(10),
-		_energyPoints(10),
-		_attackDamage(0) {
+	:	_name(_DEFAULT_NAME),
+		_hitPoints(_DEFAULT_HIT_POINTS),
+		_energyPoints(_DEFAULT_ENERGY_POINTS),
+		_attackDamage(_DEFAULT_ATTACK_DAMAGE) {
 	std::cout << "🐣 " << BLUE << _name << RESET << ": " << GREEN << "ClapTrap" << RESET 
 	<< " default constructor called.\n";
 }
 
 ClapTrap::ClapTrap(std::string name)
 	:	_name(name),
-		_hitPoints(10),
-		_energyPoints(10),
-		_attackDamage(0) {
+		_hitPoints(_DEFAULT_HIT_POINTS),
+		_energyPoints(_DEFAULT_ENERGY_POINTS),
+		_attackDamage(_DEFAULT_ATTACK_DAMAGE) {
 	std::cout << "🐣 " << BLUE << _name << RESET << ": " << GREEN << "ClapTrap" << RESET
 	<< " parameterized constructor called.\n";
 }

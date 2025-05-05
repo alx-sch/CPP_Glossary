@@ -6,7 +6,7 @@
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 17:40:40 by aschenk           #+#    #+#             */
-/*   Updated: 2025/05/05 19:08:27 by aschenk          ###   ########.fr       */
+/*   Updated: 2025/05/05 19:28:41 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@
 
 class ScavTrap : virtual public ClapTrap {
 	protected:
-		const static unsigned int _hitPointsInit = 100;
-		const static unsigned int _energyPointsInit = 50;
-		const static unsigned int _attackDamageInit = 20;
+		static const unsigned int	_DEFAULT_HIT_POINTS;
+		static const unsigned int	_DEFAULT_ENERGY_POINTS;
+		static const unsigned int	_DEFAULT_ATTACK_DAMAGE;
 		
 	public:
 		ScavTrap();

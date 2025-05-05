@@ -6,7 +6,7 @@
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 15:02:54 by aschenk           #+#    #+#             */
-/*   Updated: 2025/05/05 19:08:14 by aschenk          ###   ########.fr       */
+/*   Updated: 2025/05/05 19:28:35 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@
 
 class FragTrap : virtual public ClapTrap {
 	protected:
-		const static unsigned int _hitPointsInit = 100;
-		const static unsigned int _energyPointsInit = 100;
-		const static unsigned int _attackDamageInit = 30;
+		static const unsigned int	_DEFAULT_HIT_POINTS;
+		static const unsigned int	_DEFAULT_ENERGY_POINTS;
+		static const unsigned int	_DEFAULT_ATTACK_DAMAGE;
 	
 	public:
 		FragTrap();

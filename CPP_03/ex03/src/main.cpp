@@ -6,7 +6,7 @@
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 17:35:51 by aschenk           #+#    #+#             */
-/*   Updated: 2025/05/05 19:09:41 by aschenk          ###   ########.fr       */
+/*   Updated: 2025/05/05 19:29:40 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,48 +182,99 @@ int	main() {
 		std::cout << "== DiamondTrap Test == \n";
 		std::cout << "====================== \n\n" << RESET;
 
-		std::cout << YELLOW << "CONSTRUCTION\n\n" << RESET;
+		std::cout << YELLOW << "CONSTRUCTION - Default\n\n" << RESET;
 		
-		std::cout << GREY << "DiamondTrap diamondy(\"Diamondy\");\n" << RESET;
-		DiamondTrap	diamondy("Diamondy");
-		std::cout << GREY << "\ngetStatus(diamondy);\n" << RESET;
-		getStatus(diamondy);
+		std::cout << GREY << "DiamondTrap nada;\n" << RESET;
+		DiamondTrap	nada;
+		std::cout << GREY << "\ngetStatus(nada);\n" << RESET;
+		getStatus(nada);
 
-		diamondy.whoAmI();
+		std::cout << YELLOW << "\nACTIONS - Default\n\n" << RESET;
+		nada.attack("Evil Foe");
+		nada.takeDamage(42);
+		nada.beRepaired(21);
+		nada.guardGate();
+		nada.highFivesGuys();
+		nada.whoAmI();
+		nada.takeDamage(99);
+		nada.attack("Evil Foe");
+		nada.guardGate();
+		nada.highFivesGuys();
+		nada.whoAmI();
 
-		std::cout << GREY << "\ndiamondy.takeDamage(4);\n" << RESET;
-		diamondy.takeDamage(4);
+		std::cout << GREY << "\ngetStatus(nada);\n" << RESET;
+		getStatus(nada);
 
-		std::cout << GREY << "\nDiamondTrap diamondyCpy(diamondy);\n" << RESET;
-		DiamondTrap	diamondyCpy(diamondy);
-		std::cout << GREY << "\ngetStatus(diamondyCpy);\n" << RESET;
-		getStatus(diamondyCpy);
+		////
 
-		std::cout << GREY << "\ndiamondyCpy.takeDamage(4);\n" << RESET;
-		diamondyCpy.takeDamage(4);
+		std::cout << YELLOW << "\nCONSTRUCTION - Pass Name\n\n" << RESET;
 
-		std::cout << GREY << "\nDiamondTrap noName;\n" << RESET;
-		DiamondTrap	noName;
-		std::cout << GREY << "\ngetStatus(noName);\n" << RESET;
-		getStatus(noName);
-		
-		std::cout << GREY << "\nnoName = diamondy;\n" << RESET;
-		noName = diamondy;
-		std::cout << GREY << "\ngetStatus(noName);\n" << RESET;
-		getStatus(noName);
+		std::cout << GREY << "DiamondTrap diddy(\"Diddy\");\n" << RESET;
+		DiamondTrap	diddy("Diddy");
+		std::cout << GREY << "\ngetStatus(diddy);\n" << RESET;
+		getStatus(diddy);
 
-		std::cout << YELLOW << "\nACTIONS\n\n" << RESET;
+		std::cout << YELLOW << "\nACTIONS - Pass Name\n\n" << RESET;
+		diddy.attack("Meanie Foe");
+		diddy.takeDamage(42);
+		diddy.beRepaired(21);
+		diddy.guardGate();
+		diddy.highFivesGuys();
+		diddy.whoAmI();
+		diddy.takeDamage(42);
 
-		diamondy.attack("Evil Foe");
-		getStatus(diamondy);
-		diamondy.takeDamage(4);
-		getStatus(diamondy);
-		diamondy.beRepaired(2);
-		getStatus(diamondy);
-		diamondy.guardGate();
-		getStatus(diamondy);
+		std::cout << GREY << "\ngetStatus(diddy);\n" << RESET;
+		getStatus(diddy);
 
-		
+		////
+
+		std::cout << YELLOW << "\nCONSTRUCTION - Copy Constructor\n\n" << RESET;
+
+		std::cout << GREY << "DiamondTrap dudu(diddy)\n" << RESET;
+		DiamondTrap	dudu(diddy);
+		std::cout << GREY << "\ngetStatus(dudu);\n" << RESET;
+		getStatus(dudu);
+
+		std::cout << YELLOW << "\nACTIONS - Copy Constructor\n\n" << RESET;
+
+		dudu.attack("Angry Foe");
+		dudu.beRepaired(21);
+		dudu.takeDamage(42);
+		dudu.guardGate();
+		dudu.highFivesGuys();
+		dudu.whoAmI();
+
+		std::cout << GREY << "\ngetStatus(dudu);\n" << RESET;
+		getStatus(dudu);
+
+		////
+
+		std::cout << YELLOW << "\nCONSTRUCTION - Copy Assignment\n\n" << RESET;
+
+		std::cout << GREY << "getStatus(nada);\n" << RESET;
+		getStatus(nada);
+
+		std::cout << GREY << "\nnada = dudu;\n" << RESET;
+		nada = dudu;
+
+		std::cout << GREY << "\ngetStatus(nada);\n" << RESET;
+		getStatus(nada);
+
+		std::cout << YELLOW << "\nACTIONS - Copy Assignment\n\n" << RESET;
+
+		nada.attack("END BOSS");
+		nada.beRepaired(21);
+		nada.guardGate();
+		nada.highFivesGuys();
+		nada.whoAmI();
+		nada.takeDamage(42);
+		nada.attack("END BOSS");
+		nada.guardGate();
+		nada.highFivesGuys();
+		nada.whoAmI();
+
+		std::cout << YELLOW << "\nDECONSTRUCTION\n\n" << RESET;
 	}
+	
 	return 0;
 }
