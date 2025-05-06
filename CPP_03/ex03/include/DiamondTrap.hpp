@@ -6,38 +6,38 @@
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 15:42:52 by aschenk           #+#    #+#             */
-/*   Updated: 2025/05/05 19:48:23 by aschenk          ###   ########.fr       */
+/*   Updated: 2025/05/06 11:59:46 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-/**
-ClapTrap is the base class.
-FragTrap and ScavTrap inherit from ClapTrap.
-DiamondTrap inherits from both FragTrap and ScavTrap.
-*/
 
 #ifndef DIAMONDTRAP_HPP
 # define DIAMONDTRAP_HPP
 
 # include <string>
-# include "FragTrap.hpp"
-# include "ScavTrap.hpp"
+# include "../include/FragTrap.hpp"
+# include "../include/ScavTrap.hpp"
 
-class DiamondTrap : public ScavTrap, public FragTrap {
+class DiamondTrap : public ScavTrap, public FragTrap
+{
 	private:
-		std::string	_name; // same name as ClapTrap
+		std::string	name_;
 
 	public:
 		DiamondTrap();
 		DiamondTrap(std::string name);
 		DiamondTrap(const DiamondTrap& other);
-		DiamondTrap& operator=(const DiamondTrap& other);
 		~DiamondTrap();
 
-		using ScavTrap::attack; // Use ScavTrap's attack function
-		void	whoAmI(); // new ability
+		DiamondTrap&	operator=(const DiamondTrap& other);
 
-		std::string		getName() const; // Override ClapTrap's getName()
+		// GAME FUNCTIONS
+
+		void	whoAmI(); // new ability
+		using ScavTrap::attack; // Use ScavTrap's attack function
+
+		// GETTERS
+
+		std::string	name() const; // Override ClapTrap's getName()
 };
 
 #endif

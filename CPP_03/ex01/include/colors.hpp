@@ -6,12 +6,14 @@
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/04 19:51:17 by aschenk           #+#    #+#             */
-/*   Updated: 2025/05/05 19:25:40 by aschenk          ###   ########.fr       */
+/*   Updated: 2025/05/06 09:32:25 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef COLORS_HPP
 # define COLORS_HPP
+
+// All bold but grey
 
 #define RED		"\033[1;31m"
 #define YELLOW	"\033[1;33m"

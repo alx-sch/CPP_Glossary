@@ -6,7 +6,7 @@
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 15:39:32 by aschenk           #+#    #+#             */
-/*   Updated: 2025/05/05 19:26:48 by aschenk          ###   ########.fr       */
+/*   Updated: 2025/05/06 10:39:59 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,34 +15,40 @@
 
 # include <string>
 
-class ClapTrap {
+class ClapTrap
+{
 	private:
-		static const std::string	_DEFAULT_NAME;
-		static const unsigned int	_DEFAULT_HIT_POINTS;
-		static const unsigned int	_DEFAULT_ENERGY_POINTS;
-		static const unsigned int	_DEFAULT_ATTACK_DAMAGE;
-	
+		static const std::string	DEFAULT_NAME;
+		static const unsigned int	DEFAULT_HIT_POINTS;
+		static const unsigned int	DEFAULT_ENERGY_POINTS;
+		static const unsigned int	DEFAULT_ATTACK_DAMAGE;
+
 	protected:
-		std::string		_name;
-		unsigned int	_hitPoints;
-		unsigned int	_energyPoints;
-		unsigned int	_attackDamage;
+		std::string		name_;
+		unsigned int	hitPoints_;
+		unsigned int	energyPoints_;
+		unsigned int	attackDamage_;
 
 	public:
 		ClapTrap();
 		ClapTrap(std::string name);
 		ClapTrap(const ClapTrap& other);
-		ClapTrap& operator=(const ClapTrap& other);
 		~ClapTrap();
+		
+		ClapTrap&	operator=(const ClapTrap& other);
+
+		// GAME FUNCTIONS
 
 		void	attack(const std::string& target);
 		void	takeDamage(unsigned int amount);
 		void	beRepaired(unsigned int amount);
 
-		std::string		getName() const;
-		unsigned int	getHitPoints() const;
-		unsigned int	getEnergyPoints() const;
-		unsigned int	getAttackDamage() const;
+		// GETTERS
+
+		std::string		name() const;
+		unsigned int	hitPoints() const;
+		unsigned int	energyPoints() const;
+		unsigned int	attackDamage() const;
 };
 
 #endif

@@ -6,7 +6,7 @@
 #    By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/02 15:01:32 by aschenk           #+#    #+#              #
-#    Updated: 2025/05/05 19:15:24 by aschenk          ###   ########.fr        #
+#    Updated: 2025/05/06 11:49:40 by aschenk          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,15 +35,13 @@ CXX :=			c++
 CXXFLAGS :=		-std=c++98
 CXXFLAGS +=		-Werror -Wextra -Wall
 CXXFLAGS +=		-I$(HDRS_DIR)
-CXXFLAGS +=		-Wshadow	# Warning on shadowing: A variable in a closer (inner) scope has the same name as a variable in an outer scope, effectively "hiding" or "shadowing" the outer one in that scope.
-CXXFLAGS +=		-Wpedantic  # Enforces strict ISO C++ compliance.
+CXXFLAGS +=		-Wpedantic # Enforces strict ISO C++ compliance.
 #CXXFLAGS +=	-g
 
 # Used for progress bar
 TOTAL_SRCS :=	$(words $(SRCS))
 SRC_NUM :=		0
 
-# ANSI escape codes for colors and styles
 RESET =			\033[0m
 BOLD =			\033[1m
 GREEN =			\033[32m
@@ -54,12 +52,8 @@ RED :=			\033[91m
 ## RULES ##
 ###########
 
-# Default target
 all:		$(NAME)
 
-# Target $(NAME) depends on object files $(OBJS)
-# Compiles and links all o. files into the final binary.
-# Print out l once program is compiled.
 $(NAME):	$(OBJS)
 	@$(CXX) $(CXXFLAGS) $(OBJS) -o $(NAME)
 	@echo "$(BOLD)$(YELLOW)\n$(NAME) successfully compiled.$(RESET)"
@@ -86,23 +80,16 @@ $(OBJS_DIR)/%.o:	%.cpp
 	@printf "%d%% $(RESET)" $(PERCENT)
 	@$(CXX) $(CXXFLAGS) -c -MMD -MP $< -o $@
 
-# Rule to remove all generated object files.
 clean:
 	@rm -rf $(OBJS_DIR)
-	@rm -f *.gch 
 	@echo "$(BOLD)$(RED)$(NAME) object files removed.$(RESET)"
 
-# Rule to remove all generated object files and the program executable.
 fclean:	clean
 	@rm -f $(NAME)
 	@echo "$(BOLD)$(RED)$(NAME) removed.$(RESET)"
 
-# Rule to remove all generated object files, the program executable,
-# and then rebuild the program.
 re:	fclean all
 
-# Makes that make rules are invoked even if files of the same name happen to be in the directory.
 .PHONY: all clean fclean re
 
-# Include dependency files if they exist
 -include $(DEPS)
