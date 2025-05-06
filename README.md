@@ -862,7 +862,7 @@ class Cat : public Animal, public Carnivore {
     // Can access members from both Animal and Carnivore
 };
 ```
-**Caution**: Be mindful of name conflicts and ambiguous inheritance.
+Caution: Be mindful of name conflicts and ambiguous inheritance.
 
 #### Diamond Inheritance
 
@@ -917,9 +917,6 @@ public:
 **`virtual` Keyword in Inheritance:**
 - Ensures that only one instance of the base class exists in the inheritance chain.
 - Requires the **most derived class** to call constructors in **order of inheritance** (base first).
-
-
-
 
 <div align="right">
   <b><a href="#top">↥ back to top</a></b>
