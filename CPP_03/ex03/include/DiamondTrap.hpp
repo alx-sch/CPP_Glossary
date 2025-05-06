@@ -6,7 +6,7 @@
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 15:42:52 by aschenk           #+#    #+#             */
-/*   Updated: 2025/05/06 11:59:46 by aschenk          ###   ########.fr       */
+/*   Updated: 2025/05/06 16:43:12 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,9 @@ class DiamondTrap : public ScavTrap, public FragTrap
 
 		// GETTERS
 
-		std::string	name() const; // Override ClapTrap's getName()
+		std::string		name() const; // Override ClapTrap's getName()
+		unsigned int	getMaxHitPoints() const;
+
 };
 
 #endif

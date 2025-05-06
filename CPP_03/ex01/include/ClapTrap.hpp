@@ -6,7 +6,7 @@
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 15:39:32 by aschenk           #+#    #+#             */
-/*   Updated: 2025/05/06 10:39:59 by aschenk          ###   ########.fr       */
+/*   Updated: 2025/05/06 16:23:35 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,12 @@ class ClapTrap
 
 		// GETTERS
 
-		std::string		name() const;
-		unsigned int	hitPoints() const;
-		unsigned int	energyPoints() const;
-		unsigned int	attackDamage() const;
+		std::string				name() const;
+		unsigned int			hitPoints() const;
+		unsigned int			energyPoints() const;
+		unsigned int			attackDamage() const;
+		virtual unsigned int	getMaxHitPoints() const; // Virtual to allow derived classes return
+														 // their own max HP in beRepaired().
 };
 
 #endif

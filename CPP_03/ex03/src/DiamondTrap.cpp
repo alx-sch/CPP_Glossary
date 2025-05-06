@@ -6,7 +6,7 @@
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 15:43:15 by aschenk           #+#    #+#             */
-/*   Updated: 2025/05/06 14:13:19 by aschenk          ###   ########.fr       */
+/*   Updated: 2025/05/06 16:44:35 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,3 +110,8 @@ name() returns the base class member (name_ = "<name>_clap_name").
 std::string	DiamondTrap::name() const {
 	return name_;
 }
+
+unsigned int	DiamondTrap::getMaxHitPoints() const {
+	return FragTrap::DEFAULT_HIT_POINTS;	// DiamindTrap's max HP is FragTrap's max HP
+}
+

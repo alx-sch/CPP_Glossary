@@ -6,7 +6,7 @@
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 17:35:51 by aschenk           #+#    #+#             */
-/*   Updated: 2025/05/06 11:18:08 by aschenk          ###   ########.fr       */
+/*   Updated: 2025/05/06 17:36:39 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ int	main()
 		noName.takeDamage(4);
 		getStatus(noName);
 		noName.beRepaired(2);
+		noName.beRepaired(99);
+		noName.beRepaired(99);
 		getStatus(noName);
 		noName.takeDamage(99);
 		getStatus(noName);
@@ -92,8 +94,10 @@ int	main()
 		noName.takeDamage(4);
 		getStatus(noName);
 		noName.beRepaired(2);
+		noName.beRepaired(99);
+		noName.beRepaired(99);
 		getStatus(noName);
-		noName.takeDamage(99);
+		noName.takeDamage(999);
 		getStatus(noName);
 		noName.attack("End Boss");
 		noName.beRepaired(999);
@@ -124,12 +128,14 @@ int	main()
 
 		noName.attack("Evil Foe");
 		getStatus(noName);
-		noName.highFivesGuys();
 		noName.takeDamage(4);
 		getStatus(noName);
+		noName.highFivesGuys();
 		noName.beRepaired(2);
+		noName.beRepaired(99);
+		noName.beRepaired(99);
 		getStatus(noName);
-		noName.takeDamage(99);
+		noName.takeDamage(999);
 		getStatus(noName);
 		noName.attack("End Boss");
 		noName.beRepaired(999);

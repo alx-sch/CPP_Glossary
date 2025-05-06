@@ -6,7 +6,7 @@
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 15:39:30 by aschenk           #+#    #+#             */
-/*   Updated: 2025/05/06 11:47:35 by aschenk          ###   ########.fr       */
+/*   Updated: 2025/05/06 17:27:49 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ int	main()
 		noName.takeDamage(4);
 		getStatus(noName);
 		noName.beRepaired(2);
+		noName.beRepaired(99);
+		noName.beRepaired(99);
 		getStatus(noName);
 		noName.takeDamage(99);
 		getStatus(noName);

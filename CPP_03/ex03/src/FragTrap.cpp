@@ -6,7 +6,7 @@
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 15:03:15 by aschenk           #+#    #+#             */
-/*   Updated: 2025/05/06 11:18:48 by aschenk          ###   ########.fr       */
+/*   Updated: 2025/05/06 16:38:44 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,10 @@ void	FragTrap::highFivesGuys()
 	else {
 		std::cout	<< "☠️  " << BLUE << name_ << RESET << " is kaputt! It can't lift a finger.\n";
 	}
+}
+
+// GETTERS //
+
+unsigned int	FragTrap::getMaxHitPoints() const {
+	return DEFAULT_HIT_POINTS;
 }

@@ -6,7 +6,7 @@
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 17:40:31 by aschenk           #+#    #+#             */
-/*   Updated: 2025/05/06 11:47:35 by aschenk          ###   ########.fr       */
+/*   Updated: 2025/05/06 16:38:54 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,4 +100,10 @@ void	ScavTrap::guardGate() {
 	else {
 		std::cout << "☠️  " << BLUE << name_ << RESET << " is kaputt! It can't guard anything.\n";
 	}
+}
+
+// GETTERS //
+
+unsigned int	ScavTrap::getMaxHitPoints() const {
+	return DEFAULT_HIT_POINTS;
 }

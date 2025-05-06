@@ -6,7 +6,7 @@
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 15:39:35 by aschenk           #+#    #+#             */
-/*   Updated: 2025/05/06 11:47:35 by aschenk          ###   ########.fr       */
+/*   Updated: 2025/05/06 17:29:31 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,18 +118,35 @@ void	ClapTrap::takeDamage(unsigned int amount)
 
 /**
 Trap unit restores its hit points by `amount`, costing 1 energy point.
+If the unit is already at max HP, it does not restore any hit points.
 Cannot restore hit points if no hit points or energy points are left (0).
 */
 void	ClapTrap::beRepaired(unsigned int amount)
 {
+	bool	fullRepair = false;
 	if (hitPoints_ > 0 && energyPoints_ > 0) {
+		if (hitPoints_ == getMaxHitPoints()) {
+			std::cout	<< "💉 " << BLUE << name_ << RESET << " is already at max HP. No repair needed!\n";
+			return ;
+		}
+		if (hitPoints_ + amount >= getMaxHitPoints()) {
+			amount = getMaxHitPoints() - hitPoints_;
+			fullRepair = true;
+		}
 		hitPoints_ += amount;
 		energyPoints_ -= 1;
 
-		std::cout	<< "💉 " << BLUE << name_ << RESET << " repairs itself and gains " << YELLOW
-					<< amount << " HP" << RESET << "!\n"
-					<< "ℹ️  " << BLUE << name_ << RESET << " now has " << YELLOW << hitPoints_ 
-					<< " HP" << RESET << ".\n";
+		if (fullRepair) {
+			std::cout	<< "💉 " << BLUE << name_ << RESET << " repairs itself " << GREEN
+						<< "completely" << RESET << " and gains " << YELLOW << amount
+						<< " HP" << RESET << "!\n";
+		}
+		else {
+			std::cout	<< "💉 " << BLUE << name_ << RESET << " repairs itself and gains "
+						<< YELLOW << amount << " HP" << RESET << "!\n";
+		}
+		std::cout		<< "ℹ️  " << BLUE << name_ << RESET << " now has " << YELLOW << hitPoints_ 
+						<< " HP" << RESET << ".\n";
 	}
 	else { 
 		std::cout	<< "☠️  " << BLUE << name_ << RESET << " is kaputt! It can't repair itself.\n";
@@ -152,4 +169,8 @@ unsigned int	ClapTrap::energyPoints() const {
 
 unsigned int	ClapTrap::attackDamage() const {
 	return attackDamage_;
+}
+
+unsigned int	ClapTrap::getMaxHitPoints() const {
+	return DEFAULT_HIT_POINTS;
 }

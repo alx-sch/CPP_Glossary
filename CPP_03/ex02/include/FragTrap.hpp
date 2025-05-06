@@ -6,7 +6,7 @@
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 15:02:54 by aschenk           #+#    #+#             */
-/*   Updated: 2025/05/06 11:10:21 by aschenk          ###   ########.fr       */
+/*   Updated: 2025/05/06 16:30:32 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,10 @@ class FragTrap : public ClapTrap
 		// GAME FUNCTIONS
 
 		void	highFivesGuys(); // new ability
+
+		// GETTERS
+
+		unsigned int	getMaxHitPoints() const;
 };
 
 #endif
