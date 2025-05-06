@@ -6,7 +6,7 @@
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 15:39:35 by aschenk           #+#    #+#             */
-/*   Updated: 2025/05/06 17:29:31 by aschenk          ###   ########.fr       */
+/*   Updated: 2025/05/06 19:38:15 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ ClapTrap::~ClapTrap()
 
 ClapTrap&	ClapTrap::operator=(const ClapTrap &other)
 {
-	if (this != &other) { // Avoid self-assignment
+	if (this != &other) {
 		name_ = other.name_;
 		hitPoints_ = other.hitPoints_;
 		energyPoints_ = other.energyPoints_;

@@ -6,7 +6,7 @@
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 15:02:54 by aschenk           #+#    #+#             */
-/*   Updated: 2025/05/06 16:43:19 by aschenk          ###   ########.fr       */
+/*   Updated: 2025/05/06 19:58:22 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ class FragTrap : virtual public ClapTrap
 
 		// GETTERS
 
-		virtual unsigned int	getMaxHitPoints() const;
+		unsigned int	getMaxHitPoints() const;
 };
 
 #endif

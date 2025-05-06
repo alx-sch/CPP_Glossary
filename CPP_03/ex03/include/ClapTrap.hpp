@@ -6,7 +6,7 @@
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 15:39:32 by aschenk           #+#    #+#             */
-/*   Updated: 2025/05/06 16:43:06 by aschenk          ###   ########.fr       */
+/*   Updated: 2025/05/06 19:54:12 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,9 @@ class ClapTrap
 		ClapTrap();
 		ClapTrap(std::string name);
 		ClapTrap(const ClapTrap& other);
-		~ClapTrap();
-		
+		virtual ~ClapTrap();	// virtual: Correct destructor is called when deleting via a base class pointer.
+								// Not super necessary here, but good practice.
+
 		ClapTrap&	operator=(const ClapTrap& other);
 
 		// GAME FUNCTIONS
