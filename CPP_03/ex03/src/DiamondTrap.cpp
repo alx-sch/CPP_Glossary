@@ -6,7 +6,7 @@
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 15:43:15 by aschenk           #+#    #+#             */
-/*   Updated: 2025/05/06 14:09:29 by aschenk          ###   ########.fr       */
+/*   Updated: 2025/05/06 14:13:19 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,9 @@ DiamondTrap::~DiamondTrap()
 }
 
 /**
-No need to call ScavTrap/FragTrap copy assignment operators:
-All data members to be updated (states) are already inherited from ClapTrap.
-Special abilities are already present in instance to be re-assigned.
+No need to call ScavTrap or FragTrap assignment operators:
+- All state (data members) is inherited from ClapTrap, which is assigned explicitly.
+- ScavTrap and FragTrap add behavior, not state that needs reassignment.
 */
 DiamondTrap&	DiamondTrap::operator=(const DiamondTrap& other)
 {
