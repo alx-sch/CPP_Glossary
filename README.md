@@ -900,6 +900,7 @@ public:
 class Feline : virtual public Animal { // Virtual inheritance prevents duplicate Animal subobjects
 protected:
     bool    whiskers = true;
+
 public:
     Feline() : Animal(4) {}
 
