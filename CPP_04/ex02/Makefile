@@ -6,11 +6,11 @@
 #    By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/02 15:01:32 by aschenk           #+#    #+#              #
-#    Updated: 2025/05/06 16:02:30 by aschenk          ###   ########.fr        #
+#    Updated: 2025/05/06 15:07:54 by aschenk          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME :=			DiamondTrap
+NAME :=			Poly02
 
 # SOURCE FILES
 SRCS_DIR :=		src
@@ -36,7 +36,7 @@ CXXFLAGS :=		-std=c++98
 CXXFLAGS +=		-Werror -Wextra -Wall
 CXXFLAGS +=		-I$(HDRS_DIR)
 CXXFLAGS +=		-Wshadow	# Warns about shadowed variables.
-CXXFLAGS +=		-Wpedantic # Enforces strict ISO C++ compliance.
+CXXFLAGS +=		-Wpedantic	# Enforces strict ISO C++ compliance.
 #CXXFLAGS +=	-g
 
 # Used for progress bar

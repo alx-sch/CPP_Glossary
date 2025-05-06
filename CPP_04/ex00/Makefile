@@ -6,19 +6,18 @@
 #    By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/02 15:01:32 by aschenk           #+#    #+#              #
-#    Updated: 2025/05/06 16:02:30 by aschenk          ###   ########.fr        #
+#    Updated: 2025/05/06 15:50:45 by aschenk          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME :=			DiamondTrap
+NAME :=			Poly_01
 
 # SOURCE FILES
 SRCS_DIR :=		src
 SRCS_FILES :=	main.cpp \
-				ClapTrap.cpp \
-				ScavTrap.cpp \
-				FragTrap.cpp \
-				DiamondTrap.cpp
+				Animal.cpp \
+				Cat.cpp \
+				Dog.cpp 
 				
 SRCS :=			$(addprefix $(SRCS_DIR)/, $(SRCS_FILES))
 				
@@ -36,7 +35,7 @@ CXXFLAGS :=		-std=c++98
 CXXFLAGS +=		-Werror -Wextra -Wall
 CXXFLAGS +=		-I$(HDRS_DIR)
 CXXFLAGS +=		-Wshadow	# Warns about shadowed variables.
-CXXFLAGS +=		-Wpedantic # Enforces strict ISO C++ compliance.
+CXXFLAGS +=		-Wpedantic	# Enforces strict ISO C++ compliance.
 #CXXFLAGS +=	-g
 
 # Used for progress bar
