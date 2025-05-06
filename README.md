@@ -27,6 +27,7 @@ Most of the entries in this glossary are based on or match up with what you'll f
 - [Class vs Struct](#class-vs-struct)
 - [Memory Allocation](#memory-allocation)
 - [Overloading](#overloading)
+- [Inheritance](#inheritance)
  
 ---
 
@@ -807,5 +808,122 @@ For comparison,  `operator=` works similarly to  `operator+`, but instead of cre
 
 ---
 
+### Inheritance
 
+Inheritance allows one class to acquire the properties (data members) and behaviors (member functions) of another class. 
+
+**Basic Syntax:**
+```cpp
+#include <iostream>
+
+class Animal { // Base class
+protected:
+    int legs;
+
+public:
+    Animal(int numLegs) : legs(numLegs) {}
+    virtual ~Animal {}   // Base class deconstructor should be virtual,
+                         // especially when dealing with pointers to dynamically allocated objects.
+
+    void eat() { std::cout << "Eats!\n" }
+    void run() { std::cout << "Runs!\n" }
+};
+
+class Cat : public Animal { // Derived class
+public:
+    Cat() : Animal(4) {}  // Call base class constructor
+
+    void run() { std::cout << "Jumps!\n" } // Overwrite inherited behavior
+};
+```
+
+**Access Specifiers in Inheritance:**
+
+| Specifier   | Access in Child Class | Access Outside |
+|-------------|------------------------|----------------|
+| `public`    | ✅ Yes                 | ✅ Yes         |
+| `protected` | ✅ Yes                 | ❌ No          |
+| `private`   | ❌ No                  | ❌ No          |
+
+- Constructors of base classes are called **first**.
+- Destructors are called in **reverse order** (child first, then base).
+- **Private inheritance** is possible, but it is usually not useful because it hides the base class's functionality, making it harder to access and extend. It is useful in situations where you want to implement "**has-a**" relationships rather than "**is-a**" relationships.
+
+#### Multiple Inheritance
+
+You can inherit from more than one base class:
+```cpp
+class Carnivore {
+protected:
+    bool    eatsMeat = true;
+};
+
+class Cat : public Animal, public Carnivore {
+    // Can access members from both Animal and Carnivore
+};
+```
+**Caution**: Be mindful of name conflicts and ambiguous inheritance.
+
+#### Diamond Inheritance
+
+**The Problem:**
+```cpp
+class Animal { /* ... */ };
+
+class Mammal : public Animal { /* ... */ };
+class Feline : public Animal { /* ... */ };
+
+class Cat : public Mammal, public Feline { /* ... */ };  // Two Animal copies!
+```
+
+**The Solution: Use `virtual` inheritance**
+```cpp
+class Animal {
+protected:
+    int legs;
+
+public:
+    Animal(int numLegs) : legs(numLegs) {}
+    virtual ~Animal() {} 
+};
+
+class Mammal : virtual public Animal { // Virtual inheritance prevents duplicate Animal subobjects
+protected:
+    bool    liveBirth = true;
+
+public:
+    Mammal() : Animal(4) {}
+
+    void identification() { std::cout << "I'm a mammal!\n" }
+};
+
+class Feline : virtual public Animal { // Virtual inheritance prevents duplicate Animal subobjects
+protected:
+    bool    whiskers = true;
+public:
+    Feline() : Animal(4) {}
+
+    void identification() { std::cout << "I'm a feline!\n" }
+};
+
+class Cat : public Mammal, public Feline {
+public:
+    Cat() : Animal(4), Mammal(), Feline() {}
+
+    using Feline::identification() // Selects Feline's version to resolve ambiguity
+};
+```
+
+**`virtual` Keyword in Inheritance:**
+- Ensures that only one instance of the base class exists in the inheritance chain.
+- Requires the **most derived class** to call constructors in **order of inheritance** (base first).
+
+
+
+
+<div align="right">
+  <b><a href="#top">↥ back to top</a></b>
+</div>
+
+---
 
