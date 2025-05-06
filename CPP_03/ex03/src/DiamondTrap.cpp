@@ -6,7 +6,7 @@
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/02 15:43:15 by aschenk           #+#    #+#             */
-/*   Updated: 2025/05/06 11:37:22 by aschenk          ###   ########.fr       */
+/*   Updated: 2025/05/06 14:09:29 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,10 @@
 #include "../include/DiamondTrap.hpp"
 #include "../include/colors.hpp"
 
-DiamondTrap::DiamondTrap() : ClapTrap(DEFAULT_NAME + "_clap_name")
+DiamondTrap::DiamondTrap()
+	:	ClapTrap(DEFAULT_NAME + "_clap_name"),
+		ScavTrap(),	// inherits name from ClapTrap called above; own ClapTrap call is ignored
+		FragTrap()	// inherits name from ClapTrap called above; own ClapTrap call is ignored
 {
 	this->name_ = DEFAULT_NAME;
 	this->hitPoints_ = FragTrap::DEFAULT_HIT_POINTS;
@@ -26,7 +29,10 @@ DiamondTrap::DiamondTrap() : ClapTrap(DEFAULT_NAME + "_clap_name")
 				<< RESET << " default constructor called.\n";
 }
 
-DiamondTrap::DiamondTrap(std::string name) :ClapTrap(name + "_clap_name")
+DiamondTrap::DiamondTrap(std::string name)
+	:	ClapTrap(name + "_clap_name"),
+		ScavTrap(name),	// inherits name from ClapTrap called above; own ClapTrap call is ignored
+		FragTrap(name)	// inherits name from ClapTrap called above; own ClapTrap call is ignored
 {
 	this->name_ = name;
 	this->hitPoints_ = FragTrap::DEFAULT_HIT_POINTS;
@@ -48,6 +54,12 @@ DiamondTrap::DiamondTrap(const DiamondTrap& other)
 				<< RESET << " copy constructor called.\n";
 }
 
+DiamondTrap::~DiamondTrap()
+{
+	std::cout	<< "🏁 " << BLUE << name_ << RESET << ": " << GREEN << "DiamondTrap"
+				<< RESET << " destructor called.\n";
+}
+
 /**
 No need to call ScavTrap/FragTrap copy assignment operators:
 All data members to be updated (states) are already inherited from ClapTrap.
@@ -64,12 +76,6 @@ DiamondTrap&	DiamondTrap::operator=(const DiamondTrap& other)
 				<< RESET << " copy assignment operator called.\n";
 	
 	return *this;
-}
-
-DiamondTrap::~DiamondTrap()
-{
-	std::cout	<< "🏁 " << BLUE << name_ << RESET << ": " << GREEN << "DiamondTrap"
-				<< RESET << " destructor called.\n";
 }
 
 /// GAME FUNCTIONS //
