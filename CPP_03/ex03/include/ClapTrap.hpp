@@ -6,7 +6,7 @@
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 15:39:32 by aschenk           #+#    #+#             */
-/*   Updated: 2025/05/06 11:28:00 by aschenk          ###   ########.fr       */
+/*   Updated: 2025/05/06 13:23:41 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,9 @@ class ClapTrap
 		ClapTrap();
 		ClapTrap(std::string name);
 		ClapTrap(const ClapTrap& other);
-		~ClapTrap();
+		virtual ~ClapTrap();	// Virtual destructor for proper cleanup in derived classes
+								// (important when using polymorphism and base class pointers;
+								//	not here, but good practice).
 		
 		ClapTrap&	operator=(const ClapTrap& other);
 
