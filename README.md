@@ -1,4 +1,4 @@
-# C++ Glossary
+]# C++ Glossary
 
 <p align="center">
     <img src="https://github.com/alx-sch/42_CPP_00-04/blob/main/.assets/img/cpp_badge.png" alt="cpp_badge.png" />
@@ -16,7 +16,7 @@ Most of the entries in this glossary are based on or match up with what you'll f
 - [I/O Streams](#io-streams)
 - [File Streams](#file-streams)
 - [Classes and Instances](#classes-and-instances)
-- [Class Members](#class-mmebers)
+- [Class Members](#class-members)
 - [This Pointer](#this-pointer)
 - [Pointers to Class Members](#pointers-to-class-members)
 - [References](#references)
