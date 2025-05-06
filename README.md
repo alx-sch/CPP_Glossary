@@ -691,7 +691,7 @@ struct MyStruct {
 
 ### Memory Allocation
 
-While you can use `malloc` and `free` in C++ as in C, this can cause issues with objects since their constructors and destructors won’t be called.    
+While you can use `malloc` and `free` in C++ as in C, this can cause issues with objects since their constructors and destructors won’t be called.   
 The safe way to allocate and deallocate memory in C++ is by using `new` and `delete`:
 ```cpp
 int main() {
@@ -714,7 +714,7 @@ Overloading (or ad-hoc polymorphism) allows multiple functions or operators to h
 
 #### Function Overloading
 
-Function overloading means writing multiple functions with the same name but with different numbers of parameters or parameter types.    
+Function overloading means writing multiple functions with the same name but with different numbers of parameters or parameter types.   
 The compiler picks the right version based on what you pass in.
 
 Example:
@@ -742,7 +742,7 @@ int main() {
 
 #### Operator Overloading
 
-C++ also allows operator overloading, where you redefine the meaning of built-in operators (like `+`, `<<`, `==`) for your custom types.
+C++ also allows operator overloading, where you redefine the meaning of built-in operators (like `+`, `<<`, `==`) for your custom types.   
 
 Example: Addition of points:
 ```cpp
@@ -789,7 +789,7 @@ int main() {
 | `(const Point &other)` | Takes another `Point` as a const reference (safe and fast). |
 | `const` (at end)       | Guarantees that `this` won't be changed.                |
 
-For comparison,  `operator=` works similarly to  `operator+`, but instead of creating a new  `Point`, it modifies the existing current object (`*this` returning  `Point&`).
+For comparison, `operator=` works similarly to `operator+`, but instead of creating a new `Point`, it modifies the existing current object (`*this` returning `Point&`).
 
 **What happens when you write `a + b`?**
 - `a` becomes `this` inside `operator+`.
@@ -862,7 +862,7 @@ class Cat : public Animal, public Carnivore {
     // Can access members from both Animal and Carnivore
 };
 ```
-Caution: Be mindful of name conflicts and ambiguous inheritance.
+Caution: Be mindful of name conflicts and ambiguous inheritance, such as when a variable name in the base class is redefined in the derived class. This shadowing can lead to unexpected behavior and confusion. You can use the compiler flag `-Wshadow` to identify situations where shadowing occurs.
 
 #### Diamond Inheritance
 
