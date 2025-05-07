@@ -6,7 +6,7 @@
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/29 17:40:31 by aschenk           #+#    #+#             */
-/*   Updated: 2025/05/06 19:58:47 by aschenk          ###   ########.fr       */
+/*   Updated: 2025/05/07 18:31:14 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ Trap unit remains inactive if no hit points or energy points are left (0).
 void	ScavTrap::attack(const std::string& target)
 {
 	if (hitPoints_ > 0 && energyPoints_ > 0) {
-		std::cout	<< "👀  " << BLUE << name_ << RESET << " starte at " << RED
+		std::cout	<< "👀 " << BLUE << name_ << RESET << " stares at " << RED
 					<< target << RESET << " intesively, causing " << YELLOW
 					<< attackDamage_ << " damage" << RESET << "!\n";
 		energyPoints_ -= 1;
