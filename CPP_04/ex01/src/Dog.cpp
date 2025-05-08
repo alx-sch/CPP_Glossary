@@ -6,7 +6,7 @@
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 15:46:56 by aschenk           #+#    #+#             */
-/*   Updated: 2025/05/08 17:17:36 by aschenk          ###   ########.fr       */
+/*   Updated: 2025/05/08 19:00:13 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ Dog::Dog(const Dog& other) : Animal(other)
 }
 Dog::~Dog()
 {
-	delete brain_; // Free the allocated Brain
 	std::cout	<< "🐶 [Dog] destructor called.\n";
+	delete brain_; // Free the allocated Brain
 }
 
 Dog&	Dog::operator=(const Dog& other)

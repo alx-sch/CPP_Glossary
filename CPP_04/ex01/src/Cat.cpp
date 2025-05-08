@@ -6,7 +6,7 @@
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 15:40:08 by aschenk           #+#    #+#             */
-/*   Updated: 2025/05/08 17:17:08 by aschenk          ###   ########.fr       */
+/*   Updated: 2025/05/08 19:00:05 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,21 @@
 
 Cat::Cat() : Animal()
 {
+	std::cout	<< "🐱 [Cat] default constructor called.\n";
 	type_ = "Cat";
 	brain_ = new Brain(); // Allocate a new Brain for the Cat
-	std::cout	<< "🐱 [Cat] default constructor called.\n";
 }
 
 Cat::Cat(const Cat& other) : Animal(other)
 {
-	brain_ = new Brain(*other.brain_); // Deep copy of the Brain
 	std::cout	<< "🐱 [Cat] copy constructor called.\n";
+	brain_ = new Brain(*other.brain_); // Deep copy of the Brain
 }
 
 Cat::~Cat()
 {
-	delete brain_; // Free the allocated Brain
 	std::cout	<< "🐱 [Cat] destructor called.\n";
+	delete brain_; // Free the allocated Brain
 }
 
 Cat&	Cat::operator=(const Cat& other)
