@@ -1,11 +1,18 @@
-]# C++ Glossary
+## C++ Glossary
 
 <p align="center">
     <img src="https://github.com/alx-sch/42_CPP_00-04/blob/main/.assets/img/cpp_badge.png" alt="cpp_badge.png" />
 </p>
 
 [cplusplus.com](https://cplusplus.com/) is a great resource for all things C++.   
-Most of the entries in this glossary are based on or match up with what you'll find there.
+Most of the entries in this glossary are based on or adapted from those found there.
+
+The object-oriented programming principles featured in this glossary are covered throughout the exercise modules:
+
+- **C++ Module 00–02**: Focus on C++ basics: classes, member functions, operator overloading, and memory management.
+- **C++ Module 03–04**: Dive into inheritance, polymorphism, abstract classes, and interface design.
+- **C++ Module 05–07**: Introduce exception handling, templates, and more advanced features like function pointers and functors.
+- **C++ Module 08–09**: Emphasize STL containers, iterators, and algorithm use.
 
 ---
 
