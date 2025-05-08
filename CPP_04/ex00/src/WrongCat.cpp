@@ -6,7 +6,7 @@
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 14:28:05 by aschenk           #+#    #+#             */
-/*   Updated: 2025/05/08 14:34:01 by aschenk          ###   ########.fr       */
+/*   Updated: 2025/05/08 15:13:16 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ WrongCat::WrongCat() : WrongAnimal()
 WrongCat::WrongCat(const WrongCat& other) : WrongAnimal(other)
 {
 	std::cout	<< "❌🐱 [WrongCat] copy constructor called.\n";
-	*this = other;
 }
 
 WrongCat::~WrongCat()

@@ -6,19 +6,19 @@
 #    By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/02 15:01:32 by aschenk           #+#    #+#              #
-#    Updated: 2025/05/06 15:07:54 by aschenk          ###   ########.fr        #
+#    Updated: 2025/05/08 15:39:34 by aschenk          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME :=			Poly00
+NAME :=			brain
 
 # SOURCE FILES
 SRCS_DIR :=		src
 SRCS_FILES :=	main.cpp \
-				ClapTrap.cpp \
-				ScavTrap.cpp \
-				FragTrap.cpp \
-				DiamondTrap.cpp
+				Animal.cpp \
+				Cat.cpp \
+				Dog.cpp  \
+				Brain.cpp 
 				
 SRCS :=			$(addprefix $(SRCS_DIR)/, $(SRCS_FILES))
 				

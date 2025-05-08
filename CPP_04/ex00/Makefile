@@ -6,11 +6,11 @@
 #    By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/02 15:01:32 by aschenk           #+#    #+#              #
-#    Updated: 2025/05/08 14:34:12 by aschenk          ###   ########.fr        #
+#    Updated: 2025/05/08 16:04:35 by aschenk          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME :=			Poly_01
+NAME :=			polymorphism
 
 # SOURCE FILES
 SRCS_DIR :=		src

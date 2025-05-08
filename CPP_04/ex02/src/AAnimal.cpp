@@ -1,52 +1,52 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Animal.cpp                                         :+:      :+:    :+:   */
+/*   AAnimal.cpp                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 15:18:02 by aschenk           #+#    #+#             */
-/*   Updated: 2025/05/08 15:57:46 by aschenk          ###   ########.fr       */
+/*   Updated: 2025/05/08 18:11:43 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
-#include "../include/Animal.hpp"
+#include "../include/AAnimal.hpp"
 
-Animal::Animal() : type_("Unknown")
+AAnimal::AAnimal() : type_("Unknown")
 {
-	std::cout	<< "❓ [Animal] default constructor called.\n";
+	std::cout	<< "👻 [Abstract Animal] default constructor called.\n";
 }
 
-Animal::Animal(const Animal& other) : type_(other.type_)
+AAnimal::AAnimal(const AAnimal& other) : type_(other.type_)
 {
-	std::cout	<< "❓ [Animal] copy constructor called.\n";
+	std::cout	<< "👻 [Abstract Animal] copy constructor called.\n";
 }
 
-Animal::~Animal()
+AAnimal::~AAnimal()
 {
-	std::cout	<< "❓ [Animal] destructor called.\n";
+	std::cout	<< "👻 [Abstract Animal] destructor called.\n";
 }
 
-Animal&	Animal::operator=(const Animal& other)
+AAnimal&	AAnimal::operator=(const AAnimal& other)
 {
 	if (this != &other) {
 		type_ = other.type_;
 	}
-	std::cout	<< "❓ [Animal] copy assignment operator called.\n";
+	std::cout	<< "👻 [Abstract Animal] copy assignment operator called.\n";
 	return *this;
 }
 
 // MEMBER FUNCTIONS //
 
-void	Animal::makeSound() const
+void	AAnimal::makeSound() const
 {
-	std::cout	<< "❓ [Animal] makes a sound.\n";
+	std::cout	<< "👻 [Abstract Animal] makes a sound.\n";
 }
 
 // GETTERS //
 
-std::string	Animal::getType() const
+std::string	AAnimal::getType() const
 {
 	return type_;
 }

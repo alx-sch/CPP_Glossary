@@ -6,7 +6,7 @@
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/08 14:30:35 by aschenk           #+#    #+#             */
-/*   Updated: 2025/05/08 14:34:02 by aschenk          ###   ########.fr       */
+/*   Updated: 2025/05/08 16:03:36 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,9 @@ WrongAnimal::WrongAnimal() : type_("Unknown")
 	std::cout	<< "❌❓ [WrongAnimal] default constructor called.\n";
 }
 
-WrongAnimal::WrongAnimal(const WrongAnimal& other)
+WrongAnimal::WrongAnimal(const WrongAnimal& other) : type_(other.type_)
 {
 	std::cout	<< "❌❓ [WrongAnimal] copy constructor called.\n";
-	*this = other;
 }
 
 WrongAnimal::~WrongAnimal()

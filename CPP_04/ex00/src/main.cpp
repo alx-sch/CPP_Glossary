@@ -6,7 +6,7 @@
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 15:11:07 by aschenk           #+#    #+#             */
-/*   Updated: 2025/05/08 14:55:57 by aschenk          ###   ########.fr       */
+/*   Updated: 2025/05/08 15:40:54 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@
 int	main ()
 {
 	{ // Subject Test
-		std::cout	<< "\n=================== \n"
+		std::cout	<< "\n================== \n"
 					<< "== Subject Test == \n"
-					<< "=================== \n\n";
+					<< "================== \n\n";
 
 		const Animal*	meta = new Animal();
 		const Animal*	j = new Dog();
@@ -46,9 +46,9 @@ int	main ()
 		delete j;
 	}
 	{
-		std::cout	<< "\n================= \n"
+		std::cout	<< "\n================ \n"
 					<< "== Wrong Test == \n"
-					<< "================= \n\n";
+					<< "================ \n\n";
 
 		const WrongAnimal*	meta = new WrongAnimal();
 		const WrongAnimal*	i = new WrongCat();
