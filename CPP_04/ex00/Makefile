@@ -6,7 +6,7 @@
 #    By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/05/02 15:01:32 by aschenk           #+#    #+#              #
-#    Updated: 2025/05/06 15:50:45 by aschenk          ###   ########.fr        #
+#    Updated: 2025/05/08 14:34:12 by aschenk          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,9 @@ SRCS_DIR :=		src
 SRCS_FILES :=	main.cpp \
 				Animal.cpp \
 				Cat.cpp \
-				Dog.cpp 
+				Dog.cpp  \
+				WrongAnimal.cpp \
+				WrongCat.cpp
 				
 SRCS :=			$(addprefix $(SRCS_DIR)/, $(SRCS_FILES))
 				
