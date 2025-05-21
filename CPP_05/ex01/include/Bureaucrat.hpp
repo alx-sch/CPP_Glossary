@@ -6,7 +6,7 @@
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 17:04:26 by aschenk           #+#    #+#             */
-/*   Updated: 2025/05/21 19:16:23 by aschenk          ###   ########.fr       */
+/*   Updated: 2025/05/21 19:28:17 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@
 # include <string>
 # include <iostream>
 # include <exception>
+
+class Form; // Forward declaration to avoid circular dependency
+# include "Form.hpp"
 
 class Bureaucrat
 {
@@ -35,6 +38,7 @@ class Bureaucrat
 
 		void	incrementGrade();
 		void	decrementGrade();
+		void	signForm(Form& form);
 
 		///////
 

@@ -6,7 +6,7 @@
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 17:07:13 by aschenk           #+#    #+#             */
-/*   Updated: 2025/05/21 18:53:03 by aschenk          ###   ########.fr       */
+/*   Updated: 2025/05/21 19:18:56 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,15 @@ void Bureaucrat::decrementGrade() {
 	++grade_;
 }
 
+void Bureaucrat::signForm(Form& form) {
+	try {
+		form.beSigned(*this);
+		std::cout << name_ << " signed " << form.getName() << std::endl;
+	} catch (const Form::GradeTooLowException& e) {
+		std::cout << name_ << " couldn't sign " << form.getName()
+			<< " because " << e.what() << std::endl;
+	}
+}
 
 // Getters
 

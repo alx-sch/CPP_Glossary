@@ -1,48 +1,51 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Bureaucrat.hpp                                     :+:      :+:    :+:   */
+/*   Form.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/20 17:04:26 by aschenk           #+#    #+#             */
-/*   Updated: 2025/05/21 19:16:23 by aschenk          ###   ########.fr       */
+/*   Created: 2025/05/21 18:45:34 by aschenk           #+#    #+#             */
+/*   Updated: 2025/05/21 19:26:35 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef BUREAUCRAT_HPP
-# define BUREAUCRAT_HPP
+#ifndef FORM_HPP
+# define FORM_HPP
 
 # include <string>
 # include <iostream>
 # include <exception>
 
-class Bureaucrat
+class Bureaucrat; // Forward declaration to avoid circular dependency
+# include "Bureaucrat.hpp"
+
+class Form
 {
 	private:
 		const std::string	name_;
-		int					grade_;
+		bool				is_signed_;
+		const int			sign_grade_;
+		const int			exec_grade_;
 
 	public:
-		Bureaucrat();
-		Bureaucrat(const std::string& name, int grade);
-		Bureaucrat(const Bureaucrat& other);
-		~Bureaucrat();
+		Form();
+		Form(const std::string& name, int sign_grade, int exec_grade);
+		Form(const Form& other);
+		virtual ~Form();
 
-		Bureaucrat& operator=(const Bureaucrat& other);
-
-		///////
-
-		void	incrementGrade();
-		void	decrementGrade();
+		Form&	operator=(const Form& other);
 
 		///////
 
-		const std::string&	getName() const;
-		int					getGrade() const;
+		void	beSigned(const Bureaucrat& bureaucrat);
 
-		// Inheriting from std::exception: virtual destructor and virtual: const char* what() const throw()
-		// throw() guarantees that the function itself will not throw any exceptions
+		///////
+
+		std::string	getName() const;
+		bool		getIsSigned() const;
+		int			getSignGrade() const;
+		int			getExecGrade() const;
 
 		class GradeTooHighException : public std::exception
 		{
@@ -57,6 +60,6 @@ class Bureaucrat
 		};
 };
 
-std::ostream& operator<<(std::ostream& os, const Bureaucrat& b);
+std::ostream& operator<<(std::ostream& os, const Form& form);
 
 #endif

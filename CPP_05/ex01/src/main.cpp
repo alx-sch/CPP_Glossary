@@ -6,12 +6,13 @@
 /*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/20 16:58:54 by aschenk           #+#    #+#             */
-/*   Updated: 2025/05/21 18:56:44 by aschenk          ###   ########.fr       */
+/*   Updated: 2025/05/21 19:23:13 by aschenk          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 #include "../include/Bureaucrat.hpp"
+#include "../include/Form.hpp"
 
 #define RED		"\033[31m"
 #define BLUE	"\033[34m"
@@ -22,17 +23,12 @@ int main()
 	{
 		std::cout << "---------- Testing Contructors ---------\n\n";
 
-		Bureaucrat deffy;
-		std::cout << deffy << std::endl;
+		Form form1;
+		std::cout << form1 << std::endl;
 
-		Bureaucrat jim("Jim", 2);
-		Bureaucrat cpy(jim);
-		std::cout << cpy << std::endl;
-
-		Bureaucrat kevin("Kevin", 150);
-		std::cout << kevin << std::endl;
-		kevin = jim;
-		std::cout << kevin << std::endl;
+		Form form2("Form 2", 50, 100);
+		Form form3(form2);
+		std::cout << form3 << std::endl;
 	}
 
 	std::cout << "\n-------- Testing Exceptions ------------\n\n";

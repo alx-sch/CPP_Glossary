@@ -5,21 +5,18 @@
 #                                                     +:+ +:+         +:+      #
 #    By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/05/02 15:01:32 by aschenk           #+#    #+#              #
-#    Updated: 2025/05/08 18:10:13 by aschenk          ###   ########.fr        #
+#    Created: 2025/05/21 17:58:22 by aschenk           #+#    #+#              #
+#    Updated: 2025/05/21 19:27:20 by aschenk          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME :=			abstract
+NAME :=			bureaucrat_01
 
 # SOURCE FILES
 SRCS_DIR :=		src
 SRCS_FILES :=	main.cpp \
-				Animal.cpp \
-				Cat.cpp \
-				Dog.cpp  \
-				Brain.cpp \
-				AAnimal.cpp 
+				Bureaucrat.cpp \
+				Form.cpp
 				
 SRCS :=			$(addprefix $(SRCS_DIR)/, $(SRCS_FILES))
 				
