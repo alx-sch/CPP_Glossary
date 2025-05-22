@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   config.hpp                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/23 11:43:03 by aschenk           #+#    #+#             */
-/*   Updated: 2024/11/01 12:41:59 by aschenk          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 /**
 Defines ANSI escape codes used for formatting, as well as prompts and error messages etc.
 */

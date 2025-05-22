@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.hpp                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/28 20:01:16 by aschenk           #+#    #+#             */
-/*   Updated: 2024/11/06 17:09:33 by aschenk          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 /**
 The primary inclusion point for the program, containing all necessary headers and utility functions.
 */

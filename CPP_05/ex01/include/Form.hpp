@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   Form.hpp                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: aschenk <aschenk@student.42berlin.de>      +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/05/21 18:45:34 by aschenk           #+#    #+#             */
-/*   Updated: 2025/05/21 19:26:35 by aschenk          ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef FORM_HPP
 # define FORM_HPP
 
@@ -47,12 +35,14 @@ class Form
 		int			getSignGrade() const;
 		int			getExecGrade() const;
 
+		///////
+
 		class GradeTooHighException : public std::exception
 		{
 			public:
 				const char* what() const throw();
 		};
-
+		
 		class GradeTooLowException : public std::exception
 		{
 			public:
