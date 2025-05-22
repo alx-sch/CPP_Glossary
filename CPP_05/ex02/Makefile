@@ -1,13 +1,13 @@
-NAME :=			abstract
+NAME :=			bureaucrat_03
 
 # SOURCE FILES
 SRCS_DIR :=		src
 SRCS_FILES :=	main.cpp \
-				Animal.cpp \
-				Cat.cpp \
-				Dog.cpp  \
-				Brain.cpp \
-				AAnimal.cpp 
+				Bureaucrat.cpp \
+				AForm.cpp \
+				ShrubberyCreationForm.cpp \
+				RobotomyRequestForm.cpp \
+				PresidentialPardonForm.cpp
 				
 SRCS :=			$(addprefix $(SRCS_DIR)/, $(SRCS_FILES))
 				
