@@ -3,7 +3,6 @@
 #include "../include/Form.hpp"
 
 #define RED		"\033[31m"
-#define BLUE	"\033[34m"
 #define RESET	"\033[0m"
 
 int main()
@@ -12,62 +11,52 @@ int main()
 		std::cout << "---------- Testing Contructors ---------\n\n";
 
 		Form form1;
-		std::cout << form1 << std::endl;
+		std::cout << std::endl << form1 << std::endl << std::endl;
 
-		Form form2("Form 2", 50, 100);
+		Form form2("Registration", 50, 100);
 		Form form3(form2);
-		std::cout << form3 << std::endl;
+		std::cout << std::endl << form3 << std::endl << std::endl;
 	}
 
 	std::cout << "\n-------- Testing Exceptions ------------\n\n";
 
 	try {
-		// Grade too high (0)
-		Bureaucrat b2("Jim", 0);  // This should throw
-		// Jump immediately to catch block when exception is thrown
-		// Below is not executed
-		std::cout << b2 << std::endl;
+		Bureaucrat senior("Susy Senior", 42);
+		Bureaucrat junior("Jim Junior", 142);
+
+		Form birthDayCard("Birthday Card", 145, 145);
+		Form topSecretDocument("Top Secret Document", 50, 50);
+		std::cout << std::endl;
+
+		std::cout << senior << std::endl;
+		std::cout << junior << std::endl;
+		std::cout << std::endl;
+		std::cout << birthDayCard << std::endl << std::endl;
+		std::cout << topSecretDocument << std::endl;
+
+		std::cout << std::endl << junior.getName() << " tries to sign " << birthDayCard.getName() << "...\n";
+		junior.signForm(birthDayCard);
+		std::cout << std::endl;
+		std::cout << junior.getName() << " tries to sign " << topSecretDocument.getName() << "...\n";
+		junior.signForm(topSecretDocument);
+		std::cout << std::endl;
+		std::cout << topSecretDocument << std::endl << std::endl;
+
+		std::cout << senior.getName() << " tries to sign " << birthDayCard.getName() << "...\n";
+		senior.signForm(birthDayCard);
+		std::cout << std::endl;
+		std::cout << senior.getName() << " tries to sign " << topSecretDocument.getName() << "...\n";
+		senior.signForm(topSecretDocument);
+		std::cout << topSecretDocument << std::endl;
+
+		std::cout << "\n-- Creating a form with invalid grade --\n";
+		Form invalidForm("Broken Form", 0, 151);  // should throw
+
+		std::cout << "I won't be printed because error is thrown above\n" << std::endl;
+
 	}
-	// Catch an exception of type GradeTooHighException, passed as const reference 'e'
-	catch (const Bureaucrat::GradeTooHighException& e) {
+	catch (std::exception& e) {
 		std::cerr << RED << "Exception caught: " << e.what() << RESET << std::endl;
-	}
-
-	std::cout << "----------------------------------------\n";
-
-	try {
-		// Grade too low (151)
-		Bureaucrat b3("Kevin", 151);  // This should throw
-	} catch (const Bureaucrat::GradeTooLowException& e) {
-		std::cerr << BLUE << "Exception caught: " << e.what() << RESET << std::endl;
-	}
-
-	std::cout << "----------------------------------------\n";
-
-	try {
-		Bureaucrat b4("Angela", 2);
-		std::cout << b4 << std::endl;
-
-		b4.incrementGrade();  // Grade becomes 1
-		std::cout << "After increment: " << b4 << std::endl;
-
-		b4.incrementGrade();  // Grade would become 0 → should throw
-	} catch (const Bureaucrat::GradeTooHighException& e) {
-		std::cerr << RED << "Exception caught during increment: " << e.what() << RESET << std::endl;
-	}
-
-	std::cout << "----------------------------------------\n";
-
-	try {
-		Bureaucrat b5("Stanley", 149);
-		std::cout << b5 << std::endl;
-
-		b5.decrementGrade();  // Grade becomes 150
-		std::cout << "After decrement: " << b5 << std::endl;
-
-		b5.decrementGrade();  // Grade becomes 151 → should throw
-	} catch (const Bureaucrat::GradeTooLowException& e) {
-		std::cerr << BLUE << "Exception caught during decrement: " << e.what() << RESET << std::endl;
 	}
 
 	return 0;

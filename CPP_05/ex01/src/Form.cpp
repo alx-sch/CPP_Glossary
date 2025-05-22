@@ -73,12 +73,12 @@ int Form::getExecGrade() const
 
 const char* Form::GradeTooHighException::what() const throw()
 {
-	return "Grade is too high!";
+	return "Grade in Form is too high!";
 }
 
 const char* Form::GradeTooLowException::what() const throw()
 {
-	return "Grade is too low!";
+	return "Grade in Form is too low!";
 }
 
 // Overloading the << operator for Form
