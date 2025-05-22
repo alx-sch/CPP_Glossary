@@ -9,20 +9,20 @@ class Bureaucrat;
 # include "Bureaucrat.hpp"
 
 /**
- * ABSTRACT CLASS
- * Represents a bureaucratic form requiring signing and execution grades.
+ * ABSTRACT CLASS; 
+ * Represents a bureaucratic form requiring signing and execution grades. 
  * 
- * A Form can be signed by a Bureaucrat whose grade is high enough.
+ * A Form can be signed by a Bureaucrat whose grade is high enough. 
  * The grade range is 1 (highest) to 150 (lowest).
  * 
- * @param name The name of the form
- * @param sign_grade The required grade to sign the form (1 = highest)
- * @param exec_grade The required grade to execute the form (1 = highest)
+ * @param name_			The name of the form
+ * @param sign_grade_	The required grade to sign the form (1 = highest)
+ * @param exec_grade_	The required grade to execute the form (1 = highest)
  * 
- * @throws Form::GradeTooHighException if sign_grade or exec_grade < 1
- * @throws Form::GradeTooLowException if sign_grade or exec_grade > 150
+ * @throws		GradeTooHighException if sign_grade or exec_grade < 1
+ * @throws		GradeTooLowException if sign_grade or exec_grade > 150
  */
-class AForm
+class	AForm
 {
 	private:
 		const std::string	name_;
@@ -40,7 +40,9 @@ class AForm
 
 		///////
 
-		void	beSigned(const Bureaucrat& bureaucrat);
+		void			beSigned(const Bureaucrat& bureaucrat);
+		virtual void	printStatus(std::ostream& os) const; // dervived classes can override to add their own info
+		virtual void	execute(Bureaucrat const &executor) const = 0; // pure virtual function, making this class abstract
 
 		///////
 
@@ -49,27 +51,25 @@ class AForm
 		int			getSignGrade() const;
 		int			getExecGrade() const;
 
-		virtual void execute(Bureaucrat const &executor) const = 0;
-
 		///////
 
-		class GradeTooHighException : public std::exception
+		class	GradeTooHighException : public std::exception
 		{
 			public:
 				const char* what() const throw();
 		};
-		class GradeTooLowException : public std::exception
+		class	GradeTooLowException : public std::exception
 		{
 			public:
 				const char* what() const throw();
 		};
-		class FormNotSignedException : public std::exception
+		class	FormNotSignedException : public std::exception
 		{
 			public:
 				const char* what() const throw();
 		};
 };
 
-std::ostream& operator<<(std::ostream& os, const AForm& form);
+std::ostream&	operator<<(std::ostream& os, const AForm& form);
 
 #endif

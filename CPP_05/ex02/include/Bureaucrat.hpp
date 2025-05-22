@@ -9,17 +9,17 @@ class AForm;
 # include "AForm.hpp"
 
 /**
- * Represents a bureaucrat with a name and a grade.
+ * Represents a bureaucrat with a name and a grade. 
  * 
  * A Bureaucrat can sign forms and has a grade ranging from 1 (highest) to 150 (lowest).
  * 
- * @param name The name of the bureaucrat
- * @param grade The grade of the bureaucrat (1 = highest)
+ * @param name_		The name of the bureaucrat
+ * @param grade_	The grade of the bureaucrat (1 = highest)
  * 
- * @throws Bureaucrat::GradeTooHighException if grade < 1
- * @throws Bureaucrat::GradeTooLowException if grade > 150
+ * @throws		GradeTooHighException if grade < 1
+ * @throws		GradeTooLowException if grade > 150
  */
-class Bureaucrat
+class	Bureaucrat
 {
 	private:
 		const std::string	name_;
@@ -31,7 +31,7 @@ class Bureaucrat
 		Bureaucrat(const Bureaucrat& other);
 		~Bureaucrat();
 
-		Bureaucrat& operator=(const Bureaucrat& other);
+		Bureaucrat&	operator=(const Bureaucrat& other);
 
 		///////
 
@@ -47,19 +47,18 @@ class Bureaucrat
 		// Inheriting from std::exception: virtual destructor and virtual: const char* what() const throw()
 		// throw() guarantees that the function itself will not throw any exceptions
 
-		class GradeTooHighException : public std::exception
+		class	GradeTooHighException : public std::exception
 		{
 			public:
 				const char* what() const throw();
 		};
-
-		class GradeTooLowException : public std::exception
+		class	GradeTooLowException : public std::exception
 		{
 			public:
 				const char* what() const throw();
 		};
 };
 
-std::ostream& operator<<(std::ostream& os, const Bureaucrat& b);
+std::ostream&	operator<<(std::ostream& os, const Bureaucrat& b);
 
 #endif
