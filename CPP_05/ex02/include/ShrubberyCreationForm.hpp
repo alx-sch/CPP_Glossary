@@ -7,8 +7,8 @@
 # include "../include/Bureaucrat.hpp"
 
 /**
+ * The form is signed by a Bureaucrat and can be executed by another Bureaucrat.
  * Creates a shrubbery in the form of ASCII art and writes it to a file. 
- * The form is signed by a Bureaucrat and can be executed by another Bureaucrat. 
  * Inherits from AForm. 
  * 
  * Grade required to sign:		145; 
@@ -16,7 +16,7 @@
  *
  * @param target	The target for the form
  */
-class ShrubberyCreationForm : public AForm
+class	ShrubberyCreationForm : public AForm
 {
 	private:
 		std::string	target_;

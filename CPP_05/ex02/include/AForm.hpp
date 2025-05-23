@@ -19,8 +19,9 @@ class Bureaucrat;
  * @param sign_grade_	The required grade to sign the form (1 = highest)
  * @param exec_grade_	The required grade to execute the form (1 = highest)
  * 
- * @throws		GradeTooHighException if sign_grade or exec_grade < 1
- * @throws		GradeTooLowException if sign_grade or exec_grade > 150
+ * @throws	GradeTooHighException if sign_grade or exec_grade < 1
+ * @throws	GradeTooLowException if sign_grade or exec_grade > 150
+ * @throws	NotSignedException if the form is not signed when executing
  */
 class	AForm
 {
@@ -41,7 +42,7 @@ class	AForm
 		/////// Member functions
 
 		void			beSigned(const Bureaucrat& bureaucrat);
-		virtual void	execute(Bureaucrat const &executor) const;
+		void			execute(Bureaucrat const &executor) const;
 		virtual void	executeAction() const = 0;
 		virtual void	printStatus(std::ostream& os) const = 0;
 
@@ -64,7 +65,7 @@ class	AForm
 			public:
 				const char* what() const throw();
 		};
-		class	FormNotSignedException : public std::exception
+		class	NotSignedException : public std::exception
 		{
 			public:
 				const char* what() const throw();

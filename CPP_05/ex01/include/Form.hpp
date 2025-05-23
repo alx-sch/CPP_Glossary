@@ -18,8 +18,8 @@ class Bureaucrat;
  * @param sign_grade_	The required grade to sign the form (1 = highest)
  * @param exec_grade_	The required grade to execute the form (1 = highest)
  * 
- * @throws		GradeTooHighException if sign_grade or exec_grade < 1
- * @throws		GradeTooLowException if sign_grade or exec_grade > 150
+ * @throws	GradeTooHighException if sign_grade or exec_grade < 1
+ * @throws	GradeTooLowException if sign_grade or exec_grade > 150
  */
 class	Form
 {

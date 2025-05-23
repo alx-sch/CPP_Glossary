@@ -10,7 +10,7 @@
 #include "../include/AForm.hpp"
 #include "../include/Bureaucrat.hpp"
 
-#define DEFNAME	"Shrubbery Creation"
+#define DEFNAME	"Shrubbery Creation Form"
 
 ShrubberyCreationForm::ShrubberyCreationForm() : AForm(DEFNAME, 145, 137), target_("garden")
 {
@@ -60,6 +60,9 @@ void	ShrubberyCreationForm::printStatus(std::ostream& os) const
 	os << "   Exec grade: " << getExecGrade() << std::endl;
 }
 
+// Internal function to perform the specific action of the form.
+// Here, it creates an ASCII tree file.
+// -> Use Bureaucrat::executeForm() to call this function.
 void	ShrubberyCreationForm::executeAction() const
 {
 	std::string	filename = target_ + "_shrubbery";

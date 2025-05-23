@@ -21,7 +21,7 @@ int main()
 		std::cout << shrub << std::endl;
 
 		std::cout << intern.getName() << " tries to execute " << shrub.getName() << "...\n";
-		shrub.execute(intern);
+		intern.executeForm(shrub);
 
 		std::cout << std::endl << intern.getName() << " tries to sign " << shrub.getName() << "...\n";
 		intern.signForm(shrub);
@@ -30,7 +30,7 @@ int main()
 		manager.signForm(shrub);
 
 		std::cout << std::endl << intern.getName() << " tries to execute " << shrub.getName() << "...\n";
-		shrub.execute(intern);
+		intern.executeForm(shrub);
 
 		std::cout << std::endl << intern << std::endl;
 		std::cout << intern.getName() << " gets a promotion!\n";
@@ -40,7 +40,7 @@ int main()
 		std::cout << junior << std::endl;
 
 		std::cout << std::endl << junior.getName() << " tries to execute " << shrub.getName() << "...\n";
-		shrub.execute(junior);
+		intern.executeForm(shrub);
 
 		std::cout << std::endl;
 	}

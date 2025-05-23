@@ -2,13 +2,24 @@
 # define ROBOTOMYREQUESTFORM_HPP
 
 # include <string>
+
 # include "../include/AForm.hpp"
 # include "../include/Bureaucrat.hpp"
 
-class RobotomyRequestForm : public AForm
+/**
+ * The form is signed by a Bureaucrat and can be executed by another Bureaucrat.
+ * Robotomizes a target with a 50% success rate. 
+ * Inherits from AForm. 
+ * 
+ * Grade required to sign:		72; 
+ * Grade required to execute:	45.
+ * 
+ * @param target	The target for the form
+ */
+class	RobotomyRequestForm : public AForm
 {
 	private:
-		std::string target_;
+		std::string	target_;
 
 	public:
 		RobotomyRequestForm();
@@ -16,11 +27,16 @@ class RobotomyRequestForm : public AForm
 		RobotomyRequestForm(const RobotomyRequestForm& other);
 		~RobotomyRequestForm();
 
-		RobotomyRequestForm& operator=(const RobotomyRequestForm& other);
+		RobotomyRequestForm&	operator=(const RobotomyRequestForm& other);
 
-		///////
+		/////// Member functions
 
-		void execute(Bureaucrat const &executor) const;
+		void	printStatus(std::ostream& os) const;
+		void	executeAction() const;
+
+		/////// Getters
+
+		std::string	getTarget() const;
 };
 
 #endif

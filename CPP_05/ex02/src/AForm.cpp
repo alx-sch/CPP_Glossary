@@ -4,9 +4,6 @@
 #include "../include/AForm.hpp"
 #include "../include/Bureaucrat.hpp"
 
-#define RED		"\033[31m"
-#define RESET	"\033[0m"
-
 AForm::AForm() : name_("Template"), is_signed_(false), sign_grade_(150), exec_grade_(150)
 {
 	std::cout << "📝 Form default constructor called" << std::endl;
@@ -53,18 +50,15 @@ void	AForm::beSigned(const Bureaucrat& bureaucrat)
 	is_signed_ = true;
 }
 
+// Internal function to execute the form.s
+// -> Use Bureaucrat::executeForm() to call this function.
 void	AForm::execute(Bureaucrat const &executor) const
 {
-	try {
-		if (!getIsSigned())
-			throw AForm::FormNotSignedException();
-		if (executor.getGrade() > getExecGrade())
-			throw AForm::GradeTooHighException();
-		executeAction();
-	}
-	catch (const std::exception& e) {
-		std::cerr << RED << "Error: " << e.what() << RESET << std::endl;
-	}
+	if (!getIsSigned())
+		throw AForm::NotSignedException();
+	if (executor.getGrade() > getExecGrade())
+		throw AForm::GradeTooHighException();
+	executeAction();
 }
 
 // Getters
@@ -101,7 +95,7 @@ const char*	AForm::GradeTooLowException::what() const throw()
 	return "📝 Form's grade is too low!";
 }
 
-const char*	AForm::FormNotSignedException::what() const throw()
+const char*	AForm::NotSignedException::what() const throw()
 {
 	return "📝 Form is not signed!";
 }
