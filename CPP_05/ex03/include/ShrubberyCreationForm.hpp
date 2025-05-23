@@ -6,6 +6,8 @@
 # include "../include/AForm.hpp"
 # include "../include/Bureaucrat.hpp"
 
+# define NAME_SC	"Shrubbery Creation" // Default name of the form
+
 /**
  * The form is signed by a Bureaucrat and can be executed by another Bureaucrat.
  * Creates a shrubbery in the form of ASCII art and writes it to a file. 

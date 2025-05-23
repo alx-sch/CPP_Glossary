@@ -6,6 +6,8 @@
 # include "../include/AForm.hpp"
 # include "../include/Bureaucrat.hpp"
 
+# define NAME_PP	"Presidential Pardon" // Default name of the form
+
 /**
  * Grants a presidential pardon to a target.
  * The form is signed by a Bureaucrat and can be executed by another Bureaucrat.

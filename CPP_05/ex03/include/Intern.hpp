@@ -8,7 +8,8 @@ class	Intern
 {
 	public:
 		Intern();
-		// No parameterized constructor as there are no parameters to initialize
+		Intern(const std::string& dummy);	// Dummy constructor to satisfy the requirements; 
+											// but makes no sense as there are no member variables to initialize.	
 		Intern(const Intern& other);
 		Intern&	operator=(const Intern& other);
 		~Intern();

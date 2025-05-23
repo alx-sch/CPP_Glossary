@@ -6,6 +6,8 @@
 # include "../include/AForm.hpp"
 # include "../include/Bureaucrat.hpp"
 
+# define NAME_RR	"Robotomy Request" // Default name of the form
+
 /**
  * The form is signed by a Bureaucrat and can be executed by another Bureaucrat.
  * Robotomizes a target with a 50% success rate. 

@@ -7,18 +7,17 @@
 #include "../include/AForm.hpp"
 #include "../include/Bureaucrat.hpp"
 
-#define NAME		"Robotomy Request"
 #define SIGN_GRADE	72
 #define EXEC_GRADE	45
 #define TARGET		"Frankenstein"
 
-RobotomyRequestForm::RobotomyRequestForm() : AForm(NAME, SIGN_GRADE, EXEC_GRADE), target_(TARGET)
+RobotomyRequestForm::RobotomyRequestForm() : AForm(NAME_RR, SIGN_GRADE, EXEC_GRADE), target_(TARGET)
 {
 	std::cout << "🤖 RobotomyRequestForm default constructor called\n";
 }
 
 RobotomyRequestForm::RobotomyRequestForm(const std::string& target)
-	: AForm(NAME, SIGN_GRADE, EXEC_GRADE), target_(target)
+	: AForm(NAME_RR, SIGN_GRADE, EXEC_GRADE), target_(target)
 {
 	std::cout << "🤖 RobotomyRequestForm parameterized constructor called\n";
 }

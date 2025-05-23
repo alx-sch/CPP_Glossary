@@ -5,18 +5,17 @@
 #include "../include/AForm.hpp"
 #include "../include/Bureaucrat.hpp"
 
-#define NAME		"Presidential Pardon"
 #define SIGN_GRADE	25
 #define EXEC_GRADE	5
 #define TARGET		"Tech Billionaire"
 
-PresidentialPardonForm::PresidentialPardonForm() : AForm(NAME, SIGN_GRADE, EXEC_GRADE), target_(TARGET)
+PresidentialPardonForm::PresidentialPardonForm() : AForm(NAME_PP, SIGN_GRADE, EXEC_GRADE), target_(TARGET)
 {
 	std::cout << "🦅 PresidentialPardonForm default constructor called\n";
 }
 
 PresidentialPardonForm::PresidentialPardonForm(const std::string& target)
-	: AForm(NAME, SIGN_GRADE, EXEC_GRADE), target_(target)
+	: AForm(NAME_PP, SIGN_GRADE, EXEC_GRADE), target_(target)
 {
 	std::cout << "🦅 PresidentialPardonForm parameterized constructor called\n";
 }

@@ -13,7 +13,7 @@ SRCS :=			$(addprefix $(SRCS_DIR)/, $(SRCS_FILES))
 				
 # OBJECT FILES
 OBJS_DIR :=		obj
-OBJS :=			$(SRCS:%.cpp=$(OBJS_DIR)/%.o)
+OBJS :=			$(SRCS:$(SRCS_DIR)/%.cpp=$(OBJS_DIR)/%.o)
 DEPS :=			$(OBJS:.o=.d)
 
 # HEADER FILES
@@ -56,7 +56,7 @@ $(NAME):	$(OBJS)
 # -o $@:	Output file name;  '$@' is replaced with target name (the o. file).
 # -MMD:		Generates a dependency file for each source file.
 # -MP:		Prevents make from failing if the header file is deleted.
-$(OBJS_DIR)/%.o:	%.cpp
+$(OBJS_DIR)/%.o:	$(SRCS_DIR)/%.cpp
 	@mkdir -p $(@D)
 	@$(eval SRC_NUM := $(shell expr $(SRC_NUM) + 1))
 	@$(eval PERCENT := $(shell printf "%.0f" $(shell echo "scale=4; $(SRC_NUM) / $(TOTAL_SRCS) * 100" | bc)))

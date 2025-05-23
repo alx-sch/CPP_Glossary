@@ -32,6 +32,12 @@ class	AForm
 		const int			sign_grade_;
 		const int			exec_grade_;
 
+	protected:
+		std::string			target_;
+
+		// Constructor is protected to prevent instantiation of abstract class
+		AForm(const std::string& name, int sign_grade, int exec_grade, const std::string& target);
+
 	public:
 		AForm();
 		AForm(const std::string& name, int sign_grade, int exec_grade);
