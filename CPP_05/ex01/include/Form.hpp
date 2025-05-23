@@ -33,9 +33,8 @@ class	Form
 		Form();
 		Form(const std::string& name, int sign_grade, int exec_grade);
 		Form(const Form& other);
-		~Form();
-
 		Form&	operator=(const Form& other);
+		~Form();
 
 		/////// Member functions
 

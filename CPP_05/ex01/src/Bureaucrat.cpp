@@ -12,13 +12,13 @@
 
 Bureaucrat::Bureaucrat() : name_(NAME), grade_(GRADE)
 {
-	std::cout << "💼 Bureaucrat default constructor called" << std::endl;
+	std::cout << "💼 Bureaucrat default constructor called\n";
 }
 
 Bureaucrat::Bureaucrat(const std::string& name, int grade)
 	: name_(name), grade_(grade)
 {
-	std::cout << "💼 Bureaucrat parameterized constructor called" << std::endl;
+	std::cout << "💼 Bureaucrat parameterized constructor called\n";
 	if (grade_ < 1)
 		throw Bureaucrat::GradeTooHighException();
 	else if (grade_ > 150)
@@ -28,21 +28,21 @@ Bureaucrat::Bureaucrat(const std::string& name, int grade)
 Bureaucrat::Bureaucrat(const Bureaucrat& other)
 	: name_(other.name_), grade_(other.grade_)
 {
-	std::cout << "💼 Bureaucrat copy constructor called" << std::endl;
-}
-
-Bureaucrat::~Bureaucrat()
-{
-	std::cout << "💼 Bureaucrat destructor called" << std::endl;
+	std::cout << "💼 Bureaucrat copy constructor called\n";
 }
 
 // Only copies the `grade_` and keeps the `name_` as is
 Bureaucrat&	Bureaucrat::operator=(const Bureaucrat& other)
 {
-	std::cout << "💼 Bureaucrat copy assignment operator called" << std::endl;
+	std::cout << "💼 Bureaucrat copy assignment operator called\n";
 	if (this != &other) 
 		grade_ = other.grade_;
 	return *this;
+}
+
+Bureaucrat::~Bureaucrat()
+{
+	std::cout << "💼 Bureaucrat destructor called\n";
 }
 
 // Member functions
@@ -65,7 +65,7 @@ void	Bureaucrat::signForm(Form& form)
 {
 	try {
 		form.beSigned(*this);
-		std::cout << "💼 " << name_ << " signed " << form.getName() << "." <<std::endl;
+		std::cout << "💼 " << name_ << " signed " << form.getName() << ".\n";
 	} catch (const std::exception& e) {
 		std::cerr << RED << "Error: " << e.what() << RESET << std::endl;
 	}

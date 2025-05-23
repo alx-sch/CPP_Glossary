@@ -1,13 +1,13 @@
-NAME :=			abstract
+NAME :=			bureaucrat_02
 
 # SOURCE FILES
 SRCS_DIR :=		src
 SRCS_FILES :=	main.cpp \
-				Animal.cpp \
-				Cat.cpp \
-				Dog.cpp  \
-				Brain.cpp \
-				AAnimal.cpp 
+				Bureaucrat.cpp \
+				AForm.cpp \
+				ShrubberyCreationForm.cpp \
+				RobotomyRequestForm.cpp \
+				PresidentialPardonForm.cpp
 				
 SRCS :=			$(addprefix $(SRCS_DIR)/, $(SRCS_FILES))
 				
@@ -76,6 +76,7 @@ clean:
 
 fclean:	clean
 	@rm -f $(NAME)
+	@rm -f *_shrubbery
 	@echo "$(BOLD)$(RED)$(NAME) removed.$(RESET)"
 
 re:	fclean all

@@ -26,9 +26,8 @@ class	Bureaucrat
 		Bureaucrat();
 		Bureaucrat(const std::string& name, int grade);
 		Bureaucrat(const Bureaucrat& other);
-		~Bureaucrat();
-
 		Bureaucrat&	operator=(const Bureaucrat& other);
+		~Bureaucrat();
 
 		/////// Member functions
 
