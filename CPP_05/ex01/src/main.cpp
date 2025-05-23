@@ -39,7 +39,8 @@ int main()
 		std::cout << std::endl;
 		std::cout << junior.getName() << " tries to sign " << topSecretDocument.getName() << "...\n";
 		junior.signForm(topSecretDocument);
-		std::cout << std::endl;
+
+		std::cout << std::endl << birthDayCard << std::endl << std::endl;
 		std::cout << topSecretDocument << std::endl << std::endl;
 
 		std::cout << senior.getName() << " tries to sign " << birthDayCard.getName() << "...\n";
@@ -47,9 +48,9 @@ int main()
 		std::cout << std::endl;
 		std::cout << senior.getName() << " tries to sign " << topSecretDocument.getName() << "...\n";
 		senior.signForm(topSecretDocument);
-		std::cout << topSecretDocument << std::endl;
+		std::cout << std::endl << topSecretDocument << std::endl;
 
-		std::cout << "\n-- Creating a form with invalid grade --\n";
+		std::cout << "\n-- Creating a form with invalid grade --\n\n";
 		Form invalidForm("Broken Form", 100, 151);  // should throw
 
 		std::cout << "I won't be printed because error is thrown above\n";

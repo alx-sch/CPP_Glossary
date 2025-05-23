@@ -36,11 +36,10 @@ int main()
 		std::cout << intern.getName() << " gets a promotion!\n";
 		for (int i = 0; i < 15; ++i)
 				intern.incrementGrade();
-		Bureaucrat	junior(intern); // Promote intern to junior ;) intern should ideally go out of scope here, but oh well
-		std::cout << junior << std::endl;
+		std::cout << intern << std::endl;
 
-		std::cout << std::endl << junior.getName() << " tries to execute " << shrub.getName() << "...\n";
-		junior.executeForm(shrub);
+		std::cout << std::endl << intern.getName() << " tries to execute " << shrub.getName() << "...\n";
+		intern.executeForm(shrub);
 
 		std::cout << std::endl;
 	}
@@ -89,7 +88,7 @@ int main()
 		std::cout << std::endl << vice.getName() << " tries to sign " << pardon.getName() << "...\n";
 		vice.signForm(pardon);
 
-		std::cout << std::endl << president.getName() << " tries to execute " << pardon.getName() << "...\n";
+		std::cout << std::endl << president.getName() << " tries to sign " << pardon.getName() << "...\n";
 		president.signForm(pardon);
 		std::cout << std::endl;
 		std::cout << president.getName() << " tries to execute " << pardon.getName() << "...\n";

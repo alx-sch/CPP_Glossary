@@ -96,6 +96,7 @@ void	ShrubberyCreationForm::printStatus(std::ostream& os) const
 		os << "Yes";
 	else
 		os << "No";
+	os << std::endl;
 	os << "   Sign grade: " << getSignGrade() << std::endl;
 	os << "   Exec grade: " << getExecGrade() << std::endl;
 }

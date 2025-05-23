@@ -61,7 +61,7 @@ void	RobotomyRequestForm::executeAction() const
 		return;
 	}
 	else
-		std::cout << "🤖 ❌ " << target_ << " has failed to be robotomized.\n";
+		std::cout << "🤖 ❌ Robotomization of " << target_ << " has failed.\n";
 }
 
 // Prints the status of the form.
