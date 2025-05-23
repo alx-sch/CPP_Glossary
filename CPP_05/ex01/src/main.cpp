@@ -52,7 +52,7 @@ int main()
 		std::cout << "\n-- Creating a form with invalid grade --\n";
 		Form invalidForm("Broken Form", 100, 151);  // should throw
 
-		std::cout << "I won't be printed because error is thrown above\n" << std::endl;
+		std::cout << "I won't be printed because error is thrown above\n";
 
 	}
 	catch (std::exception& e) {

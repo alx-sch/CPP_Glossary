@@ -14,9 +14,9 @@ class Bureaucrat;
  * A Form can be signed by a Bureaucrat whose grade is high enough. 
  * The grade range is 1 (highest) to 150 (lowest).
  * 
- * @param name_			The name of the form
- * @param sign_grade_	The required grade to sign the form (1 = highest)
- * @param exec_grade_	The required grade to execute the form (1 = highest)
+ * @param name_ 		The name of the form
+ * @param sign_grade_ 	The required grade to sign the form (1 = highest)
+ * @param exec_grade_ 	The required grade to execute the form (1 = highest)
  * 
  * @throws	GradeTooHighException if sign_grade or exec_grade < 1
  * @throws	GradeTooLowException if sign_grade or exec_grade > 150

@@ -13,8 +13,8 @@
  * 
  * Grade required to sign:		145; 
  * Grade required to execute:	137.
- *
- * @param target	The target for the form
+ * 
+ * @param target_ 	The target of the shrubbery creation.
  */
 class	ShrubberyCreationForm : public AForm
 {
@@ -31,10 +31,10 @@ class	ShrubberyCreationForm : public AForm
 
 		/////// Member functions
 
-		void	printStatus(std::ostream& os) const;
 		void	executeAction() const;
+		void	printStatus(std::ostream& os) const;
 
-		/////// Getters
+		// Getters
 
 		std::string	getTarget() const;
 };

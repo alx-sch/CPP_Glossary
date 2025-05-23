@@ -10,21 +10,24 @@
 #include "../include/AForm.hpp"
 #include "../include/Bureaucrat.hpp"
 
-#define DEFNAME	"Shrubbery Creation Form"
+#define NAME		"Shrubbery Creation"
+#define SIGN_GRADE	145
+#define EXEC_GRADE	137
+#define TARGET		"garden"
 
-ShrubberyCreationForm::ShrubberyCreationForm() : AForm(DEFNAME, 145, 137), target_("garden")
+ShrubberyCreationForm::ShrubberyCreationForm() : AForm(NAME, SIGN_GRADE, EXEC_GRADE), target_(TARGET)
 {
 	std::cout << "🌳 ShrubberyCreationForm default constructor called" << std::endl;
 }
 
 ShrubberyCreationForm::ShrubberyCreationForm(const std::string& target)
-	: AForm(DEFNAME, 145, 137), target_(target)
+	: AForm(NAME, SIGN_GRADE, EXEC_GRADE), target_(target)
 {
 	std::cout << "🌳 ShrubberyCreationForm parameterized constructor called" << std::endl;
 }
 
 ShrubberyCreationForm::ShrubberyCreationForm(const ShrubberyCreationForm& other)
-	: AForm(other), target_(other.target_)
+	: AForm(other)
 {
 	std::cout << "🌳 ShrubberyCreationForm copy constructor called" << std::endl;
 }
@@ -34,31 +37,18 @@ ShrubberyCreationForm::~ShrubberyCreationForm()
 	std::cout << "🌳 ShrubberyCreationForm destructor called" << std::endl;
 }
 
+// Only copies the `target_` and sign status; keeps the const members as is
 ShrubberyCreationForm&	ShrubberyCreationForm::operator=(const ShrubberyCreationForm& other)
 {
 	std::cout << "🌳 ShrubberyCreationForm copy assignment operator called" << std::endl;
-	if (this != &other) {
+	if (this != &other){
 		AForm::operator=(other);
 		target_ = other.target_;
 	}
 	return *this;
 }
 
-// Member function to execute the form
-
-void	ShrubberyCreationForm::printStatus(std::ostream& os) const
-{
-	os << "🌳 Form: " << getName() << std::endl;
-	os << "   Target: " << target_ << std::endl;
-	os << "   Is signed: ";
-	if (getIsSigned())
-		os << "Yes";
-	else
-		os << "No";
-	os << std::endl;
-	os << "   Sign grade: " << getSignGrade() << std::endl;
-	os << "   Exec grade: " << getExecGrade() << std::endl;
-}
+// Member functions
 
 // Internal function to perform the specific action of the form.
 // Here, it creates an ASCII tree file.
@@ -94,6 +84,16 @@ void	ShrubberyCreationForm::executeAction() const
 	file.close();
 
 	std::cout << "🌳 '" << target_ << "_shrubbery' created" << std::endl;
+}
+
+// Prints the status of the form.
+void	ShrubberyCreationForm::printStatus(std::ostream& os) const
+{
+	os << "🌳 Form: " << getName() << std::endl;
+	os << "   Target: " << target_ << std::endl;
+	os << "   Is signed: " << (getIsSigned() ? "Yes" : "No") << std::endl;
+	os << "   Sign grade: " << getSignGrade() << std::endl;
+	os << "   Exec grade: " << getExecGrade() << std::endl;
 }
 
 // Getters

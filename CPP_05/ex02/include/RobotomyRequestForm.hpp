@@ -14,7 +14,7 @@
  * Grade required to sign:		72; 
  * Grade required to execute:	45.
  * 
- * @param target	The target for the form
+ * @param target_ 	The target of the robotomy request.
  */
 class	RobotomyRequestForm : public AForm
 {
@@ -31,10 +31,10 @@ class	RobotomyRequestForm : public AForm
 
 		/////// Member functions
 
-		void	printStatus(std::ostream& os) const;
 		void	executeAction() const;
+		void	printStatus(std::ostream& os) const;
 
-		/////// Getters
+		// Getters
 
 		std::string	getTarget() const;
 };

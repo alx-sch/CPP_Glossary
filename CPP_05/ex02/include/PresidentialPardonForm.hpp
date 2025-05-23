@@ -1,7 +1,7 @@
 #ifndef PRESIDENTIALPARDONFORM_HPP
 # define PRESIDENTIALPARDONFORM_HPP
 
-# include "string"
+# include <string>
 
 # include "../include/AForm.hpp"
 # include "../include/Bureaucrat.hpp"
@@ -14,7 +14,7 @@
  * Grade required to sign:		25;
  * Grade required to execute:	5.
  * 
- * @param target	The target for the form
+ * @param target_ 	The target of the presidential pardon.
  */
 class	PresidentialPardonForm : public AForm
 {
@@ -31,11 +31,11 @@ class	PresidentialPardonForm : public AForm
 
 		/////// Member functions
 
-		void	printStatus(std::ostream& os) const;
 		void	executeAction() const;
+		void	printStatus(std::ostream& os) const;
 
-		/////// Getters
-
+		// Getters
+		
 		std::string	getTarget() const;
 };
 

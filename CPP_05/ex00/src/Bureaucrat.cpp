@@ -2,7 +2,10 @@
 #include <iostream>
 #include "../include/Bureaucrat.hpp"
 
-Bureaucrat::Bureaucrat() : name_("Dwight"), grade_(150)
+# define NAME	"Dwight"
+# define GRADE	150
+
+Bureaucrat::Bureaucrat() : name_(NAME), grade_(GRADE)
 {
 	std::cout << "Bureaucrat default constructor called" << std::endl;
 }
@@ -32,10 +35,8 @@ Bureaucrat::~Bureaucrat()
 Bureaucrat&	Bureaucrat::operator=(const Bureaucrat& other)
 {
 	std::cout << "Bureaucrat copy assignment operator called" << std::endl;
-	if (this != &other) {
-		// No need to assign name_ as it's const
+	if (this != &other) 
 		grade_ = other.grade_;
-	}
 	return *this;
 }
 

@@ -8,7 +8,10 @@
 #define RED		"\033[31m"
 #define RESET	"\033[0m"
 
-Bureaucrat::Bureaucrat() : name_("Dwight"), grade_(150)
+# define NAME	"Dwight"
+# define GRADE	150
+
+Bureaucrat::Bureaucrat() : name_(NAME), grade_(GRADE)
 {
 	std::cout << "💼 Bureaucrat default constructor called" << std::endl;
 }
@@ -75,7 +78,7 @@ void	Bureaucrat::executeForm(AForm const &form) const
 {
 	try {
 		form.execute(*this);
-		std::cout << "💼 " << name_ << " executed " << form.getName() << std::endl;
+		std::cout << "💼 " << name_ << " executed " << form.getName() << "." << std::endl;
 	} catch (const std::exception& e) {
 		std::cerr << RED << "Error: " << e.what() << RESET << std::endl;
 	}

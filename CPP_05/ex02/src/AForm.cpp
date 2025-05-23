@@ -4,13 +4,18 @@
 #include "../include/AForm.hpp"
 #include "../include/Bureaucrat.hpp"
 
-AForm::AForm() : name_("Template"), is_signed_(false), sign_grade_(150), exec_grade_(150)
+# define NAME		"Template"
+# define SIGNED		false
+# define SIGN_GRADE	150
+# define EXEC_GRADE	150
+
+AForm::AForm() : name_(NAME), is_signed_(SIGNED), sign_grade_(SIGN_GRADE), exec_grade_(EXEC_GRADE)
 {
 	std::cout << "📝 Form default constructor called" << std::endl;
 }
 
 AForm::AForm(const std::string& name, int sign_grade, int exec_grade)
-	: name_(name), is_signed_(false), sign_grade_(sign_grade), exec_grade_(exec_grade)
+	: name_(name), is_signed_(SIGNED), sign_grade_(sign_grade), exec_grade_(exec_grade)
 {
 	std::cout << "📝 Form parameterized constructor called" << std::endl;
 	if (sign_grade_ < 1 || exec_grade_ < 1)
@@ -35,9 +40,8 @@ AForm::~AForm()
 AForm&	AForm::operator=(const AForm& other)
 {
 	std::cout << "📝 Form copy assignment operator called" << std::endl;
-	if (this != &other) {
+	if (this != &other)
 		is_signed_ = other.is_signed_;
-	}
 	return *this;
 }
 
@@ -50,7 +54,7 @@ void	AForm::beSigned(const Bureaucrat& bureaucrat)
 	is_signed_ = true;
 }
 
-// Internal function to execute the form.s
+// Internal function to execute the form.
 // -> Use Bureaucrat::executeForm() to call this function.
 void	AForm::execute(Bureaucrat const &executor) const
 {

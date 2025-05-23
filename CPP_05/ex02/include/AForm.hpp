@@ -15,9 +15,10 @@ class Bureaucrat;
  * A Form can be signed by a Bureaucrat whose grade is high enough. 
  * The grade range is 1 (highest) to 150 (lowest).
  * 
- * @param name_			The name of the form
- * @param sign_grade_	The required grade to sign the form (1 = highest)
- * @param exec_grade_	The required grade to execute the form (1 = highest)
+ * @param name_ 		The name of the form
+ * @param sign_grade_ 	The required grade to sign the form (1 = highest)
+ * @param exec_grade_ 	The required grade to execute the form (1 = highest)
+ * @param target_ 		The target for the form
  * 
  * @throws	GradeTooHighException if sign_grade or exec_grade < 1
  * @throws	GradeTooLowException if sign_grade or exec_grade > 150
@@ -43,8 +44,8 @@ class	AForm
 
 		void			beSigned(const Bureaucrat& bureaucrat);
 		void			execute(Bureaucrat const &executor) const;
-		virtual void	executeAction() const = 0;
 		virtual void	printStatus(std::ostream& os) const = 0;
+		virtual void	executeAction() const = 0;
 
 		/////// Getters
 
@@ -52,6 +53,7 @@ class	AForm
 		bool		getIsSigned() const;
 		int			getSignGrade() const;
 		int			getExecGrade() const;
+		std::string	getTarget() const;
 
 		/////// Exceptions
 

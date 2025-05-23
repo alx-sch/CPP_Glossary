@@ -3,13 +3,18 @@
 #include "../include/Form.hpp"
 #include "../include/Bureaucrat.hpp"
 
-Form::Form() : name_("Template"), is_signed_(false), sign_grade_(150), exec_grade_(150)
+# define NAME		"Template"
+# define SIGNED		false
+# define SIGN_GRADE	150
+# define EXEC_GRADE	150
+
+Form::Form() : name_(NAME), is_signed_(SIGNED), sign_grade_(SIGN_GRADE), exec_grade_(EXEC_GRADE)
 {
 	std::cout << "📝 Form default constructor called" << std::endl;
 }
 
 Form::Form(const std::string& name, int sign_grade, int exec_grade)
-	: name_(name), is_signed_(false), sign_grade_(sign_grade), exec_grade_(exec_grade)
+	: name_(name), is_signed_(SIGNED), sign_grade_(sign_grade), exec_grade_(exec_grade)
 {
 	std::cout << "📝 Form parameterized constructor called" << std::endl;
 	if (sign_grade_ < 1 || exec_grade_ < 1)
@@ -34,9 +39,8 @@ Form::~Form()
 Form&	Form::operator=(const Form& other)
 {
 	std::cout << "📝 Form copy assignment operator called" << std::endl;
-	if (this != &other) {
+	if (this != &other)
 		is_signed_ = other.is_signed_;
-	}
 	return *this;
 }
 

@@ -13,8 +13,8 @@ class Form;
  * 
  * A Bureaucrat can sign forms and has a grade ranging from 1 (highest) to 150 (lowest).
  * 
- * @param name_		The name of the bureaucrat
- * @param grade_	The grade of the bureaucrat (1 = highest)
+ * @param name_ 	The name of the bureaucrat
+ * @param grade_ 	The grade of the bureaucrat (1 = highest)
  * 
  * @throws	GradeTooHighException if grade < 1
  * @throws	GradeTooLowException if grade > 150
