@@ -20,7 +20,7 @@ int main()
 		ShrubberyCreationForm	shrub("bathtub");
 		std::cout << shrub << std::endl;
 
-		std::cout << std::endl << intern.getName() << " tries to execute " << shrub.getName() << "...\n";
+		std::cout << intern.getName() << " tries to execute " << shrub.getName() << "...\n";
 		shrub.execute(intern);
 
 		std::cout << std::endl << intern.getName() << " tries to sign " << shrub.getName() << "...\n";
@@ -42,11 +42,10 @@ int main()
 		std::cout << std::endl << junior.getName() << " tries to execute " << shrub.getName() << "...\n";
 		shrub.execute(junior);
 
-
 		std::cout << std::endl;
 	}
 	catch (std::exception& e) {
-			std::cerr << RED << "Exception caught: " << e.what() << RESET << std::endl;
+		std::cerr << RED << "Error: " << e.what() << RESET << std::endl;
 	}
 
 	return 0;

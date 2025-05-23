@@ -38,20 +38,21 @@ class	AForm
 
 		AForm&	operator=(const AForm& other);
 
-		///////
+		/////// Member functions
 
 		void			beSigned(const Bureaucrat& bureaucrat);
-		virtual void	printStatus(std::ostream& os) const; // dervived classes can override to add their own info
-		virtual void	execute(Bureaucrat const &executor) const = 0; // pure virtual function, making this class abstract
+		virtual void	execute(Bureaucrat const &executor) const;
+		virtual void	executeAction() const = 0;
+		virtual void	printStatus(std::ostream& os) const = 0;
 
-		///////
+		/////// Getters
 
 		std::string	getName() const;
 		bool		getIsSigned() const;
 		int			getSignGrade() const;
 		int			getExecGrade() const;
 
-		///////
+		/////// Exceptions
 
 		class	GradeTooHighException : public std::exception
 		{

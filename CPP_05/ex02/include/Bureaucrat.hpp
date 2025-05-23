@@ -33,19 +33,18 @@ class	Bureaucrat
 
 		Bureaucrat&	operator=(const Bureaucrat& other);
 
-		///////
+		/////// Member functions
 
 		void	incrementGrade();
 		void	decrementGrade();
 		void	signForm(AForm& form);
 
-		///////
+		/////// Getters
 
 		const std::string&	getName() const;
 		int					getGrade() const;
 
-		// Inheriting from std::exception: virtual destructor and virtual: const char* what() const throw()
-		// throw() guarantees that the function itself will not throw any exceptions
+		/////// Exceptions
 
 		class	GradeTooHighException : public std::exception
 		{

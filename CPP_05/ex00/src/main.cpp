@@ -10,46 +10,46 @@ int main()
 	{
 		std::cout << "---------- Testing Contructors ---------\n\n";
 
-		Bureaucrat deffy;
-		std::cout << deffy << std::endl;
+		Bureaucrat	deffy;
+		std::cout << deffy << std::endl << std::endl;
 
-		Bureaucrat jim("Jim", 2);
-		Bureaucrat cpy(jim);
-		std::cout << cpy << std::endl;
+		Bureaucrat	jim("Jim", 2);
+		Bureaucrat	cpy(jim);
+		std::cout << cpy << std::endl << std::endl;
 
-		Bureaucrat kevin("Kevin", 150);
-		std::cout << kevin << std::endl;
+		Bureaucrat	kevin("Kevin", 150);
+		std::cout << kevin << std::endl << std::endl;
 		kevin = jim;
-		std::cout << kevin << std::endl;
+		std::cout << kevin << std::endl << std::endl;
 	}
 
 	std::cout << "\n-------- Testing Exceptions ------------\n\n";
 
 	try {
 		// Grade too high (0)
-		Bureaucrat b2("Jim", 0);  // This should throw
+		Bureaucrat	b2("Jim", 0);  // This should throw
 		// Jump immediately to catch block when exception is thrown
 		// Below is not executed
 		std::cout << b2 << std::endl;
 	}
 	// Catch an exception of type GradeTooHighException, passed as const reference 'e'
 	catch (const Bureaucrat::GradeTooHighException& e) {
-		std::cerr << RED << "Exception caught: " << e.what() << RESET << std::endl;
+		std::cerr << RED << "Error: " << e.what() << RESET << std::endl;
 	}
 
 	std::cout << "----------------------------------------\n";
 
 	try {
 		// Grade too low (151)
-		Bureaucrat b3("Kevin", 151);  // This should throw
+		Bureaucrat	b3("Kevin", 151);  // This should throw
 	} catch (const Bureaucrat::GradeTooLowException& e) {
-		std::cerr << BLUE << "Exception caught: " << e.what() << RESET << std::endl;
+		std::cerr << BLUE << "Error: " << e.what() << RESET << std::endl;
 	}
 
 	std::cout << "----------------------------------------\n";
 
 	try {
-		Bureaucrat b4("Angela", 2);
+		Bureaucrat	b4("Angela", 2);
 		std::cout << b4 << std::endl;
 
 		b4.incrementGrade();  // Grade becomes 1
@@ -57,13 +57,13 @@ int main()
 
 		b4.incrementGrade();  // Grade would become 0 → should throw
 	} catch (const Bureaucrat::GradeTooHighException& e) {
-		std::cerr << RED << "Exception caught during increment: " << e.what() << RESET << std::endl;
+		std::cerr << RED << "Error: " << e.what() << RESET << std::endl;
 	}
 
 	std::cout << "----------------------------------------\n";
 
 	try {
-		Bureaucrat b5("Stanley", 149);
+		Bureaucrat	b5("Stanley", 149);
 		std::cout << b5 << std::endl;
 
 		b5.decrementGrade();  // Grade becomes 150
@@ -71,7 +71,7 @@ int main()
 
 		b5.decrementGrade();  // Grade becomes 151 → should throw
 	} catch (const Bureaucrat::GradeTooLowException& e) {
-		std::cerr << BLUE << "Exception caught during decrement: " << e.what() << RESET << std::endl;
+		std::cerr << BLUE << "Error: " << e.what() << RESET << std::endl;
 	}
 
 	return 0;

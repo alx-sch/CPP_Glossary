@@ -1,6 +1,5 @@
 #include <string>
 #include <iostream>
-#include <exception>
 
 #include "../include/Bureaucrat.hpp"
 #include "../include/AForm.hpp"

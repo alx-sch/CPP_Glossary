@@ -4,6 +4,9 @@
 #include "../include/AForm.hpp"
 #include "../include/Bureaucrat.hpp"
 
+#define RED		"\033[31m"
+#define RESET	"\033[0m"
+
 AForm::AForm() : name_("Template"), is_signed_(false), sign_grade_(150), exec_grade_(150)
 {
 	std::cout << "📝 Form default constructor called" << std::endl;
@@ -45,22 +48,23 @@ AForm&	AForm::operator=(const AForm& other)
 
 void	AForm::beSigned(const Bureaucrat& bureaucrat)
 {
-	if (bureaucrat.getGrade() > sign_grade_)
+	if (bureaucrat.getGrade() > getSignGrade())
 		throw AForm::GradeTooHighException();
 	is_signed_ = true;
 }
 
-void	AForm::printStatus(std::ostream& os) const
+void	AForm::execute(Bureaucrat const &executor) const
 {
-	os << "📝 Form: " << name_ << std::endl;
-	os << "   Is signed: ";
-	if (is_signed_)
-		os << "Yes";
-	else
-		os << "No";
-	os << std::endl;
-	os << "   Sign grade: " << sign_grade_ << std::endl;
-	os << "   Execution grade: " << exec_grade_;
+	try {
+		if (!getIsSigned())
+			throw AForm::FormNotSignedException();
+		if (executor.getGrade() > getExecGrade())
+			throw AForm::GradeTooHighException();
+		executeAction();
+	}
+	catch (const std::exception& e) {
+		std::cerr << RED << "Error: " << e.what() << RESET << std::endl;
+	}
 }
 
 // Getters

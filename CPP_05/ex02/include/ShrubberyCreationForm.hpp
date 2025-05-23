@@ -29,10 +29,14 @@ class ShrubberyCreationForm : public AForm
 
 		ShrubberyCreationForm&	operator=(const ShrubberyCreationForm& other);
 
-		///////
+		/////// Member functions
 
 		void	printStatus(std::ostream& os) const;
-		void	execute(Bureaucrat const &executor) const;
+		void	executeAction() const;
+
+		/////// Getters
+
+		std::string	getTarget() const;
 };
 
 #endif

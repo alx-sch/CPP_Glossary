@@ -10,19 +10,19 @@ int main()
 	{
 		std::cout << "---------- Testing Contructors ---------\n\n";
 
-		Form form1;
+		Form	form1;
 		std::cout << std::endl << form1 << std::endl << std::endl;
 
-		Form form2("Registration", 50, 100);
-		Form form3(form2);
+		Form	form2("Registration", 50, 100);
+		Form	form3(form2);
 		std::cout << std::endl << form3 << std::endl << std::endl;
 	}
 
 	std::cout << "\n-------- Testing Exceptions ------------\n\n";
 
 	try {
-		Bureaucrat senior("Susy Senior", 42);
-		Bureaucrat junior("Jim Junior", 142);
+		Bureaucrat	senior("Susy Senior", 42);
+		Bureaucrat	junior("Jim Junior", 142);
 
 		Form birthDayCard("Birthday Card", 145, 145);
 		Form topSecretDocument("Top Secret Document", 50, 50);
@@ -50,13 +50,13 @@ int main()
 		std::cout << topSecretDocument << std::endl;
 
 		std::cout << "\n-- Creating a form with invalid grade --\n";
-		Form invalidForm("Broken Form", 0, 151);  // should throw
+		Form invalidForm("Broken Form", 100, 151);  // should throw
 
 		std::cout << "I won't be printed because error is thrown above\n" << std::endl;
 
 	}
 	catch (std::exception& e) {
-		std::cerr << RED << "Exception caught: " << e.what() << RESET << std::endl;
+		std::cerr << RED << "Error: " << e.what() << RESET << std::endl;
 	}
 
 	return 0;
