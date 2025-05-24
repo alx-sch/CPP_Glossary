@@ -62,13 +62,13 @@ AForm*	makePresidentialPardon(const std::string& target)
 struct	FormEntry
 {
 	const char*	name;	// const char* as pointer to string literal, defined at compile time (e.g., NAME_SC)
-	AForm*		(*createForm)(const std::string& target);	// 'createForm' points to a function like 'AForm* fct(const std::string& target)'.
+	AForm*		(*fctPtr)(const std::string& target);	// 'fctPtr' points to a function like 'AForm* fct(const std::string& target)'.
 };
 
 // Static array of all forms; initialized once at compile time
 static const	FormEntry formEntries[] =
 {
-	{ NAME_SC, makeShrubberyCreation },
+	{ NAME_SC, makeShrubberyCreation }, // No need to explictly reference (&makeShrubberyCreation) as it decays to a pointer automatically
 	{ NAME_RR, makeRobotomyRequest },
 	{ NAME_PP, makePresidentialPardon }
 };
@@ -80,7 +80,7 @@ AForm*	Intern::makeForm(const std::string& formName, const std::string& target)
 	for (size_t i = 0; i < sizeof(formEntries) / sizeof(FormEntry); ++i) {
 		if (formName == formEntries[i].name) {
 			std::cout << "☕️ Intern creates " << formName << ".\n";
-			return formEntries[i].createForm(target);
+			return formEntries[i].fctPtr(target);
 		}
 	}
 	std::cerr << RED << "☕️ Error: Form type '" << formName << "' is not recognized.\n" << RESET;
