@@ -4,9 +4,9 @@
 # include <string>
 # include <iostream>
 # include <exception>
+# include "AForm.hpp"
 
 class AForm;
-# include "AForm.hpp"
 
 /**
  * Represents a bureaucrat with a name and a grade.

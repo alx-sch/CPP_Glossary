@@ -1,21 +1,14 @@
-#include <string>
-#include <iostream>
-
+#include "../include/settings.hpp"
 #include "../include/PresidentialPardonForm.hpp"
-#include "../include/AForm.hpp"
-#include "../include/Bureaucrat.hpp"
 
-#define SIGN_GRADE	25
-#define EXEC_GRADE	5
-#define TARGET		"Tech Billionaire"
-
-PresidentialPardonForm::PresidentialPardonForm() : AForm(NAME_PP, SIGN_GRADE, EXEC_GRADE), target_(TARGET)
+PresidentialPardonForm::PresidentialPardonForm()
+	: AForm(NAME_PP, SIGN_GRADE_PP, EXEC_GRADE_PP), target_(TARGET_PP)
 {
 	std::cout << "🦅 PresidentialPardonForm default constructor called\n";
 }
 
 PresidentialPardonForm::PresidentialPardonForm(const std::string& target)
-	: AForm(NAME_PP, SIGN_GRADE, EXEC_GRADE), target_(target)
+	: AForm(NAME_PP, SIGN_GRADE_PP, EXEC_GRADE_PP), target_(target)
 {
 	std::cout << "🦅 PresidentialPardonForm parameterized constructor called\n";
 }
@@ -50,21 +43,6 @@ PresidentialPardonForm::~PresidentialPardonForm()
 void	PresidentialPardonForm::executeAction() const
 {
 	std::cout << "🦅 " << target_ << " has been pardoned by Zaphod Beeblebrox.\n";
-}
-
-// Prints the status of the form.
-void	PresidentialPardonForm::printStatus(std::ostream& os) const
-{
-	os << "🦅 Form: " << getName() << std::endl;
-	os << "   Target: " << target_ << std::endl;
-	os << "   Is signed: ";
-	if (getIsSigned())
-		os << "Yes";
-	else
-		os << "No";
-	os << std::endl;
-	os << "   Sign grade: " << getSignGrade() << std::endl;
-	os << "   Execution grade: " << getExecGrade() << std::endl;
 }
 
 // Getters

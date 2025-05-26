@@ -2,11 +2,8 @@
 # define PRESIDENTIALPARDONFORM_HPP
 
 # include <string>
-
 # include "../include/AForm.hpp"
 # include "../include/Bureaucrat.hpp"
-
-# define NAME_PP	"Presidential Pardon" // Default name of the form
 
 /**
  * Grants a presidential pardon to a target.
@@ -30,13 +27,7 @@ class	PresidentialPardonForm : public AForm
 		PresidentialPardonForm&	operator=(const PresidentialPardonForm& other);
 		~PresidentialPardonForm();
 
-		/////// Member functions
-
-		void	executeAction() const;
-		void	printStatus(std::ostream& os) const;
-
-		// Getters
-
+		void		executeAction() const;
 		std::string	getTarget() const;
 };
 

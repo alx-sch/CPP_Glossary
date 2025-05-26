@@ -1,21 +1,14 @@
-#include <string>
-#include <iostream>
-
 #include "../include/AForm.hpp"
-#include "../include/Bureaucrat.hpp"
+#include "../include/settings.hpp"
 
-# define NAME		"Template"
-# define SIGNED		false
-# define SIGN_GRADE	150
-# define EXEC_GRADE	150
-
-AForm::AForm() : name_(NAME), is_signed_(SIGNED), sign_grade_(SIGN_GRADE), exec_grade_(EXEC_GRADE)
+AForm::AForm()
+	: name_(NAME_AF), is_signed_(SIGNED_AF), sign_grade_(SIGN_GRADE_AF), exec_grade_(EXEC_GRADE_AF)
 {
 	std::cout << "📝 Form default constructor called\n";
 }
 
 AForm::AForm(const std::string& name, int sign_grade, int exec_grade)
-	: name_(name), is_signed_(SIGNED), sign_grade_(sign_grade), exec_grade_(exec_grade)
+	: name_(name), is_signed_(SIGNED_AF), sign_grade_(sign_grade), exec_grade_(exec_grade)
 {
 	std::cout << "📝 Form parameterized constructor called\n";
 	if (sign_grade_ < 1 || exec_grade_ < 1)
@@ -104,10 +97,19 @@ const char*	AForm::NotSignedException::what() const throw()
 	return "📝 Form is not signed!";
 }
 
-// Overloading the << operator for Form
+// Overloading the << operator
 
 std::ostream&	operator<<(std::ostream& os, const AForm& form)
 {
-	form.printStatus(os);
+	os << "📝 Form: " << form.getName() << std::endl;
+	os << "   Target: " << form.getTarget() << std::endl;
+	os << "   Is signed: ";
+	if (form.getIsSigned())
+		os << "Yes";
+	else
+		os << "No";
+	os << std::endl;
+	os << "   Sign grade: " << form.getSignGrade() << std::endl;
+	os << "   Exec grade: " << form.getExecGrade() << std::endl;
 	return os;
 }

@@ -1,26 +1,19 @@
-#include <string>
-#include <iostream>
 #include <fstream>
-
 #include <stdexcept>	// for std::runtime_error
 #include <cerrno>		// for errno
 #include <cstring>		// for strerror
 
+#include "../include/settings.hpp"
 #include "../include/ShrubberyCreationForm.hpp"
-#include "../include/AForm.hpp"
-#include "../include/Bureaucrat.hpp"
 
-#define SIGN_GRADE	145
-#define EXEC_GRADE	137
-#define TARGET		"garden"
-
-ShrubberyCreationForm::ShrubberyCreationForm() : AForm(NAME_SC, SIGN_GRADE, EXEC_GRADE), target_(TARGET)
+ShrubberyCreationForm::ShrubberyCreationForm()
+	: AForm(NAME_SC, SIGN_GRADE_SC, EXEC_GRADE_SC), target_(TARGET_SC)
 {
 	std::cout << "🌳 ShrubberyCreationForm default constructor called\n";
 }
 
 ShrubberyCreationForm::ShrubberyCreationForm(const std::string& target)
-	: AForm(NAME_SC, SIGN_GRADE, EXEC_GRADE), target_(target)
+	: AForm(NAME_SC, SIGN_GRADE_SC, EXEC_GRADE_SC), target_(target)
 {
 	std::cout << "🌳 ShrubberyCreationForm parameterized constructor called\n";
 }
@@ -83,21 +76,6 @@ void	ShrubberyCreationForm::executeAction() const
 	file.close();
 
 	std::cout << "🌳 '" << target_ << "_shrubbery' created.\n";
-}
-
-// Prints the status of the form.
-void	ShrubberyCreationForm::printStatus(std::ostream& os) const
-{
-	os << "🌳 Form: " << getName() << std::endl;
-	os << "   Target: " << target_ << std::endl;
-	os << "   Is signed: ";
-	if (getIsSigned())
-		os << "Yes";
-	else
-		os << "No";
-	os << std::endl;
-	os << "   Sign grade: " << getSignGrade() << std::endl;
-	os << "   Exec grade: " << getExecGrade() << std::endl;
 }
 
 // Getters

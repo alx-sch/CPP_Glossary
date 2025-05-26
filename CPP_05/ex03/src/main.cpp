@@ -1,10 +1,5 @@
-#include <iostream>
-
-#include "../include/Bureaucrat.hpp"
+#include "../include/settings.hpp" // names for forms
 #include "../include/Intern.hpp"
-#include "../include/ShrubberyCreationForm.hpp"		// for form name
-#include "../include/RobotomyRequestForm.hpp"		// for form name
-#include "../include/PresidentialPardonForm.hpp"	// for form name
 
 void processForm(Bureaucrat& bureaucrat, AForm* formPtr)
 {
@@ -25,6 +20,7 @@ int main()
 
 	// Test creating Shrubbery Creation form
 	formPtr = intern.makeForm(NAME_SC, "backyard");
+	std::cout << *formPtr;
 	processForm(bob, formPtr);
 	std::cout << std::endl;
 

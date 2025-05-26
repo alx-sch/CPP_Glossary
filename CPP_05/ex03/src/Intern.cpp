@@ -1,24 +1,12 @@
-#include <string>
-#include <iostream>
-
 #include "../include/Intern.hpp"
-#include "../include/AForm.hpp"
 #include "../include/RobotomyRequestForm.hpp"
 #include "../include/ShrubberyCreationForm.hpp"
 #include "../include/PresidentialPardonForm.hpp"
-
-#define RED		"\033[31m"
-#define RESET	"\033[0m"
+#include "../include/settings.hpp"
 
 Intern::Intern()
 {
 	std::cout << "☕️ Intern default constructor called\n";
-}
-
-Intern::Intern(const std::string& dummy)
-{
-	std::cout << "☕️ Intern parameterized constructor called\n";
-	(void)dummy; // Avoid unused parameter warning
 }
 
 Intern::Intern(const Intern& other)

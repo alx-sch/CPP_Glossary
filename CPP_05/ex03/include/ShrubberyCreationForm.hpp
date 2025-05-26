@@ -2,11 +2,8 @@
 # define SHRUBBERYCREATIONFORM_HPP
 
 # include <string>
-
 # include "../include/AForm.hpp"
 # include "../include/Bureaucrat.hpp"
-
-# define NAME_SC	"Shrubbery Creation" // Default name of the form
 
 /**
  * The form is signed by a Bureaucrat and can be executed by another Bureaucrat.
@@ -30,13 +27,7 @@ class	ShrubberyCreationForm : public AForm
 		ShrubberyCreationForm&	operator=(const ShrubberyCreationForm& other);
 		~ShrubberyCreationForm();
 
-		/////// Member functions
-
-		void	executeAction() const;
-		void	printStatus(std::ostream& os) const;
-
-		// Getters
-
+		void		executeAction() const;
 		std::string	getTarget() const;
 };
 

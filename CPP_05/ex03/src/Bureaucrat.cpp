@@ -1,17 +1,7 @@
-#include <string>
-#include <iostream>
-#include <exception>
-
 #include "../include/Bureaucrat.hpp"
-#include "../include/AForm.hpp"
+#include "../include/settings.hpp"
 
-#define RED		"\033[31m"
-#define RESET	"\033[0m"
-
-# define NAME	"Dwight"
-# define GRADE	150
-
-Bureaucrat::Bureaucrat() : name_(NAME), grade_(GRADE)
+Bureaucrat::Bureaucrat() : name_(NAME_BC), grade_(GRADE_BC)
 {
 	std::cout << "💼 Bureaucrat default constructor called\n";
 }

@@ -4,9 +4,9 @@
 # include <string>
 # include <iostream>
 # include <exception>
+# include "Bureaucrat.hpp"
 
 class Bureaucrat;
-# include "Bureaucrat.hpp"
 
 /**
  * ABSTRACT CLASS; 
@@ -32,12 +32,6 @@ class	AForm
 		const int			sign_grade_;
 		const int			exec_grade_;
 
-	protected:
-		std::string			target_;
-
-		// Constructor is protected to prevent instantiation of abstract class
-		AForm(const std::string& name, int sign_grade, int exec_grade, const std::string& target);
-
 	public:
 		AForm();
 		AForm(const std::string& name, int sign_grade, int exec_grade);
@@ -45,22 +39,15 @@ class	AForm
 		AForm&	operator=(const AForm& other);
 		virtual ~AForm();
 
-		/////// Member functions
-
 		void			beSigned(const Bureaucrat& bureaucrat);
 		void			execute(Bureaucrat const &executor) const;
-		virtual void	printStatus(std::ostream& os) const = 0;
 		virtual void	executeAction() const = 0;
 
-		/////// Getters
-
-		std::string	getName() const;
-		bool		getIsSigned() const;
-		int			getSignGrade() const;
-		int			getExecGrade() const;
-		std::string	getTarget() const;
-
-		/////// Exceptions
+		std::string			getName() const;
+		bool				getIsSigned() const;
+		int					getSignGrade() const;
+		int					getExecGrade() const;
+		virtual std::string	getTarget() const = 0;
 
 		class	GradeTooHighException : public std::exception
 		{

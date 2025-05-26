@@ -1,23 +1,17 @@
-#include <string>
-#include <iostream>
 #include <cstdlib>	// for rand(), srand()
 #include <ctime>	// for time
 
+#include "../include/settings.hpp"
 #include "../include/RobotomyRequestForm.hpp"
-#include "../include/AForm.hpp"
-#include "../include/Bureaucrat.hpp"
 
-#define SIGN_GRADE	72
-#define EXEC_GRADE	45
-#define TARGET		"Frankenstein"
-
-RobotomyRequestForm::RobotomyRequestForm() : AForm(NAME_RR, SIGN_GRADE, EXEC_GRADE), target_(TARGET)
+RobotomyRequestForm::RobotomyRequestForm()
+	: AForm(NAME_RR, SIGN_GRADE_RR, EXEC_GRADE_RR), target_(TARGET_RR)
 {
 	std::cout << "🤖 RobotomyRequestForm default constructor called\n";
 }
 
 RobotomyRequestForm::RobotomyRequestForm(const std::string& target)
-	: AForm(NAME_RR, SIGN_GRADE, EXEC_GRADE), target_(target)
+	: AForm(NAME_RR, SIGN_GRADE_RR, EXEC_GRADE_RR), target_(target)
 {
 	std::cout << "🤖 RobotomyRequestForm parameterized constructor called\n";
 }
@@ -61,21 +55,6 @@ void	RobotomyRequestForm::executeAction() const
 	}
 	else
 		std::cout << "🤖 ❌ Robotomization of " << target_ << " has failed.\n";
-}
-
-// Prints the status of the form.
-void	RobotomyRequestForm::printStatus(std::ostream& os) const
-{
-	os << "🤖 Form: " << getName() << std::endl;
-	os << "   Target: " << target_ << std::endl;
-	os << "   Is signed: ";
-	if (getIsSigned())
-		os << "Yes";
-	else
-		os << "No";
-	os << std::endl;
-	os << "   Sign grade: " << getSignGrade() << std::endl;
-	os << "   Execution grade: " << getExecGrade() << std::endl;
 }
 
 // Getters
