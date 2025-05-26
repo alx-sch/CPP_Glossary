@@ -1,61 +1,133 @@
-#include <cerrno>	// for errno
-#include <cstdlib>	// for std::stof
+#include <iostream>
+#include <sstream>	// for std::ostringstream
+#include <cmath>	// for floor()
+#include <iomanip>	// for std::setprecision()
 
 #include "../include/ScalarConverter.hpp"
+#include "../include/ScalarConverterUtils.hpp"
 
 // No need to dfine private constructors or destructors as there is no instantiation of ScalarConverter
 // Use default behavior
 
-static bool	isPseudoLiteral(const std::string& s)
+// Makes sure to add ".0" suffix for integer values when printing float and double representations.
+static std::string	getSuffix(double val)
 {
-	return (
-		s == "nan" || s == "nanf" ||
-		s == "+inf" || s == "-inf" ||
-		s == "+inff" || s == "-inff"
-	);
+	if (std::floor(val) == val)
+		return ".0";
+	return "";
 }
 
-static bool	isIntLiteral(const std::string& s)
+// Prints the character representation of a value (or "Non displayable" if not printable).
+// If not in the range of a char (0-255), prints "impossible".
+static void	printChar(double val)
 {
-	size_t len = s.length();
-
-	// Reject if too short or doesn't end with 'f'
-	if (len < 2 || s[len - 1] != 'f')
-		return false;
-
-	std::string core = s.substr(0, len - 1); // Remove trailing 'f'
-
-	errno = 0;
-	char* endptr;
-
-	long val = std::strtol(core.c_str(), &endptr, 10);
-	if (errno == ERANGE || *endptr != '\0') // Check for overflow/underflow or leftover characters
-		return false;
-
-	return true;
+	std::cout << "char: ";
+	if (val < 0 || val > 255)
+		std::cout << "impossible\n";
+	else {
+		unsigned char c = static_cast<unsigned char>(val);
+		if (c < 32 || c > 126)
+			std::cout << "Non displayable\n";
+		else
+			std::cout << "'" << c << "'\n";
+	}	
 }
 
-static bool	isFloatLiteral(const std::string& s)
+// Prints the integer representation of a value.
+static void	printInt(double val)
 {
-	size_t len = s.length();
-
-	 // Reject if too short, doesn't end with 'f', or no decimal point
-	if (len < 3 || s[len -1] != 'f' || s.find('.') == std::string::npos)
-		return false;
-
-	std::string core = s.substr(0, len - 1); // Remove trailing 'f'
-
-	errno = 0;
-	char* endptr;
-
-	float val = std::strtof(core.c_str(), &endptr);
-	if (errno == ERANGE || *endptr != '\0') // Check for overflow/underflow or leftover characters
-		return false;
-
-	return true;
+	std::cout << "int: ";
+	if (val < INT_MIN || val > INT_MAX)
+		std::cout << "impossible\n";
+	else
+		std::cout << static_cast<int>(val) << "\n";
 }
 
-void ScalarConverter::convert(const std::string& input) {
-	// Conversion logic goes here
+void printFloat(float val)
+{
+	if (std::floor(val) == val)
+		std::cout << std::fixed << std::setprecision(1) << val; // For integer values, print with one decimal place (e.g., 42.0)
+	else
+		std::cout << std::setprecision(15) << val;
+	std::cout << "f\n";
+}
 
+void printDouble(double val)
+{
+	std::cout << "double: ";
+	if (std::floor(val) == val)
+		std::cout << std::fixed << std::setprecision(1) << val; // For integer values, print with one decimal place (e.g., 42.0)
+	else
+		std::cout << std::setprecision(15) << val;
+	std::cout << "\n";
+}
+
+void ScalarConverter::convert(const std::string& input)
+{
+	if (isPseudoLiteral(input)) {
+		std::string	floatOutput = input;
+		std::string	doubleOutput = input;
+
+		if (isFloatPseudoLiteral(input))
+			doubleOutput = input.substr(0, input.size() - 1);
+		else
+			floatOutput = input + "f";
+		std::cout << "char: impossible\n";
+		std::cout << "int: impossible\n";
+		std::cout << "float: " << floatOutput << "\n";
+		std::cout << "double: " << doubleOutput << "\n";
+		return;
+	}
+
+	else if (isIntLiteral(input)) {
+		char*	endptr;
+		long	val = std::strtol(input.c_str(), &endptr, 10);
+
+		printChar(static_cast<double>(val));
+		std::cout << "int: " << static_cast<int>(val) << "\n";
+		std::cout << "float: " << static_cast<float>(val) << ".0f\n";
+		std::cout << "double: " << static_cast<double>(val) << ".0\n";
+		return;
+	}
+
+	else if (isFloatLiteral(input)) {
+		std::string	core = input.substr(0, input.size() - 1);
+		char*		endptr;
+		float		val = std::strtof(core.c_str(), &endptr);
+		std::string	suffix = getSuffix(static_cast<double>(val));
+
+		printChar(static_cast<double>(val));
+		printInt(static_cast<double>(val));
+		std::cout << "float: " << val << suffix << "f\n";
+		std::cout << "double: " << static_cast<double>(val) << suffix << "\n";
+		return;
+	}
+	
+	else if (isDoubleLiteral(input)) {
+		char*	endptr;
+		double	val = std::strtod(input.c_str(), &endptr);
+		std::string	suffix = getSuffix(static_cast<double>(val));
+
+		printChar(static_cast<double>(val));
+		printInt(static_cast<double>(val));
+		std::cout << "float: " << static_cast<float>(val) << "f\n";
+		printDouble(val);
+		return;
+	}
+
+	else if (isCharLiteral(input)) {
+		char c = input[0];
+		std::cout << "char: '" << c << "'\n";
+		std::cout << "int: " << static_cast<int>(c) << "\n";
+		std::cout << "float: " << static_cast<float>(c) << "f\n";
+		std::cout << "double: " << static_cast<double>(c) << "\n";
+		return;
+	}
+
+	else {
+		std::cout << "char: impossible\n";
+		std::cout << "int: impossible\n";
+		std::cout << "float: impossible\n";
+		std::cout << "double: impossible\n";
+	}
 }

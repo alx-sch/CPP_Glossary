@@ -3,7 +3,8 @@ NAME :=			converter
 # SOURCE FILES
 SRCS_DIR :=		src
 SRCS_FILES :=	main.cpp \
-				ScalarConverter.cpp 
+				ScalarConverter.cpp \
+				detectType.cpp 
 
 SRCS :=			$(addprefix $(SRCS_DIR)/, $(SRCS_FILES))
 				
