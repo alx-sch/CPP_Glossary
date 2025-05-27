@@ -1,13 +1,12 @@
 #include <iostream>
-
 #include "../include/ScalarConverter.hpp"
 #include "../include/utils.hpp"
 
-// No need to dfine private constructors or destructors as there is no instantiation of ScalarConverter
-// Use default behavior
+// No need to define private constructors or destructors as there is no instantiation of ScalarConverter
+// Use default behavior.
 
 // Convert the input string to various scalar types and print the results.
-void ScalarConverter::convert(const std::string& input)
+void	ScalarConverter::convert(const std::string& input)
 {
 	if (input.empty()) {
 		printImpossible(input);
