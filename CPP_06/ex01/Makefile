@@ -1,8 +1,9 @@
-NAME :=			XXX
+NAME :=			serializer
 
 # SOURCE FILES
 SRCS_DIR :=		src
 SRCS_FILES :=	main.cpp \
+				Serializer.cpp 
 
 SRCS :=			$(addprefix $(SRCS_DIR)/, $(SRCS_FILES))
 				
