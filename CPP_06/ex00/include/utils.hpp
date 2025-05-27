@@ -23,7 +23,7 @@ bool		isDoubleLiteral(const std::string& s);
 void		printInt(double val);
 void		printFloatDouble(double val);
 void		printChar(double val);
-void		printImpossible(const std::string& s);
+void		printOther(const std::string& s);
 
 // utils.cpp
 

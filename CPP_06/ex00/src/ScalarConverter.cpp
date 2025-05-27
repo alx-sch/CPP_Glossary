@@ -9,7 +9,7 @@
 void	ScalarConverter::convert(const std::string& input)
 {
 	if (input.empty()) {
-		printImpossible(input);
+		printOther(input);
 		return;
 	}
 
@@ -63,5 +63,5 @@ void	ScalarConverter::convert(const std::string& input)
 		return;
 	}
 
-	printImpossible(input);
+	printOther(input);
 }

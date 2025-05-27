@@ -56,8 +56,8 @@ void	printFloatDouble(double val)
 }
 
 // Prints "impossible" for all types when the input cannot be converted to any of them.
-// Makes sure to handle overflow and underflow for double types correctly
-void	printImpossible(const std::string& s)
+// Makes sure to handle overflow and underflow for double type correctly (inf / -inf).
+void	printOther(const std::string& s)
 {
 	std::cout << "char: impossible\n";
 	std::cout << "int: impossible\n";
