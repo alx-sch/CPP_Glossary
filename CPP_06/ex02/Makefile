@@ -1,8 +1,9 @@
-NAME :=			XXX
+NAME :=			real_type
 
 # SOURCE FILES
 SRCS_DIR :=		src
 SRCS_FILES :=	main.cpp \
+				Base.cpp
 
 SRCS :=			$(addprefix $(SRCS_DIR)/, $(SRCS_FILES))
 				
@@ -11,14 +12,10 @@ OBJS_DIR :=		obj
 OBJS :=			$(SRCS:$(SRCS_DIR)/%.cpp=$(OBJS_DIR)/%.o)
 DEPS :=			$(OBJS:.o=.d)
 
-# HEADER FILES
-HDRS_DIR :=		include
-
 # COMPILER
 CXX :=			c++
 CXXFLAGS :=		-std=c++98
 CXXFLAGS +=		-Werror -Wextra -Wall
-CXXFLAGS +=		-I$(HDRS_DIR)
 CXXFLAGS +=		-Wshadow	# Warns about shadowed variables.
 CXXFLAGS +=		-Wpedantic	# Enforces strict ISO C++ compliance.
 #CXXFLAGS +=	-g
