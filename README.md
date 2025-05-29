@@ -9,7 +9,9 @@ Most of the entries in this glossary are based on or adapted from those found th
 
 The object-oriented programming principles featured in this glossary are covered throughout the exercise modules:
 
-- **C++ Module 00–02**: Focus on C++ basics: classes, member functions, operator overloading, and memory management.
+- **C++ Module 00**: Classes, member functions, stdio streams
+- **C++ Module 01**: Memory Management, pointers to members
+- **C++ Module 02**: Function and operator overloading
 - **C++ Module 03–04**: Inheritance, polymorphism, abstract classes, and interface design.
 - **C++ Module 05–07**: Exception handling, templates, function pointers, and functors.
 - **C++ Module 08–09**: STL containers, iterators, and algorithm use.
