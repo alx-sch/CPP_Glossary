@@ -984,8 +984,10 @@ int main() {
 
 ### Abstract Classes and Interfaces
 
-An abstract class in C++ is a class that contains at least one pure virtual function. You cannot instantiate an abstract class directly.    
+An abstract class in C++ is a class that contains at least one pure virtual function. You cannot instantiate an abstract class directly.   
+
 An interface in C++ is a special kind of abstract class that contains only pure virtual functions and no data members. It defines a contract that derived classes must fulfill.   
+
 Pure virtual functions act as placeholders for behavior that must be implemented by any concrete (non-abstract) derived class.
 
 ```cpp
