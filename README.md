@@ -37,6 +37,8 @@ The object-oriented programming principles featured in this glossary are covered
 - [Memory Allocation](#memory-allocation)
 - [Overloading](#overloading)
 - [Inheritance](#inheritance)
+- [Abstract Classes / Interfaces](#abstract-classes-and-interfaces)
+- [Exceptions](#exceptions)
  
 ---
 
@@ -927,6 +929,149 @@ public:
 **`virtual` Keyword in Inheritance:**
 - Ensures that only one instance of the base class exists in the inheritance chain.
 - Requires the **most derived class** to call constructors in **order of inheritance** (base first).
+
+<div align="right">
+  <b><a href="#top">↥ back to top</a></b>
+</div>
+
+---
+
+### Subtyping Polymorphism
+
+Subtyping polymorphism enables a pointer or reference to a base class to refer to objects of derived classes. The actual function called is determined at runtime using virtual functions.
+
+```cpp
+#include <iostream>
+
+class Base {
+public:
+    void    sayHello() {
+        std::cout << "Base says hello (non-virtual)\n";
+    }
+
+    virtual void greet() {
+        std::cout << "Base greets you (virtual)\n";
+    }
+};
+
+class Derived : public Base {
+public:
+    void sayHello() {
+        std::cout << "Derived says hello (non-virtual)\n";
+    }
+
+    void greet() {
+        std::cout << "Derived greets you (virtual)\n";
+    }
+};
+
+int main() {
+    Derived    d;
+    Base*      ptr = &d;  // Base pointer pointing to Derived object
+
+    ptr->sayHello(); // Non-virtual → Base::sayHello() is called
+    ptr->greet();    // Virtual → Derived::greet() is called
+
+    return 0;
+}
+```
+
+<div align="right">
+  <b><a href="#top">↥ back to top</a></b>
+</div>
+
+---
+
+### Abstract Classes and Interfaces
+
+An abstract class in C++ is a class that contains at least one pure virtual function. You cannot instantiate an abstract class directly.    
+An interface in C++ is a special kind of abstract class that contains only pure virtual functions and no data members. It defines a contract that derived classes must fulfill.   
+Pure virtual functions act as placeholders for behavior that must be implemented by any concrete (non-abstract) derived class.
+
+```cpp
+#include <iostream>
+
+class ABase {
+public:
+    virtual void say() = 0;   // pure virtual: Makes the class abstract
+    virtual ~ABase() {}       // virtual destructor: Deleting derived objects through a base pointer works correctly.
+};
+
+class Derived : public ABase {
+public:
+    void say() {              // Derived classes must implement pure virtual functions to be instantiable
+        std::cout << "Hello hello!\n";
+    }
+};
+
+```
+
+---
+
+### Exceptions
+
+Exceptions let you handle errors and unexpected situations in a clean way without crashing your program.
+
+**Throwing exceptions**
+
+You "throw" an exception when something goes wrong:
+
+```cpp
+throw std::runtime_error("Something went wrong!");
+```
+
+You can throw:
+- Built-in types (`throw 42;`) (not recommended as this lacks context).
+- Standard exceptions (`std::runtime_error`, `std::invalid_argument`, etc.).
+- Your own custom exception classes.
+
+**Catching Exceptions**
+
+You use `try`/`catch` to handle exceptions:
+
+```cpp
+#include <iostream>
+#include <stdexcept>
+
+int main() {
+    try {
+        throw std::runtime_error("Failure!");
+    } catch (const std::exception& e) {
+        std::cout << "Caught exception: " << e.what() << std::endl;
+    }
+
+    return 0;
+}
+```
+
+- The `what()` method returns a description of the error.
+- You should throw an exception by value (passing an exception object), which makes a copy of the exception.
+- You should catch exceptions by reference, e.g., `const std::exception& e`; use `const` to avoid accidentally modifying the exception object.
+- You can catch anything with a generic catch block (`catch (...)`), but it's best to catch specific exception types when possible.
+- It's good practice to let exceptions bubble up so they can be handled at a higher level where more context is available, rather than forcing them to be caught and handled locally. If no one catches the exception, the program terminates.
+
+**Defining Your Own Exception Class**
+
+Define your own exception class by inheriting from `std::exception`.
+
+```cpp
+#include <exception>
+#include <string>
+
+class MyError : public std::exception {
+    std::string message;
+public:
+    MyError(const std::string& msg) : message(msg) {}
+
+    const char* what() const throw() { // Override the what() function from std::exception
+        return message.c_str();
+    }
+};
+```
+
+- `what()` returns a `const char*`.
+- `throw()` means that it doesn’t throw exceptions itself (`noexcept` is used in modern C++ instead).
+- You can also define exceptions within classes to keep things organized (nested custom exceptions).
 
 <div align="right">
   <b><a href="#top">↥ back to top</a></b>
