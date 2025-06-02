@@ -12,8 +12,10 @@ The object-oriented programming principles featured in this glossary are covered
 - **C++ Module 00**: Classes, member functions, stdio streams
 - **C++ Module 01**: Memory Management, pointers to members
 - **C++ Module 02**: Function and operator overloading
-- **C++ Module 03–04**: Inheritance, polymorphism, abstract classes, and interface design.
-- **C++ Module 05–07**: Exception handling, templates, function pointers, and functors.
+- **C++ Module 03**: Inheritance, polymorphism, abstract classes, and interface design.
+- **C++ Module 04**: Subtype polymorphism, abstract classes, and interfaces
+- **C++ Module 05**: Exceptions
+- **C++ Module 06**: Casting
 - **C++ Module 08–09**: STL containers, iterators, and algorithm use.
 
 ---
@@ -39,6 +41,7 @@ The object-oriented programming principles featured in this glossary are covered
 - [Inheritance](#inheritance)
 - [Abstract Classes / Interfaces](#abstract-classes-and-interfaces)
 - [Exceptions](#exceptions)
+- [Casting](#casting)
  
 ---
 
@@ -1074,6 +1077,189 @@ public:
 - `what()` returns a `const char*`.
 - `throw()` means that it doesn’t throw exceptions itself (`noexcept` is used in modern C++ instead).
 - You can also define exceptions within classes to keep things organized (nested custom exceptions).
+
+<div align="right">
+  <b><a href="#top">↥ back to top</a></b>
+</div>
+
+---
+
+### Casting
+
+C-style casting (```(type) expression```) works in C++ as well but can be potentially unsafe and ambiguous.
+
+**-> Type Promotion (Implicit Casting)**
+
+Promotion Hierarchy:  
+
+```cpp
+bool < char < short < int < unsigned int < long < float < double < long double
+```
+
+Example:  
+
+```cpp
+char c = 10;
+int i = c + 1; // c is promoted to int
+```
+
+- Happens automatically
+- Safe, but can cause loss of precision (when demoting, e.g. `float` to `int`).
+
+**-> Reinterpretation Cast**
+
+Implicit reinterpretation:
+
+```cpp
+float a = 3.14f;
+void* p = &a; // implicit reinterpretation (safe)
+```
+
+Explicit reinterpretation:
+
+```cpp
+void* p = (void*)&a; // explicit reinterpretation
+int* i = (int*)p;     // reinterpret float as int (dangerous)
+```
+
+Reinterpreting `float*` as `int*` changes how the bits are read. The actual value may become meaningless.
+
+**-> Demotion**
+
+```cpp
+void* d = &a;     // a is float
+int* e = d;       // ❌ implicit demotion not allowed
+```
+
+```cpp
+int* e = (int*)d; // ✅ allowed, but dangerous; must be explicit
+```
+
+**-> Object-Oriented Casts (Upcast & Downcast)**
+
+```cpp
+class Parent {};
+class Child1 : public Parent {};
+class Child2 : public Parent {};
+```
+
+Upcast (Safe):
+
+```cpp
+Child1 a;
+Parent* p = &a; // implicit upcast from Child1 to Parent (safe)
+```
+
+Downcast (Needs explicit cast):
+
+```cpp
+Child1* c = (Child1*)p; // C-style (unsafe)
+Child2* d = static_cast<Child2*>(p); // static_cast (dangerous if types unrelated)
+```
+
+**-> static_cast**
+
+- Compile-time
+- Between related types (inheritance, arithmetic types)
+
+```cpp
+float f = 3.14;
+int i = static_cast<int>(f);
+```
+
+**-> dynamic_cast**
+
+- Runtime checked
+- For polymorphic base classes
+- Requires virtual function in base
+
+```cpp
+Parent* p = new Child1; 
+Child1* c = dynamic_cast<Child1*>(p); // OK
+Child2* d = dynamic_cast<Child2*>(p); // nullptr (safe)
+
+try {
+  Child2& ref = dynamic_cast<Child2&>(*p); // throws std::bad_cast
+} catch (std::bad_cast&) {
+  // handle error
+}
+```
+
+**-> reinterpret_cast**
+
+- Reinterpret memory
+- Used with raw pointers
+
+```cpp
+void* buffer = malloc(4);
+int* i = reinterpret_cast<int*>(buffer);
+```
+
+Use for low-level operations only (e.g. networks, serialization).
+
+**-> const_cast**
+
+- Add/remove `const` or `volatile`
+
+```cpp
+int a = 42;
+const int* p = &a;
+int* q = const_cast<int*>(p); // now mutable
+```
+
+**⚠️ Note:** The need for const_cast often signals a design issue. If you find yourself using it, consider whether const correctness is being violated elsewhere in your code. Ideally, you shouldn't need it in well-structured code.
+
+**-> `explicit` Keyword in Constructors**
+
+Prevents implicit conversions.
+
+```cpp
+class A {};
+class B {};
+
+class C {
+public:
+  C(const A&) {}
+  explicit C(const B&) {}
+};
+
+void f(const C&) {}
+
+int main() {
+  f(A()); // OK
+  // f(B()); // ❌ Error: explicit required
+  f(C(B())); // ✅ Explicitly constructed
+}
+```
+
+A constructor with one parameter can act as an implicit converter.   
+To prevent accidental or unintended conversions, including assignment-style initialization, `explicit` is used:
+
+
+```cpp
+class C {
+public:
+  explicit C(int x) {}
+};
+
+int main() {
+  C c = 42;  // ❌ Error — implicit conversion not allowed
+  C c(42);   // ✅ OK — direct initialization
+}
+```
+
+Using `explicit` is good practice to avoid surprises when a class is constructible from a single value.
+
+
+**-> Summary**
+
+| Cast Type         | Time | Use Case                          |
+|------------------|------------------|-----------------------------------|
+| C-Style          |  Compile-time     | Avoid in modern C++               |
+| static_cast      |  Compile-time     | Arithmetic, related types         |
+| dynamic_cast     | Runtime          | Polymorphic downcasting           |
+| reinterpret_cast |  Compile-time     | Low-level memory reinterpretation |
+| const_cast       |  Compile-time     | Add/remove const/volatile         |
 
 <div align="right">
   <b><a href="#top">↥ back to top</a></b>
