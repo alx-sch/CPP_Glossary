@@ -1,4 +1,4 @@
-NAME :=			XXX
+NAME :=			iter
 
 # SOURCE FILES
 SRCS_DIR :=		src

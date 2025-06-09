@@ -1,4 +1,4 @@
-NAME :=			XXX
+NAME :=			array
 
 # SOURCE FILES
 SRCS_DIR :=		src
