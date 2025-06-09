@@ -1,7 +1,6 @@
 #ifndef ARRAY_HPP
 # define ARRAY_HPP
 
-# include <cstddef>		// for size_t
 # include <exception>	// for std::exception
 
 template <typename T>
