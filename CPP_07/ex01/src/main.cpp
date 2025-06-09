@@ -2,8 +2,8 @@
 #include <string>
 #include "../include/iter.hpp"
 
-template <typename T>
 // Function to print elements of the array
+template <typename T>
 void	print(const T& x)
 {
 	std::cout << x << std::endl;
@@ -23,8 +23,8 @@ void	increment(int& x)
 
 int	main()
 {
-	int arr[] = {1, 2, 3, 4, 5};
-	size_t size = sizeof(arr) / sizeof(arr[0]);
+	int		arr[] = {1, 2, 3, 4, 5};
+	size_t	size = sizeof(arr) / sizeof(arr[0]);
 
 	// Non-const array - can modify elements
 	std::cout << "Original int array: \n";
@@ -38,7 +38,7 @@ int	main()
 	std::cout << std::endl;
 
 	// Const array - cannot modify elements, so function must take const ref
-	const int constArr[] = {10, 20, 30, 40};
+	const int	constArr[] = {10, 20, 30, 40};
 	size = sizeof(constArr) / sizeof(constArr[0]);
 
 	std::cout << "Const int array: \n";
@@ -47,7 +47,7 @@ int	main()
 	//iter(constArr, size, increment);
 
 	//String const array example
-	const std::string strArr[] = {"apple", "banana", "cherry"};
+	const std::string	strArr[] = {"apple", "banana", "cherry"};
 	size = sizeof(strArr) / sizeof(strArr[0]);
 
 	std::cout << "Const string array: \n";

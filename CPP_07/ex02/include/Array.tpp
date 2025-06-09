@@ -1,6 +1,8 @@
 #include "Array.hpp"
 // #include <iostream>
 
+
+// Every template method defined outside the class must have a 'template <typename T>' before the method name.
 // Array<T>:: for every member to connect the definition to the right template class.
 
 // Default constructor: empty array
@@ -8,11 +10,10 @@ template <typename T>
 Array<T>::Array() : _array(NULL), _size(0) {}
 
 // Consructor with 'size' elements
+// 'new T[size]()' zero-initializes all elements.
+// '()' makes sure that all elements are initialized to the default value of T (e.g., 0 for int, "" for std::string).
 template <typename T>
-Array<T>::Array(unsigned int size) : _array(new T[size]()), _size(size)
-{
-	// new T[size]() zero-initializes all elements
-}
+Array<T>::Array(unsigned int size) : _array(new T[size]()), _size(size) {}
 
 // Copy constructor (deep copy)
 template <typename T>

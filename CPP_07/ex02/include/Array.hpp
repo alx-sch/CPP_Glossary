@@ -7,8 +7,8 @@ template <typename T>
 class	Array
 {
 	private:
-		T*				_array;		// Pointer to the array
-		unsigned int	_size;		// Size of the array
+		T*				_array;	// Pointer to the array
+		unsigned int	_size;	// Size of the array
 
 	public:
 		Array();

@@ -11,11 +11,11 @@ int main()
 	try
 	{
 		// Test default constructor (empty array)
-		Array<int> arr1;
-		std::cout << "arr1 size: " << arr1.size() << std::endl;
+		Array<int>	arr1;
+		std::cout << "arr1 size: " << arr1.size() << std::endl << std::endl;
 
 		// Test constructor with size
-		Array<int> arr2(5);
+		Array<int>	arr2(5);
 		std::cout << "arr2 size: " << arr2.size() << std::endl;
 		std::cout << "arr2[0]: " << arr2[0] << std::endl;
 
@@ -26,10 +26,10 @@ int main()
 		std::cout << "arr2 is: ";
 		for (unsigned int i = 0; i < arr2.size(); ++i)
 			std::cout << arr2[i] << " ";
-		std::cout << std::endl;
+		std::cout << std::endl << std::endl;
 
 		// Test copy constructor
-		Array<int> arr3(arr2);
+		Array<int>	arr3(arr2);
 		std::cout << "arr3 (copy of arr2) is: ";
 		for (unsigned int i = 0; i < arr3.size(); ++i)
 			std::cout << arr3[i] << " ";
@@ -39,22 +39,25 @@ int main()
 		arr3[0] = 999;
 		std::cout << "After modifying arr3[0]: " << std::endl;
 		std::cout << "arr3[0]: " << arr3[0] << std::endl;
-		std::cout << "arr2[0]: " << arr2[0] << " (should be unchanged)" << std::endl;
+		std::cout << "arr2[0]: " << arr2[0] << " (should be unchanged)" << std::endl << std::endl;
 
 		// Test assignment operator
-		Array<int> arr4;
+		Array<int>	arr4;
 		arr4 = arr2;
 		std::cout << "arr4 (assigned from arr2) is: ";
 		for (unsigned int i = 0; i < arr4.size(); ++i)
 			std::cout << arr4[i] << " ";
-		std::cout << std::endl;
+		std::cout << std::endl << std::endl;
 
 		// Test const operator[]
-		const Array<int> constArrCopy(arr2);
+		const Array<int>	constArrCopy(arr2);
 		std::cout << "constArrCopy (assigned from arr2) is: ";
 		for (unsigned int i = 0; i < constArrCopy.size(); ++i)
 			std::cout << constArrCopy[i] << " ";
-		std::cout << std::endl;
+		std::cout << std::endl << std::endl;
+
+		// Trying to modify a const array should not compile
+		// constArrCopy[0] = 100;
 
 		// Now test with std::string
 		Array<std::string>	arrStr(3);
@@ -66,10 +69,7 @@ int main()
 		std::cout << "arrStr is: ";
 		for (unsigned int i = 0; i < arrStr.size(); ++i)
 			std::cout << '"' << arrStr[i] << "\" ";
-		std::cout << std::endl;
-
-		// Trying to modify a const array should not compile
-		// constArrCopy[0] = 100;
+		std::cout << std::endl << std::endl;
 
 		// Test out-of-bounds exception
 		std::cout << "Attempting out-of-bounds access..." << std::endl;

@@ -2,7 +2,6 @@
 # define SWAP_HPP
 
 template <typename T>
-
 void	swap(T& x, T& y)
 {
 	T	temp = x;
