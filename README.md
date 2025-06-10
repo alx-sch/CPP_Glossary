@@ -12,11 +12,12 @@ The object-oriented programming principles featured in this glossary are covered
 - **C++ Module 00**: Classes, member functions, stdio streams
 - **C++ Module 01**: Memory Management, pointers to members
 - **C++ Module 02**: Function and operator overloading
-- **C++ Module 03**: Inheritance, polymorphism, abstract classes, and interface design.
-- **C++ Module 04**: Subtype polymorphism, abstract classes, and interfaces
+- **C++ Module 03**: Inheritance
+- **C++ Module 04**: Subtype polymorphism, abstract classes
 - **C++ Module 05**: Exceptions
 - **C++ Module 06**: Casting
-- **C++ Module 08–09**: STL containers, iterators, and algorithm use.
+- **C++ Module 07**: Templates
+- **C++ Module 08**: STL containers
 
 ---
 
@@ -39,9 +40,10 @@ The object-oriented programming principles featured in this glossary are covered
 - [Memory Allocation](#memory-allocation)
 - [Overloading](#overloading)
 - [Inheritance](#inheritance)
-- [Abstract Classes / Interfaces](#abstract-classes-and-interfaces)
+- [Abstract Classes](#abstract-classes)
 - [Exceptions](#exceptions)
 - [Casting](#casting)
+- [Templates](#templates)
  
 ---
 
@@ -660,7 +662,7 @@ private:
 
 public:
     int    value;       // Public variable (can be accessed from outside)
-    int    getSecret() {return _secret;}    // Public function (part of the interface)
+    int    getSecret() {return _secret;}    // Public function
 };
 ```
 
@@ -985,7 +987,7 @@ int main() {
 
 ---
 
-### Abstract Classes and Interfaces
+### Abstract Classes
 
 An abstract class in C++ is a class that contains at least one pure virtual function. You cannot instantiate an abstract class directly.   
 
@@ -1260,6 +1262,183 @@ Using `explicit` is good practice to avoid surprises when a class is constructib
 | dynamic_cast     | Runtime          | Polymorphic downcasting           |
 | reinterpret_cast |  Compile-time     | Low-level memory reinterpretation |
 | const_cast       |  Compile-time     | Add/remove const/volatile         |
+
+<div align="right">
+  <b><a href="#top">↥ back to top</a></b>
+</div>
+
+---
+
+### Templates
+
+Templates allow to write generic code that works with any data type. You can think of a template as a "recipe" that the compiler uses to generate type-specific versions of your code.
+
+There are:
+- Function templates → Generic functions
+- Class templates → Generic classes/structs
+
+**Function Templates**
+
+```cpp
+template<typename T>
+T max(T a, T b)
+{
+    return (a > b) ? a : b;
+}
+
+int main()
+{
+    int i = max(3, 7);         // T = int
+    double d = max(2.5, 4.8);  // T = double
+    char c = max('a', 'z');    // T = char
+}
+```
+
+**Class Templates**
+
+```cpp
+template<typename T>
+class Box
+{
+    T _value;
+public:
+    Box(T val) : _value(val) {}
+    T get() const { return _value; }
+};
+ 
+int main()
+{
+    Box<int> intBox(42);
+    Box<std::string> strBox("Hello");
+
+    std::cout << intBox.get() << std::endl;
+    std::cout << strBox.get() << std::endl;
+}
+```
+
+**Templates with Default Types**
+
+You can provide a default type for a template parameter:
+
+```cpp
+template<typename T = int>
+class DefaultBox
+{
+    T _value;
+public:
+    DefaultBox(T val) : _value(val) {}
+    T get() const { return _value; }
+};
+
+int main()
+{
+    DefaultBox<> box1(123);         // T defaults to int
+    DefaultBox<double> box2(3.14);  // T = double
+
+    std::cout << box1.get() << std::endl;
+    std::cout << box2.get() << std::endl;
+}
+```
+
+**Template Specializations**
+
+Sometimes you want to provide a custom implementation for a specific type. This is called template specialization.
+
+```cpp
+template<typename T>
+class Printer
+{
+public:
+    void print(T value)
+    {
+        std::cout << "General: " << value << std::endl;
+    }
+};
+
+// Specialization for bool
+template<>
+class Printer<bool>
+{
+public:
+    void print(bool value)
+    {
+        std::cout << "Boolean: " << (value ? "true" : "false") << std::endl;
+    }
+};
+
+int main()
+{
+    Printer<int> p1;
+    Printer<bool> p2;
+
+    p1.print(42);
+    p2.print(true);
+}
+```
+
+**`.tpp` Files (Template Implementation Files)**
+
+**Problem:** You cannot put template definitions in `.cpp` files because templates are compiled when instantiated.
+
+**Solution:** Use `.tpp` files:
+
+- Put template class declaration in `.hpp`
+- Put template function implementations in `.tpp`
+- Include `.tpp` at the bottom of `.hpp`
+- It’s common to have both `.tpp` and `.hpp` files in the same `include/` folder.
+
+**Box.hpp**
+
+```cpp
+#ifndef BOX_HPP
+# define BOX_HPP
+
+# include <iostream>
+
+template<typename T>
+class Box
+{
+    T _value;
+public:
+    Box(T val);
+    T get() const;
+};
+
+# include "Box.tpp" // include implementation here
+
+#endif
+```
+
+**Box.tpp**
+
+```cpp
+template<typename T>
+Box<T>::Box(T val) : _value(val) {}
+
+template<typename T>
+T Box<T>::get() const
+{
+    return _value;
+}
+```
+
+**main.cpp**
+
+```cpp
+#include "../include/Box.hpp"
+
+int main()
+{
+    Box<int> b(5);
+    std::cout << b.get() << std::endl;
+}
+```
+
+**Why `.tpp`?**
+It is not required to name it `.tpp` — some people use `.inl` or just put the functions in the `.hpp`.
+But using `.tpp` helps keep declarations and definitions separated.
+
+**Summary**
 
 <div align="right">
   <b><a href="#top">↥ back to top</a></b>
