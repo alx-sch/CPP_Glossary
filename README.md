@@ -17,7 +17,7 @@ The object-oriented programming principles featured in this glossary are covered
 - **C++ Module 05**: Exceptions
 - **C++ Module 06**: Casting
 - **C++ Module 07**: Templates
-- **C++ Module 08**: STL containers
+- **C++ Module 08**: STL containers, STL Algorithms
 
 ---
 
@@ -45,6 +45,7 @@ The object-oriented programming principles featured in this glossary are covered
 - [Casting](#casting)
 - [Templates](#templates)
 - [STL Containers](#stl-containers)
+- [STL Algorithms](#stl-algorithms)
  
 ---
 
@@ -1618,6 +1619,115 @@ std::cout << std::endl;
 return 0;
 }
 ```
+
+<div align="right">
+  <b><a href="#top">↥ back to top</a></b>
+</div>
+
+---
+
+### STL Algorithms
+
+The STL provides a useful set of algorithms in the `<algorithms>` header. These functions operate on ranges defined by iterators and allow for easy manipulation of data stored in containers such as `list`, `vector`, and `map`. 
+
+All `<algorithms>` functions are listed here: [https://cplusplus.com/reference/algorithm/](https://cplusplus.com/reference/algorithm/)
+
+1. **Understanding Ranges and Iterators**
+
+   STL algorithms do no act directly on containers but on iterator ranges. A range is typically specified using a pair of iterators, such as `begin()` and `end()`:
+
+   ```cpp
+   std::vector<int> v = {1, 3, 1};
+   std::sort(v.begin(), v.end());
+   ```
+
+   Here, `sort` processes the range `[v.begin(), v.end()]`.
+   
+2. **Categories pf Algorithms**
+    
+    **Modifying Algorithms**
+   
+    | Function   | Description                            | Example                                      |
+    |------------|----------------------------------------|----------------------------------------------|
+    | `copy`     | Copies elements to another range       | `std::copy(a.begin(), a.end(), b.begin());`  |
+    | `fill`     | Assigns a value across a range         | `std::fill(v.begin(), v.end(), 0);`          |
+    | `replace`  | Replaces specific values               | `std::replace(v.begin(), v.end(), 1, 99);`   |
+    | `sort`     | Sorts elements in ascending order      | `std::sort(v.begin(), v.end());`             |
+    | `reverse`  | Reverses the order of elements         | `std::reverse(v.begin(), v.end());`          |
+    
+
+    **Searching Algorithms**    
+
+    | Function         | Description                                 | Example                                        |
+    |------------------|---------------------------------------------|------------------------------------------------|
+    | `find`           | Finds the first occurrence of a value       | `std::find(v.begin(), v.end(), 5);`            |
+    | `find_if`        | Finds the first element matching a condition| `std::find_if(v.begin(), v.end(), pred);`      |
+    | `count`          | Counts occurrences of a value               | `std::count(v.begin(), v.end(), 3);`           |
+    | `binary_search`  | Checks existence in sorted range            | `std::binary_search(v.begin(), v.end(), 2);`   |
+
+
+    **Comparison Algorithms**
+
+    | Function                  | Description                                  | Example                                          |
+    |---------------------------|----------------------------------------------|--------------------------------------------------|
+    | `equal`                   | Compares if two ranges are element-wise equal| `std::equal(a.begin(), a.end(), b.begin());`     |
+    | `lexicographical_compare` | Compares two ranges like dictionary order    | `std::lexicographical_compare(...)`              |
+
+
+    **Removal Algorithms**
+
+    | Function   | Description                                             | Example                                     |
+    |------------|---------------------------------------------------------|---------------------------------------------|
+    | `remove`   | Removes elements logically (does not resize container)  | `std::remove(v.begin(), v.end(), 2);`       |
+    | `unique`   | Removes consecutive duplicates                          | `std::unique(v.begin(), v.end());`          |
+
+   These do not actually shrink the container. Use erase to do that:
+   ```cpp
+   v.erase(std::remove(v.begin(), v.end(), 2), v.end());
+   ```
+   
+3. **Best Practices**
+    
+    - Some algorithms require specific iterator types (e.g., `sort` needs random-access iterators).
+    - Use lambdas for concise custom logic in algorithms.
+    - Combine algorithms for clean, efficient patterns (e.g., `unique` + `erase`).
+      
+4. **Example: Finding and Replacing**
+
+    ```cpp
+    // Using C++98 Standard
+
+    #include <vector>
+    #include <algorithm>
+    #include <iostream>
+
+    void print_int(int x) {
+        std::cout << x << " ";
+    }
+    
+    int main() {
+        std::vector<int> v;
+    
+        v.push_back(1);
+        v.push_back(2);
+        v.push_back(3);
+        v.push_back(2);
+        v.push_back(4);
+
+        // Find the first occurrence of 2
+        std::vector<int>::iterator it = std::find(v.begin(), v.end(), 2);
+        if (it != v.end())
+            std::cout << "Found: " << *it << "\n";
+    
+        // Replace all 2s with 9s
+        std::replace(v.begin(), v.end(), 2, 9);
+
+        // Print elements with std::for_each and a function
+        std::for_each(v.begin(), v.end(), print_int);
+        std::cout << std::endl;
+        // Output: 1 9 3 9 4
+    }
+    ```
 
 <div align="right">
   <b><a href="#top">↥ back to top</a></b>
