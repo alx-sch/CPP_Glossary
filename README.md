@@ -44,6 +44,7 @@ The object-oriented programming principles featured in this glossary are covered
 - [Exceptions](#exceptions)
 - [Casting](#casting)
 - [Templates](#templates)
+- [STL Containers](#stl-containers)
  
 ---
 
