@@ -1448,8 +1448,9 @@ But using `.tpp` helps keep declarations and definitions separated.
 
 ### STL Containers
 
-The Standard Template Library (STL) in C++ provides several generic containers that simplify the management of data structures. Below is an overview of key STL containers (`list`, `vector`, `map`), their operations, and iterator concepts.
-[https://cplusplus.com/reference/stl/?kw=stl](https://cplusplus.com/reference/stl/?kw=stl).
+The Standard Template Library (STL) in C++ provides several generic containers that simplify the management of data structures. Below is an overview of key STL containers (`list`, `vector`, `map`), their operations, and iterator concepts.  
+
+You can find more details about STL containers at [https://cplusplus.com/reference/stl](https://cplusplus.com/reference/stl/?kw=stl).
 
 1. **`std::list`**          
     A `std::list` is a **doubly linked list**, allowing efficient insertions and deletions from both ends and the middle.
@@ -1557,7 +1558,7 @@ The Standard Template Library (STL) in C++ provides several generic containers t
 
     Iterators are objects that **point to elements inside containers**, allowing traversal.
 
-    Iterator Types
+    Iterator Types:
 
     | Iterator Type           | Description                        | Access         |
     |------------------------|-----------------------------------|----------------|
@@ -1567,7 +1568,7 @@ The Standard Template Library (STL) in C++ provides several generic containers t
     | `const_reverse_iterator`| Reverse traversal, read-only      | Read only      |
 
 
-    Begin/End Functions
+    Begin/End Functions:
 
     | Function      | Returns                          | Description                     |
     |---------------|---------------------------------|---------------------------------|
@@ -1580,7 +1581,7 @@ The Standard Template Library (STL) in C++ provides several generic containers t
     | `crbegin()`   | `const_reverse_iterator`        | Const reverse iterator last element |
     | `crend()`     | `const_reverse_iterator`        | Const reverse iterator before first |
 
-    Notes
+    Notes:
 
     - `begin()` and `end()` let you loop forward.
     - `rbegin()` and `rend()` let you loop backward.
