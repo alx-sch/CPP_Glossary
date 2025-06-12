@@ -1540,7 +1540,7 @@ You can find more details about STL containers at [https://cplusplus.com/referen
     | `insert({k,v})`   | Insert key-value pair       | `myMap.insert({"a", 1});`     |
     | `erase(key)`      | Remove element by key       | `myMap.erase("a");`           |
     | `clear()`         | Remove all elements         | `myMap.clear();`              |
-    | `find(key)`       | Find element by key         | `auto it = myMap.find("a");`  |
+    | `find(key)`       | Find element by key         | `std::map<std::string, int>::iterator it = myMap.find("a");`  |
 
     Access:
 
@@ -1592,21 +1592,30 @@ You can find more details about STL containers at [https://cplusplus.com/referen
 **Example: Looping through a list with iterators**
 
 ```cpp
+#include <iostream>
+#include <list>
+
 std::list<int> myList = {10, 20, 30};
 
 // Forward loop
-for (auto it = myList.begin(); it != myList.end(); ++it) {
+for (std::list<int>::iterator it = myList.begin(); it != myList.end(); ++it) {
     std::cout << *it << " ";  // Output: 10 20 30
 }
+std::cout << std::endl;
 
 // Read-only loop with const_iterator
-for (auto cit = myList.cbegin(); cit != myList.cend(); ++cit) {
-    std::cout << *cit << " ";
+for (std::list<int>::const_iterator cit = myList.cbegin(); cit != myList.cend(); ++cit) {
+    std::cout << *cit << " ";  // Output: 10 20 30
 }
+std::cout << std::endl;
 
 // Reverse loop
-for (auto rit = myList.rbegin(); rit != myList.rend(); ++rit) {
+for (std::list<int>::reverse_iterator rit = myList.rbegin(); rit != myList.rend(); ++rit) {
     std::cout << *rit << " ";  // Output: 30 20 10
+}
+std::cout << std::endl;
+
+return 0;
 }
 ```
 
