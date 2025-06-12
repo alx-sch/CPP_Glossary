@@ -1446,3 +1446,170 @@ But using `.tpp` helps keep declarations and definitions separated.
 
 ---
 
+### STL Containers
+
+The Standard Template Library (STL) in C++ provides several generic containers that simplify the management of data structures. Below is an overview of key STL containers (`list`, `vector`, `map`), their operations, and iterator concepts.
+[https://cplusplus.com/reference/stl/?kw=stl](https://cplusplus.com/reference/stl/?kw=stl).
+
+1. **`std::list`**          
+    A `std::list` is a **doubly linked list**, allowing efficient insertions and deletions from both ends and the middle.
+
+   Declaration:
+    ```cpp
+    #include <list>
+    std::list<int> myList;
+    ```
+
+    Common Operations:
+   
+    | Function           | Description                   | Example                   |
+    |--------------------|-------------------------------|---------------------------|
+    | `push_back(val)`   | Add element to the end         | `myList.push_back(10);`   |
+    | `push_front(val)`  | Add element to the front       | `myList.push_front(5);`   |
+    | `pop_back()`       | Remove the last element        | `myList.pop_back();`      |
+    | `pop_front()`      | Remove the first element       | `myList.pop_front();`     |
+    | `insert(pos, val)` | Insert before iterator `pos`   | `myList.insert(it, 7);`   |
+    | `erase(pos)`       | Remove element at iterator `pos` | `myList.erase(it);`     |
+    | `remove(val)`      | Remove all elements equal to `val` | `myList.remove(42);`   |
+    | `clear()`          | Remove all elements            | `myList.clear();`         |
+    | `sort()`           | Sort the list                  | `myList.sort();`          |
+    | `reverse()`        | Reverse the list               | `myList.reverse();`       |
+    | `unique()`         | Remove consecutive duplicates  | `myList.unique();`        |
+    | `splice(pos, other)` | Move elements from other list  | `myList.splice(it, other);` |
+    | `merge(other)`     | Merge two sorted lists         | `myList.merge(other);`    |
+
+    Access:
+
+    | Function          | Description              |
+    |-------------------|--------------------------|
+    | `front()`         | Access first element      |
+    | `back()`          | Access last element       |
+    | `size()`          | Number of elements        |
+    | `empty()`         | Check if empty            |
+
+   
+2. **`std::vector`**
+
+    A `std::vector` is a **dynamic array**, offering fast random access and automatic resizing.
+
+    Declaration:
+    ```cpp
+    #include <vector>
+    std::vector<int> myVector;
+    ```
+
+    Common Operations:
+   
+    | Function           | Description                   | Example                  |
+    |--------------------|-------------------------------|--------------------------|
+    | `push_back(val)`   | Add element to the **end**     | `myVector.push_back(10);`|
+    | `pop_back()`       | Remove last element            | `myVector.pop_back();`   |
+    | `insert(pos, val)` | Insert before position         | `myVector.insert(it, 7);`|
+    | `erase(pos)`       | Remove element at position     | `myVector.erase(it);`    |
+    | `resize(n)`        | Resize the vector              | `myVector.resize(5);`    |
+    | `clear()`          | Remove all elements            | `myVector.clear();`      |
+
+    Access:
+
+    | Function           | Description                    |
+    |--------------------|--------------------------------|
+    | `operator[]`       | Random access by index          |
+    | `at(index)`        | Bounds-checked access           |
+    | `front()`          | First element                  |
+    | `back()`           | Last element                   |
+    | `size()`           | Number of elements             |
+    | `capacity()`       | Current storage capacity       |
+    | `empty()`          | Check if empty                 |
+   
+3. **`std::map`**
+   
+    A  `std::map ` is an **ordered associative container** storing key-value pairs, sorted by keys.
+
+    Declaration:
+    ```cpp
+    #include <map>
+    std::map<std::string, int> myMap;
+    ```
+
+    Common Operations:
+   
+    | Function          | Description                | Example                      |
+    |-------------------|----------------------------|------------------------------|
+    | `insert({k,v})`   | Insert key-value pair       | `myMap.insert({"a", 1});`     |
+    | `erase(key)`      | Remove element by key       | `myMap.erase("a");`           |
+    | `clear()`         | Remove all elements         | `myMap.clear();`              |
+    | `find(key)`       | Find element by key         | `auto it = myMap.find("a");`  |
+
+    Access:
+
+    | Function          | Description                  |
+    |-------------------|------------------------------|
+    | `operator[]`      | Access or insert element      |
+    | `at(key)`         | Access with bounds checking   |
+    | `size()`          | Number of elements            |
+    | `empty()`         | Check if empty                |
+
+   
+
+   A `std::list` is a doubly linked list, allowing efficient insertions and deletions from both ends and from the middle.
+
+4. **Iterators**
+
+    Iterators are objects that **point to elements inside containers**, allowing traversal.
+
+    Iterator Types
+
+    | Iterator Type           | Description                        | Access         |
+    |------------------------|-----------------------------------|----------------|
+    | `iterator`             | Read/write access                  | Read & modify  |
+    | `const_iterator`       | Read-only access                  | Read only      |
+    | `reverse_iterator`     | Reverse traversal, read/write    | Read & modify  |
+    | `const_reverse_iterator`| Reverse traversal, read-only      | Read only      |
+
+
+    Begin/End Functions
+
+    | Function      | Returns                          | Description                     |
+    |---------------|---------------------------------|---------------------------------|
+    | `begin()`     | `iterator`                      | Iterator to first element       |
+    | `end()`       | `iterator`                      | Iterator past the last element  |
+    | `cbegin()`    | `const_iterator`                | Const iterator to first element |
+    | `cend()`      | `const_iterator`                | Const iterator past last element|
+    | `rbegin()`    | `reverse_iterator`              | Reverse iterator to last element|
+    | `rend()`      | `reverse_iterator`              | Reverse iterator before first   |
+    | `crbegin()`   | `const_reverse_iterator`        | Const reverse iterator last element |
+    | `crend()`     | `const_reverse_iterator`        | Const reverse iterator before first |
+
+    Notes
+
+    - `begin()` and `end()` let you loop forward.
+    - `rbegin()` and `rend()` let you loop backward.
+    - `const_` versions provide **read-only** access, preventing modification.
+    - Containers declared `const` only allow const iterators.
+  
+**Example: Looping through a list with iterators**
+
+```cpp
+std::list<int> myList = {10, 20, 30};
+
+// Forward loop
+for (auto it = myList.begin(); it != myList.end(); ++it) {
+    std::cout << *it << " ";  // Output: 10 20 30
+}
+
+// Read-only loop with const_iterator
+for (auto cit = myList.cbegin(); cit != myList.cend(); ++cit) {
+    std::cout << *cit << " ";
+}
+
+// Reverse loop
+for (auto rit = myList.rbegin(); rit != myList.rend(); ++rit) {
+    std::cout << *rit << " ";  // Output: 30 20 10
+}
+```
+
+<div align="right">
+  <b><a href="#top">↥ back to top</a></b>
+</div>
+
+---
