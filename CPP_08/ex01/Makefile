@@ -1,8 +1,9 @@
-NAME :=			XXX
+NAME :=			span
 
 # SOURCE FILES
 SRCS_DIR :=		src
-SRCS_FILES :=	main.cpp
+SRCS_FILES :=	main.cpp \
+				Span.cpp
 				
 SRCS :=			$(addprefix $(SRCS_DIR)/, $(SRCS_FILES))
 				
