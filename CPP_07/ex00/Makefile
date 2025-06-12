@@ -1,4 +1,4 @@
-NAME :=			ex00
+NAME :=			whatever
 
 # SOURCE FILES
 SRCS_DIR :=		src

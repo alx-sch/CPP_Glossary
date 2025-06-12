@@ -1,4 +1,4 @@
-NAME :=			XXX
+NAME :=			easyfind
 
 # SOURCE FILES
 SRCS_DIR :=		src

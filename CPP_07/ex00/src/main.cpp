@@ -1,7 +1,5 @@
 #include <iostream>
-#include "../include/swap.hpp"
-#include "../include/max.hpp"
-#include "../include/min.hpp"
+#include "../include/whatever.hpp"
 
 int	main()
 {
