@@ -1,7 +1,7 @@
 #include "../include/BitcoinExchange.hpp"
 #include "../include/utils.hpp" // also incl. <stdexcept> for std::runtime_error
 
-#define DATABASE_FILE	"data.csv"
+#define DATABASE_FILE	"assets/data.csv"
 
 int	main(int argc, char **argv)
 {
