@@ -25,13 +25,13 @@ class	Span
 		void	addNumber(int number);
 
 		// Add range of numbers using iterators
-		// Template methods needd to be defined in the header file
-		template <typename InputIterator>
-		void	addNumbers(InputIterator begin, InputIterator end)
+		// Template methods need to be defined in the header file
+		template <typename Iterator>
+		void	addNumbers(Iterator begin, Iterator end)
 		{
-			if (std::distance(begin, end) + _numbers.size() > _size) // Would adding the range to current vector exceed the size?
+			if ( ( _numbers.size() + std::distance(begin, end) ) > _size ) // Would adding the range to current vector exceed the size?
 				throw std::length_error(SPAN_FULL);
-			_numbers.insert(_numbers.end(), begin, end);
+			_numbers.insert(_numbers.end(), begin, end); // Container method 'insert' inserts elements from the range [begin, end) at the end of the vector
 		}
 
 		// Span calculations

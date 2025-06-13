@@ -11,6 +11,20 @@
 
 int	main()
 {
+	{ // Testing subject's example
+		Span sp = Span(5);
+
+		sp.addNumber(6);
+		sp.addNumber(3);
+		sp.addNumber(17);
+		sp.addNumber(9);
+		sp.addNumber(11);
+		
+		std::cout << sp.shortestSpan() << std::endl;
+		std::cout << sp.longestSpan() << std::endl;
+
+	}
+	std::cout << std::endl;
 	{	// Testing addNumber()
 		Span	span(5);
 
@@ -18,25 +32,23 @@ int	main()
 		{
 			span.addNumber(INT_MIN);
 			span.addNumber(INT_MAX);
-			span.addNumber(3);
+			span.addNumber(0);
 			span.addNumber(-99);
-			span.addNumber(7);
+			span.addNumber(42);
 			
 			std::cout << "Shortest span: " << span.shortestSpan() << std::endl;
 			std::cout << "Longest span: " << span.longestSpan() << std::endl;
 
 			// The next line will throw an exception, Span is already full
-			span.addNumber(3); // This will throw std::length_error
+			span.addNumber(3);
 		}
 		catch (const std::exception& e)
 		{
 			std::cerr << RED << BOLD << "Exception: " << e.what() << RESET << std::endl;
 		}
 	}
-
 	std::cout << std::endl;
-
-	{	// Testing addNumbers() and many numbers
+	{	// Testing addNumbers(), span calculation with too dew numbers, and many numbers
 		Span	span(10001);
 
 		try
@@ -64,14 +76,14 @@ int	main()
 					manyRandomNumbers[i] *= -1;
 			}
 
-			// Add the range of numbers to the span
+			// Add the range of numbers to the span using iterators
 			span.addNumbers(manyRandomNumbers.begin(), manyRandomNumbers.end());
 			
-			std::cout << "Shortest span in many numbers: " << span.shortestSpan() << std::endl;
-			std::cout << "Longest span in many numbers: " << span.longestSpan() << std::endl;
+			std::cout << "Shortest span: " << span.shortestSpan() << std::endl;
+			std::cout << "Longest span: " << span.longestSpan() << std::endl;
 
-			// The next line will throw an exception, Span is already full
-			span.addNumber(1001); // This will throw std::length_error
+			// The next line will throw an exception, Span is already full (1 + 10000 = 10001)
+			span.addNumber(1001);
 
 		}
 		catch (const std::exception& e)

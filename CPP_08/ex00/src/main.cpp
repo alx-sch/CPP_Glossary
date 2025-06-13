@@ -17,7 +17,7 @@ int	main()
 		vec.push_back(-99);
 		vec.push_back(3);
 
-		try
+		try // Finds value
 		{
 			std::vector<int>::iterator	it = easyfind(vec, 42);
 			std::cout	<< "Value '" << *it << "' found at vec["
@@ -28,7 +28,7 @@ int	main()
 			std::cerr << RED << BOLD << "Exception caught: " << e.what() << RESET << std::endl;
 		}
 
-		try
+		try // Throws exception as value not found
 		{
 			std::vector<int>::iterator	it = easyfind(vec, 123);
 			std::cout	<< "Value '" << *it << "' found at vec["
@@ -39,7 +39,7 @@ int	main()
 			std::cerr << RED << BOLD << "Exception caught: " << e.what() << RESET << std::endl;
 		}
 	}
-
+	std::cout << std::endl;
 	{	// Testing LIST
 		std::list<int>	lst;
 		lst.push_back(-1);
@@ -47,9 +47,9 @@ int	main()
 		lst.push_back(99);
 		lst.push_back(-3);
 
-		try
+		try // Finds value
 		{
-			std::list<int>::iterator	it = easyfind(lst, -99);
+			std::list<int>::iterator	it = easyfind(lst, 99);
 			std::cout	<< "Value '" << *it << "' found at lst["
 						<< std::distance(lst.begin(), it) << "]." << std::endl;
 		}
@@ -58,7 +58,7 @@ int	main()
 			std::cerr << RED << BOLD << "Exception caught: " << e.what() << RESET << std::endl;
 		}
 
-		try
+		try // Throws exception as value not found
 		{
 			std::list<int>::iterator	it = easyfind(lst, 1234);
 			std::cout	<< "Value '" << *it << "' found at lst["

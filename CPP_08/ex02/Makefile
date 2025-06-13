@@ -1,9 +1,9 @@
-NAME :=			XXX
+NAME :=			mutantStack
 
 # SOURCE FILES
 SRCS_DIR :=		src
 SRCS_FILES :=	main.cpp
-				
+
 SRCS :=			$(addprefix $(SRCS_DIR)/, $(SRCS_FILES))
 				
 # OBJECT FILES

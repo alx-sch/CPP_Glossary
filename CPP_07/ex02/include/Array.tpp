@@ -1,4 +1,7 @@
-// #include <iostream>
+#ifndef ARRAY_TPP
+# define ARRAY_TPP
+
+// # include <iostream>
 
 // Every template method defined outside the class must have a 'template <typename T>' before the method name.
 // Array<T>:: for every member to connect the definition to the right template class.
@@ -86,3 +89,5 @@ const char*	Array<T>::OutOfBoundsException::what() const throw()
 {
 	return ("Array index out of bounds");
 }
+
+#endif 
