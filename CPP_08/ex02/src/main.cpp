@@ -1,5 +1,4 @@
 #include <iostream>
-#include <exception> // for std::exception
 #include "../include/MutantStack.hpp"
 
 int	main()
