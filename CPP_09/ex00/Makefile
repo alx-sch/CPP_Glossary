@@ -3,7 +3,8 @@ NAME :=			btc
 # SOURCE FILES
 SRCS_DIR :=		src
 SRCS_FILES :=	main.cpp \
-				BitcoinExchange.cpp
+				BitcoinExchange.cpp \
+				utils.cpp
 
 SRCS :=			$(addprefix $(SRCS_DIR)/, $(SRCS_FILES))
 				
@@ -18,7 +19,7 @@ CXXFLAGS :=		-std=c++98
 CXXFLAGS +=		-Werror -Wextra -Wall
 CXXFLAGS +=		-Wshadow	# Warns about shadowed variables.
 CXXFLAGS +=		-Wpedantic	# Enforces strict ISO C++ compliance.
-#CXXFLAGS +=	-g
+# CXXFLAGS +=		-g
 
 # Used for progress bar
 TOTAL_SRCS :=	$(words $(SRCS))
