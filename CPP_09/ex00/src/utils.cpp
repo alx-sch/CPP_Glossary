@@ -7,8 +7,8 @@ void	printError(const std::string &message)
 	std::cerr << RED << BOLD << "Error: " << message << RESET << std::endl;
 }
 
-// Checks if exactly one argument is provided and if the file can be opened
-void	checkArgs(int argc, char **argv)
+// Checks if exactly one argument is provided and if the input file can be opened
+void	checkInput(int argc, char **argv)
 {
 	// Exactly one arg provided?
 	if (argc != 2)

@@ -12,6 +12,6 @@
 # define RESET	"\033[0m"
 
 void	printError(const std::string &message);
-void	checkArgs(int argc, char **argv);
+void	checkInput(int argc, char **argv);
 
 #endif

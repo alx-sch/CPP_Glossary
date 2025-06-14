@@ -21,7 +21,8 @@ template <typename T>
 MutantStack<T>::~MutantStack() {}
 
 // Custom Iterator methods
-// 'c' is the underlying container (protected member of std::stack), usually a deque. 'this' is needed here as 'c' is a template-dependent name.
+// 'c' is the underlying container (protected member of std::stack), usually a deque.
+// 'this' is needed here as 'c' is a template-dependent name.
 
 template <typename T>
 typename MutantStack<T>::iterator	MutantStack<T>::begin()
