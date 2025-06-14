@@ -67,7 +67,6 @@ clean:
 
 fclean:	clean
 	@rm -f $(NAME)
-	@rm -f *_shrubbery
 	@echo "$(BOLD)$(RED)$(NAME) removed.$(RESET)"
 
 re:	fclean all
