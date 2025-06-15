@@ -1,27 +1,44 @@
+#include <iostream>
 #include "../include/BitcoinExchange.hpp"
-#include "../include/utils.hpp"
 
-#define DB_FILE			"assets/data.csv"
-#define DB_HEADER		"date,exchange_rate"
-#define INPUT_HEADER	"date | value"
+// Path to the database file containing exchange rates
+#define DB_FILE	"assets/data.csv"
+
+#define RED		"\033[31m"
+#define YELLOW	"\033[33m"
+#define BOLD	"\033[1m"
+#define RESET	"\033[0m"
 
 int	main(int argc, char **argv)
 {
-	std::ifstream	inputFile;
+	// Input file path provided by the user?
+	if (argc != 2)
+	{
+		std::cerr << YELLOW << BOLD << "Usage: " << argv[0] << " <input_file>" << RESET << std::endl;
+		return 1;
+	}
+
+	// Create a BitcoinExchange instance with the database and input file
+	// Either use the default constructor and set the files later, or use the parameterized constructor
+
+	BitcoinExchange	bitcoinExchange(DB_FILE, argv[1]);
+
+	// Alternative: 
+	// BitcoinExchange bitcoinExchange;
+	// bitcoinExchange.setDbFile(DB_FILE);
+	// bitcoinExchange.setInputFile(argv[1]);
 
 	try
 	{
-		checkArgs(argc, argv);
+		bitcoinExchange.validateFiles();
+		bitcoinExchange.parseDb();
 
-		BitcoinExchange::checkInputFile(inputFile, argv[1], INPUT_HEADER);
 
-		BitcoinExchange	exchange(DB_FILE, argv[1]); // Load DB and input file into BitcoinExchange object
 
-		// Check passed arguments and if input file can be opened
 	}
 	catch (const std::exception &e)
 	{
-		printError(e.what());
+		std::cerr << RED << BOLD << "Error: " << e.what() << RESET << std::endl;
 		return 1;
 	}
 

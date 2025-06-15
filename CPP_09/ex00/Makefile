@@ -40,6 +40,7 @@ all:		$(NAME)
 $(NAME):	$(OBJS)
 	@$(CXX) $(CXXFLAGS) $(OBJS) -o $(NAME)
 	@echo "$(BOLD)$(YELLOW)\n$(NAME) successfully compiled.$(RESET)"
+	@echo "$(BOLD)Usage: ./$(NAME) <input_file>$(RESET)"
 
 ## COMPILATION PROGRESS BAR ##
 # Compiles individual .cpp files into .o object files without linking.

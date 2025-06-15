@@ -1,77 +1,60 @@
 #include "../include/utils.hpp"
 
-// Prints a formatted error message to std::cerr.
-void	printError(const std::string &message)
-{
-	std::cerr << RED << BOLD << "Error: " << message << RESET << std::endl;
-}
-
-// Checks if the number of command line arguments is exactly 2.
-// Throws 'std::runtime_error' with usage information if the check fails.
-void	checkArgs(int argc, char **argv)
-{
-	if (argc != 2) {
-		throw std::runtime_error("Expected exactly one argument. Usage: '" + std::string(argv[0]) + " <filename>'");
-	}
-}
-
-// Opens the file at 'filepath' using the provided ifstream reference.
-// Throws 'std::runtime_error' if the file cannot be opened or is empty.
-// The file stream is left open and ready for reading if successful.
-void	open_nonempty_file(std::ifstream& file, const std::string& filepath)
-{
-	file.open(filepath.c_str());
-	if (!file){
-		throw std::runtime_error("Failed to open '" + filepath + "': " + std::strerror(errno));
-	}
-	if (file.peek() == std::ifstream::traits_type::eof()) {
-		throw std::runtime_error("File is empty: '" + filepath + "'");
-	}
-}
-
 // Returns true if c is a whitespace character, safely handling signed chars.
-static bool	is_space(char c)
+static bool	isWhitespace(char c)
 {
 	return std::isspace(static_cast<unsigned char>(c));
 }
 
 // Removes all whitespace characters from the given string using iterators and std::remove_if.
 // Handles potential signed char issues by casting to unsigned char before passing to std::isspace.
-static void	remove_whitespace(std::string &line)
+void	removeWhitespace(std::string &line)
 {
 	line.erase(
-		std::remove_if(line.begin(), line.end(), is_space),
+		std::remove_if(line.begin(), line.end(), isWhitespace),
 		line.end()
 	);
 }
 
-/**
-Checks if the file starts with the expected header.
-Throws 'std::runtime_error' if the header is missing, empty, or does not match the expected header.
-
- @param file 			The input file stream to check.
- @param filepath 		The path to the file, used for error messages.
- @param expectedHeader 	The expected header string; whitespace will be ignored.
-*/
-void	checkHeader(std::ifstream &file, const std::string& filepath, const std::string &expectedHeader)
+// A year is a leap year if it is divisible by 4,
+// except for end-of-century years, which must be divisible by 400.
+static bool	isLeapYear(int year)
 {
-	std::string	header;
-
-	// Read the first line of the file
-	if (!std::getline(file, header)) {
-		throw std::runtime_error("Failed to read header line from '" + filepath + "'");
-	}
-
-	// Check if first line is empty / just whitespace
-	std::string	headerCpy = header;
-	remove_whitespace(headerCpy);
-	if (headerCpy.empty()) {
-		throw std::runtime_error("Header line is empty in '" + filepath + "'. Expected: '" 
-			+ expectedHeader + "'\nMake sure to put the header on the first line.");
-	}
-
-	// Compare header with expected header, ignoring whitespace
-	if (header != expectedHeader) {
-		throw std::runtime_error("Header mismatch in '" + filepath + "'. Expected: '" + expectedHeader + "'");
-	}
+	return (year % 4 == 0 && (year % 100 != 0 || year % 400 == 0));
 }
+
+// Validates a date string in the format 'YYYY-MM-DD'.
+// Checks for valid range of year, month, and day, taking leap years into account.
+bool	isValidDate(const std::string& date)
+{
+	// Basic date validation: 'YYYY-MM-DD' format
+	if (date.length() != 10 || date[4] != '-' || date[7] != '-')
+		return false;
+
+	// Check if the year, month, and day are valid integers
+	for (size_t i = 0; i < date.length(); ++i) {
+		if (i == 4 || i == 7) // Skip dashes
+			continue;
+		if (!std::isdigit(date[i]))
+			return false;
+	}
+
+	int	year = std::atoi(date.substr(0, 4).c_str());
+	int	month = std::atoi(date.substr(5, 2).c_str());
+	int	day = std::atoi(date.substr(8, 2).c_str());
+
+	if (month < 1 || month > 12)
+		return false;
+
+	// Days in each month (index 0 = Jan, 1 = Feb, ..., 11 = Dec)
+	int	daysInMonth[12] = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31 };
+	if (isLeapYear(year)) {
+		daysInMonth[1] = 29;
+	}
+
+	// Check day range for given month
+	if (day < 1 || day > daysInMonth[month - 1])
+		return false;
+
+	return true;
+}	

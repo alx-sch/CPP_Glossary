@@ -1,35 +1,46 @@
 #ifndef BITCOINEXCHANGE_HPP
 # define BITCOINEXCHANGE_HPP
 
-# include <map>		// for std::map
-# include <string>	// for std::string
-# include <fstream>	// for std::ifstream
+# define HEADER_DB		"date,exchange_rate"
+# define HEADER_INPUT	"date | value"
+
+# include <map>		// for map
+# include <string>	// for string
 
 /** 
-'map' is used to store key-value pairs, where the key is a date (string)
-and the value is an exchange rate (double). 'double' is usded instead of 'float'
-because float loses precision after ~6 significant digits.
-Exchange rates like 47115.93 BTC/USD require at least 7 digits, and float
-may introduce rounding errors.
-*/
+'map' is used to store the database of exchange rates.
+The key is a date in the format "YYYY-MM-DD" (string),
+and the value is the corresponding exchange rate (double).
 
+The 'BitcoinExchange' class manages the input file and database file,
+validates them, and parses the database into a map for easy access.
+
+Note: 'double' is used for exchange rates instead of 'float' to avoid precision issues.
+*/
 class	BitcoinExchange
 {
 	private:
-		std::map<std::string, double>	_data;	// key: date; value: exchange rate
+		std::string						_inputFile;	// Path to input file, provided by user via command line
+		std::string						_dbFile;	// Path to database file, set in main.cpp
+		std::map<std::string, double>	_db;		// map<date, exchange rate>
+
+		// Utility methods
+
+		void	isReadable(const std::string& filepath) const;
+		void	checkHeader(const std::string& filepath, const std::string &expectedHeader) const;
 
 	public:
 		BitcoinExchange();
-		BitcoinExchange(const std::string& dbFile, const std::string& inputFile); // <- That's the important one: loads CSV and input file
+		BitcoinExchange(const std::string& dbFile, const std::string& inputFile);
 		BitcoinExchange(const BitcoinExchange &other);
 		BitcoinExchange	&operator=(const BitcoinExchange &other);
 		~BitcoinExchange();
 
-		static void		checkInputFile(std::ifstream& file, const std::string& filename, const std::string& expectedHeader);
+		void	validateFiles() const;
+		void	parseDb();
 
-		double			getRateForDate(const std::string& date) const;
-		bool			isValidDate(const std::string& date) const;
-		static bool		isValidValue(const std::string& valueStr, float& valueOut);
+		void	setInputFile(const std::string& inputFile);
+		void	setDbFile(const std::string& dbFile);
 };
 
 #endif
