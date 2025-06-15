@@ -1,17 +1,23 @@
 #include "../include/BitcoinExchange.hpp"
-#include "../include/utils.hpp" // also incl. <stdexcept> for std::runtime_error
+#include "../include/utils.hpp"
 
-#define DATABASE_FILE	"assets/data.csv"
+#define DB_FILE			"assets/data.csv"
+#define DB_HEADER		"date,exchange_rate"
+#define INPUT_HEADER	"date | value"
 
 int	main(int argc, char **argv)
 {
+	std::ifstream	inputFile;
+
 	try
 	{
-		// Load the Bitcoin exchange rates from the CSV file into object
-		BitcoinExchange	exchange(DATABASE_FILE);
+		checkArgs(argc, argv);
+
+		BitcoinExchange::checkInputFile(inputFile, argv[1], INPUT_HEADER);
+
+		BitcoinExchange	exchange(DB_FILE, argv[1]); // Load DB and input file into BitcoinExchange object
 
 		// Check passed arguments and if input file can be opened
-		checkArgs(argc, argv);
 	}
 	catch (const std::exception &e)
 	{

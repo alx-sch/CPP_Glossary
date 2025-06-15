@@ -3,6 +3,7 @@
 
 # include <map>		// for std::map
 # include <string>	// for std::string
+# include <fstream>	// for std::ifstream
 
 /** 
 'map' is used to store key-value pairs, where the key is a date (string)
@@ -15,18 +16,20 @@ may introduce rounding errors.
 class	BitcoinExchange
 {
 	private:
-		std::map<std::string, double>	_data; // key: date; value: exchange rate
+		std::map<std::string, double>	_data;	// key: date; value: exchange rate
 
 	public:
 		BitcoinExchange();
-		BitcoinExchange(const std::string& filename); // <- That's the important one: loads the CSV file
+		BitcoinExchange(const std::string& dbFile, const std::string& inputFile); // <- That's the important one: loads CSV and input file
 		BitcoinExchange(const BitcoinExchange &other);
 		BitcoinExchange	&operator=(const BitcoinExchange &other);
 		~BitcoinExchange();
 
-		double		getRateForDate(const std::string& date) const;
-		bool		isValidDate(const std::string& date) const;
-		static bool	isValidValue(const std::string& valueStr, float& valueOut);
+		static void		checkInputFile(std::ifstream& file, const std::string& filename, const std::string& expectedHeader);
+
+		double			getRateForDate(const std::string& date) const;
+		bool			isValidDate(const std::string& date) const;
+		static bool		isValidValue(const std::string& valueStr, float& valueOut);
 };
 
 #endif
