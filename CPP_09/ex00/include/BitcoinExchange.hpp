@@ -28,6 +28,7 @@ class	BitcoinExchange
 
 		void	isReadable(const std::string& filepath) const;
 		void	checkHeader(const std::string& filepath, const std::string &expectedHeader) const;
+		double	getClosestRate(const std::string& date, bool& fallBack) const;
 
 	public:
 		BitcoinExchange();
@@ -36,11 +37,11 @@ class	BitcoinExchange
 		BitcoinExchange	&operator=(const BitcoinExchange &other);
 		~BitcoinExchange();
 
-		void	validateFiles() const;
-		void	parseDb();
+		void		parseDb();
+		void		processInput() const;
 
-		void	setInputFile(const std::string& inputFile);
-		void	setDbFile(const std::string& dbFile);
+		void		setInput(const std::string& inputFile);
+		void		setDb(const std::string& dbFile);
 };
 
 #endif

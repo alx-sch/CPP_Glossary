@@ -1,5 +1,6 @@
 #include <iostream>
 #include "../include/BitcoinExchange.hpp"
+#include "../include/utils.hpp"
 
 // Path to the database file containing exchange rates
 #define DB_FILE	"assets/data.csv"
@@ -21,20 +22,17 @@ int	main(int argc, char **argv)
 	// Create a BitcoinExchange instance with the database and input file
 	// Either use the default constructor and set the files later, or use the parameterized constructor
 
-	BitcoinExchange	bitcoinExchange(DB_FILE, argv[1]);
+	BitcoinExchange	wallet(DB_FILE, argv[1]);
 
 	// Alternative: 
-	// BitcoinExchange bitcoinExchange;
-	// bitcoinExchange.setDbFile(DB_FILE);
-	// bitcoinExchange.setInputFile(argv[1]);
+	// BitcoinExchange wallet;
+	// wallet.setDb(DB_FILE);
+	// wallet.setInput(argv[1]);
 
 	try
 	{
-		bitcoinExchange.validateFiles();
-		bitcoinExchange.parseDb();
-
-
-
+		wallet.parseDb();
+		wallet.processInput();
 	}
 	catch (const std::exception &e)
 	{

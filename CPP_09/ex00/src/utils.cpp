@@ -1,13 +1,25 @@
 #include "../include/utils.hpp"
 
-// Returns true if c is a whitespace character, safely handling signed chars.
+// Check if the given path is a regular file.
+// `stat()` retrieves information about the file, directory etc. specified by `path`.
+bool	isRegularFile(const std::string& path)
+{
+	struct stat	s;
+	if (stat(path.c_str(), &s) != 0) {
+		// stat failed (file doesn't exist or can't be accessed)
+		return false;
+	}
+	return S_ISREG(s.st_mode); // true if it's a regular file
+}
+
+// Returns true if `c` is a whitespace character, safely handling signed chars.
 static bool	isWhitespace(char c)
 {
 	return std::isspace(static_cast<unsigned char>(c));
 }
 
-// Removes all whitespace characters from the given string using iterators and std::remove_if.
-// Handles potential signed char issues by casting to unsigned char before passing to std::isspace.
+// Removes all whitespace characters from the given string using iterators and `std::remove_if`.
+// Handles potential signed char issues by casting to unsigned char before passing to `std::isspace`.
 void	removeWhitespace(std::string &line)
 {
 	line.erase(
