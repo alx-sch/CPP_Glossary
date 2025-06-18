@@ -119,13 +119,13 @@ void	BitcoinExchange::processInput() const
 	std::ifstream		file(_inputFile.c_str());
 	std::string			line;
 	int					lineCount = 0; // Line counter for error reporting
-	std::ostringstream	oss; // For error messages, line number: int to str
+	std::ostringstream	oss; // For error messages, line number: int to str, also makes sure that string literals (const char*) can be concatenated with '+'
 	size_t				delimPos; // Position of the delimiter (comma)
 	std::string			date;
+	std::string			fallBackDate; // Date for fallback, if no match is found
 	std::string			amountStr;
 	double				amount;
 	double				rate;
-	bool				fallBack = false; // Flag to indicate if a previous date needed to be used -> colored output
 
 	if (_db.empty()) {
 		throw std::runtime_error("Database is empty. Please parse the database file first.");
@@ -144,20 +144,20 @@ void	BitcoinExchange::processInput() const
 		// Bar present and not at the start or end of the line?
 		delimPos = line.find('|');
 		if (delimPos == std::string::npos || delimPos == 0 || delimPos == line.length() - 1) {
-			std::cout << RED << "Error: Invalid format, line " + oss.str() + ": '" + line + "'. Use: 'date | value'" << RESET << std::endl; // The subject is IMO incorrect using 'value' here; should be 'amount'
+			std::cout << RED << "Line " + oss.str() + ": Error: Invalid format: '" + line + "'. Use: 'date | value'" << RESET << std::endl; // The subject is IMO incorrect using 'value' here; should be 'amount'
 			continue;
 		}
 
 		// Check if the bar is preceded and followed by a space (as subject requires "date | value")
 		if (line[delimPos - 1] != ' ' || line[delimPos + 1] != ' ') {
-			std::cout << RED << "Error: Invalid format, line " + oss.str() + ": '" + line + "'. Use: 'date | value'" << RESET << std::endl;
+			std::cout << RED << "Line " + oss.str() + ": Error: Invalid format: '" + line + "'. Use: 'date | value'" << RESET << std::endl;
 			continue;
 		}
 
 		// Validate the date
 		date = line.substr(0, delimPos - 1); // Skip the space before the bar
 		if (!isValidDate(date)) {
-			std::cout << RED << "Error: Invalid date, line " + oss.str() + ": '" + date + "'. Use valid 'YYYY-MM-DD'" << RESET << std::endl;
+			std::cout << RED << "Line " + oss.str() + ": Error: Invalid date: '" + date + "'. Use valid 'YYYY-MM-DD'" << RESET << std::endl;
 			continue;
 		}
 
@@ -166,31 +166,28 @@ void	BitcoinExchange::processInput() const
 		amountStr = line.substr(delimPos + 2); // Skip the space after the bar
 		amount = std::strtod(amountStr.c_str(), &end);
 		if (end == amountStr.c_str() || *end != '\0') { // Just whitespace or invalid characters (3.14abc)
-			std::cout << RED << "Error: Invalid value, line " + oss.str() + ": '" + amountStr << "'" << RESET << std::endl;
+			std::cout << RED << "Line " + oss.str() + ": Error: Invalid value: '" + amountStr << "'" << RESET << std::endl;
 			continue;
 		}
 		if (amount < 0 || amount > 1000) { // Amount must be [0, 1000]
-			std::cout << RED << "Error: Invalid value, line " + oss.str() + ": '" + amountStr + "'. Must be in range [0, 1000]" << RESET << std::endl;
+			std::cout << RED << "Line " + oss.str() + ": Error: Invalid value: '" + amountStr + "'. Must be in range [0, 1000]" << RESET << std::endl;
 			continue;
 		}
 
 		// Get the (closest) exchange rate for the given date
-		rate = getClosestRate(date, fallBack);
-		if (rate < 0) { // No match or previous date found
-			std::cout << RED << "Error: No exchange rate found for date, line " + oss.str() + ": '" + date << "'" << RESET << std::endl;
+		fallBackDate = date;
+		getClosestDateAndRate(fallBackDate, rate);
+		if (fallBackDate.empty()) { // No match or previous date found
+			std::cout << RED << "Line " + oss.str() + ": Error: No exchange rate found for date: '" + date << "'" << RESET << std::endl;
 			continue;
 		}
 		
-		// Everything is fine, print the result
-		if (fallBack) {
-			std::cout << YELLOW;
-		}
 		std::cout	<< date << " => " << std::left << std::setw(7) << amount << " BTC * " << std::left << std::setw(7) 
 					<< rate << " USD/BTC = USD " << amount * rate << std::endl;
-		if (fallBack) {
-			std::cout << RESET;
-			fallBack = false; // Reset the fallback flag for the next line
+		if (fallBackDate != date) { // If we used a fallback date, print it in yellow
+			std::cout << YELLOW << " (" << fallBackDate << ")" << RESET;
 		}
+		std::cout << std::endl;
 	}
 }
 
@@ -245,23 +242,24 @@ void	BitcoinExchange::checkHeader(const std::string& filepath, const std::string
 	}
 }
 
-// Returns the exchange rate for the given date.
-// If the date is not found, it returns the closest previous date's rate.
-// If no previous date is found, it returns `-1`.
-double	BitcoinExchange::getClosestRate(const std::string& date, bool& fallBack) const
+// Updates the `date` and `rate` parameters with the closest date and rate from the database.
+// If no date match is found in the database, it uses the closest previous date's data.
+// If no previous date is found, it sets `date` to `""`.
+void	BitcoinExchange::getClosestDateAndRate(std::string& date, double& rate) const
 {
 	std::map<std::string, double>::const_iterator	it = _db.lower_bound(date); // Find the first date that is equal to or greater than the given date
 	
 	if (it != _db.end() && it->first == date) { // Exact match
-		return it->second;
+		date = it->first;
+		rate = it->second;
 	}
 	else if (it != _db.begin()) { // No exact match, but we can go back to the closest earlier date
 		--it;
-		fallBack = true; // Set the fallback flag to true, indicating we used a previous date
-		return it->second;
+		date = it->first;
+		rate = it->second;
 	}
 	else { // No exact match and no earlier date exists
-		return -1;
+		date = "";
 	}
 }
 

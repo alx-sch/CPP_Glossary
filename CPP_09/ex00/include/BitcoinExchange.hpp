@@ -28,7 +28,7 @@ class	BitcoinExchange
 
 		void	isReadable(const std::string& filepath) const;
 		void	checkHeader(const std::string& filepath, const std::string &expectedHeader) const;
-		double	getClosestRate(const std::string& date, bool& fallBack) const;
+		void	getClosestDateAndRate(std::string& date, double& rate) const;
 
 	public:
 		BitcoinExchange();
