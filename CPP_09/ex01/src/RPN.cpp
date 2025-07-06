@@ -1,7 +1,7 @@
 #include <stack>
-#include <string> // empty(), find_first_not_of()
-#include <cctype> // isdigit(), isspace()
-#include <stdexcept> // runtime_error()
+#include <string>		// empty(), find_first_not_of()
+#include <cctype>		// isdigit(), isspace()
+#include <stdexcept>	// runtime_error()
 #include "../include/RPN.hpp"
 
 // Forward declaration: Internal helpers (not part of the class)
@@ -63,9 +63,9 @@ double	RPN::calculate(const std::string& expression)
 	return stack.top(); // Return the final result
 }
 
-////////////
-// HELPER //
-////////////
+/////////////
+// HELPERS //
+/////////////
 
 // Checks if character is a valid operator (`+`, `-`, `*`, `/`).
 static bool	isOperator(char c)

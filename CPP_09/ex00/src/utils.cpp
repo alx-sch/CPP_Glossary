@@ -1,6 +1,6 @@
 #include "../include/utils.hpp"
 
-// Check if the given path is a regular file.
+// Check if the given path is a regular file (and not, for example, a directory or symlink).
 // `stat()` retrieves information about the file, directory etc. specified by `path`.
 bool	isRegularFile(const std::string& path)
 {

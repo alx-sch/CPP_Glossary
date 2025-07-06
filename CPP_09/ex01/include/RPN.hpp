@@ -6,7 +6,7 @@
 class	RPN
 {
 	private:
-		// Prevent instantiation, copying, assignment --> Utility / static class
+		// Private as to prevent instantiation --> RPN is pure utility / static class
 		RPN();
 		RPN(const RPN &other);
 		RPN	&operator=(const RPN &other);
