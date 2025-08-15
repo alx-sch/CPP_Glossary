@@ -25,7 +25,7 @@ void	PmergeMe::sort(int argc, char** argv)
 // Checks if the provided arguments are valid integers.
 // Throws exceptions for non-numeric values, non-positive numbers,
 // and integers exceeding INT_MAX.
-static void	checkArgs(int argc, char** argv)
+void	PmergeMe::checkArgs(int argc, char** argv)
 {
 	char		*endptr;
 	long		val;
@@ -34,7 +34,7 @@ static void	checkArgs(int argc, char** argv)
 	for (int i = 1; i < argc; ++i)
 	{
 		arg = std::string(argv[i]); // Convert C-style string (const char*) to std::string
-		errno	= 0;
+		errno = 0;
 		val = strtol(argv[i], &endptr, 10); // Convert to long (base 10); might set errno
 
 		if (*argv[i] == '\0' || *endptr != '\0')
@@ -52,4 +52,9 @@ static void	checkArgs(int argc, char** argv)
 			throw std::runtime_error("Only positive integers are allowed [1, INT_MAX]: " + arg);
 		}
 	}
+}
+
+void	PmergeMe::sort(int argc, char** argv)
+{
+	checkArgs(argc, argv);
 }

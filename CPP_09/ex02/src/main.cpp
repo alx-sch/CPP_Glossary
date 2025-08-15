@@ -8,15 +8,16 @@
 
 int	main(int argc, char** argv)
 {
-	if (argc < 2)
+	if (argc < 2) // No integers provided
 	{
 		std::cerr	<< YELLOW << "Usage: " << argv[0] << " <int1> <int2> ..." << RESET
-					<< "  (only positive integers allowed)\n";
+					<< " (only positive integers allowed)\n";
 		return 1;
 	}
 
 	try
 	{
+		PmergeMe::checkArgs(argc, argv);
 		PmergeMe::sort(argc, argv);
 	}
 	catch (const std::exception& e)
