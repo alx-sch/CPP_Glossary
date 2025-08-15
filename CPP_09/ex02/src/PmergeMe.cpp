@@ -5,23 +5,6 @@
 #include <string>
 #include "../include/PmergeMe.hpp"
 
-// Forward declaration: Internal helpers (not part of the class)
-
-static void	checkArgs(int argc, char** argv);
-
-////////////
-// Method //
-////////////
-
-void	PmergeMe::sort(int argc, char** argv)
-{
-	checkArgs(argc, argv);
-}
-
-/////////////
-// HELPERS //
-/////////////
-
 // Checks if the provided arguments are valid integers.
 // Throws exceptions for non-numeric values, non-positive numbers,
 // and integers exceeding INT_MAX.
@@ -56,5 +39,6 @@ void	PmergeMe::checkArgs(int argc, char** argv)
 
 void	PmergeMe::sort(int argc, char** argv)
 {
-	checkArgs(argc, argv);
+	(void)argc;
+	(void)argv;
 }
