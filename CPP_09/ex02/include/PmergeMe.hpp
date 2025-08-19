@@ -1,6 +1,8 @@
 #ifndef PMERGEME_HPP
 # define PMERGEME_HPP
 
+# include <vector>
+
 class	PmergeMe
 {
 	private:
@@ -11,7 +13,8 @@ class	PmergeMe
 		~PmergeMe();
 
 	public:
-		static void	checkArgs(int argc, char** argv);
-		static void	sort(int argc, char** argv);
+		static void				checkArgs(int argc, char** argv);
+		static std::vector<int>	sortVec(int argc, char** argv);
 };
+
 #endif

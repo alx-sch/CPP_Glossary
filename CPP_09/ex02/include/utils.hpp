@@ -1,0 +1,40 @@
+#ifndef UTILS_HPP
+# define UTILS_HPP
+
+# include <string>
+# include <iomanip>		// setw()
+# include <sys/time.h>	// timeval
+
+# include "../include/define.hpp"	// for color codes
+
+void	printBeforeAfter(int argc, char **argv);
+timeval	getCurrentTimeStruct();
+long	getElapsedTime(const timeval& start, const timeval& end);
+void	printElapsedTime(const timeval& start, const timeval& end, int elements,
+			const std::string& contName);
+
+// Prints if the container is sorted in a non-decreasing order or not
+template <typename Container>
+void	isSorted(const Container& c, const std::string& contName)
+{
+	typename Container::const_iterator	it = c.begin();
+	typename Container::const_iterator	next = it;
+	++next;
+
+	while (next != c.end())
+	{
+		if (*it > *next) // Pair is not sorted
+		{
+			std::cout	<< "Container " << YELLOW << std::left << std::setw(16) << contName
+						<< RESET << " is " << RED << "not sorted" << RESET << std::endl;
+			return;		
+		}
+		++it;
+		++next;
+	}
+	// All elements are sorted
+	std::cout	<< "Container " << YELLOW << std::left << std::setw(16) << contName
+				<< RESET << " is " << GREEN << "sorted" << RESET << std::endl;
+}
+
+#endif

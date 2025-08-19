@@ -3,6 +3,8 @@
 #include <cerrno>		// for errno, ERANGE
 #include <stdexcept>	// runtime_error()
 #include <string>
+#include <vector>
+
 #include "../include/PmergeMe.hpp"
 
 // Checks if the provided arguments are valid integers.
@@ -22,7 +24,7 @@ void	PmergeMe::checkArgs(int argc, char** argv)
 
 		if (*argv[i] == '\0' || *endptr != '\0')
 		{
-			throw std::runtime_error("Invalid input, not a number: '" + arg + "'");
+			throw std::runtime_error("Invalid input, not an integer: '" + arg + "'");
 		}
 
 		if (errno == ERANGE || val > INT_MAX)
@@ -37,8 +39,16 @@ void	PmergeMe::checkArgs(int argc, char** argv)
 	}
 }
 
-void	PmergeMe::sort(int argc, char** argv)
+std::vector<int>	PmergeMe::sortVec(int argc, char** argv)
 {
-	(void)argc;
-	(void)argv;
+	std::vector<int>	vec;
+
+	// Fill vector
+	vec.reserve(argc - 1); // helps with performance, avoids repeated reallocation in growing vec
+	for (int i = 1; i < argc; ++i)
+	{
+		vec.push_back(std::atoi(argv[i]));
+	}
+
+	return vec;
 }

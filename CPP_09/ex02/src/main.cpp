@@ -1,10 +1,9 @@
 #include <iostream>
-#include "../include/PmergeMe.hpp"
+#include <vector>
 
-#define YELLOW	"\033[33m"
-#define RED		"\033[31m"
-#define BOLD	"\033[1m"
-#define RESET	"\033[0m"
+#include "../include/PmergeMe.hpp"
+#include "../include/define.hpp"	// for color codes
+#include "../include/utils.hpp"		// for getCurrentTimeStruct(), getElapsedTime(), isSorted()
 
 int	main(int argc, char** argv)
 {
@@ -15,10 +14,26 @@ int	main(int argc, char** argv)
 		return 1;
 	}
 
+	timeval				start, end;	// structs to hold time info
+	std::vector<int>	sortedVec;
+
 	try
 	{
 		PmergeMe::checkArgs(argc, argv);
-		PmergeMe::sort(argc, argv);
+		printBeforeAfter(argc, argv);
+
+		// == Sorting using 'vector' ===
+		start = getCurrentTimeStruct();
+		sortedVec = PmergeMe::sortVec(argc, argv);
+		end = getCurrentTimeStruct();
+		printElapsedTime(start, end, argc - 1, "std::vector<int>");
+
+		// == Sorting using 'XXXX' ==
+		printElapsedTime(start, end, argc - 1, "std::XXXX");
+
+		// Is result really sorted?
+		isSorted(sortedVec, "std::vector<int>");
+
 	}
 	catch (const std::exception& e)
 	{
