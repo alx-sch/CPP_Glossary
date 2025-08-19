@@ -6,7 +6,7 @@
 
 #include <sys/time.h>	// for gettimeofday()
 
-#include "../include/define.hpp"	// for color codes
+#include "../include/define.hpp"	// for color codes, WIDTH_N, WIDTH_C
 
 // Returns `timeval` struct representing the current time
 timeval	getCurrentTimeStruct()
@@ -32,9 +32,9 @@ void	printElapsedTime(const timeval& start, const timeval& end, int elements,
 {
 	long	elapsed = getElapsedTime(start, end);
 
-	std::cout	<< "Time to process " << YELLOW << std::right << std::setw(4)
+	std::cout	<< "Time to process " << YELLOW << std::right << std::setw(WIDTH_N)
 				<< elements << " numbers" << RESET << " with "
-				<< YELLOW << std::left << std::setw(16) << contName << RESET << ": "
+				<< YELLOW << std::left << std::setw(WIDTH_C) << contName << RESET << ": "
 				<< YELLOW << elapsed << " us" << RESET << std::endl;
 }
 
@@ -72,6 +72,6 @@ void	printBeforeAfter(int argc, char **argv)
 void	printNumComp(int numComp, const std::string& contName)
 {
 	std::cout	<< "Number of comparisons (" << YELLOW
-				<< std::left << std::setw(16) << contName << RESET
+				<< std::left << std::setw(WIDTH_C) << contName << RESET
 				<< "): " << YELLOW << numComp << RESET << std::endl;
 }

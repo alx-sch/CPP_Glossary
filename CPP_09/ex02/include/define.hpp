@@ -7,4 +7,7 @@
 #define BOLD	"\033[1m"
 #define RESET	"\033[0m"
 
+#define WIDTH_N	3	// used in setw(); ideally the max digits of numbers being sorted
+#define WIDTH_C	16	// used in setw(); ideally the max width of container names
+
 #endif
