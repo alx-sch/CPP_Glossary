@@ -15,25 +15,37 @@ int	main(int argc, char** argv)
 	}
 
 	timeval				start, end;	// structs to hold time info
+	int					numCompVec = 0, numCompLst = 0;	// keeps track of comparisons made
 	std::vector<int>	sortedVec;
+	std::list<int>		sortedLst;
 
 	try
 	{
 		PmergeMe::checkArgs(argc, argv);
 		printBeforeAfter(argc, argv);
 
-		// == Sorting using 'vector' ===
+		// === Sorting using 'vector' ===
 		start = getCurrentTimeStruct();
-		sortedVec = PmergeMe::sortVec(argc, argv);
+		sortedVec = PmergeMe::sortVec(argc, argv, numCompVec);
 		end = getCurrentTimeStruct();
 		printElapsedTime(start, end, argc - 1, "std::vector<int>");
 
-		// == Sorting using 'XXXX' ==
-		printElapsedTime(start, end, argc - 1, "std::XXXX");
+		// === Sorting using 'list' ===
+		start = getCurrentTimeStruct();
+		sortedLst = PmergeMe::sortLst(argc, argv, numCompLst);
+		end = getCurrentTimeStruct();
+		printElapsedTime(start, end, argc - 1, "std::list<int>");
+
+		// === Printing additional info ===
+		std::cout << std::endl;
 
 		// Is result really sorted?
 		isSorted(sortedVec, "std::vector<int>");
+		isSorted(sortedLst, "std::list<int>");
 
+		// How many comparisons were made?
+		printNumComp(numCompVec, "std::vector<int>");
+		printNumComp(numCompLst, "std::list<int>");
 	}
 	catch (const std::exception& e)
 	{

@@ -18,12 +18,12 @@ timeval	getCurrentTimeStruct()
 }
 
 // Returns the elapsed time in microseconds between two `timeval` structs
-long	getElapsedTime(const timeval& start, const timeval& end)
+static long	getElapsedTime(const timeval& start, const timeval& end)
 {
 	long	sec = end.tv_sec - start.tv_sec;
 	long	usec = end.tv_usec - start.tv_usec;
 
-	return (sec * 1000000 + usec);
+	return (sec * 1000000 + usec); // sec * 1000 = msec * 1000 = usec
 }
 
 // Prints a formatted elapsed time message
@@ -57,7 +57,7 @@ void	printBeforeAfter(int argc, char **argv)
 	std::cout << std::endl;
 
 	// Just for printing 'expected' sorting result! 
-	// Results or algorithm is tested separately via is_sorted()
+	// Results of merge-insert sort algo implementation is tested separately via isSorted()
 	std::sort(numbers.begin(), numbers.end());
 
 	std::cout << "After:  ";
@@ -66,4 +66,12 @@ void	printBeforeAfter(int argc, char **argv)
 		std::cout << numbers[i] << " ";
 	}
 	std::cout << std::endl;
+}
+
+// Prints the number of comparisons made
+void	printNumComp(int numComp, const std::string& contName)
+{
+	std::cout	<< "Number of comparisons (" << YELLOW
+				<< std::left << std::setw(16) << contName << RESET
+				<< "): " << YELLOW << numComp << RESET << std::endl;
 }

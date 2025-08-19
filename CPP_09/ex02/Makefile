@@ -4,6 +4,8 @@ NAME :=			PmergeMe
 SRCS_DIR :=		src
 SRCS_FILES :=	main.cpp \
 				PmergeMe.cpp \
+				PmergeMeVec.cpp \
+				PmergeMeLst.cpp \
 				utils.cpp
 
 SRCS :=			$(addprefix $(SRCS_DIR)/, $(SRCS_FILES))

@@ -1,9 +1,8 @@
-#include <cstdlib>		// for strtol(), atoi()
-#include <climits>		// for INT_MAX
-#include <cerrno>		// for errno, ERANGE
+#include <cstdlib>		// strtol()
+#include <climits>		// INT_MAX
+#include <cerrno>		// errno, ERANGE
 #include <stdexcept>	// runtime_error()
 #include <string>
-#include <vector>
 
 #include "../include/PmergeMe.hpp"
 
@@ -37,18 +36,4 @@ void	PmergeMe::checkArgs(int argc, char** argv)
 			throw std::runtime_error("Only positive integers are allowed [1, INT_MAX]: " + arg);
 		}
 	}
-}
-
-std::vector<int>	PmergeMe::sortVec(int argc, char** argv)
-{
-	std::vector<int>	vec;
-
-	// Fill vector
-	vec.reserve(argc - 1); // helps with performance, avoids repeated reallocation in growing vec
-	for (int i = 1; i < argc; ++i)
-	{
-		vec.push_back(std::atoi(argv[i]));
-	}
-
-	return vec;
 }

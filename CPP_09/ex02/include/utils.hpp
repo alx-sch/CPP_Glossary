@@ -9,9 +9,9 @@
 
 void	printBeforeAfter(int argc, char **argv);
 timeval	getCurrentTimeStruct();
-long	getElapsedTime(const timeval& start, const timeval& end);
 void	printElapsedTime(const timeval& start, const timeval& end, int elements,
 			const std::string& contName);
+void	printNumComp(int numComp, const std::string& contName);
 
 // Prints if the container is sorted in a non-decreasing order or not
 template <typename Container>

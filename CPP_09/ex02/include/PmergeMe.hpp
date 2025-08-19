@@ -2,6 +2,7 @@
 # define PMERGEME_HPP
 
 # include <vector>
+# include <list>
 
 class	PmergeMe
 {
@@ -13,8 +14,17 @@ class	PmergeMe
 		~PmergeMe();
 
 	public:
+		// PmergeMe.cpp
+
 		static void				checkArgs(int argc, char** argv);
-		static std::vector<int>	sortVec(int argc, char** argv);
+
+		// PmergeMeVec.cpp
+
+		static std::vector<int>	sortVec(int argc, char** argv, int& numComp);
+
+		// PmergeMeLst.cpp
+
+		static std::list<int>	sortLst(int argc, char** argv, int& numComp);
 };
 
 #endif
