@@ -3,7 +3,7 @@
 
 #include "../include/PmergeMe.hpp"
 #include "../include/define.hpp"	// for color codes
-#include "../include/utils.hpp"		// for getCurrentTimeStruct(), getElapsedTime(), isSorted()
+#include "../include/utils.hpp"		// for getCurrentTimeStruct(), getElapsedTime(), printIsSorted(), printNumComp()
 
 int	main(int argc, char** argv)
 {
@@ -40,8 +40,8 @@ int	main(int argc, char** argv)
 		std::cout << std::endl;
 
 		// Is result really sorted?
-		isSorted(sortedVec, "std::vector<int>");
-		isSorted(sortedLst, "std::list<int>");
+		printIsSorted(sortedVec, "std::vector<int>");
+		printIsSorted(sortedLst, "std::list<int>");
 
 		// How many comparisons were made?
 		printNumComp(numCompVec, "std::vector<int>");
