@@ -1,6 +1,9 @@
 #include <iostream>
+#include <string>
 #include <iomanip>		// setw()
+#include <string>
 #include <vector>
+#include <sstream>		// for std::ostringstream
 #include <sys/time.h>	// for gettimeofday()
 
 #include "../include/define.hpp"	// for color codes, WIDTH_N, WIDTH_C
@@ -41,4 +44,13 @@ void	printNumComp(int numComp, const std::string& contName)
 	std::cout	<< "Number of comparisons (" << YELLOW
 				<< std::left << std::setw(WIDTH_C) << contName << RESET
 				<< "): " << YELLOW << numComp << RESET << std::endl;
+}
+
+// Converts a `size_t` to a string
+// Used for debugging
+std::string	toString(size_t n)
+{
+	std::ostringstream	oss;
+	oss << n;
+	return oss.str();
 }

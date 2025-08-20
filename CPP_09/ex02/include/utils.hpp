@@ -8,10 +8,11 @@
 
 # include "../include/define.hpp"	// for color codes, WIDTH_C
 
-timeval	getCurrentTimeStruct();
-void	printElapsedTime(const timeval& start, const timeval& end, int elements,
-			const std::string& contName);
-void	printNumComp(int numComp, const std::string& contName);
+timeval		getCurrentTimeStruct();
+void		printElapsedTime(const timeval& start, const timeval& end, int elements,
+				const std::string& contName);
+void		printNumComp(int numComp, const std::string& contName);
+std::string	toString(size_t n);
 
 // Prints if the container is sorted in a non-decreasing order or not
 template <typename Container>
@@ -54,7 +55,7 @@ void	printContainer(const Container& c)
 }
 
 // Prints the content of any container with formatting
-// Great for debugging
+// Great for debugging!
 template <typename Container>
 void	printContainerDebug(const Container& c, const std::string& prefix)
 {
