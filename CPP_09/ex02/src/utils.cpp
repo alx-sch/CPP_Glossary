@@ -38,32 +38,20 @@ void	printElapsedTime(const timeval& start, const timeval& end, int elements,
 				<< YELLOW << elapsed << " us" << RESET << std::endl;
 }
 
-// Prints numbers before and after sorting (expected, no sorting Ford-Johnson algo performed yet)
-void	printBeforeAfter(int argc, char **argv)
+// Prints out passed arguments (before and after sorting)
+void	printBeforeAfter(char **argv, std::vector<int> &afterSort)
 {
-	std::vector<int>	numbers;
-
-	// Fill vector with command line arguments
-	for (int i = 1; i < argc; ++i)
-	{
-		numbers.push_back(std::atoi(argv[i]));
-	}
+	size_t	n = afterSort.size();
 
 	std::cout << "Before: ";
-	for (size_t i = 0; i < numbers.size(); ++i)
+	for (size_t i = 0; i < n; ++i)
 	{
-		std::cout << numbers[i] << " ";
+		std::cout << argv[i + 1] << " ";
 	}
-	std::cout << std::endl;
-
-	// Just for printing 'expected' sorting result! 
-	// Results of merge-insert sort algo implementation is tested separately via isSorted()
-	std::sort(numbers.begin(), numbers.end());
-
-	std::cout << "After:  ";
-	for (size_t i = 0; i < numbers.size(); ++i)
+	std::cout << "\nAfter:  ";
+	for (size_t i = 0; i < n; ++i)
 	{
-		std::cout << numbers[i] << " ";
+		std::cout << afterSort[i] << " ";
 	}
 	std::cout << std::endl;
 }

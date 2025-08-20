@@ -22,12 +22,12 @@ int	main(int argc, char** argv)
 	try
 	{
 		PmergeMe::checkArgs(argc, argv);
-		printBeforeAfter(argc, argv);
 
 		// === Sorting using 'vector' ===
 		start = getCurrentTimeStruct();
 		sortedVec = PmergeMe::sortVec(argc, argv, numCompVec);
 		end = getCurrentTimeStruct();
+		printBeforeAfter(argv, sortedVec);
 		printElapsedTime(start, end, argc - 1, "std::vector<int>");
 
 		// === Sorting using 'list' ===

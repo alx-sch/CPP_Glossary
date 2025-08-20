@@ -3,11 +3,12 @@
 
 # include <string>
 # include <iomanip>		// setw()
+# include <vector>
 # include <sys/time.h>	// timeval
 
 # include "../include/define.hpp"	// for color codes
 
-void	printBeforeAfter(int argc, char **argv);
+void	printBeforeAfter(char **argv, std::vector<int> &afterSort);
 timeval	getCurrentTimeStruct();
 void	printElapsedTime(const timeval& start, const timeval& end, int elements,
 			const std::string& contName);

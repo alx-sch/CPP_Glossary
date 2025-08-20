@@ -5,6 +5,7 @@
 #include "../include/PmergeMe.hpp"
 
 static void	fordJohnson(std::vector<int> &vec);
+static void	fordJohnsonSort(std::vector<int> &vec, size_t start, size_t end);
 
 std::vector<int>	PmergeMe::sortVec(int argc, char** argv, int& numComp)
 {
