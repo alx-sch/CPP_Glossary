@@ -35,24 +35,6 @@ void	printElapsedTime(const timeval& start, const timeval& end, int elements,
 				<< YELLOW << elapsed << " us" << RESET << std::endl;
 }
 
-// Prints out passed arguments (before and after sorting)
-void	printBeforeAfter(char** argv, std::vector<int>& afterSort)
-{
-	size_t	n = afterSort.size();
-
-	std::cout << "Before: ";
-	for (size_t i = 0; i < n; ++i)
-	{
-		std::cout << argv[i + 1] << " ";
-	}
-	std::cout << "\nAfter:  ";
-	for (size_t i = 0; i < n; ++i)
-	{
-		std::cout << afterSort[i] << " ";
-	}
-	std::cout << std::endl;
-}
-
 // Prints the number of comparisons made
 void	printNumComp(int numComp, const std::string& contName)
 {

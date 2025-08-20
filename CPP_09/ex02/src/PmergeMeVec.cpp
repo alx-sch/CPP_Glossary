@@ -3,6 +3,7 @@
 #include <vector>
 
 #include "../include/PmergeMe.hpp"
+#include "../include/utils.hpp" // DEBUG -> printContainerDebug()
 
 static void	fordJohnson(std::vector<int>& vec, int& numComp);
 static void	fordJohnsonSort(std::vector<int>& vec, size_t start, size_t end, int& numComp);
@@ -66,9 +67,13 @@ static void	fordJohnsonSort(std::vector<int>& vec, size_t start, size_t end, int
 	size_t	numPairs; // size_t as added to start (which is size_t)
 	int		leftover;
 
+	printContainerDebug(vec, "Before pairing: ");
+
 	// [42 17 99 5 8 23 7]
 	pairAndSplit(vec, start, end, numPairs, leftover, numComp);
 	// [17,42  5,99  8,23  7]; numPairs = 3, leftover = 7
+
+	printContainerDebug(vec, "After pairing: ");
 
 	// Step 1: recursively sort the main chain (larger element of each pair)
 	size_t	mainEnd = end;
