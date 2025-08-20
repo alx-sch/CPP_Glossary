@@ -8,12 +8,12 @@ class	RPN
 	private:
 		// Private as to prevent instantiation --> RPN is pure utility / static class
 		RPN();
-		RPN(const RPN &other);
-		RPN	&operator=(const RPN &other);
+		RPN(const RPN& other);
+		RPN& operator=(const RPN& other);
 		~RPN();
 
 	public:
-		static double	calculate(const std::string &expression);
+		static double	calculate(const std::string& expression);
 };
 
 #endif

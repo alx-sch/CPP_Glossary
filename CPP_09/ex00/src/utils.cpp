@@ -20,7 +20,7 @@ static bool	isWhitespace(char c)
 
 // Removes all whitespace characters from the given string using iterators and `std::remove_if`.
 // Handles potential signed char issues by casting to unsigned char before passing to `std::isspace`.
-void	removeWhitespace(std::string &line)
+void	removeWhitespace(std::string& line)
 {
 	line.erase(
 		std::remove_if(line.begin(), line.end(), isWhitespace),

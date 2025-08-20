@@ -10,7 +10,7 @@
 #define BOLD	"\033[1m"
 #define RESET	"\033[0m"
 
-int	main(int argc, char **argv)
+int	main(int argc, char** argv)
 {
 	// Input file path provided by the user?
 	if (argc != 2)

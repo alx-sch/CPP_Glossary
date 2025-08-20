@@ -8,7 +8,7 @@
 # include <sys/stat.h>  // for stat()
 
 bool	isRegularFile(const std::string& path);
-void	removeWhitespace(std::string &line);
+void	removeWhitespace(std::string& line);
 bool	isValidDate(const std::string& date);
 
 #endif

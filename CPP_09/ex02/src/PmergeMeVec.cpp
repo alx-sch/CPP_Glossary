@@ -4,8 +4,8 @@
 
 #include "../include/PmergeMe.hpp"
 
-static void	fordJohnson(std::vector<int> &vec);
-static void	fordJohnsonSort(std::vector<int> &vec, size_t start, size_t end);
+static void	fordJohnson(std::vector<int>& vec, int& numComp);
+static void	fordJohnsonSort(std::vector<int>& vec, size_t start, size_t end, int& numComp);
 
 std::vector<int>	PmergeMe::sortVec(int argc, char** argv, int& numComp)
 {
@@ -18,17 +18,14 @@ std::vector<int>	PmergeMe::sortVec(int argc, char** argv, int& numComp)
 		vec.push_back(std::atoi(argv[i]));
 	}
 
-	fordJohnson(vec);
-
-
-	++numComp;
+	fordJohnson(vec, numComp);
 
 	return vec;
 }
 
-static void	fordJohnson(std::vector<int> &vec)
+static void	fordJohnson(std::vector<int>& vec, int& numComp)
 {
-	fordJohnsonSort(vec, 0, vec.size());
+	fordJohnsonSort(vec, 0, vec.size(), numComp);
 }
 
 ////////////
@@ -37,8 +34,8 @@ static void	fordJohnson(std::vector<int> &vec)
 
 // Pair elements in [start,end), smaller first in each pair
 // Returns: number of pairs (pending size), leftover = last element if odd
-static void	pairAndSplit(std::vector<int> &vec, size_t start, size_t end,
-	size_t &numPairs, int &leftover)
+static void	pairAndSplit(std::vector<int>& vec, size_t start, size_t end,
+	size_t& numPairs, int& leftover, int& numComp)
 {
 	size_t		n = end - start;
 	leftover = -1;
@@ -46,6 +43,7 @@ static void	pairAndSplit(std::vector<int> &vec, size_t start, size_t end,
 	// Pair elements and sort within pairs
 	for (size_t i = 0; i + 1 < n; i += 2)
 	{
+		++numComp;
 		if (vec[i] > vec[i+1])
 			std::swap(vec[i], vec[i+1]); // smaller first, larger second
 	}
@@ -57,7 +55,7 @@ static void	pairAndSplit(std::vector<int> &vec, size_t start, size_t end,
 	}
 }
 
-static void	fordJohnsonSort(std::vector<int> &vec, size_t start, size_t end)
+static void	fordJohnsonSort(std::vector<int>& vec, size_t start, size_t end, int& numComp)
 {
 	size_t	n = end - start;
 	if (n <= 1) // Base case
@@ -69,7 +67,7 @@ static void	fordJohnsonSort(std::vector<int> &vec, size_t start, size_t end)
 	int		leftover;
 
 	// [42 17 99 5 8 23 7]
-	pairAndSplit(vec, start, end, numPairs, leftover);
+	pairAndSplit(vec, start, end, numPairs, leftover, numComp);
 	// [17,42  5,99  8,23  7]; numPairs = 3, leftover = 7
 
 	// Step 1: recursively sort the main chain (larger element of each pair)
@@ -78,7 +76,6 @@ static void	fordJohnsonSort(std::vector<int> &vec, size_t start, size_t end)
 	{
 		mainEnd = end - 1; // Exclude leftover from main chain
 	}
-
-	fordJohnsonSort(vec, start + numPairs, mainEnd);
-
+	(void)mainEnd;
+	// fordJohnsonSort(vec, start + numPairs, mainEnd, numComp);
 }

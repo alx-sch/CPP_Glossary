@@ -28,13 +28,13 @@ BitcoinExchange::BitcoinExchange(const std::string& dbFile, const std::string& i
 	_db()
 {}
 
-BitcoinExchange::BitcoinExchange(const BitcoinExchange &other) : 
+BitcoinExchange::BitcoinExchange(const BitcoinExchange& other) : 
 	_inputFile(other._inputFile),
 	_dbFile(other._dbFile),
 	_db(other._db)
 {}
 
-BitcoinExchange &BitcoinExchange::operator=(const BitcoinExchange &other)
+BitcoinExchange&	BitcoinExchange::operator=(const BitcoinExchange& other)
 {
 	if (this != &other) {
 		_inputFile = other._inputFile;
@@ -217,7 +217,7 @@ void	BitcoinExchange::isReadable(const std::string& filepath) const
 
 // Checks if the file starts with the expected header.
 // Throws `std::runtime_error` if the header is missing, empty, or does not match the expected header.
-void	BitcoinExchange::checkHeader(const std::string& filepath, const std::string &expectedHeader) const
+void	BitcoinExchange::checkHeader(const std::string& filepath, const std::string& expectedHeader) const
 {
 	std::ifstream	file(filepath.c_str());
 	std::string		header;

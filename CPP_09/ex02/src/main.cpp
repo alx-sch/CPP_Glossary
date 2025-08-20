@@ -3,12 +3,21 @@
 #include <list>
 
 #include "../include/PmergeMe.hpp"
-#include "../include/define.hpp"	// for color codes
-#include "../include/utils.hpp"		// for getCurrentTimeStruct(), getElapsedTime(), printIsSorted(), printNumComp()
+#include "../include/utils.hpp"
+#include "../include/define.hpp"
 
+/**
+Handles sorting of integer arguments using both VECTOR and LIST containers.
+ - Checks passed arguments (integers [1, INT_MAX])
+ - Sort integers implementing the merge-insertion sort algorithm (Ford-Johnson),
+   using both `std::vector<int>` and `std::list<int>`
+ - Print the sorted results and performance metrics (process time, number of comparisons made)
+
+This implementation minimizes computation time by using in-place operations within the containers.
+*/
 int	main(int argc, char** argv)
 {
-	if (argc < 2) // No integers provided
+	if (argc < 2) // No arguments provided
 	{
 		std::cerr	<< YELLOW << "Usage: " << argv[0] << " <int1> <int2> ..." << RESET
 					<< " (only positive integers allowed)\n";

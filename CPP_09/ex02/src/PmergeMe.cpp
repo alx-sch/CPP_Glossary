@@ -11,7 +11,7 @@
 // and integers exceeding INT_MAX.
 void	PmergeMe::checkArgs(int argc, char** argv)
 {
-	char		*endptr;
+	char*		endptr;
 	long		val;
 	std::string	arg;
 

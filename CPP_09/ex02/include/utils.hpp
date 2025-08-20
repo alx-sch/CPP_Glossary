@@ -8,7 +8,7 @@
 
 # include "../include/define.hpp"	// for color codes, WIDTH_C
 
-void	printBeforeAfter(char **argv, std::vector<int> &afterSort);
+void	printBeforeAfter(char** argv, std::vector<int>& afterSort);
 timeval	getCurrentTimeStruct();
 void	printElapsedTime(const timeval& start, const timeval& end, int elements,
 			const std::string& contName);

@@ -36,7 +36,7 @@ void	printElapsedTime(const timeval& start, const timeval& end, int elements,
 }
 
 // Prints out passed arguments (before and after sorting)
-void	printBeforeAfter(char **argv, std::vector<int> &afterSort)
+void	printBeforeAfter(char** argv, std::vector<int>& afterSort)
 {
 	size_t	n = afterSort.size();
 

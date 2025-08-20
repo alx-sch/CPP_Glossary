@@ -27,14 +27,14 @@ class	BitcoinExchange
 		// Utility methods
 
 		void	isReadable(const std::string& filepath) const;
-		void	checkHeader(const std::string& filepath, const std::string &expectedHeader) const;
+		void	checkHeader(const std::string& filepath, const std::string& expectedHeader) const;
 		void	getClosestDateAndRate(std::string& date, double& rate) const;
 
 	public:
 		BitcoinExchange();
 		BitcoinExchange(const std::string& dbFile, const std::string& inputFile);
-		BitcoinExchange(const BitcoinExchange &other);
-		BitcoinExchange	&operator=(const BitcoinExchange &other);
+		BitcoinExchange(const BitcoinExchange& other);
+		BitcoinExchange& operator=(const BitcoinExchange& other);
 		~BitcoinExchange();
 
 		void		parseDb();
