@@ -56,7 +56,7 @@ Let's say, there are 13 numbers (n = 13):
 */
 static void	sortMainChain(std::vector<int>& vec, int& numComp, int recDepth)
 {
-	int	blockSize = (1 << recDepth) / 2; // number of elements in one of the two blocks within the pair
+	int	blockSize = (1 << recDepth) / 2; // number of elements in one of the two blocks within the pair -> 2^d is size of pairs
 	int	numBlocks = vec.size() / blockSize; // number of block pairs to process
 
 	if (numBlocks <= 1)
