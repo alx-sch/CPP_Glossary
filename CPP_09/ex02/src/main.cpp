@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <list>
 
 #include "../include/PmergeMe.hpp"
 #include "../include/define.hpp"	// for color codes
@@ -27,6 +28,7 @@ int	main(int argc, char** argv)
 		start = getCurrentTimeStruct();
 		sortedVec = PmergeMe::sortVec(argc, argv, numCompVec);
 		end = getCurrentTimeStruct();
+
 		printBeforeAfter(argv, sortedVec);
 		printElapsedTime(start, end, argc - 1, "std::vector<int>");
 
@@ -34,6 +36,7 @@ int	main(int argc, char** argv)
 		start = getCurrentTimeStruct();
 		sortedLst = PmergeMe::sortLst(argc, argv, numCompLst);
 		end = getCurrentTimeStruct();
+
 		printElapsedTime(start, end, argc - 1, "std::list<int>");
 
 		// === Printing additional info ===

@@ -1,9 +1,6 @@
 #include <iostream>
 #include <iomanip>		// setw()
 #include <vector>
-#include <algorithm>	// sort()
-#include <cstdlib>		// for atoi
-
 #include <sys/time.h>	// for gettimeofday()
 
 #include "../include/define.hpp"	// for color codes, WIDTH_N, WIDTH_C

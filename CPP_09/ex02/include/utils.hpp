@@ -6,7 +6,7 @@
 # include <vector>
 # include <sys/time.h>	// timeval
 
-# include "../include/define.hpp"	// for color codes
+# include "../include/define.hpp"	// for color codes, WIDTH_C
 
 void	printBeforeAfter(char **argv, std::vector<int> &afterSort);
 timeval	getCurrentTimeStruct();
@@ -22,7 +22,7 @@ void	printIsSorted(const Container& c, const std::string& contName)
 	typename Container::const_iterator	next = it;
 	++next;
 
-	std::cout	<< "Container " << YELLOW << std::left << std::setw(16)
+	std::cout	<< "Container " << YELLOW << std::left << std::setw(WIDTH_C)
 				<< contName << RESET << " is ";
 
 	while (next != c.end())
