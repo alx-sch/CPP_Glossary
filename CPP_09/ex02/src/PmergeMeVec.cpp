@@ -2,8 +2,6 @@
 #include <algorithm>	// swap()
 #include <vector>
 
-#include <iostream>
-
 #include "../include/PmergeMe.hpp"
 //#include "../include/utils.hpp" // DEBUG -> printContainerDebug(), toString()
 
@@ -28,8 +26,6 @@ std::vector<int>	PmergeMe::sortVec(int argc, char** argv, int& numComp)
 
 	// Step 1 of Ford–Johnson: sort main chain
 	int	blockSize = sortMainChain(vec, numComp, 1);
-
-	std::cout << "Block size: " << blockSize << std::endl;
 
 	return vec;
 }
