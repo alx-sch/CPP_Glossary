@@ -14,7 +14,7 @@ void		printElapsedTime(const timeval& start, const timeval& end, int elements,
 void		printNumComp(int numComp, const std::string& contName);
 std::string	toString(size_t n);
 
-// Prints if the container is sorted in a non-decreasing order or not
+// Prints if the container is sorted in a non-decreasing order or not.
 template <typename Container>
 void	printIsSorted(const Container& c, const std::string& contName)
 {
@@ -39,7 +39,7 @@ void	printIsSorted(const Container& c, const std::string& contName)
 	std::cout << GREEN << "sorted" << RESET << std::endl;
 }
 
-// Prints the content of any container
+// Prints the content of any container.
 template <typename Container>
 void	printContainer(const Container& c)
 {
@@ -54,7 +54,7 @@ void	printContainer(const Container& c)
 	}
 }
 
-// Prints the content of any container with formatting
+// Prints the content of any container with formatting.
 // Great for debugging!
 template <typename Container>
 void	printContainerDebug(const Container& c, const std::string& prefix)
@@ -64,7 +64,7 @@ void	printContainerDebug(const Container& c, const std::string& prefix)
 	std::cout << RESET << std::endl;
 }
 
-// Prints out numbers before sorting (`argv`) and after sorting (sorted container)
+// Prints out numbers before sorting (`argv`) and after sorting (sorted container).
 template <typename Container>
 void	printBeforeAfter(char** argv, const Container& afterSort)
 {
@@ -75,6 +75,7 @@ void	printBeforeAfter(char** argv, const Container& afterSort)
 	{
 		std::cout << argv[i + 1] << " ";
 	}
+	
 	std::cout << "\nAfter:  ";
 	printContainer(afterSort);
 	std::cout << std::endl;

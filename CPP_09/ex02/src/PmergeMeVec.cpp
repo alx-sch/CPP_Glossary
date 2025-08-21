@@ -2,10 +2,12 @@
 #include <algorithm>	// swap()
 #include <vector>
 
-#include "../include/PmergeMe.hpp"
-#include "../include/utils.hpp" // DEBUG -> printContainerDebug()
+#include <iostream>
 
-static void	sortMainChain(std::vector<int>& vec, int& numComp, int recDepth);
+#include "../include/PmergeMe.hpp"
+//#include "../include/utils.hpp" // DEBUG -> printContainerDebug(), toString()
+
+static int	sortMainChain(std::vector<int>& vec, int& numComp, int recDepth);
 
 std::vector<int>	PmergeMe::sortVec(int argc, char** argv, int& numComp)
 {
@@ -18,8 +20,16 @@ std::vector<int>	PmergeMe::sortVec(int argc, char** argv, int& numComp)
 		vec.push_back(std::atoi(argv[i]));
 	}
 
+	// Only one number to sort -> no sorting needed
+	if (argc == 2)
+	{
+		return vec;
+	}
+
 	// Step 1 of Ford–Johnson: sort main chain
-	sortMainChain(vec, numComp, 1); // Starting recursion depth: 1
+	int	blockSize = sortMainChain(vec, numComp, 1);
+
+	std::cout << "Block size: " << blockSize << std::endl;
 
 	return vec;
 }
@@ -29,47 +39,58 @@ std::vector<int>	PmergeMe::sortVec(int argc, char** argv, int& numComp)
 ////////////
 
 /**
-Swaps all elements of two sub-chains (blocks) in the vector
+Swaps all elements of two sub-chains (blocks) in the vector.
+
  @param vec			The vector containing the sub-chains
  @param start1		Starting index of the first sub-chain
  @param start2		Starting index of the second sub-chain
  @param blockSize	Number of elements in each sub-chain
 */
-static void	swapBlock(std::vector<int>& vec, size_t start1, size_t start2, size_t blockSize)
+static void	swapBlock(std::vector<int>& vec, int start1, int start2, int blockSize)
 {
-	for (size_t k = 0; k < blockSize; ++k)
+	for (int k = 0; k < blockSize; ++k)
+	{
 		std::swap(vec[start1 + k], vec[start2 + k]);
+	}
 }
 
 /**
-Sorts the main chain using Ford–Johnson method.
-Only the main chain is processed; leftovers are left untouched.
- @param vec			The vector to sort
+Recursively orders blocks in the main chain.
+At each level, pairs of blocks are compared by their last elements,
+and blocks are swapped if needed. Leftover elements are not touched.
+
+ @param vec			The vector to sort (in place)
  @param numComp		Counter for number of comparisons
  @param recDepth	Current recursion depth (starting at 1)
 
-On each 'level' of recursion, the two blocks of a pair are compared.
+ @return			The block size from the last level where blocks
+					were compared and blocks reordered if necessary.
+
 Let's say, there are 13 numbers (n = 13):
  - Lvl 1: 13 -> 6 pairs -> 6 comparisons
  - Lvl 2: 6 -> 3 pairs -> 3 comparisons
  - Lvl 3: 3 -> 1 pair -> 1 comparison
+-> General formula: At each level i, ⌊n_i / 2⌋ (floor down) comparisons
+-> Using formula: ⌊13/2⌋ + ⌊6/2⌋ + ⌊3/2⌋ = 6 + 3 + 1 = 10 comparisons
 */
-static void	sortMainChain(std::vector<int>& vec, int& numComp, int recDepth)
+static int	sortMainChain(std::vector<int>& vec, int& numComp, int recDepth)
 {
-	int	blockSize = (1 << recDepth) / 2; // number of elements in one of the two blocks within the pair -> 2^d is size of pairs
-	int	numBlocks = vec.size() / blockSize; // number of block pairs to process
+	int	blockSize = (1 << recDepth) / 2; // number of elements in one of the two blocks within the pair -> '1 << d' is '2^d'
+	int	numBlocks = vec.size() / blockSize; // number of blocks to process
 
-	if (numBlocks <= 1)
-		return; // base case, no more blocks to compare with one another
+	if (numBlocks <= 1) // base case, no more blocks to compare with one another
+	{
+		return blockSize / 2; // return block size of previous level (su)
+	}
 
 	// Iterate over all adjacent block pairs
-	for (size_t i = 0; i + 2*blockSize - 1 < vec.size(); i += 2*blockSize)
+	for (size_t i = 0; i + 2 * blockSize - 1 < vec.size(); i += 2 * blockSize)
 	{
 		++numComp;
 		// Compare the last element of the two blocks, swap blocks if needed
-		if (vec[i + blockSize - 1] > vec[i + 2*blockSize - 1])
+		if (vec[i + blockSize - 1] > vec[i + 2 * blockSize - 1])
 			swapBlock(vec, i, i + blockSize, blockSize);
 	}
 
-	sortMainChain(vec, numComp, ++recDepth);
+	return sortMainChain(vec, numComp, recDepth + 1);
 }

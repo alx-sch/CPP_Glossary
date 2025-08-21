@@ -8,7 +8,7 @@
 
 #include "../include/define.hpp"	// for color codes, WIDTH_N, WIDTH_C
 
-// Returns `timeval` struct representing the current time
+// Returns `timeval` struct representing the current time.
 timeval	getCurrentTimeStruct()
 {
 	struct timeval	tv;
@@ -17,7 +17,7 @@ timeval	getCurrentTimeStruct()
 	return (tv);
 }
 
-// Returns the elapsed time in microseconds between two `timeval` structs
+// Returns the elapsed time in microseconds between two `timeval` structs.
 static long	getElapsedTime(const timeval& start, const timeval& end)
 {
 	long	sec = end.tv_sec - start.tv_sec;
@@ -26,7 +26,7 @@ static long	getElapsedTime(const timeval& start, const timeval& end)
 	return (sec * 1000000 + usec); // sec * 1000 = msec * 1000 = usec
 }
 
-// Prints a formatted elapsed time message
+// Prints a formatted elapsed time message.
 void	printElapsedTime(const timeval& start, const timeval& end, int elements,
 			const std::string& contName)
 {
@@ -38,7 +38,7 @@ void	printElapsedTime(const timeval& start, const timeval& end, int elements,
 				<< YELLOW << elapsed << " us" << RESET << std::endl;
 }
 
-// Prints the number of comparisons made
+// Prints the number of comparisons made.
 void	printNumComp(int numComp, const std::string& contName)
 {
 	std::cout	<< "Number of comparisons (" << YELLOW
@@ -46,8 +46,8 @@ void	printNumComp(int numComp, const std::string& contName)
 				<< "): " << YELLOW << numComp << RESET << std::endl;
 }
 
-// Converts a `size_t` to a string
-// Used for debugging
+// Converts a `size_t` to a string.
+// Used for debugging.
 std::string	toString(size_t n)
 {
 	std::ostringstream	oss;
