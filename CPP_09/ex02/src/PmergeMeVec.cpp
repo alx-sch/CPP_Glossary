@@ -1,11 +1,16 @@
+// Implementing the Ford-Johnson algorithm in place was done following this article:
+// https://dev.to/emuminov/human-explanation-and-step-by-step-visualisation-of-the-ford-johnson-algorithm-5g91
+
 #include <cstdlib>		// atoi()
 #include <algorithm>	// swap()
 #include <vector>
 
+#include <iostream>
+
 #include "../include/PmergeMe.hpp"
 //#include "../include/utils.hpp" // DEBUG -> printContainerDebug(), toString()
 
-static int	sortMainChain(std::vector<int>& vec, int& numComp, int recDepth);
+static int	sortPairsRecursively(std::vector<int>& vec, int& numComp, int recDepth);
 
 std::vector<int>	PmergeMe::sortVec(int argc, char** argv, int& numComp)
 {
@@ -24,9 +29,73 @@ std::vector<int>	PmergeMe::sortVec(int argc, char** argv, int& numComp)
 		return vec;
 	}
 
-	// Step 1 of Ford–Johnson: sort main chain
-	int	blockSize = sortMainChain(vec, numComp, 1);
+	// Step 1: the division into the pairs & sorting
+	int	recDepth = sortPairsRecursively(vec, numComp, 1);
 
+
+	// #######
+
+	int		maxPending = (vec.size() / 2) + 1; // +1 accommodates for potential leftover
+	int*	jacSeq = generateJacobsthalSeq(maxPending);
+
+	// while (recDepth > 1)
+	// {
+		// Step 2: initialization of pending elements
+		int	blockSize = (1 << (recDepth - 1));
+		int	numBlocks = vec.size() / blockSize;
+
+		// if (numBlocks <= 2) // no pendings elements, only 'b1 < a1'
+		// {
+		// 	--recDepth;
+		// 	continue;
+		// }
+
+		--recDepth;
+		blockSize = (1 << (recDepth - 1));
+		numBlocks = vec.size() / blockSize;
+		// Step 3: insert pending elements into main chain
+		int	numPending = (numBlocks / 2) - 1; // exclude b1
+		if (numBlocks % 2 != 0) // leftover b without a
+		{
+			++numPending;
+		}
+
+		std::cout << "numBlocks: " << numBlocks << std::endl;
+		std::cout << "numPending: " << numPending << std::endl;
+
+		// The main chain initially contains: b1 + all a's
+		//int	mainChainSize = numBlocks - numPending;
+
+		// Check value of pending elements (last number in pending block)
+		// '3 * blockSize - 1': skip b1 < a1; access last number of b2
+		// 'i * (2 * blockSize)': access last number of b_i
+		for (int i = 0; i < numPending; ++i)
+		{
+			int	pendingValue = vec[(3 * blockSize) - 1 + i * (2 * blockSize)]; // last element of pending block
+			std::cout << "pendingValue: " << pendingValue << std::endl;
+		}
+
+		// Insert pending elements in order given by Jacobsthal indices
+		// for (int i = 0; i < numPending; ++i)
+		// {
+		// 	int	pendingIdx = jacSeq[i];
+		// 	int	pendingPos = blockSize * (pendingIdx + 1) - 1; // position of b in vec
+
+		// }
+
+//	}
+	
+
+	// #######
+
+	for (int i = 0; jacSeq[i] != -1; ++i)
+	{
+		std::cout << "jacSeq[" << i << "]: " << jacSeq[i] << std::endl;
+	}
+
+	std::cout << "recDepth: " << recDepth << std::endl;
+
+	delete[] jacSeq;
 	return vec;
 }
 
@@ -51,7 +120,8 @@ static void	swapBlock(std::vector<int>& vec, int start1, int start2, int blockSi
 }
 
 /**
-Recursively orders blocks in the main chain.
+Recursively sorts the main chain in the Ford–Johnson algorithm by comparing
+pairs, then pairs of pairs, and so on.
 At each level, pairs of blocks are compared by their last elements,
 and blocks are swapped if needed. Leftover elements are not touched.
 
@@ -59,8 +129,7 @@ and blocks are swapped if needed. Leftover elements are not touched.
  @param numComp		Counter for number of comparisons
  @param recDepth	Current recursion depth (starting at 1)
 
- @return			The block size from the last level where blocks
-					were compared and blocks reordered if necessary.
+ @return			The recursion depth in which the last comparison took place.
 
 Let's say, there are 13 numbers (n = 13):
  - Lvl 1: 13 -> 6 pairs -> 6 comparisons
@@ -69,14 +138,14 @@ Let's say, there are 13 numbers (n = 13):
 -> General formula: At each level i, ⌊n_i / 2⌋ (floor down) comparisons
 -> Using formula: ⌊13/2⌋ + ⌊6/2⌋ + ⌊3/2⌋ = 6 + 3 + 1 = 10 comparisons
 */
-static int	sortMainChain(std::vector<int>& vec, int& numComp, int recDepth)
+static int	sortPairsRecursively(std::vector<int>& vec, int& numComp, int recDepth)
 {
 	int	blockSize = (1 << recDepth) / 2; // number of elements in one of the two blocks within the pair -> '1 << d' is '2^d'
 	int	numBlocks = vec.size() / blockSize; // number of blocks to process
 
 	if (numBlocks <= 1) // base case, no more blocks to compare with one another
 	{
-		return blockSize / 2; // return block size of previous level (su)
+		return recDepth - 1; // returns recursion level in which the last comparison took place
 	}
 
 	// Iterate over all adjacent block pairs
@@ -88,5 +157,5 @@ static int	sortMainChain(std::vector<int>& vec, int& numComp, int recDepth)
 			swapBlock(vec, i, i + blockSize, blockSize);
 	}
 
-	return sortMainChain(vec, numComp, recDepth + 1);
+	return sortPairsRecursively(vec, numComp, recDepth + 1);
 }

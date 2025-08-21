@@ -17,6 +17,7 @@ class	PmergeMe
 		// PmergeMe.cpp
 
 		static void				checkArgs(int argc, char** argv);
+		static int*				generateJacobsthalSeq(int numPending);
 
 		// PmergeMeVec.cpp
 
