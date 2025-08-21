@@ -17,10 +17,10 @@ This implementation minimizes computation time by using in-place operations with
 */
 int	main(int argc, char** argv)
 {
-	if (argc < 2) // No arguments provided
+	if (argc < 2 || argc > MAX_ARGS + 1) // No arguments provided
 	{
-		std::cerr	<< YELLOW << "Usage: " << argv[0] << " <int1> <int2> ..." << RESET
-					<< " (only positive integers allowed)\n";
+		std::cerr	<< YELLOW << "Usage: " << argv[0] << " <int1> <int2> ... <int"
+					<< MAX_ARGS << ">" << RESET << " (only positive integers allowed);\n";
 		return 1;
 	}
 

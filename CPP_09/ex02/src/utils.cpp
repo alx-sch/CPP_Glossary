@@ -51,6 +51,7 @@ void	printNumComp(int numComp, const std::string& contName)
 std::string	toString(size_t n)
 {
 	std::ostringstream	oss;
+	
 	oss << n;
 	return oss.str();
 }

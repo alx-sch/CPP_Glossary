@@ -17,7 +17,9 @@ class	PmergeMe
 		// PmergeMe.cpp
 
 		static void				checkArgs(int argc, char** argv);
-		static int*				generateJacobsthalSeq(int numPending);
+		static std::vector<int>	buildJacobsthalSeq(int numPending);
+		static int				getNumPending(int numBlocks);
+		static std::vector<int>	buildInsertionOrder(int numPending, std::vector<int> jacSeq);
 
 		// PmergeMeVec.cpp
 

@@ -8,7 +8,7 @@
 #include <iostream>
 
 #include "../include/PmergeMe.hpp"
-//#include "../include/utils.hpp" // DEBUG -> printContainerDebug(), toString()
+#include "../include/utils.hpp" // DEBUG -> printContainerDebug(), toString()
 
 static int	sortPairsRecursively(std::vector<int>& vec, int& numComp, int recDepth);
 
@@ -19,52 +19,50 @@ std::vector<int>	PmergeMe::sortVec(int argc, char** argv, int& numComp)
 	// Fill vector
 	vec.reserve(argc - 1); // helps with performance, avoids repeated reallocation in growing vec
 	for (int i = 1; i < argc; ++i)
-	{
 		vec.push_back(std::atoi(argv[i]));
-	}
 
 	// Only one number -> no sorting needed
 	if (argc == 2)
-	{
 		return vec;
-	}
 
-	// Step 1: the division into the pairs & sorting
+	// === Step 1: division into pairs & sorting
 	int	recDepth = sortPairsRecursively(vec, numComp, 1);
 
+	// === Step 2: initialization of pending elements
 
-	// #######
+	// Generate Jacobsthal sequence
+	int					maxPending = vec.size() / 2 + 1; // '+1' to accommodate for potential leftover
+	std::vector<int>	jacSeq = buildJacobsthalSeq(maxPending);
 
-	int		maxPending = (vec.size() / 2) + 1; // +1 accommodates for potential leftover
-	int*	jacSeq = generateJacobsthalSeq(maxPending);
+	//DEBUG
+	printContainerDebug(jacSeq, "Jacobsthal sequence ");
 
-	// while (recDepth > 1)
-	// {
-		// Step 2: initialization of pending elements
-		int	blockSize = (1 << (recDepth - 1));
+	while (recDepth > 0)
+	{
+		int	blockSize = 1 << (recDepth - 1); // '1 << n' -> '2^n'
 		int	numBlocks = vec.size() / blockSize;
+		int	numPending = getNumPending(numBlocks);
 
-		// if (numBlocks <= 2) // no pendings elements, only 'b1 < a1'
-		// {
-		// 	--recDepth;
-		// 	continue;
-		// }
-
-		--recDepth;
-		blockSize = (1 << (recDepth - 1));
-		numBlocks = vec.size() / blockSize;
-		// Step 3: insert pending elements into main chain
-		int	numPending = (numBlocks / 2) - 1; // exclude b1
-		if (numBlocks % 2 != 0) // leftover b without a
+		// No pending elements on this recursion level (only main chain: 'b1 < a1')
+		if (numPending == 0)
 		{
-			++numPending;
+			--recDepth;
+			continue;
 		}
 
-		std::cout << "numBlocks: " << numBlocks << std::endl;
-		std::cout << "numPending: " << numPending << std::endl;
+		// == Step 3: insert pending elements
+		std::vector<int>	insertionOrder = buildInsertionOrder(numPending, jacSeq);
+		printContainerDebug(insertionOrder, "Insertion order (pending " + toString(numPending) + "): ");
 
-		// The main chain initially contains: b1 + all a's
-		//int	mainChainSize = numBlocks - numPending;
+		// Insert pending elements into the main vector
+		for (size_t i = 0; i < insertionOrder.size(); ++i)
+		{
+			int	pendIdx = insertionOrder[i]; // index in pending blocks
+			int	pendPos = blockSize + (pendIdx + 1) * (2 * blockSize) - 1;
+
+			(void)pendPos;
+			// CHECK!
+		}
 
 		// Check value of pending elements (last number in pending block)
 		// '3 * blockSize - 1': skip b1 < a1; access last number of b2
@@ -74,6 +72,12 @@ std::vector<int>	PmergeMe::sortVec(int argc, char** argv, int& numComp)
 			int	pendingValue = vec[(3 * blockSize) - 1 + i * (2 * blockSize)]; // last element of pending block
 			std::cout << "pendingValue: " << pendingValue << std::endl;
 		}
+		std::cout << std::endl;
+
+		--recDepth;
+	}
+
+		// Use Jacobsthal sequencce to 
 
 		// Insert pending elements in order given by Jacobsthal indices
 		// for (int i = 0; i < numPending; ++i)
@@ -86,16 +90,6 @@ std::vector<int>	PmergeMe::sortVec(int argc, char** argv, int& numComp)
 //	}
 	
 
-	// #######
-
-	for (int i = 0; jacSeq[i] != -1; ++i)
-	{
-		std::cout << "jacSeq[" << i << "]: " << jacSeq[i] << std::endl;
-	}
-
-	std::cout << "recDepth: " << recDepth << std::endl;
-
-	delete[] jacSeq;
 	return vec;
 }
 

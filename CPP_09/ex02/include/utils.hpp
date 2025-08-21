@@ -35,8 +35,7 @@ void	printIsSorted(const Container& c, const std::string& contName)
 		++it;
 		++next;
 	}
-	// All elements are sorted
-	std::cout << GREEN << "sorted" << RESET << std::endl;
+	std::cout << GREEN << "sorted" << RESET << std::endl; // All elements sorted
 }
 
 // Prints the content of any container.
