@@ -20,7 +20,7 @@ std::vector<int>	PmergeMe::sortVec(int argc, char** argv, int& numComp)
 		vec.push_back(std::atoi(argv[i]));
 	}
 
-	// Only one number to sort -> no sorting needed
+	// Only one number -> no sorting needed
 	if (argc == 2)
 	{
 		return vec;
