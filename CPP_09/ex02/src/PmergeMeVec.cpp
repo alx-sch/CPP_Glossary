@@ -41,7 +41,7 @@ std::vector<int>	PmergeMe::sortVec(int argc, char** argv, int& numComp)
 		std::cout << "RecDepth: " << recDepth << ", BlockSize: " << blockSize << ", NumBlocks: " << numBlocks << ", NumPending: " << numPending << std::endl;
 		printContainerDebug(vec, "vector: ");
 
-		// No pending elements on this recursion level (only main chain: 'b1 < a1')
+		// No pending elements on this recursion level (only main chain: 'b0 < a0')
 		if (numPending == 0)
 		{
 			--recDepth;
@@ -98,9 +98,11 @@ std::vector<int>	PmergeMe::sortVec(int argc, char** argv, int& numComp)
 Rearranges a vector so that main chain elements are in front
 and pending elements (+ leftovers) are at the back.
 
- @param vec			The interleaved input vector [b0 a0 b1 a1 ...].
+ @param vec			The interleaved input vector [b0 a0 b1 a1 b2 a2 ...],
+ 					possibly with leftover elements.
  @param blockSize	Number of elements per block.
- @return			A new vector with main chain elements first, pending elements last.
+ @return			A new vector where main-chain elements appear first,
+					followed by pending elements and leftover elements.
 */
 std::vector<int>	PmergeMe::rearrangeVec(const std::vector<int>& vec, int blockSize)
 {
@@ -125,7 +127,17 @@ std::vector<int>	PmergeMe::rearrangeVec(const std::vector<int>& vec, int blockSi
 	return rearranged;
 }
 
+/**
+Inserts a value into the sorted subrange [0, pos) of a vector.
 
+Uses binary search to find the correct insertion index and shifts
+elements as needed. Each comparison is counted in numComp.
+
+ @param vec		Vector to insert into.
+ @param value	Value to insert.
+ @param pos		Exclusive upper bound of the sorted subrange.
+ @param numComp	Counter for the number of comparisons made.
+*/
 void PmergeMe::binaryInsertVec(std::vector<int>& vec, int value, int pos, int& numComp)
 {
 	size_t	left = 0; // inclusive

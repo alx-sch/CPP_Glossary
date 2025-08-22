@@ -106,16 +106,16 @@ std::vector<int> PmergeMe::buildInsertOrder(int numPending, std::vector<int> jac
  Computes the number of pending 'b' blocks in the Ford–Johnson sorting algorithm.
 
  - Blocks are paired as (a, b).
- - All 'b' blocks except the first one (b1) are considered pending.
+ - All 'b' blocks except the first one (b0) are considered pending.
  - If the total number of blocks is odd, there is a leftover 'b' without
    a corresponding 'a', which is also counted as pending.
 */
 int PmergeMe::getNumPending(int numBlocks)
 {
-	if (numBlocks <= 2) // two blocks -> 'b1 < a1'; no pending blocks
+	if (numBlocks <= 2) // two blocks -> 'b0 < a0'; no pending blocks
 		return 0;
 
-	int	numPending = (numBlocks / 2) - 1; // all 'paired' b blocks ('a' in main chain); excl. b1
+	int	numPending = (numBlocks / 2) - 1; // all 'paired' b blocks ('a' in main chain); excl. b0
 	if (numBlocks % 2 != 0)	// leftover 'b' with no corresponding 'a'
 		++numPending;
 
@@ -125,8 +125,8 @@ int PmergeMe::getNumPending(int numBlocks)
 /**
 Checks whether an element belongs to the main chain in the interleaved block layout.
 
-Layout: [b1][a1][b2][a2]...[leftover];
-The first b-block (b1) is always part of the main chain as well as all a-blocks.
+Layout: [b0][a0][b1][a1]...<leftover>;
+The first b-block (b0) is always part of the main chain as well as all a-blocks.
 
  @param index		Index of the element in the sequence (starting with 0)
  @param blockSize	Number of elements per block.
@@ -135,7 +135,7 @@ The first b-block (b1) is always part of the main chain as well as all a-blocks.
 */
 bool	PmergeMe::isMainChain(int index, int blockSize, int totalSize)
 {
-	if (index < blockSize) // first 'b1' block always in main chain
+	if (index < blockSize) // first 'b0' block always in main chain
 		return true;
 
 	int	blockNum = index / blockSize;  // which block this element belongs to
