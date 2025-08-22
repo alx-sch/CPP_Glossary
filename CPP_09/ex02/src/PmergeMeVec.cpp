@@ -32,6 +32,8 @@ std::vector<int>	PmergeMe::sortVec(int argc, char** argv, int& numComp)
 	int					maxPending = vec.size() / 2 + 1; // '+1' to accommodate for potential leftover
 	std::vector<int>	jacSeq = buildJacobsthalSeq(maxPending);
 
+	printContainerDebug(jacSeq, "Jacobsthal Sequence: ");
+
 	while (recDepth > 0)
 	{
 		int	blockSize = 1 << (recDepth - 1); // '1 << n' -> '2^n'
@@ -41,7 +43,7 @@ std::vector<int>	PmergeMe::sortVec(int argc, char** argv, int& numComp)
 		std::cout << "RecDepth: " << recDepth << ", BlockSize: " << blockSize << ", NumBlocks: " << numBlocks << ", NumPending: " << numPending << std::endl;
 		printContainerDebug(vec, "vector: ");
 
-		// No pending elements on this recursion level (only main chain: 'b0 < a0')
+		// No pending elements on this recursion level (only main chain: 'b1 < a1')
 		if (numPending == 0)
 		{
 			--recDepth;
@@ -98,7 +100,7 @@ std::vector<int>	PmergeMe::sortVec(int argc, char** argv, int& numComp)
 Rearranges a vector so that main chain elements are in front
 and pending elements (+ leftovers) are at the back.
 
- @param vec			The interleaved input vector [b0 a0 b1 a1 b2 a2 ...],
+ @param vec			The interleaved input vector [b1 a1 b2 a2 b3 a3 ...],
  					possibly with leftover elements.
  @param blockSize	Number of elements per block.
  @return			A new vector where main-chain elements appear first,
@@ -128,20 +130,20 @@ std::vector<int>	PmergeMe::rearrangeVec(const std::vector<int>& vec, int blockSi
 }
 
 /**
-Inserts a value into the sorted subrange [0, pos) of a vector.
+Inserts a value into the sorted subrange [0, end) of a vector.
 
 Uses binary search to find the correct insertion index and shifts
 elements as needed. Each comparison is counted in numComp.
 
  @param vec		Vector to insert into.
  @param value	Value to insert.
- @param pos		Exclusive upper bound of the sorted subrange.
+ @param end		Exclusive upper bound of the useful main chain.
  @param numComp	Counter for the number of comparisons made.
 */
-void PmergeMe::binaryInsertVec(std::vector<int>& vec, int value, int pos, int& numComp)
+void PmergeMe::binaryInsertVec(std::vector<int>& vec, int value, size_t end, int& numComp)
 {
 	size_t	left = 0; // inclusive
-	size_t	right = pos; // exclusive
+	size_t	right = end; // exclusive
 
 	while (left < right)
 	{

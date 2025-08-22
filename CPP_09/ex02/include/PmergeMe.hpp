@@ -14,23 +14,24 @@ class	PmergeMe
 		~PmergeMe();
 
 	public:
-		// PmergeMe.cpp
-
-		static void				checkArgs(int argc, char** argv);
-		static std::vector<int>	buildJacobsthalSeq(int numPending);
-		static std::vector<int>	buildInsertOrder(int numPending, std::vector<int> jacSeq);
-		static int				getNumPending(int numBlocks);
-		static bool				isMainChain(int index, int blockSize, int totalSize);
-
 		// PmergeMeVec.cpp
 
 		static std::vector<int>	sortVec(int argc, char** argv, int& numComp);
 		static std::vector<int>	rearrangeVec(const std::vector<int>& vec, int blockSize);
-		static void				binaryInsertVec(std::vector<int>& vec, int value, int pos, int& numComp);
+		static void				binaryInsertVec(std::vector<int>& vec, int value, size_t end, int& numComp);
 
 		// PmergeMeLst.cpp
 
 		static std::list<int>	sortLst(int argc, char** argv, int& numComp);
+
+		// PmergeMeUtils.cpp
+
+		static void						checkArgs(int argc, char** argv);
+		static const std::vector<int>	buildJacobsthalSeq(int numPending);
+		static const std::vector<int>	buildInsertOrder(int numPending, const std::vector<int>& jacSeq);
+		static int						getNumPending(int numBlocks);
+		static bool						isMainChain(int index, int blockSize, int totalSize);
+		static int						computeK(int pendIdx, const std::vector<int>& jacSeq);
 };
 
 #endif
