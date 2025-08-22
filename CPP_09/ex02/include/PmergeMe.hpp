@@ -17,6 +17,7 @@ class	PmergeMe
 		// PmergeMeVec.cpp
 
 		static std::vector<int>	sortVec(int argc, char** argv, int& numComp);
+		static int				sortPairsRecursivelyVec(std::vector<int>& vec, int& numComp, int recDepth);
 		static std::vector<int>	rearrangeVec(const std::vector<int>& vec, int blockSize);
 		static void				binaryInsertVec(std::vector<int>& vec, int value, size_t end, int& numComp);
 
