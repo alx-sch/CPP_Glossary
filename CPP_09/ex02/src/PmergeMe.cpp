@@ -32,8 +32,8 @@ void	PmergeMe::checkArgs(int argc, char** argv)
 }
 
 /**
-Generates a `std::vector` containing the Jacobsthal sequence indices
-less than the given number of pending elements.
+Generates a vector containing the Jacobsthal sequence indices less than
+the given number of pending elements.
 
 The Jacobsthal sequence is defined as:
 J(0) = 0, J(1) = 1, J(n) = J(n-1) + 2 * J(n-2) for n > 1
@@ -64,29 +64,6 @@ std::vector<int> PmergeMe::buildJacobsthalSeq(int numPending)
 }
 
 /**
- Computes the number of pending 'b' blocks in the Ford–Johnson sorting algorithm.
-
- - Blocks are paired as (a, b).
- - All 'b' blocks except the first one (b1) are considered pending.
- - If the total number of blocks is odd, there is a leftover 'b' without
-   a corresponding 'a', which is also counted as pending.
-
- @param numBlocks	Total number of blocks at the current step.
- @return			Number of pending 'b' blocks.
-*/
-int PmergeMe::getNumPending(int numBlocks)
-{
-	if (numBlocks <= 2) // two blocks -> 'b1 < a1'; no pending blocks
-		return 0;
-
-	int	numPending = (numBlocks / 2) - 1; // all 'paired' b blocks ('a' in main chain); excl. b1
-	if (numBlocks % 2 != 0)	// leftover 'b' with no corresponding 'a'
-		++numPending;
-
-	return numPending;
-}
-
-/**
 Generates the insertion order for pending elements based on Jacobsthal sequence,
 which minimizes the number of comparisons.
 
@@ -99,10 +76,9 @@ then fill remaining indices in reverse: [7, 6, 4, 2]
 
  @param numPending	Number of pending elements
  @param jacSeq		Precomputed Jacobsthal sequence
-
  @return			Vector with the optimal insertion order
 */
-std::vector<int> PmergeMe::buildInsertionOrder(int numPending, std::vector<int> jacSeq)
+std::vector<int> PmergeMe::buildInsertOrder(int numPending, std::vector<int> jacSeq)
 {
 	std::vector<int>	order;
 
@@ -124,4 +100,53 @@ std::vector<int> PmergeMe::buildInsertionOrder(int numPending, std::vector<int> 
 	}
 
 	return order;
+}
+
+/**
+ Computes the number of pending 'b' blocks in the Ford–Johnson sorting algorithm.
+
+ - Blocks are paired as (a, b).
+ - All 'b' blocks except the first one (b1) are considered pending.
+ - If the total number of blocks is odd, there is a leftover 'b' without
+   a corresponding 'a', which is also counted as pending.
+*/
+int PmergeMe::getNumPending(int numBlocks)
+{
+	if (numBlocks <= 2) // two blocks -> 'b1 < a1'; no pending blocks
+		return 0;
+
+	int	numPending = (numBlocks / 2) - 1; // all 'paired' b blocks ('a' in main chain); excl. b1
+	if (numBlocks % 2 != 0)	// leftover 'b' with no corresponding 'a'
+		++numPending;
+
+	return numPending;
+}
+
+/**
+Checks whether an element belongs to the main chain in the interleaved block layout.
+
+Layout: [b1][a1][b2][a2]...[leftover];
+The first b-block (b1) is always part of the main chain as well as all a-blocks.
+
+ @param index		Index of the element in the sequence (starting with 0)
+ @param blockSize	Number of elements per block.
+ @param totalSize	Total number of elements in the sequence
+ @return			`true` if the element is in the main chain, `false` if not (pending/leftover)
+*/
+bool	PmergeMe::isMainChain(int index, int blockSize, int totalSize)
+{
+	if (index < blockSize) // first 'b1' block always in main chain
+		return true;
+
+	int	blockNum = index / blockSize;  // which block this element belongs to
+
+	// If this block goes past the end -> leftover -> not main chain
+	if ((blockNum + 1) * blockSize > totalSize)
+		return false;
+
+	// Main chain blocks: odd blockNum = 'a' blocks
+	if (blockNum % 2 == 1)
+		return true;
+
+	return false;	// remaining b blocks and leftover
 }

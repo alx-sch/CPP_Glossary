@@ -18,12 +18,15 @@ class	PmergeMe
 
 		static void				checkArgs(int argc, char** argv);
 		static std::vector<int>	buildJacobsthalSeq(int numPending);
+		static std::vector<int>	buildInsertOrder(int numPending, std::vector<int> jacSeq);
 		static int				getNumPending(int numBlocks);
-		static std::vector<int>	buildInsertionOrder(int numPending, std::vector<int> jacSeq);
+		static bool				isMainChain(int index, int blockSize, int totalSize);
 
 		// PmergeMeVec.cpp
 
 		static std::vector<int>	sortVec(int argc, char** argv, int& numComp);
+		static std::vector<int>	rearrangeVec(const std::vector<int>& vec, int blockSize);
+		static void				binaryInsertVec(std::vector<int>& vec, int value, int pos, int& numComp);
 
 		// PmergeMeLst.cpp
 

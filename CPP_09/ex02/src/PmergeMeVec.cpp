@@ -15,14 +15,12 @@ static int	sortPairsRecursively(std::vector<int>& vec, int& numComp, int recDept
 std::vector<int>	PmergeMe::sortVec(int argc, char** argv, int& numComp)
 {
 	std::vector<int>	vec;
-
-	// Fill vector
 	vec.reserve(argc - 1); // helps with performance, avoids repeated reallocation in growing vec
-	for (int i = 1; i < argc; ++i)
+
+	for (int i = 1; i < argc; ++i) // fill vector
 		vec.push_back(std::atoi(argv[i]));
 
-	// Only one number -> no sorting needed
-	if (argc == 2)
+	if (argc == 2) // no sorting needed if there is only one number
 		return vec;
 
 	// === Step 1: division into pairs & sorting
@@ -34,14 +32,14 @@ std::vector<int>	PmergeMe::sortVec(int argc, char** argv, int& numComp)
 	int					maxPending = vec.size() / 2 + 1; // '+1' to accommodate for potential leftover
 	std::vector<int>	jacSeq = buildJacobsthalSeq(maxPending);
 
-	//DEBUG
-	printContainerDebug(jacSeq, "Jacobsthal sequence ");
-
 	while (recDepth > 0)
 	{
 		int	blockSize = 1 << (recDepth - 1); // '1 << n' -> '2^n'
 		int	numBlocks = vec.size() / blockSize;
 		int	numPending = getNumPending(numBlocks);
+
+		std::cout << "RecDepth: " << recDepth << ", BlockSize: " << blockSize << ", NumBlocks: " << numBlocks << ", NumPending: " << numPending << std::endl;
+		printContainerDebug(vec, "vector: ");
 
 		// No pending elements on this recursion level (only main chain: 'b1 < a1')
 		if (numPending == 0)
@@ -51,8 +49,11 @@ std::vector<int>	PmergeMe::sortVec(int argc, char** argv, int& numComp)
 		}
 
 		// == Step 3: insert pending elements
-		std::vector<int>	insertionOrder = buildInsertionOrder(numPending, jacSeq);
+		std::vector<int>	insertionOrder = buildInsertOrder(numPending, jacSeq);
 		printContainerDebug(insertionOrder, "Insertion order (pending " + toString(numPending) + "): ");
+		std::vector<int>	rearrangedVec = rearrangeVec(vec, blockSize);
+
+		printContainerDebug(rearrangedVec, "Rearranged vector: ");
 
 		// Insert pending elements into the main vector
 		for (size_t i = 0; i < insertionOrder.size(); ++i)
@@ -91,6 +92,57 @@ std::vector<int>	PmergeMe::sortVec(int argc, char** argv, int& numComp)
 	
 
 	return vec;
+}
+
+/**
+Rearranges a vector so that main chain elements are in front
+and pending elements (+ leftovers) are at the back.
+
+ @param vec			The interleaved input vector [b0 a0 b1 a1 ...].
+ @param blockSize	Number of elements per block.
+ @return			A new vector with main chain elements first, pending elements last.
+*/
+std::vector<int>	PmergeMe::rearrangeVec(const std::vector<int>& vec, int blockSize)
+{
+	std::vector<int>	rearranged;
+	size_t				vecSize = vec.size(); 
+	rearranged.reserve(vecSize);
+
+	// Add main-chain elements first
+	for (size_t i = 0; i < vecSize; ++i)
+	{
+		if (isMainChain(i, blockSize, vecSize))
+			rearranged.push_back(vec[i]);
+	}
+
+	// Add pending rest at the back (pending & leftovers)
+	for (size_t i = 0; i < vecSize; ++i)
+	{
+		if (!isMainChain(i, blockSize, vecSize))
+			rearranged.push_back(vec[i]);
+	}
+
+	return rearranged;
+}
+
+
+void PmergeMe::binaryInsertVec(std::vector<int>& vec, int value, int pos, int& numComp)
+{
+	size_t	left = 0; // inclusive
+	size_t	right = pos; // exclusive
+
+	while (left < right)
+	{
+		size_t	mid = left + (right - left) / 2;
+		
+		++numComp;
+		if (value < vec[mid]) // narrow search to [left, mid).
+			right = mid;
+		else
+			left = mid + 1; // narrow search to [mid + 1, right)
+	} // when the loop ends, 'left' is the correct insertion index
+
+	vec.insert(vec.begin() + left, value);
 }
 
 ////////////
