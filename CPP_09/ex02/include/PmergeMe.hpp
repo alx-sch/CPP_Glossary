@@ -28,18 +28,18 @@ class	PmergeMe
 
 		// PmergeMeUtils.cpp
 
-		static void						checkArgs(int argc, char** argv);
-		static int						getNumPending(int numBlocks);
-		static bool						isMainChain(int index, int blockSize, int totalSize);
-		static int						computeK(int pendIdx, const std::vector<int>& jacSeq);
+		static void				checkArgs(int argc, char** argv);
+		static int				getNumPending(int numBlocks);
+		static bool				isMainChain(int index, int blockSize, int totalSize);
+		static int				computeK(int pendIdx, const std::vector<int>& jacSeq);
 
 		// PmergeMeUtils.tpp
 
 		template<typename Container>
-		static Container				buildJacobsthalSeq(int numPending);
+		static Container		buildJacobsthalSeq(int numPending);
 
 		template<typename Container>
-		static Container				buildInsertOrder(int numPending, const Container& jacSeq);
+		static Container		buildInsertOrder(int numPending, const Container& jacSeq);
 };
 
 # include "PmergeMe.tpp"

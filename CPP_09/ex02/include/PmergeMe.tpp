@@ -2,7 +2,6 @@
 # define PMERGEME_TPP
 
 # include <algorithm> // for std::find()
-# include "PmergeMe.hpp"
 
 /**
 Generates the Jacobsthal sequence needed for insertion order

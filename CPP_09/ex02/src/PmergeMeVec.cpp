@@ -5,9 +5,6 @@
 #include <cstdlib>		// atoi()
 #include <algorithm>	// swap_ranges(), std::rotate()
 #include <vector>
-
-#include <list>
-
 #include <iostream>
 
 #include "../include/PmergeMe.hpp"

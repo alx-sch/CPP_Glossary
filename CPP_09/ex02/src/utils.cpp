@@ -1,11 +1,8 @@
 #include <iostream>
-#include <string>
 #include <iomanip>		// setw()
-#include <string>
-#include <vector>
 #include <sstream>		// for std::ostringstream
-#include <sys/time.h>	// for gettimeofday()
 
+#include "../include/utils.hpp"
 #include "../include/define.hpp"	// for color codes, WIDTH_N, WIDTH_C
 
 // Returns `timeval` struct representing the current time.
