@@ -198,5 +198,5 @@ int	PmergeMe::computeK(int pendIdx, const std::vector<int>& jacSeq)
 			return static_cast<int>(i + 1); // JT sequence is 1-based for k
 	}
 	// Should never happen (as cap is included in JT seq), but here to make compiler happy
-	return static_cast<int>(jacSeq.size() - 1);
+	return static_cast<int>(jacSeq.size());
 }

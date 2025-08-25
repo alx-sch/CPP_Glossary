@@ -3,15 +3,13 @@
 // https://medium.com/@mohammad.ali.ibrahim.525/ford-johnson-algorithm-merge-insertion-4b024f0c3d42
 
 #include <cstdlib>		// atoi()
-#include <algorithm>	// swap()
+#include <algorithm>	// swap_ranges()
 #include <vector>
 
 #include <iostream>
 
 #include "../include/PmergeMe.hpp"
 #include "../include/utils.hpp" // DEBUG -> printContainerDebug(), toString()
-
-static void	swapBlock(std::vector<int>& vec, int start1, int start2, int blockSize);
 
 std::vector<int>	PmergeMe::sortVec(int argc, char** argv, int& numComp)
 {
@@ -32,8 +30,6 @@ std::vector<int>	PmergeMe::sortVec(int argc, char** argv, int& numComp)
 	// Generate Jacobsthal sequence
 	int					maxPending = vec.size() / 2 + 1; // '+1' to accommodate for potential leftover
 	std::vector<int>	jacSeq = buildJacobsthalSeq(maxPending);
-
-	printContainerDebug(jacSeq, "Jacobsthal Sequence: ");
 
 	while (recDepth > 0)
 	{
@@ -106,7 +102,6 @@ and blocks are swapped if needed. Leftover elements are not touched.
  @param vec			The vector to sort (in place)
  @param numComp		Counter for number of comparisons
  @param recDepth	Current recursion depth (starting at 1)
-
  @return			The recursion depth in which the last comparison took place.
 
 Let's say, there are 13 numbers (n = 13):
@@ -118,19 +113,23 @@ Let's say, there are 13 numbers (n = 13):
 */
 int	PmergeMe::sortPairsRecursivelyVec(std::vector<int>& vec, int& numComp, int recDepth)
 {
-	int	blockSize = (1 << recDepth) / 2; // number of elements in one of the two blocks within the pair -> '1 << d' is '2^d'
+	int	blockSize =  1 << (recDepth - 1); // blockSize doubles each recursion: 1 -> 2 -> 4 -> ...
 	int	numBlocks = vec.size() / blockSize; // number of blocks to process
 
 	if (numBlocks <= 1) // base case, no more blocks to compare with one another
 		return recDepth - 1; // returns recursion level in which the last comparison took place
 
 	// Iterate over all adjacent block pairs
-	for (size_t i = 0; i + 2 * blockSize - 1 < vec.size(); i += 2 * blockSize)
+	for (size_t i = 0; i + 2*blockSize - 1 < vec.size(); i += 2*blockSize)
 	{
 		++numComp;
 		// Compare the last element of the two blocks, swap blocks if needed
-		if (vec[i + blockSize - 1] > vec[i + 2 * blockSize - 1])
-			swapBlock(vec, i, i + blockSize, blockSize);
+		if (vec[i + blockSize - 1] > vec[i + 2*blockSize - 1])
+		{
+			swap_ranges(	vec.begin() + i,	// start first block
+							vec.begin() + i + blockSize, // one past the end of first block
+							vec.begin() + i + blockSize); // start second block
+		}
 	}
 
 	return PmergeMe::sortPairsRecursivelyVec(vec, numComp, recDepth + 1);
@@ -143,8 +142,7 @@ and pending elements (+ leftovers) are at the back.
  @param vec			The interleaved input vector `[b1 a1 b2 a2 b3 a3 ...]`,
  					possibly with leftover elements.
  @param blockSize	Number of elements per block.
- @return			A new vector where main-chain elements appear first,
-					followed by pending elements and potential leftover elements.
+ @return			A new rearranged vector [main-chain | pending | leftovers]
 */
 std::vector<int>	PmergeMe::rearrangeVec(const std::vector<int>& vec, int blockSize)
 {
@@ -196,24 +194,4 @@ void PmergeMe::binaryInsertVec(std::vector<int>& vec, int value, size_t end, int
 	} // when the loop ends, 'left' is the correct insertion index
 
 	vec.insert(vec.begin() + left, value);
-}
-
-////////////
-// HELPER //
-////////////
-
-/**
-Swaps all elements of two sub-chains (blocks) in the vector.
-
- @param vec			The vector containing the sub-chains
- @param start1		Starting index of the first sub-chain
- @param start2		Starting index of the second sub-chain
- @param blockSize	Number of elements in each sub-chain
-*/
-static void	swapBlock(std::vector<int>& vec, int start1, int start2, int blockSize)
-{
-	for (int k = 0; k < blockSize; ++k)
-	{
-		std::swap(vec[start1 + k], vec[start2 + k]);
-	}
 }
