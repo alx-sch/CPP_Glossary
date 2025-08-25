@@ -33,12 +33,12 @@ void	PmergeMe::checkArgs(int argc, char** argv)
 }
 
 /**
-Generates a vector containing the Jacobsthal sequence indices less than
-the given number of pending elements (excl. duplicate `1`).
+Generates the Jacobsthal sequence needed for insertion order
+in the Ford–Johnson merge-insertion algorithm.
 -> `[0, 1, 3, 5, 11, 21, ...]`
 
 The Jacobsthal sequence is defined as:
-J(0) = 0, J(1) = 1, J(n) = J(n-1) + 2 * J(n-2) for n > 1
+J(0) = 0, J(1) = 1; J(n) = J(n-1) + 2 * J(n-2) for n > 1
 */
 const std::vector<int>	PmergeMe::buildJacobsthalSeq(int numPending)
 {
@@ -55,9 +55,9 @@ const std::vector<int>	PmergeMe::buildJacobsthalSeq(int numPending)
 	while (true)
 	{
 		int	jNext = j2 + 2 * j1; // J(n) = J(n-1) + 2*J(n-2)
+		jacSeq.push_back(jNext);
 		if (jNext >= numPending)
 			break;
-		jacSeq.push_back(jNext);
 		j1 = j2;
 		j2 = jNext;
 	}
@@ -70,17 +70,25 @@ const std::vector<int>	PmergeMe::buildJacobsthalSeq(int numPending)
 }
 
 /**
-Generates the insertion order for pending elements (n-th element) based on the
-Jacobsthal sequence, minimizing the number of comparisons
+Builds the optimal insertion order of pending elements for the
+Ford–Johnson merge-insertion algorithm, based on a precomputed
+Jacobsthal sequence.
 
-For 9 pending elements, the Jacobsthal sequence is `[0, 1, 1, 3, 5]`.
-Ignoring `0` and duplicate `1` gives `[1, 3, 5]`.
-Filling the gaps between these numbers in a way that a Jacobsthal number comes
-first, and then any remaining elements that are smaller than that Jacobsthal number:
-`[1, 3, 2, 5, 4]`.
-Finally, appending any remaining elements in descending order:
-`[1, 3, 2, 5, 4, 9, 8, 7, 6]`.
-This represents the insertion order in terms of the n-th pending element.
+The procedure works as follows:
+ 1.	Collect Jacobsthal numbers > 0 and <= numPending.
+ 2.	For each consecutive pair of Jacobsthal numbers, first add
+	the larger one, then fill the gap below it in descending order.
+ 3.	Finally, append any remaining indices (those greater than the
+ 	last Jacobsthal number) in descending order.
+
+Example: numPending = 9
+	Jacobsthal sequence (cap included): [0, 1, 3, 5, 11]
+	Step 1: [1, 3, 5]
+ 	Step 2: [1, 3, 2, 5, 4]
+ 	Step 3: [1, 3, 2, 5, 4, 9, 8, 7, 6]
+
+The resulting vector represents the insertion order of the n-th
+pending elements (b1, b3, b2, ...).
 
  @param numPending	Number of pending elements
  @param jacSeq		Precomputed Jacobsthal sequence (no duplicates)
@@ -160,7 +168,7 @@ Layout: [b1][a1][b2][a2]...<leftover>;
 */
 bool	PmergeMe::isMainChain(int index, int blockSize, int totalSize)
 {
-	int	blockNum = index / blockSize;  // which block this element belongs to
+	int	blockNum = index / blockSize;  // which block does this element belong to
 
 	// leftover -> not main chain
 	if ((blockNum + 1) * blockSize > totalSize)
@@ -189,5 +197,6 @@ int	PmergeMe::computeK(int pendIdx, const std::vector<int>& jacSeq)
 		if (pendIdx <= jacSeq[i])
 			return static_cast<int>(i + 1); // JT sequence is 1-based for k
 	}
-	return static_cast<int>(jacSeq.size()); // last group
+	// Should never happen (as cap is included in JT seq), but here to make compiler happy
+	return static_cast<int>(jacSeq.size() - 1);
 }
