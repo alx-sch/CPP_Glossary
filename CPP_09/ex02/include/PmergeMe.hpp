@@ -18,7 +18,8 @@ class	PmergeMe
 
 		static std::vector<int>	sortVec(int argc, char** argv, int& numComp);
 		static int				sortPairsRecursivelyVec(std::vector<int>& vec, int& numComp, int recDepth);
-		static std::vector<int>	rearrangeVec(const std::vector<int>& vec, int blockSize);
+		static int				rearrangeVec(std::vector<int>& vec, int blockSize);
+		static void				insertPendingBlocksVec(std::vector<int>& vec, int blockSize, int& posPending, const std::vector<int>& insertionOrder);	
 		static void				binaryInsertVec(std::vector<int>& vec, int value, size_t end, int& numComp);
 
 		// PmergeMeLst.cpp
@@ -28,11 +29,19 @@ class	PmergeMe
 		// PmergeMeUtils.cpp
 
 		static void						checkArgs(int argc, char** argv);
-		static const std::vector<int>	buildJacobsthalSeq(int numPending);
-		static const std::vector<int>	buildInsertOrder(int numPending, const std::vector<int>& jacSeq);
 		static int						getNumPending(int numBlocks);
 		static bool						isMainChain(int index, int blockSize, int totalSize);
 		static int						computeK(int pendIdx, const std::vector<int>& jacSeq);
+
+		// PmergeMeUtils.tpp
+
+		template<typename Container>
+		static Container				buildJacobsthalSeq(int numPending);
+
+		template<typename Container>
+		static Container				buildInsertOrder(int numPending, const Container& jacSeq);
 };
+
+# include "PmergeMe.tpp"
 
 #endif

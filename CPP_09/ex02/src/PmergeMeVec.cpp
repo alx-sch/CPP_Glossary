@@ -3,8 +3,10 @@
 // https://medium.com/@mohammad.ali.ibrahim.525/ford-johnson-algorithm-merge-insertion-4b024f0c3d42
 
 #include <cstdlib>		// atoi()
-#include <algorithm>	// swap_ranges()
+#include <algorithm>	// swap_ranges(), std::rotate()
 #include <vector>
+
+#include <list>
 
 #include <iostream>
 
@@ -23,13 +25,13 @@ std::vector<int>	PmergeMe::sortVec(int argc, char** argv, int& numComp)
 		return vec;
 
 	// === Step 1: division into pairs & sorting
-	int	recDepth = PmergeMe::sortPairsRecursivelyVec(vec, numComp, 1);
+	int	recDepth = sortPairsRecursivelyVec(vec, numComp, 1);
 
 	// === Step 2: initialization of pending elements
 
 	// Generate Jacobsthal sequence
 	int					maxPending = vec.size() / 2 + 1; // '+1' to accommodate for potential leftover
-	std::vector<int>	jacSeq = buildJacobsthalSeq(maxPending);
+	std::vector<int>	jacSeq = buildJacobsthalSeq<std::vector<int> >(maxPending); // space between '> >' to avoid confusion with >> operator
 
 	while (recDepth > 0)
 	{
@@ -48,47 +50,17 @@ std::vector<int>	PmergeMe::sortVec(int argc, char** argv, int& numComp)
 		}
 
 		// == Step 3: insert pending elements
-		std::vector<int>	insertionOrder = buildInsertOrder(numPending, jacSeq);
+		int	posPending = rearrangeVec(vec, blockSize);
+		printContainerDebug(vec, "Rearranged vector: ");
+		std::cout << "posPending: " << posPending << std::endl;
+
+		std::vector<int>	insertionOrder = buildInsertOrder(numPending, jacSeq); // no need for explicit type, as can be deduced from 'jacSeq'
 		printContainerDebug(insertionOrder, "Insertion order (pending " + toString(numPending) + "): ");
-		std::vector<int>	rearrangedVec = rearrangeVec(vec, blockSize);
 
-		printContainerDebug(rearrangedVec, "Rearranged vector: ");
-
-		// Insert pending elements into the main vector
-		for (size_t i = 0; i < insertionOrder.size(); ++i)
-		{
-			int	pendIdx = insertionOrder[i]; // index in pending blocks
-			int	pendPos = blockSize + (pendIdx + 1) * (2 * blockSize) - 1;
-
-			(void)pendPos;
-			// CHECK!
-		}
-
-		// Check value of pending elements (last number in pending block)
-		// '3 * blockSize - 1': skip b1 < a1; access last number of b2
-		// 'i * (2 * blockSize)': access last number of b_i
-		for (int i = 0; i < numPending; ++i)
-		{
-			int	pendingValue = vec[(3 * blockSize) - 1 + i * (2 * blockSize)]; // last element of pending block
-			std::cout << "pendingValue: " << pendingValue << std::endl;
-		}
-		std::cout << std::endl;
+		insertPendingBlocksVec(vec, blockSize, posPending, insertionOrder);
 
 		--recDepth;
 	}
-
-		// Use Jacobsthal sequencce to 
-
-		// Insert pending elements in order given by Jacobsthal indices
-		// for (int i = 0; i < numPending; ++i)
-		// {
-		// 	int	pendingIdx = jacSeq[i];
-		// 	int	pendingPos = blockSize * (pendingIdx + 1) - 1; // position of b in vec
-
-		// }
-
-//	}
-	
 
 	return vec;
 }
@@ -140,18 +112,22 @@ Rearranges a vector so that main chain elements are in front
 and pending elements (+ leftovers) are at the back.
 
  @param vec			The interleaved input vector `[b1 a1 b2 a2 b3 a3 ...]`,
- 					possibly with leftover elements.
+ 					possibly with leftover elements. This vector is modified
+					in place to contain `[mainChain | pending | leftovers]`
  @param blockSize	Number of elements per block.
- @return			A new rearranged vector [main-chain | pending | leftovers]
+ @return			The index at which the pending elements start in `vec`.
+					All elements from this index onward belong to the pending chain.
 */
-std::vector<int>	PmergeMe::rearrangeVec(const std::vector<int>& vec, int blockSize)
+int	PmergeMe::rearrangeVec(std::vector<int>& vec, int blockSize)
 {
 	std::vector<int>	mainChain, pending;
 	size_t				vecSize = vec.size();
+	int					posPending; // inde
 
 	mainChain.reserve(vecSize); // overestimating, but oh well
 	pending.reserve(vecSize);
 
+	// Separate main-chain and pending
 	for (size_t i = 0; i < vecSize; ++i)
 	{
 		if (isMainChain(i, blockSize, vecSize))
@@ -160,10 +136,47 @@ std::vector<int>	PmergeMe::rearrangeVec(const std::vector<int>& vec, int blockSi
 			pending.push_back(vec[i]);
 	}
 
+	posPending = mainChain.size();
+
 	// merge main-chain + pending (+ leftovers)
 	mainChain.insert(mainChain.end(), pending.begin(), pending.end());
 
-	return mainChain;
+	// Reassign vec
+	vec = mainChain;
+
+	return posPending;
+}
+
+
+void	PmergeMe::insertPendingBlocksVec(std::vector<int>& vec, int blockSize, int& posPending,
+			const std::vector<int>& insertionOrder)
+{
+	for (size_t i = 0; i < insertionOrder.size(); ++i)
+	{
+		int pendIdx = insertionOrder[i];
+
+		if (pendIdx == 1)  // first pending element (b1) can be inserted right away to the top of the main-chain (b1 < a1)
+		{
+			std::rotate(vec.begin(), vec.begin() + posPending, vec.begin() + posPending + blockSize);
+			printContainerDebug(vec, "vector after b1 is moved to main (pendIdx: " + toString(pendIdx) + "): ");
+			posPending += blockSize;
+			continue;
+		}
+
+		// count previous smaller pending blocks
+		size_t numMovedBefore = 0;
+		for (size_t j = 0; j < i; ++j)
+			if (insertionOrder[j] < pendIdx)
+				++numMovedBefore;
+
+		size_t	start = posPending + (pendIdx - 1 - numMovedBefore) * blockSize;
+		size_t	end   = start + blockSize;
+
+		std::rotate(vec.begin(), vec.begin() + start, vec.begin() + end);
+		posPending += blockSize;
+
+		printContainerDebug(vec, "vector after XX is moved to main (pendIdx: " + toString(pendIdx) + "): ");
+	}
 }
 
 /**
