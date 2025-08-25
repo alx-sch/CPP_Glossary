@@ -1440,8 +1440,6 @@ int main()
 It is not required to name it `.tpp` — some people use `.inl` or just put the functions in the `.hpp`.
 But using `.tpp` helps keep declarations and definitions separated.
 
-**Summary**
-
 <div align="right">
   <b><a href="#top">↥ back to top</a></b>
 </div>
