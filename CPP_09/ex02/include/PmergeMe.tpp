@@ -37,8 +37,8 @@ Container	PmergeMe::buildJacobsthalSeq(int numPending)
 	// Remove duplicate '1'
 	if (seq.size() > 2)
 	{
-		typename Container::iterator it = seq.begin();
-		std::advance(it, 1);
+		typename Container::iterator	it = seq.begin();
+		++it;
 		seq.erase(it);
 	}
 
