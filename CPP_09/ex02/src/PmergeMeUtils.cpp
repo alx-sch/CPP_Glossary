@@ -94,3 +94,19 @@ int	PmergeMe::computeK(int pendIdx, const std::vector<int>& jacSeq)
 	// Should never happen (as cap is included in JT seq), but here to make compiler happy
 	return static_cast<int>(jacSeq.size());
 }
+
+/**
+Computes the exclusive end index of the useful main chain for a pending block.
+Uses `k` from Jacobsthal to limit the binary search range.
+
+ @param k			insertion group from `computeK()`
+ @param mainSize	current size of the main chain
+ @return			exclusive end index for binary search
+*/
+size_t	PmergeMe::computeUsefulMainEnd(int k, size_t mainSize)
+{
+	size_t	end = (1u << k) - 1; // 2^k - 1 elements allowed
+	if (end > mainSize) // don't exceed current main chain size
+		end = mainSize;
+	return end;
+}

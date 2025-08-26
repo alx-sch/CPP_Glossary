@@ -32,14 +32,14 @@ std::vector<int>	PmergeMe::sortVec(int argc, char** argv, int& numComp)
 
 	while (recDepth > 0)
 	{
-		int	blockSize = 1 << (recDepth - 1); // '1 << n' -> '2^n'
+		int	blockSize = 1u << (recDepth - 1); // '1<<n' -> '2^n'; u makes 1 unsigned (safer)
 		int	numBlocks = vec.size() / blockSize;
 		int	numPending = getNumPending(numBlocks);
 
 		std::cout << "RecDepth: " << recDepth << ", BlockSize: " << blockSize << ", NumBlocks: " << numBlocks << ", NumPending: " << numPending << std::endl;
 		printContainerDebug(vec, "vector: ");
 
-		// No pending elements on this recursion level (only main chain: 'b1 < a1')
+		// No pending elements on this recursion level (only main chain: 'b1<a1')
 		if (numPending == 0)
 		{
 			--recDepth;
@@ -54,7 +54,7 @@ std::vector<int>	PmergeMe::sortVec(int argc, char** argv, int& numComp)
 		std::vector<int>	insertionOrder = buildInsertOrder(numPending, jacSeq); // no need for explicit type, as can be deduced from 'jacSeq'
 		printContainerDebug(insertionOrder, "Insertion order (pending " + toString(numPending) + "): ");
 
-		insertPendingBlocksVec(vec, blockSize, posPending, insertionOrder);
+		insertPendingBlocksVec(vec, blockSize, posPending, insertionOrder, jacSeq, numComp);
 
 		--recDepth;
 	}
@@ -82,7 +82,7 @@ Let's say, there are 13 numbers (n = 13):
 */
 int	PmergeMe::sortPairsRecursivelyVec(std::vector<int>& vec, int& numComp, int recDepth)
 {
-	int	blockSize =  1 << (recDepth - 1); // blockSize doubles each recursion: 1 -> 2 -> 4 -> ...
+	int	blockSize =  1u << (recDepth - 1); // blockSize doubles each recursion: 1 -> 2 -> 4 -> ...
 	int	numBlocks = vec.size() / blockSize; // number of blocks to process
 
 	if (numBlocks <= 1) // base case, no more blocks to compare with one another
@@ -146,7 +146,7 @@ int	PmergeMe::rearrangeVec(std::vector<int>& vec, int blockSize)
 
 
 void	PmergeMe::insertPendingBlocksVec(std::vector<int>& vec, int blockSize, int& posPending,
-			const std::vector<int>& insertionOrder)
+			const std::vector<int>& insertionOrder, const std::vector<int>& jacSeq, int& numComp)
 {
 	for (size_t i = 0; i < insertionOrder.size(); ++i)
 	{
@@ -166,10 +166,25 @@ void	PmergeMe::insertPendingBlocksVec(std::vector<int>& vec, int blockSize, int&
 			if (insertionOrder[j] < pendIdx)
 				++numMovedBefore;
 
+		// adjust index: some smaller pending blocks may already have been moved,
+		// so subtract them to find the correct current position of pendIdx
 		size_t	start = posPending + (pendIdx - 1 - numMovedBefore) * blockSize;
 		size_t	end   = start + blockSize;
 
-		std::rotate(vec.begin(), vec.begin() + start, vec.begin() + end);
+		// calculate where in the main chain to insert the current pending block to
+		int		k = computeK(pendIdx, jacSeq);
+		size_t	usefulMainEnd = computeUsefulMainEnd(k, posPending);
+		size_t	numMainBlocks = usefulMainEnd / blockSize;
+
+		std::cout << "looking at value: " << vec[end-1] << std::endl;
+		std::cout << "number of comps BEFORE insert: " << numComp << std::endl;
+		size_t	insertPos = binaryInsertBlockVec(vec, vec[end-1], blockSize, numMainBlocks, numComp);
+		std::cout << "number of comps AFTER insert: " << numComp << std::endl;
+
+		if (insertPos < start) // do nothing when insertPos == start; insertPos > start is not possible
+			std::rotate(vec.begin() + insertPos, vec.begin() + start, vec.begin() + end); // moves main chain elements to right to make space
+
+		std::cout << "Inserting at position of main chain: " << insertPos << std::endl;
 		posPending += blockSize;
 
 		printContainerDebug(vec, "vector after XX is moved to main (pendIdx: " + toString(pendIdx) + "): ");
@@ -177,31 +192,36 @@ void	PmergeMe::insertPendingBlocksVec(std::vector<int>& vec, int blockSize, int&
 }
 
 /**
-Inserts a value into the sorted subrange [0, end) of a vector.
+Finds the insertion index for a pending block in a main chain of blocks.
 
-Uses binary search to find the correct insertion index and shifts
-elements as needed. Each comparison is counted in numComp.
+Uses binary search to locate the position of the pending block based on its
+last element, comparing it only with the last element of each main chain block.
+Counts comparisons in `numComp`.
 
- @param vec		Vector to insert into.
- @param value	Value to insert.
- @param end		Exclusive upper bound of the useful main chain.
- @param numComp	Counter for the number of comparisons made.
+ @param vec			Vector containing main chain blocks (assumed sorted by last element of each block).
+ @param value		The representative value of the pending block (usually its last element).
+ @param blockSize	Number of elements per block.
+ @param numBlocks	Number of main chain blocks to consider for insertion.
+ @param numComp		Counter for the number of comparisons made.
+ @return			Element index in `vec` at which the pending block should be inserted.
 */
-void PmergeMe::binaryInsertVec(std::vector<int>& vec, int value, size_t end, int& numComp)
+size_t	PmergeMe::binaryInsertBlockVec(	const std::vector<int>& vec, int value,
+										size_t blockSize, size_t numBlocks, int& numComp)
 {
 	size_t	left = 0; // inclusive
-	size_t	right = end; // exclusive
+	size_t	right = numBlocks; // exclusive
 
+	
 	while (left < right)
 	{
 		size_t	mid = left + (right - left) / 2;
-		
+		int		midValue = vec[(mid + 1) * blockSize - 1]; // last element of mid-th block
+
 		++numComp;
-		if (value < vec[mid]) // narrow search to [left, mid).
+		if (value < midValue)
 			right = mid;
 		else
-			left = mid + 1; // narrow search to [mid + 1, right)
+			left = mid + 1;
 	} // when the loop ends, 'left' is the correct insertion index
-
-	vec.insert(vec.begin() + left, value);
+	return left * blockSize;
 }
