@@ -187,6 +187,7 @@ void	PmergeMe::insertPendingBlocksVec(std::vector<int>& vec, int blockSize, int&
 		DEBUG_PRINT("k group val: " << k);
 		DEBUG_PRINT("last useful main chain block: " << numMainBlocks);
 		DEBUG_PRINT("number of comps BEFORE insert: " << numComp);
+		//numMainBlocks = posPending / blockSize;
 		size_t	insertPos = binaryInsertBlockVec(vec, vec[end-1], blockSize, numMainBlocks, numComp);
 		DEBUG_PRINT("number of comps AFTER insert: " << numComp);
 

@@ -115,4 +115,14 @@ size_t	PmergeMe::computeUsefulMainEnd(int k, size_t posPending, size_t blockSize
 		++numBlocks;
 
 	return numBlocks;
+
+	// size_t maxBlocks = (1u << k) - 1;               // 2^k - 1 blocks allowed
+	// size_t availableBlocks = posPending / blockSize;
+	// if (posPending % blockSize != 0)
+	// 	++availableBlocks;                          // account for remainder
+
+	// if (maxBlocks > availableBlocks)
+	// 	maxBlocks = availableBlocks;
+
+	// return maxBlocks;
 }
