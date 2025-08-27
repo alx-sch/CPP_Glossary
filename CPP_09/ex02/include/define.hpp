@@ -1,6 +1,13 @@
 #ifndef DEFINE_HPP
 # define DEFINE_HPP
 
+// compile with 'make debug' to print debug output
+# ifdef DEBUG
+#  define DEBUG_PRINT(x) do { std::cout << x << std::endl; } while (0)
+# else
+#  define DEBUG_PRINT(x) do {} while (0)
+# endif
+
 #define YELLOW		"\033[33m"
 #define GREEN		"\033[32m"
 #define RED			"\033[31m"

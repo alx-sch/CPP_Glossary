@@ -75,6 +75,11 @@ fclean:	clean
 
 re:	fclean all
 
-.PHONY: all clean fclean re
+# Debug build
+debug: CXXFLAGS += -DDEBUG -g
+debug: fclean $(NAME)
+	@echo "$(BOLD)$(YELLOW)Debug build complete.$(RESET)"
+
+.PHONY: all clean fclean re debug
 
 -include $(DEPS)

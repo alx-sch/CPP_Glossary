@@ -21,7 +21,7 @@ template <typename Container>
 void		printContainer(const Container& c);
 
 template <typename Container>
-void		printContainerDebug(const Container& c, const std::string& prefix);
+std::string	returnContainerDebug(const Container& c, const std::string& prefix);
 
 template <typename Container>
 void		printBeforeAfter(char** argv, const Container& afterSort);

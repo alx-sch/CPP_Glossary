@@ -23,6 +23,7 @@ std::vector<int>	PmergeMe::sortVec(int argc, char** argv, int& numComp)
 
 	// === Step 1: division into pairs & sorting
 	int	recDepth = sortPairsRecursivelyVec(vec, numComp, 1);
+	DEBUG_PRINT("== Main chain elements are sorted on highest recursion lvl ==\nnum comps: " << numComp);
 
 	// === Step 2: initialization of pending elements
 
@@ -36,27 +37,30 @@ std::vector<int>	PmergeMe::sortVec(int argc, char** argv, int& numComp)
 		int	numBlocks = vec.size() / blockSize;
 		int	numPending = getNumPending(numBlocks);
 
-		std::cout << "RecDepth: " << recDepth << ", BlockSize: " << blockSize << ", NumBlocks: " << numBlocks << ", NumPending: " << numPending << std::endl;
-		printContainerDebug(vec, "vector: ");
+		DEBUG_PRINT("RecDepth: " << recDepth << ", BlockSize: " << blockSize << ", NumBlocks: " << numBlocks << ", NumPending: " << numPending);
+		DEBUG_PRINT(returnContainerDebug(vec, "vector: "));
 
 		// No pending elements on this recursion level (only main chain: 'b1<a1')
 		if (numPending == 0)
 		{
 			--recDepth;
+			DEBUG_PRINT("");
 			continue;
 		}
 
 		// == Step 3: insert pending elements
 		int	posPending = rearrangeVec(vec, blockSize);
-		printContainerDebug(vec, "Rearranged vector: ");
-		std::cout << "posPending: " << posPending << std::endl;
+		DEBUG_PRINT(returnContainerDebug(vec, "Rearranged vector: "));
+		DEBUG_PRINT("posPending: " << posPending);
 
 		std::vector<int>	insertionOrder = buildInsertOrder(numPending, jacSeq); // no need for explicit type, as can be deduced from 'jacSeq'
-		printContainerDebug(insertionOrder, "Insertion order (pending " + toString(numPending) + "): ");
+		DEBUG_PRINT(returnContainerDebug(insertionOrder, "Insertion order (pending " + toString(numPending) + "): "));
+		DEBUG_PRINT("----");
 
 		insertPendingBlocksVec(vec, blockSize, posPending, insertionOrder, jacSeq, numComp);
 
 		--recDepth;
+		DEBUG_PRINT("");
 	}
 
 	return vec;
@@ -144,7 +148,6 @@ int	PmergeMe::rearrangeVec(std::vector<int>& vec, int blockSize)
 	return posPending;
 }
 
-
 void	PmergeMe::insertPendingBlocksVec(std::vector<int>& vec, int blockSize, int& posPending,
 			const std::vector<int>& insertionOrder, const std::vector<int>& jacSeq, int& numComp)
 {
@@ -154,9 +157,14 @@ void	PmergeMe::insertPendingBlocksVec(std::vector<int>& vec, int blockSize, int&
 
 		if (pendIdx == 1)  // first pending element (b1) can be inserted right away to the top of the main-chain (b1 < a1)
 		{
+			DEBUG_PRINT("inserting value: " <<  vec[posPending + blockSize - 1]);
+			DEBUG_PRINT("num comps BEFORE insert: " << numComp);
 			std::rotate(vec.begin(), vec.begin() + posPending, vec.begin() + posPending + blockSize);
-			printContainerDebug(vec, "vector after b1 is moved to main (pendIdx: " + toString(pendIdx) + "): ");
+			DEBUG_PRINT("num comps AFTER insert: " << numComp);
+			DEBUG_PRINT(returnContainerDebug(vec, "vector after b" + toString(pendIdx) + " is moved to main: "));
+			DEBUG_PRINT("Inserting at position of main chain: " << 0);
 			posPending += blockSize;
+			DEBUG_PRINT("----");
 			continue;
 		}
 
@@ -173,23 +181,27 @@ void	PmergeMe::insertPendingBlocksVec(std::vector<int>& vec, int blockSize, int&
 
 		// calculate where in the main chain to insert the current pending block to
 		int		k = computeK(pendIdx, jacSeq);
-		size_t	usefulMainEnd = computeUsefulMainEnd(k, posPending);
-		size_t	numMainBlocks = usefulMainEnd / blockSize;
-
-		std::cout << "looking at value: " << vec[end-1] << std::endl;
-		std::cout << "number of comps BEFORE insert: " << numComp << std::endl;
+		size_t	numMainBlocks = computeUsefulMainEnd(k, posPending, blockSize);
+		
+		DEBUG_PRINT("looking at value: " << vec[end-1]);
+		DEBUG_PRINT("k group val: " << k);
+		DEBUG_PRINT("last useful main chain block: " << numMainBlocks);
+		DEBUG_PRINT("number of comps BEFORE insert: " << numComp);
 		size_t	insertPos = binaryInsertBlockVec(vec, vec[end-1], blockSize, numMainBlocks, numComp);
-		std::cout << "number of comps AFTER insert: " << numComp << std::endl;
+		DEBUG_PRINT("number of comps AFTER insert: " << numComp);
 
 		if (insertPos < start) // do nothing when insertPos == start; insertPos > start is not possible
 			std::rotate(vec.begin() + insertPos, vec.begin() + start, vec.begin() + end); // moves main chain elements to right to make space
 
-		std::cout << "Inserting at position of main chain: " << insertPos << std::endl;
+		DEBUG_PRINT("Inserting at position of main chain: " << insertPos);
 		posPending += blockSize;
 
-		printContainerDebug(vec, "vector after XX is moved to main (pendIdx: " + toString(pendIdx) + "): ");
+		DEBUG_PRINT(returnContainerDebug(vec, "vector after b" + toString(pendIdx) + " is moved to main (pendIdx: " + toString(pendIdx) + "): "));
+		DEBUG_PRINT("----");
 	}
 }
+
+#include <cmath>
 
 /**
 Finds the insertion index for a pending block in a main chain of blocks.
@@ -201,7 +213,7 @@ Counts comparisons in `numComp`.
  @param vec			Vector containing main chain blocks (assumed sorted by last element of each block).
  @param value		The representative value of the pending block (usually its last element).
  @param blockSize	Number of elements per block.
- @param numBlocks	Number of main chain blocks to consider for insertion.
+ @param numBlocks	Number of useful main chain blocks to consider for insertion.
  @param numComp		Counter for the number of comparisons made.
  @return			Element index in `vec` at which the pending block should be inserted.
 */
@@ -211,13 +223,14 @@ size_t	PmergeMe::binaryInsertBlockVec(	const std::vector<int>& vec, int value,
 	size_t	left = 0; // inclusive
 	size_t	right = numBlocks; // exclusive
 
-	
 	while (left < right)
 	{
 		size_t	mid = left + (right - left) / 2;
+
 		int		midValue = vec[(mid + 1) * blockSize - 1]; // last element of mid-th block
 
 		++numComp;
+		DEBUG_PRINT("comparing with val: " << midValue << " (pos: " << (mid + 1) * blockSize - 1 << ")");
 		if (value < midValue)
 			right = mid;
 		else
@@ -225,3 +238,4 @@ size_t	PmergeMe::binaryInsertBlockVec(	const std::vector<int>& vec, int value,
 	} // when the loop ends, 'left' is the correct insertion index
 	return left * blockSize;
 }
+

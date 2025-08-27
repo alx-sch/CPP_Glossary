@@ -34,7 +34,7 @@ class	PmergeMe
 		static int				getNumPending(int numBlocks);
 		static bool				isMainChain(int index, int blockSize, int totalSize);
 		static int				computeK(int pendIdx, const std::vector<int>& jacSeq);
-		static size_t			computeUsefulMainEnd(int k, size_t mainSize);
+		static size_t			computeUsefulMainEnd(int k, size_t posPending, size_t blockSize);
 
 		// PmergeMeUtils.tpp
 

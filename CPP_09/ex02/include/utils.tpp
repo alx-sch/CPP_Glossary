@@ -2,7 +2,8 @@
 # define UTILS_TPP
 
 # include <iostream>
-# include <iomanip>		// setw()
+# include <iomanip>	// setw()
+# include <sstream>	// stringstream
 
 # include "../include/define.hpp"	// for color codes, WIDTH_N, WIDTH_C    
 
@@ -45,14 +46,17 @@ void	printContainer(const Container& c)
 	}
 }
 
-// Prints the content of any container with formatting.
+// Returns the content of any container with formatting as a string.
 // Great for debugging!
 template <typename Container>
-void	printContainerDebug(const Container& c, const std::string& prefix)
+std::string	returnContainerDebug(const Container& c, const std::string& prefix)
 {
-	std::cout << GREEN << prefix;
-	printContainer(c);
-	std::cout << RESET << std::endl;
+	std::stringstream	ss;
+	ss << GREEN << prefix;
+	for (typename Container::const_iterator it = c.begin(); it != c.end(); ++it)
+		ss << *it << " ";
+	ss << RESET;
+	return ss.str();
 }
 
 // Prints out numbers before sorting (`argv`) and after sorting (sorted container).
