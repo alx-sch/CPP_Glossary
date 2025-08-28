@@ -111,4 +111,17 @@ Container	PmergeMe::buildInsertOrder(int numPending, const Container& jacSeq)
 	return expanded;
 }
 
+// Counts how many elements in the insertion order are smaller than the pending element at pendIdx
+template <typename Container>
+size_t	PmergeMe::countSmallerPending(const Container& insertionOrder, size_t idx, int pendIdx)
+{
+	size_t	count = 0;
+
+	for (size_t j = 0; j < idx; ++j)
+		if (insertionOrder[j] < pendIdx)
+			++count;
+
+	return count;
+}
+
 #endif

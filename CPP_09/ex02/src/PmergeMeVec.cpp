@@ -10,24 +10,45 @@
 #include "../include/PmergeMe.hpp"
 #include "../include/utils.hpp" // DEBUG -> printContainerDebug(), toString()
 
+static std::vector<int>	buildVecFromArgs(int argc, char** argv);
+static void				debugMainChainSorted(std::vector<int>& vec, int recDepth, int blockSize, int numBlocks, int numPending);
+static void				debugVecRearranged(std::vector<int>& vec, std::vector<int>& insertionOrder, int posPending);
+static void				debugPreInsert(std::vector<int>& vec, int end, int k, int numMainBlocks, int numComp);
+static void				debugPostInsert(std::vector<int>& vec, int pendIdx, int insertPos, int numComp);
+
+/**
+Sorts a vector of integers using the Ford–Johnson (Merge-Insertion) algorithm.
+
+Steps:
+ 1.	Vector Initialization: Converts the command-line arguments (argv) into a vector of integers.
+	If only one number is provided, it returns immediately since it is already sorted.
+
+ 2.	Pair Division & Recursive Sorting: Divides the vector into pairs and sorts them recursively.
+	This step produces a "main chain" and determines the recursion depth needed for pending insertions.
+
+ 3.	Pending Elements Initialization: Generates the Jacobsthal sequence up to the maximum number
+	of pending elements. This sequence determines the optimal order for inserting elements
+	not yet in the main chain.
+
+ 4.	Insertion of Pending Elements: Iterates from the deepest recursion level down to 1.
+	- Computes block size and the number of blocks for the current recursion depth.
+	- Determines the number of pending elements at this level.
+	- Inserts pending elements according to the Jacobsthal sequence if any exist.
+
+ 5.	Returns the fully sorted vector.
+
+ @param argc	Number of command-line arguments.
+ @param argv	Command-line argument strings representing integers to sort.
+ @param numComp	Reference to an integer counting the number of comparisons made.
+ @return		The sorted vector of integers.
+*/
 std::vector<int>	PmergeMe::sortVec(int argc, char** argv, int& numComp)
 {
-	std::vector<int>	vec;
-	vec.reserve(argc - 1); // helps with performance, avoids repeated reallocation in growing vec
-
-	for (int i = 1; i < argc; ++i) // fill vector
-		vec.push_back(std::atoi(argv[i]));
-
-	if (argc == 2) // no sorting needed if there is only one number
+	std::vector<int>	vec = buildVecFromArgs(argc, argv);
+	if (vec.size() <= 1) // Already sorted
 		return vec;
 
-	// === Step 1: division into pairs & sorting
-	int	recDepth = sortPairsRecursivelyVec(vec, numComp, 1);
-	DEBUG_PRINT("== Main chain elements are sorted on highest recursion lvl ==\nnum comps: " << numComp);
-
-	// === Step 2: initialization of pending elements
-
-	// Generate Jacobsthal sequence
+	int					recDepth = sortPairsRecursivelyVec(vec, numComp, 1);
 	int					maxPending = vec.size() / 2 + 1; // '+1' to accommodate for potential leftover
 	std::vector<int>	jacSeq = buildJacobsthalSeq<std::vector<int> >(maxPending); // space between '> >' to avoid confusion with >> operator
 
@@ -37,32 +58,14 @@ std::vector<int>	PmergeMe::sortVec(int argc, char** argv, int& numComp)
 		int	numBlocks = vec.size() / blockSize;
 		int	numPending = getNumPending(numBlocks);
 
-		DEBUG_PRINT("RecDepth: " << recDepth << ", BlockSize: " << blockSize << ", NumBlocks: " << numBlocks << ", NumPending: " << numPending);
-		DEBUG_PRINT(returnContainerDebug(vec, "vector: "));
+		debugMainChainSorted(vec, recDepth, blockSize, numBlocks, numPending);
 
-		// No pending elements on this recursion level (only main chain: 'b1<a1')
-		if (numPending == 0)
-		{
-			--recDepth;
-			DEBUG_PRINT("");
-			continue;
-		}
-
-		// == Step 3: insert pending elements
-		int	posPending = rearrangeVec(vec, blockSize);
-		DEBUG_PRINT(returnContainerDebug(vec, "Rearranged vector: "));
-		DEBUG_PRINT("posPending: " << posPending);
-
-		std::vector<int>	insertionOrder = buildInsertOrder(numPending, jacSeq); // no need for explicit type, as can be deduced from 'jacSeq'
-		DEBUG_PRINT(returnContainerDebug(insertionOrder, "Insertion order (pending " + toString(numPending) + "): "));
-		DEBUG_PRINT("----");
-
-		insertPendingBlocksVec(vec, blockSize, posPending, insertionOrder, jacSeq, numComp);
+		if (numPending > 0) // if there are no pending elements (only main chain: 'b1<a1') -> skip insertion step
+			insertPendingBlocksVec(vec, blockSize, numPending, jacSeq, numComp);
 
 		--recDepth;
 		DEBUG_PRINT("");
 	}
-
 	return vec;
 }
 
@@ -72,36 +75,36 @@ pairs, then pairs of pairs, and so on.
 At each level, pairs of blocks are compared by their last elements,
 and blocks are swapped if needed. Leftover elements are not touched.
 
- @param vec			The vector to sort (in place)
- @param numComp		Counter for number of comparisons
- @param recDepth	Current recursion depth (starting at 1)
- @return			The recursion depth in which the last comparison took place.
-
 Let's say, there are 13 numbers (n = 13):
  - Lvl 1: 13 -> 6 pairs -> 6 comparisons
  - Lvl 2: 6 -> 3 pairs -> 3 comparisons
  - Lvl 3: 3 -> 1 pair -> 1 comparison
 -> General formula: At each level i, ⌊n_i / 2⌋ (floor down) comparisons
 -> Using formula: ⌊13/2⌋ + ⌊6/2⌋ + ⌊3/2⌋ = 6 + 3 + 1 = 10 comparisons
+
+ @param vec			The vector to sort (in place)
+ @param numComp		Counter for number of comparisons
+ @param recDepth	Current recursion depth (starting at 1)
+ @return			The recursion depth in which the last comparison took place.
 */
 int	PmergeMe::sortPairsRecursivelyVec(std::vector<int>& vec, int& numComp, int recDepth)
 {
-	int	blockSize =  1u << (recDepth - 1); // blockSize doubles each recursion: 1 -> 2 -> 4 -> ...
-	int	numBlocks = vec.size() / blockSize; // number of blocks to process
+	int	blockSize =  1u << (recDepth - 1);	// blockSize doubles each recursion: 1 -> 2 -> 4 -> ...
+	int	numBlocks = vec.size() / blockSize;	// number of blocks to process
 
-	if (numBlocks <= 1) // base case, no more blocks to compare with one another
-		return recDepth - 1; // returns recursion level in which the last comparison took place
+	if (numBlocks <= 1)			// base case, no more blocks to compare with one another
+		return recDepth - 1;	// returns recursion level in which the last comparison took place
 
 	// Iterate over all adjacent block pairs
 	for (size_t i = 0; i + 2*blockSize - 1 < vec.size(); i += 2*blockSize)
 	{
-		++numComp;
 		// Compare the last element of the two blocks, swap blocks if needed
+		++numComp;
 		if (vec[i + blockSize - 1] > vec[i + 2*blockSize - 1])
 		{
-			swap_ranges(	vec.begin() + i,	// start first block
-							vec.begin() + i + blockSize, // one past the end of first block
-							vec.begin() + i + blockSize); // start second block
+			swap_ranges(	vec.begin() + i,				// start first block
+							vec.begin() + i + blockSize,	// one past the end of first block
+							vec.begin() + i + blockSize);	// start second block
 		}
 	}
 
@@ -114,7 +117,7 @@ and pending elements (+ leftovers) are at the back.
 
  @param vec			The interleaved input vector `[b1 a1 b2 a2 b3 a3 ...]`,
  					possibly with leftover elements. This vector is modified
-					in place to contain `[mainChain | pending | leftovers]`
+					in place to contain `[mainChain | pending | (leftovers)]`
  @param blockSize	Number of elements per block.
  @return			The index at which the pending elements start in `vec`.
 					All elements from this index onward belong to the pending chain.
@@ -148,61 +151,38 @@ int	PmergeMe::rearrangeVec(std::vector<int>& vec, int blockSize)
 	return posPending;
 }
 
-void	PmergeMe::insertPendingBlocksVec(std::vector<int>& vec, int blockSize, int& posPending,
-			const std::vector<int>& insertionOrder, const std::vector<int>& jacSeq, int& numComp)
+void	PmergeMe::insertPendingBlocksVec(std::vector<int>& vec, int blockSize, int numPending,
+			const std::vector<int>& jacSeq, int& numComp)
 {
+	int					posPending = rearrangeVec(vec, blockSize);
+	std::vector<int>	insertionOrder = buildInsertOrder(numPending, jacSeq);
+
+	debugVecRearranged(vec, insertionOrder, posPending);
+
 	for (size_t i = 0; i < insertionOrder.size(); ++i)
 	{
-		int pendIdx = insertionOrder[i];
-
-		if (pendIdx == 1)  // first pending element (b1) can be inserted right away to the top of the main-chain (b1 < a1)
-		{
-			DEBUG_PRINT("inserting value: " <<  vec[posPending + blockSize - 1]);
-			DEBUG_PRINT("num comps BEFORE insert: " << numComp);
-			std::rotate(vec.begin(), vec.begin() + posPending, vec.begin() + posPending + blockSize);
-			DEBUG_PRINT("num comps AFTER insert: " << numComp);
-			DEBUG_PRINT(returnContainerDebug(vec, "vector after b" + toString(pendIdx) + " is moved to main: "));
-			DEBUG_PRINT("Inserting at position of main chain: " << 0);
-			posPending += blockSize;
-			DEBUG_PRINT("----");
-			continue;
-		}
-
-		// count previous smaller pending blocks
-		size_t numMovedBefore = 0;
-		for (size_t j = 0; j < i; ++j)
-			if (insertionOrder[j] < pendIdx)
-				++numMovedBefore;
-
-		// adjust index: some smaller pending blocks may already have been moved,
-		// so subtract them to find the correct current position of pendIdx
-		size_t	start = posPending + (pendIdx - 1 - numMovedBefore) * blockSize;
-		size_t	end   = start + blockSize;
-
-		// calculate where in the main chain to insert the current pending block to
+		int		pendIdx = insertionOrder[i]; // basically the b_x: pendIdx = 3 -> b3
+		size_t	numMovedBefore = PmergeMe::countSmallerPending(insertionOrder, i, pendIdx);
+		size_t	start = posPending + (pendIdx - 1 - numMovedBefore) * blockSize; // start index in vec of pending block
+		size_t	end = start + blockSize; // end index in vec of pending block
 		int		k = computeK(pendIdx, jacSeq);
 		size_t	numMainBlocks = computeUsefulMainEnd(k, posPending, blockSize);
-		
-		DEBUG_PRINT("looking at value: " << vec[end-1]);
-		DEBUG_PRINT("k group val: " << k);
-		DEBUG_PRINT("last useful main chain block: " << numMainBlocks);
-		DEBUG_PRINT("number of comps BEFORE insert: " << numComp);
 		//numMainBlocks = posPending / blockSize;
-		size_t	insertPos = binaryInsertBlockVec(vec, vec[end-1], blockSize, numMainBlocks, numComp);
-		DEBUG_PRINT("number of comps AFTER insert: " << numComp);
 
-		if (insertPos < start) // do nothing when insertPos == start; insertPos > start is not possible
+		debugPreInsert(vec, end, k, numMainBlocks, numComp);
+
+		size_t	insertPos =	(pendIdx != 1)
+							? binaryInsertBlockVec(vec, vec[end-1], blockSize, numMainBlocks, numComp)
+							: 0; // first pending element (b1) can be inserted right away to top of main chain
+
+		if (insertPos < start) // do nothing when insertPos == start; insertPos > start is not possible (would insert in pending, not main)
 			std::rotate(vec.begin() + insertPos, vec.begin() + start, vec.begin() + end); // moves main chain elements to right to make space
 
-		DEBUG_PRINT("Inserting at position of main chain: " << insertPos);
-		posPending += blockSize;
+		debugPostInsert(vec, pendIdx, insertPos, numComp);
 
-		DEBUG_PRINT(returnContainerDebug(vec, "vector after b" + toString(pendIdx) + " is moved to main (pendIdx: " + toString(pendIdx) + "): "));
-		DEBUG_PRINT("----");
+		posPending += blockSize;
 	}
 }
-
-#include <cmath>
 
 /**
 Finds the insertion index for a pending block in a main chain of blocks.
@@ -238,5 +218,73 @@ size_t	PmergeMe::binaryInsertBlockVec(	const std::vector<int>& vec, int value,
 			left = mid + 1;
 	} // when the loop ends, 'left' is the correct insertion index
 	return left * blockSize;
+}
+
+////////////
+// HELPER //
+////////////
+
+// Builds a vector from command line arguments
+static std::vector<int>	buildVecFromArgs(int argc, char** argv)
+{
+	std::vector<int>	vec;
+	vec.reserve(argc - 1); // helps with performance, avoids repeated reallocation in growing vec
+
+	for (int i = 1; i < argc; ++i) // fill vector
+		vec.push_back(std::atoi(argv[i]));
+
+	return vec;
+}
+
+////////////////
+// DEBUG INFO //
+////////////////
+
+// Debug information for the main chain after sorting
+static void	debugMainChainSorted(std::vector<int>& vec, int recDepth, int blockSize, int numBlocks, int numPending)
+{
+	// suppress unused warning in non-debug mode
+	(void)vec; (void)recDepth; (void)blockSize; (void)numBlocks; (void)numPending;
+
+	DEBUG_PRINT("RecDepth: " + toString(recDepth) + ", BlockSize: " + toString(blockSize) + ", NumBlocks: "
+				+ toString(numBlocks) + ", NumPending: " + toString(numPending));
+	DEBUG_PRINT(returnContainerDebug(vec, "vector: "));
+}
+
+// Debug information for the rearranged vector and insertion order
+static void	debugVecRearranged(std::vector<int>& vec, std::vector<int>& insertionOrder, int posPending)
+{
+	// suppress unused warning in non-debug mode
+	(void)vec; (void)insertionOrder; (void)posPending;
+
+	DEBUG_PRINT(returnContainerDebug(vec, "Rearranged [main|pend|(left)]: "));
+	DEBUG_PRINT("posPending: " + toString(posPending));
+	DEBUG_PRINT(returnContainerDebug(insertionOrder, "Insertion order: "));
+	DEBUG_PRINT("....");
+}
+
+// Debug information before inserting a pending block
+static void	debugPreInsert(std::vector<int>& vec, int end, int k, int numMainBlocks, int numComp)
+{
+	// suppress unused warning in non-debug mode
+	(void)vec; (void)end; (void)k; (void)numMainBlocks; (void)numComp;
+
+	DEBUG_PRINT("looking at value: " + toString(vec[end-1]));
+	DEBUG_PRINT("k val: " + toString(k));
+	DEBUG_PRINT("last useful main chain block: " + toString(numMainBlocks));
+	DEBUG_PRINT("num of comps BEFORE insert: " + toString(numComp));
+}
+
+// Debug information after inserting a pending block
+static void	debugPostInsert(std::vector<int>& vec, int pendIdx, int insertPos, int numComp)
+{	
+	// suppress unused warning in non-debug mode
+	(void)vec; (void)pendIdx; (void)insertPos; (void)numComp;
+
+	DEBUG_PRINT("number of comps AFTER insert: " << numComp);
+	DEBUG_PRINT("Inserting at position: " << insertPos);
+	DEBUG_PRINT(returnContainerDebug(vec, "vector after b" + toString(pendIdx)
+		+ " is moved to main (pendIdx: "+ toString(pendIdx) + "): "));
+	DEBUG_PRINT("----");
 }
 

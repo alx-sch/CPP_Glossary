@@ -52,7 +52,7 @@ template <typename Container>
 std::string	returnContainerDebug(const Container& c, const std::string& prefix)
 {
 	std::stringstream	ss;
-	ss << GREEN << prefix;
+	ss << prefix << GREEN;
 	for (typename Container::const_iterator it = c.begin(); it != c.end(); ++it)
 		ss << *it << " ";
 	ss << RESET;
