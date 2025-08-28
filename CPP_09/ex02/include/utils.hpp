@@ -10,8 +10,9 @@ timeval		getCurrentTimeStruct();
 void		printElapsedTime(const timeval& start, const timeval& end, int elements,
 				const std::string& contName);
 void		printNumComp(int numComp, int maxComp, const std::string& contName);
-std::string	toString(size_t n);
+std::string	toString(int n);
 int			maxComparisonsFJ(int n);
+std::string	formatWithCommas(long value);
 
 // utils.tpp
 

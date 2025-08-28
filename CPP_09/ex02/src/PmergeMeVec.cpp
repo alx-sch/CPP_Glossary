@@ -15,7 +15,7 @@
 static std::vector<int>	buildVecFromArgs(int argc, char** argv);
 static void				debugMainChainSorted(std::vector<int>& vec, int recDepth, int blockSize, int numBlocks, int numPending);
 static void				debugVecRearranged(std::vector<int>& vec, std::vector<int>& insertionOrder, int posPending);
-static void				debugPreInsert(std::vector<int>& vec, int end, int k, int numMainBlocks, int numComp);
+static void				debugPreInsert(std::vector<int>& vec, int pendIdx, int end, int k, int numMainBlocks, int numComp);
 static void				debugPostInsert(std::vector<int>& vec, int pendIdx, int insertPos, int numComp);
 
 /**
@@ -147,6 +147,20 @@ int	PmergeMe::rearrangeVec(std::vector<int>& vec, int blockSize)
 	return posPending;
 }
 
+/**
+Inserts pending blocks into the main chain within a vector.
+
+The function uses the Jacobsthal sequence and Ford–Johnson logic to
+determine the order and number of comparisons needed for insertion.
+Each pending block is inserted in binary-search order based on the
+last element of each block. The main chain grows as blocks are inserted.
+
+ @param vec			The vector containing main chain blocks and pending blocks.
+ @param blockSize	Number of elements per block.
+ @param numPending	Number of pending blocks to insert.
+ @param jacSeq		Jacobsthal sequence used to compute insertion group `k`.
+ @param numComp		Reference counter for the number of comparisons performed.
+*/
 void	PmergeMe::insertPendingBlocksVec(std::vector<int>& vec, int blockSize, int numPending,
 			const std::vector<int>& jacSeq, int& numComp)
 {
@@ -163,9 +177,8 @@ void	PmergeMe::insertPendingBlocksVec(std::vector<int>& vec, int blockSize, int 
 		size_t	end = start + blockSize; // end index in vec of pending block
 		int		k = computeK(pendIdx, jacSeq);
 		size_t	numMainBlocks = computeUsefulMainEnd(k, posPending, blockSize);
-		// numMainBlocks = posPending / blockSize; // whole main chain is considered during insertion
 
-		debugPreInsert(vec, end, k, numMainBlocks, numComp);
+		debugPreInsert(vec, pendIdx, end, k, numMainBlocks, numComp);
 		size_t	insertPos =	(pendIdx != 1)
 							? binaryInsertBlockVec(vec, vec[end-1], blockSize, numMainBlocks, numComp)
 							: 0; // first pending element (b1) can be inserted right away to top of main chain
@@ -195,17 +208,17 @@ Counts comparisons in `numComp`.
 size_t	PmergeMe::binaryInsertBlockVec(	const std::vector<int>& vec, int value,
 										size_t blockSize, size_t numBlocks, int& numComp)
 {
-	size_t	left = 0; // inclusive
-	size_t	right = numBlocks; // exclusive
+	size_t	left = 0;			// inclusive
+	size_t	right = numBlocks;	// exclusive
 
 	while (left < right)
 	{
-		size_t	mid = left + (right - left) / 2;
-
-		int		midValue = vec[(mid + 1) * blockSize - 1]; // last element of mid-th block
+		size_t	mid = (left + right) / 2;
+		int		midValue = vec[(blockSize - 1) + mid*blockSize];
 
 		++numComp;
-		DEBUG_PRINT("comparing with val: " << midValue << " (pos: " << (mid + 1) * blockSize - 1 << ")");
+		DEBUG_PRINT("comparing with val: " << midValue << " (block: " << (mid + 1) << ", pos: "
+		<< (mid + 1) * blockSize - 1 << ")");
 		if (value < midValue)
 			right = mid;
 		else
@@ -258,12 +271,12 @@ static void	debugVecRearranged(std::vector<int>& vec, std::vector<int>& insertio
 }
 
 // Debug information before inserting a pending block
-static void	debugPreInsert(std::vector<int>& vec, int end, int k, int numMainBlocks, int numComp)
+static void	debugPreInsert(std::vector<int>& vec, int pendIdx, int end, int k, int numMainBlocks, int numComp)
 {
 	// suppress unused warning in non-debug mode
-	(void)vec; (void)end; (void)k; (void)numMainBlocks; (void)numComp;
+	(void)vec; (void)pendIdx, (void)end; (void)k; (void)numMainBlocks; (void)numComp;
 
-	DEBUG_PRINT("looking at value: " + toString(vec[end-1]));
+	DEBUG_PRINT("looking at b" + toString(pendIdx) + ", value: " + toString(vec[end-1]));
 	DEBUG_PRINT("k val: " + toString(k));
 	DEBUG_PRINT("last useful main chain block: " + toString(numMainBlocks));
 	DEBUG_PRINT("num of comps BEFORE insert: " + toString(numComp));
@@ -281,4 +294,3 @@ static void	debugPostInsert(std::vector<int>& vec, int pendIdx, int insertPos, i
 		+ " is moved to main (pendIdx: "+ toString(pendIdx) + "): "));
 	DEBUG_PRINT("----");
 }
-

@@ -36,7 +36,7 @@ class	PmergeMe
 		static int				computeK(int pendIdx, const std::vector<int>& jacSeq);
 		static size_t			computeUsefulMainEnd(int k, size_t posPending, size_t blockSize);
 
-		// PmergeMeUtils.tpp
+		// PmergeMe.tpp
 
 		template<typename Container>
 		static Container		buildJacobsthalSeq(int numPending);

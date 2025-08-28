@@ -31,9 +31,9 @@ void	printElapsedTime(const timeval& start, const timeval& end, int elements,
 	long	elapsed = getElapsedTime(start, end);
 
 	std::cout	<< "Time to process " << YELLOW << std::right << std::setw(WIDTH_N)
-				<< elements << " numbers" << RESET << " with "
+				<< formatWithCommas(elements) << " numbers" << RESET << " with "
 				<< YELLOW << std::left << std::setw(WIDTH_C) << contName << RESET << ": "
-				<< YELLOW << elapsed << " us" << RESET << std::endl;
+				<< YELLOW << formatWithCommas(elapsed) << " us" << RESET << std::endl;
 }
 
 // Prints the number of comparisons made and checks if this is within the limit
@@ -42,8 +42,8 @@ void	printNumComp(int numComp, int maxComp, const std::string& contName)
 {
 	std::cout	<< "Number of comparisons (" << YELLOW
 				<< std::left << std::setw(WIDTH_C) << contName << RESET
-				<< "): " << YELLOW << numComp << RESET
-				<< " / " << maxComp;
+				<< "): " << YELLOW << formatWithCommas(numComp) << RESET
+				<< " / " << formatWithCommas(maxComp);
 
 	if (numComp <= maxComp)
 		std::cout << GREEN << " OK" << RESET << std::endl;
@@ -53,7 +53,7 @@ void	printNumComp(int numComp, int maxComp, const std::string& contName)
 
 // Converts a `size_t` to a string.
 // Used for debugging.
-std::string	toString(size_t n)
+std::string	toString(int n)
 {
 	std::ostringstream	oss;
 	
@@ -75,4 +75,18 @@ int	maxComparisonsFJ(int n)
 	}
 
 	return sum;
+}
+
+// Formats a long integer with commas as thousands separators.
+std::string	formatWithCommas(long value)
+{
+	std::string	num = toString(value);
+	int			insertPosition = static_cast<int>(num.length()) - 3;
+	
+	while (insertPosition > 0)
+	{
+		num.insert(insertPosition, ",");
+		insertPosition -= 3;
+	}
+	return num;
 }

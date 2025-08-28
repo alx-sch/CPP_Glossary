@@ -15,12 +15,10 @@ template <typename Container>
 Container	PmergeMe::buildJacobsthalSeq(int numPending)
 {
 	Container	seq;
-
 	if (numPending <= 0)
 		return seq;
 
 	int	j1 = 0, j2 = 1; // first and second Jacobsthal numbers
-
 	if (j1 < numPending) seq.push_back(j1); // adds 0
 	if (j2 < numPending) seq.push_back(j2); // adds 1
 
@@ -34,14 +32,12 @@ Container	PmergeMe::buildJacobsthalSeq(int numPending)
 		j2 = jNext;
 	}
 
-	// Remove duplicate '1'
-	if (seq.size() > 2)
+	if (seq.size() > 2) // Remove duplicate '1'
 	{
 		typename Container::iterator	it = seq.begin();
 		++it;
 		seq.erase(it);
 	}
-
 	return seq;
 }
 
@@ -77,11 +73,11 @@ Container	PmergeMe::buildInsertOrder(int numPending, const Container& jacSeq)
 	if (numPending <= 0 || jacSeq.empty())
 		return order;
 
-	// Step 1: collect JT numbers
+	// Step 1: collect JT numbers > 0
 	for (typename Container::const_iterator it = jacSeq.begin(); it != jacSeq.end(); ++it)
 	{
 		int	j = *it;
-		if (j > 0 && j <= numPending) // skip JT number '0'
+		if (j > 0 && j <= numPending)
 			order.push_back(j);
 	}
 
@@ -93,11 +89,8 @@ Container	PmergeMe::buildInsertOrder(int numPending, const Container& jacSeq)
 	{
 		int	j = *it;
 		expanded.push_back(j);
-
-		// fill gaps between JT numbers
-		for (int k = j - 1; k > prev; --k)
+		for (int k = j - 1; k > prev; --k) // fill gaps between JT numbers
 			expanded.push_back(k);
-
 		prev = j;
 	}
 

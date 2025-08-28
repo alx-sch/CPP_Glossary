@@ -76,50 +76,41 @@ bool	PmergeMe::isMainChain(int index, int blockSize, int totalSize)
 Computes the "insertion group" `k` for a given pending element index.
 
 `pendIdx` is the 1-based index of the pending element (starting from `b1`).
-The maximum number of comparisons needed to insert this element into the
-main chain is `(2^k) - 1`.
-
-Special case: if `pendIdx == 1` (`b1`), it can be inserted with 0 comparisons.
+The maximum number of main chain elements that may need to be compared when
+inserting this element is `(2^k) - 1`;
+this also defines the "useful main chain" considered for binary search.
 */
 int	PmergeMe::computeK(int pendIdx, const std::vector<int>& jacSeq)
 {
 	for (size_t i = 0; i < jacSeq.size(); ++i)
 	{
 		if (pendIdx <= jacSeq[i])
-			return static_cast<int>(i + 1); // JT sequence is 1-based for k
+			return static_cast<int>(i);
 	}
 	// Should never happen (as cap is included in JT seq), but here to make compiler happy
 	return static_cast<int>(jacSeq.size());
 }
 
 /**
-Computes the number of useful main chain blocks for a pending block.
-Uses Jacobsthal-based `k` to limit the search range.
+Computes the number of main chain blocks that should be considered when inserting
+a pending block.
 
- @param k			insertion group from `computeK()`
- @param posPending	number of elements currently in main chain
- @param blockSize	size of each block
- @return			number of blocks to consider in binary search
+The number of blocks is limited by the maximum allowed by the insertion group `k`
+(`2^k - 1`), and cannot exceed the number of blocks currently available in
+the main chain.
+
+ @param k			Insertion group from `computeK()`
+ @param posPending	Number of elements currently in main chain
+ @param blockSize	Size of each block
+ @return			Number of "useful" blocks to consider in binary search
 */
 size_t	PmergeMe::computeUsefulMainEnd(int k, size_t posPending, size_t blockSize)
 {
-	size_t	maxElements = (1u << k) - 1; // 2^k - 1 elements allowed
-	if (maxElements > posPending)
-		maxElements = posPending;
+	size_t	maxBlocks = (1u << k) - 1; // 2^k - 1 blocks allowed according to FJ
+	size_t	availableBlocks = posPending / blockSize; // blocks in main chain
 
-	size_t	numBlocks = maxElements / blockSize;
-	if (maxElements % blockSize != 0)
-		++numBlocks;
+	if (maxBlocks > availableBlocks)
+		maxBlocks = availableBlocks;
 
-	return numBlocks;
-
-	// size_t maxBlocks = (1u << k) - 1;               // 2^k - 1 blocks allowed
-	// size_t availableBlocks = posPending / blockSize;
-	// if (posPending % blockSize != 0)
-	// 	++availableBlocks;                          // account for remainder
-
-	// if (maxBlocks > availableBlocks)
-	// 	maxBlocks = availableBlocks;
-
-	// return maxBlocks;
+	return maxBlocks;
 }

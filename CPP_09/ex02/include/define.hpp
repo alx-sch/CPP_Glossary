@@ -2,6 +2,7 @@
 # define DEFINE_HPP
 
 // compile with 'make debug' to print debug output
+// 'do/while(0)' ensures the macro behaves like a single statement
 # ifdef DEBUG
 #  define DEBUG_PRINT(x) do { std::cout << x << std::endl; } while (0)
 # else
