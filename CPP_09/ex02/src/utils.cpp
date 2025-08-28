@@ -66,7 +66,7 @@ std::string	toString(size_t n)
 // See p. 186, The Art of Computer Programming (vol. 3, 1998), Donald E. Knuth
 int	maxComparisonsFJ(int n)
 {
-	int sum = 0;
+	int	sum = 0;
 
 	for (int k = 1; k <= n; ++k)
 	{
