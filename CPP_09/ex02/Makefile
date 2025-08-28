@@ -4,7 +4,7 @@ NAME :=			PmergeMe
 SRCS_DIR :=		src
 SRCS_FILES :=	main.cpp \
 				PmergeMeVec.cpp \
-				PmergeMeLst.cpp \
+				PmergeMeList.cpp \
 				PmergeMeUtils.cpp \
 				utils.cpp
 

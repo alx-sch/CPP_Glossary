@@ -73,25 +73,6 @@ bool	PmergeMe::isMainChain(int index, int blockSize, int totalSize)
 }
 
 /**
-Computes the "insertion group" `k` for a given pending element index.
-
-`pendIdx` is the 1-based index of the pending element (starting from `b1`).
-The maximum number of main chain elements that may need to be compared when
-inserting this element is `(2^k) - 1`;
-this also defines the "useful main chain" considered for binary search.
-*/
-int	PmergeMe::computeK(int pendIdx, const std::vector<int>& jacSeq)
-{
-	for (size_t i = 0; i < jacSeq.size(); ++i)
-	{
-		if (pendIdx <= jacSeq[i])
-			return static_cast<int>(i);
-	}
-	// Should never happen (as cap is included in JT seq), but here to make compiler happy
-	return static_cast<int>(jacSeq.size());
-}
-
-/**
 Computes the number of main chain blocks that should be considered when inserting
 a pending block.
 

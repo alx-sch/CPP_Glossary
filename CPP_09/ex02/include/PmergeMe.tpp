@@ -106,15 +106,39 @@ Container	PmergeMe::buildInsertOrder(int numPending, const Container& jacSeq)
 
 // Counts how many elements in the insertion order are smaller than the pending element at pendIdx
 template <typename Container>
-size_t	PmergeMe::countSmallerPending(const Container& insertionOrder, size_t idx, int pendIdx)
+size_t	PmergeMe::countSmallerPending(const Container& insertionOrder, typename Container::const_iterator endIt, int pendIdx)
 {
 	size_t	count = 0;
 
-	for (size_t j = 0; j < idx; ++j)
-		if (insertionOrder[j] < pendIdx)
+	for (typename Container::const_iterator it = insertionOrder.begin(); it != endIt; ++it)
+	{
+		if (*it < pendIdx)
 			++count;
+	}
 
 	return count;
+}
+
+/**
+Computes the "insertion group" `k` for a given pending element index.
+
+`pendIdx` is the 1-based index of the pending element (starting from `b1`).
+The maximum number of main chain elements that may need to be compared when
+inserting this element is `(2^k) - 1`;
+this also defines the "useful main chain" considered for binary search.
+*/
+template <typename Container>
+int	PmergeMe::computeK(int pendIdx, const Container& jacSeq)
+{
+	typename Container::const_iterator	it = jacSeq.begin();
+	int									i = 0;
+
+	for (; it != jacSeq.end(); ++it, ++i)
+		if (pendIdx <= *it)
+			return i;
+
+	// fallback (should not happen)
+	return i;
 }
 
 #endif

@@ -8,15 +8,9 @@
 #include <iostream>
 
 #include "../include/PmergeMe.hpp"
-#include "../include/utils.hpp" // DEBUG -> printContainerDebug(), toString()
+#include "../include/debug.hpp" // debug print fcts
 
-// forward declaration of static helper fcts
-
-static std::vector<int>	buildVecFromArgs(int argc, char** argv);
-static void				debugMainChainSorted(std::vector<int>& vec, int recDepth, int blockSize, int numBlocks, int numPending);
-static void				debugVecRearranged(std::vector<int>& vec, std::vector<int>& insertionOrder, int posPending);
-static void				debugPreInsert(std::vector<int>& vec, int pendIdx, int end, int k, int numMainBlocks, int numComp);
-static void				debugPostInsert(std::vector<int>& vec, int pendIdx, int insertPos, int numComp);
+static std::vector<int> buildVecFromArgs(int argc, char** argv);
 
 /**
 Sorts a vector of integers using the Ford–Johnson (Merge-Insertion) algorithm.
@@ -66,6 +60,7 @@ std::vector<int>	PmergeMe::sortVec(int argc, char** argv, int& numComp)
 
 		--recDepth;
 	}
+
 	return vec;
 }
 
@@ -172,9 +167,14 @@ void	PmergeMe::insertPendingBlocksVec(std::vector<int>& vec, int blockSize, int 
 	for (size_t i = 0; i < insertionOrder.size(); ++i)
 	{
 		int		pendIdx = insertionOrder[i]; // basically the b_x: pendIdx = 3 -> b3
-		size_t	numMovedBefore = PmergeMe::countSmallerPending(insertionOrder, i, pendIdx);
-		size_t	start = posPending + (pendIdx - 1 - numMovedBefore) * blockSize; // start index in vec of pending block
-		size_t	end = start + blockSize; // end index in vec of pending block
+		std::vector<int>::const_iterator	endIt = insertionOrder.begin();
+		std::advance(endIt, i);
+		size_t	numMovedBefore = PmergeMe::countSmallerPending(insertionOrder, endIt, pendIdx);
+
+		// Compute start and end indices for the pending block	
+		size_t	start = posPending + (pendIdx - 1 - numMovedBefore) * blockSize;
+		size_t	end = start + blockSize;
+
 		int		k = computeK(pendIdx, jacSeq);
 		size_t	numMainBlocks = computeUsefulMainEnd(k, posPending, blockSize);
 
@@ -241,56 +241,4 @@ static std::vector<int>	buildVecFromArgs(int argc, char** argv)
 		vec.push_back(std::atoi(argv[i]));
 
 	return vec;
-}
-
-////////////////
-// DEBUG INFO //
-////////////////
-
-// Debug information for the main chain after sorting
-static void	debugMainChainSorted(std::vector<int>& vec, int recDepth, int blockSize, int numBlocks, int numPending)
-{
-	// suppress unused warning in non-debug mode
-	(void)vec; (void)recDepth; (void)blockSize; (void)numBlocks; (void)numPending;
-
-	DEBUG_PRINT("\nRecDepth: " + toString(recDepth) + ", BlockSize: " + toString(blockSize) + ", NumBlocks: "
-				+ toString(numBlocks) + ", NumPending: " + toString(numPending));
-	DEBUG_PRINT(returnContainerDebug(vec, "vector: "));
-}
-
-// Debug information for the rearranged vector and insertion order
-static void	debugVecRearranged(std::vector<int>& vec, std::vector<int>& insertionOrder, int posPending)
-{
-	// suppress unused warning in non-debug mode
-	(void)vec; (void)insertionOrder; (void)posPending;
-
-	DEBUG_PRINT(returnContainerDebug(vec, "Rearranged [main|pend|(left)]: "));
-	DEBUG_PRINT("posPending: " + toString(posPending));
-	DEBUG_PRINT(returnContainerDebug(insertionOrder, "Insertion order: "));
-	DEBUG_PRINT("....");
-}
-
-// Debug information before inserting a pending block
-static void	debugPreInsert(std::vector<int>& vec, int pendIdx, int end, int k, int numMainBlocks, int numComp)
-{
-	// suppress unused warning in non-debug mode
-	(void)vec; (void)pendIdx, (void)end; (void)k; (void)numMainBlocks; (void)numComp;
-
-	DEBUG_PRINT("looking at b" + toString(pendIdx) + ", value: " + toString(vec[end-1]));
-	DEBUG_PRINT("k val: " + toString(k));
-	DEBUG_PRINT("last useful main chain block: " + toString(numMainBlocks));
-	DEBUG_PRINT("num of comps BEFORE insert: " + toString(numComp));
-}
-
-// Debug information after inserting a pending block
-static void	debugPostInsert(std::vector<int>& vec, int pendIdx, int insertPos, int numComp)
-{	
-	// suppress unused warning in non-debug mode
-	(void)vec; (void)pendIdx; (void)insertPos; (void)numComp;
-
-	DEBUG_PRINT("number of comps AFTER insert: " << numComp);
-	DEBUG_PRINT("Inserting at position: " << insertPos);
-	DEBUG_PRINT(returnContainerDebug(vec, "vector after b" + toString(pendIdx)
-		+ " is moved to main (pendIdx: "+ toString(pendIdx) + "): "));
-	DEBUG_PRINT("----");
 }

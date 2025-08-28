@@ -43,7 +43,7 @@ int	main(int argc, char** argv)
 
 		// === Sorting using 'list' ===
 		start = getCurrentTimeStruct();
-		sortedLst = PmergeMe::sortLst(argc, argv, numCompLst);
+		sortedLst = PmergeMe::sortList(argc, argv, numCompLst);
 		end = getCurrentTimeStruct();
 
 		printElapsedTime(start, end, argc - 1, "std::list<int>");

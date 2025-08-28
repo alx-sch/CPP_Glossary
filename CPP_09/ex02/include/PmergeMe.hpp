@@ -24,16 +24,21 @@ class	PmergeMe
 		static size_t			binaryInsertBlockVec(const std::vector<int>& vec, int value,
 									size_t blockSize, size_t numBlocks, int& numComp);
 
-		// PmergeMeLst.cpp
+		// PmergeMeList.cpp
 
-		static std::list<int>	sortLst(int argc, char** argv, int& numComp);
+		static std::list<int>	sortList(int argc, char** argv, int& numComp);
+		static int				sortPairsRecursivelyList(std::list<int>& lst, int& numComp, int recDepth);
+		static int				rearrangeList(std::list<int>& lst, int blockSize);
+		static void				insertPendingBlocksList(std::list<int>& lst, int blockSize, int numPending,
+									const std::list<int>& jacSeq, int& numComp);
+		static std::list<int>::iterator	binaryInsertBlockList(std::list<int>& lst, int value,
+											int blockSize, size_t numBlocks, int& numComp);
 
 		// PmergeMeUtils.cpp
 
 		static void				checkArgs(int argc, char** argv);
 		static int				getNumPending(int numBlocks);
 		static bool				isMainChain(int index, int blockSize, int totalSize);
-		static int				computeK(int pendIdx, const std::vector<int>& jacSeq);
 		static size_t			computeUsefulMainEnd(int k, size_t posPending, size_t blockSize);
 
 		// PmergeMe.tpp
@@ -45,7 +50,11 @@ class	PmergeMe
 		static Container		buildInsertOrder(int numPending, const Container& jacSeq);
 
 		template<typename Container>
-		static size_t			countSmallerPending(const Container& insertionOrder, size_t idx, int pendIdx);
+		static size_t			countSmallerPending(const Container& insertionOrder,
+									typename Container::const_iterator endIt, int pendIdx);
+
+		template<typename Container>
+		static int				computeK(int pendIdx, const Container& jacSeq);
 };
 
 # include "PmergeMe.tpp"
