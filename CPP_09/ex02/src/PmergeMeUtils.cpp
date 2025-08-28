@@ -39,9 +39,6 @@ void	PmergeMe::checkArgs(int argc, char** argv)
 */
 int PmergeMe::getNumPending(int numBlocks)
 {
-	if (numBlocks <= 2) // only one pair -> b1 directly compared; no pending
-		return 0;
-
 	int	numPending = (numBlocks / 2); // each pair contributes one 'b'
 	if (numBlocks % 2 != 0)	// if odd number of blocks, leftover 'b' also pending
 		++numPending;

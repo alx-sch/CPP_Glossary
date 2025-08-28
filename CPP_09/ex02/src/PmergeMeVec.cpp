@@ -61,12 +61,10 @@ std::vector<int>	PmergeMe::sortVec(int argc, char** argv, int& numComp)
 		int	numPending = getNumPending(numBlocks);
 
 		debugMainChainSorted(vec, recDepth, blockSize, numBlocks, numPending);
-
-		if (numPending > 0) // if there are no pending elements (only main chain: 'b1<a1') -> skip insertion step
+		if (numPending > 1) // no need to insert anything if there's only 1 pending element, already sorted! -> 'b1 < a1'
 			insertPendingBlocksVec(vec, blockSize, numPending, jacSeq, numComp);
 
 		--recDepth;
-		DEBUG_PRINT("");
 	}
 	return vec;
 }
@@ -128,7 +126,7 @@ int	PmergeMe::rearrangeVec(std::vector<int>& vec, int blockSize)
 {
 	std::vector<int>	mainChain, pending;
 	size_t				vecSize = vec.size();
-	int					posPending; // inde
+	int					posPending;
 
 	mainChain.reserve(vecSize); // overestimating, but oh well
 	pending.reserve(vecSize);
@@ -143,12 +141,8 @@ int	PmergeMe::rearrangeVec(std::vector<int>& vec, int blockSize)
 	}
 
 	posPending = mainChain.size();
-
-	// merge main-chain + pending (+ leftovers)
-	mainChain.insert(mainChain.end(), pending.begin(), pending.end());
-
-	// Reassign vec
-	vec = mainChain;
+	mainChain.insert(mainChain.end(), pending.begin(), pending.end()); // merge main-chain + pending (+ leftovers)
+	vec = mainChain; // Reassign vec
 
 	return posPending;
 }
@@ -172,7 +166,6 @@ void	PmergeMe::insertPendingBlocksVec(std::vector<int>& vec, int blockSize, int 
 		// numMainBlocks = posPending / blockSize; // whole main chain is considered during insertion
 
 		debugPreInsert(vec, end, k, numMainBlocks, numComp);
-
 		size_t	insertPos =	(pendIdx != 1)
 							? binaryInsertBlockVec(vec, vec[end-1], blockSize, numMainBlocks, numComp)
 							: 0; // first pending element (b1) can be inserted right away to top of main chain
@@ -181,8 +174,7 @@ void	PmergeMe::insertPendingBlocksVec(std::vector<int>& vec, int blockSize, int 
 			std::rotate(vec.begin() + insertPos, vec.begin() + start, vec.begin() + end); // moves main chain elements to right to make space
 
 		debugPostInsert(vec, pendIdx, insertPos, numComp);
-
-		posPending += blockSize;
+		posPending += blockSize; // main chain grew by one block -> posPending starts at +blockSize
 	}
 }
 
@@ -248,7 +240,7 @@ static void	debugMainChainSorted(std::vector<int>& vec, int recDepth, int blockS
 	// suppress unused warning in non-debug mode
 	(void)vec; (void)recDepth; (void)blockSize; (void)numBlocks; (void)numPending;
 
-	DEBUG_PRINT("RecDepth: " + toString(recDepth) + ", BlockSize: " + toString(blockSize) + ", NumBlocks: "
+	DEBUG_PRINT("\nRecDepth: " + toString(recDepth) + ", BlockSize: " + toString(blockSize) + ", NumBlocks: "
 				+ toString(numBlocks) + ", NumPending: " + toString(numPending));
 	DEBUG_PRINT(returnContainerDebug(vec, "vector: "));
 }
