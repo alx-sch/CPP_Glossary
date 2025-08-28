@@ -22,13 +22,13 @@ void	printIsSorted(const Container& c, const std::string& contName)
 	{
 		if (*it > *next) // Pair is not sorted
 		{
-			std::cout << RED << "not sorted" << RESET << std::endl;
+			std::cout << RED << "NOT SORTED" << RESET << std::endl;
 			return;
 		}
 		++it;
 		++next;
 	}
-	std::cout << GREEN << "sorted" << RESET << std::endl; // All elements sorted
+	std::cout << GREEN << "SORTED" << RESET << std::endl; // All elements sorted
 }
 
 // Prints the content of any container.

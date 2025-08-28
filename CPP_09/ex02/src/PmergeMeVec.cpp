@@ -10,6 +10,8 @@
 #include "../include/PmergeMe.hpp"
 #include "../include/utils.hpp" // DEBUG -> printContainerDebug(), toString()
 
+// forward declaration of static helper fcts
+
 static std::vector<int>	buildVecFromArgs(int argc, char** argv);
 static void				debugMainChainSorted(std::vector<int>& vec, int recDepth, int blockSize, int numBlocks, int numPending);
 static void				debugVecRearranged(std::vector<int>& vec, std::vector<int>& insertionOrder, int posPending);
@@ -167,7 +169,7 @@ void	PmergeMe::insertPendingBlocksVec(std::vector<int>& vec, int blockSize, int 
 		size_t	end = start + blockSize; // end index in vec of pending block
 		int		k = computeK(pendIdx, jacSeq);
 		size_t	numMainBlocks = computeUsefulMainEnd(k, posPending, blockSize);
-		//numMainBlocks = posPending / blockSize;
+		// numMainBlocks = posPending / blockSize; // whole main chain is considered during insertion
 
 		debugPreInsert(vec, end, k, numMainBlocks, numComp);
 

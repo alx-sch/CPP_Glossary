@@ -56,8 +56,9 @@ int	main(int argc, char** argv)
 		printIsSorted(sortedLst, "std::list<int>");
 
 		// How many comparisons were made?
-		printNumComp(numCompVec, "std::vector<int>");
-		printNumComp(numCompLst, "std::list<int>");
+		int	maxComps = maxComparisonsFJ(argc - 1);
+		printNumComp(numCompVec, maxComps, "std::vector<int>");
+		printNumComp(numCompLst, maxComps, "std::list<int>");
 	}
 	catch (const std::exception& e)
 	{
