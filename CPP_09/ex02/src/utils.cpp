@@ -51,7 +51,7 @@ void	printNumComp(int numComp, int maxComp, const std::string& contName)
 		std::cout << RED << " NOT OK" << RESET << std::endl;
 }
 
-// Converts a `size_t` to a string.
+// Converts a `int` to a string.
 // Used for debugging.
 std::string	toString(int n)
 {

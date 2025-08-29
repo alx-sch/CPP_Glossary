@@ -5,6 +5,7 @@
 #include "../include/PmergeMe.hpp"
 
 #include <cstdlib>	// atoi()
+#include <cstddef>	// size_t
 #include <list>
 #include <iterator>	// std::distance(), std::advance()
 

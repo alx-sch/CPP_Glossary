@@ -6,6 +6,7 @@
 #include "../include/debug.hpp" // debug print fcts
 
 #include <cstdlib>		// atoi()
+#include <cstddef>		// size_t
 #include <algorithm>	// swap_ranges(), std::rotate()
 #include <vector>
 

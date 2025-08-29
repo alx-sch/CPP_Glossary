@@ -3,6 +3,7 @@
 
 # include <vector>
 # include <list>
+# include <cstddef>	// size_t
 
 class	PmergeMe
 {

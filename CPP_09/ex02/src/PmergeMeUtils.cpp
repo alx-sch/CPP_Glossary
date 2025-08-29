@@ -1,6 +1,7 @@
 #include "../include/PmergeMe.hpp"
 
 #include <string>
+#include <cstddef>		// size_t
 #include <cstdlib>		// strtol()
 #include <climits>		// INT_MAX
 #include <cerrno>		// errno, ERANGE
