@@ -44,6 +44,7 @@ void	printContainer(const Container& c)
 		if (it != c.end())
 			std::cout << " ";
 	}
+	std::cout << std::endl;
 }
 
 // Returns the content of any container with formatting as a string.

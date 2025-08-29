@@ -43,12 +43,9 @@ void	debugPreInsert(const Container& c, int pendIdx, int end, int k, int numMain
 
 	// Get the element at "end-1" position generically
 	typename Container::const_iterator	it = c.begin();
-	int									idx = 0;
-	for (; it != c.end() && idx < end - 1; ++it, ++idx)
-		; // advance iterator to (end-1)
+	std::advance(it, end - 1);
 
-	if (it != c.end())
-		DEBUG_PRINT("looking at b" + toString(pendIdx) + ", value: " + toString(*it));
+	DEBUG_PRINT("looking at b" + toString(pendIdx) + ", value: " + toString(*it));
 	DEBUG_PRINT("k val: " + toString(k));
 	DEBUG_PRINT("last useful main chain block: " + toString(numMainBlocks));
 	DEBUG_PRINT("num of comps BEFORE insert: " + toString(numComp));

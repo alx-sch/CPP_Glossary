@@ -17,4 +17,4 @@ void	debugPostInsert(const Container& c, int pendIdx, int insertPos, int numComp
 
 # include "debug.tpp"
 
-#endif // DEBUG_HPP
+#endif

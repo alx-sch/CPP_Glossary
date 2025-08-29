@@ -2,15 +2,13 @@
 // https://dev.to/emuminov/human-explanation-and-step-by-step-visualisation-of-the-ford-johnson-algorithm-5g91
 // https://medium.com/@mohammad.ali.ibrahim.525/ford-johnson-algorithm-merge-insertion-4b024f0c3d42
 
-#include <cstdlib>		// atoi()
+#include <cstdlib>	// atoi()
 #include <list>
-#include <vector>
-#include <algorithm>	// std::rotate
-#include <iterator>		// distance()
+#include <iterator>	// std::distance()
 
 #include "../include/PmergeMe.hpp"
 
-static std::list<int> buildListFromArgs(int argc, char** argv);
+static std::list<int>	buildListFromArgs(int argc, char** argv);
 
 /**
 Sorts a list of integers using the Ford–Johnson (Merge-Insertion) algorithm.
@@ -38,17 +36,15 @@ Steps:
  @param numComp	Reference to an integer counting the number of comparisons made.
  @return		The sorted list of integers.
 */
-std::list<int> PmergeMe::sortList(int argc, char** argv, int& numComp)
+std::list<int>	PmergeMe::sortList(int argc, char** argv, int& numComp)
 {
-	std::list<int> lst = buildListFromArgs(argc, argv);
+	std::list<int>	lst = buildListFromArgs(argc, argv);
 	if (lst.size() <= 1) // Already sorted
 		return lst;
 
-	//int				recDepth = sortPairsRecursivelyList(lst, numComp, 1);
-	int recDepth = 0;
-	(void)numComp;
-	//int				maxPending = lst.size() / 2 + 1; // '+1' to accommodate for potential leftover
-	//std::list<int>	jacSeq = buildJacobsthalSeq<std::list<int> >(maxPending); // space between '> >' to avoid confusion with >> operator
+	int				recDepth = sortPairsRecursivelyList(lst, numComp, 1);
+	int				maxPending = lst.size() / 2 + 1; // '+1' to accommodate for potential leftover
+	std::list<int>	jacSeq = buildJacobsthalSeq<std::list<int> >(maxPending); // space between '> >' to avoid confusion with >> operator
 
 	while (recDepth > 0)
 	{
@@ -57,7 +53,7 @@ std::list<int> PmergeMe::sortList(int argc, char** argv, int& numComp)
 		int	numPending = getNumPending(numBlocks);
 
 		if (numPending > 1) // no need to insert anything if there's only 1 pending element, already sorted! -> 'b1 < a1'
-			//insertPendingBlocksList(lst, blockSize, numPending, jacSeq, numComp);
+			insertPendingBlocksList(lst, blockSize, numPending, jacSeq, numComp);
 
 		--recDepth;
 	}
@@ -93,8 +89,9 @@ int	PmergeMe::sortPairsRecursivelyList(std::list<int>& lst, int& numComp, int re
 
 	// Iterate over all adjacent block pairs
 	std::list<int>::iterator	it = lst.begin();
-	int							i = 0;
-	while (i + 2*blockSize - 1 < (int)lst.size())
+	size_t						i = 0;
+
+	while (i + 2*blockSize - 1 < lst.size())
 	{
 		// First block
 		std::list<int>::iterator	firstBlockStart = it;
@@ -102,28 +99,21 @@ int	PmergeMe::sortPairsRecursivelyList(std::list<int>& lst, int& numComp, int re
 		std::advance(firstBlockEnd, blockSize); // one past last of first block
 
 		// Second block
-		std::list<int>::iterator	secondBlockStart = firstBlockEnd;
-		std::list<int>::iterator	secondBlockEnd = secondBlockStart;
+		std::list<int>::iterator	secondBlockEnd = firstBlockEnd;
 		std::advance(secondBlockEnd, blockSize); // one past last of second block
 
-		// Compare the last element of the two blocks
-		std::list<int>::iterator	lastOfFirst = firstBlockEnd;
-		--lastOfFirst;
+		// temps
+		std::list<int>::iterator last1 = firstBlockEnd;
+		--last1;	// now points to last element of first block
 
-		std::list<int>::iterator	lastOfSecond = secondBlockEnd;
-		--lastOfSecond;
+		std::list<int>::iterator last2 = secondBlockEnd;
+		--last2;	// last element of second block
 
 		++numComp;
-		if (*lastOfFirst > *lastOfSecond)
-		{
-			// Move first block after second block
+		if (*last1 > *last2)
 			lst.splice(secondBlockEnd, lst, firstBlockStart, firstBlockEnd);
-			// Now 'it' points to start of second block, so we need to reset for next iteration
-			it = secondBlockEnd;
-		}
-		else
-			it = secondBlockEnd; // No swap, move to next pair
 
+		it = secondBlockEnd;
 		i += 2*blockSize;
 	}
 
@@ -141,32 +131,37 @@ and pending elements (+ leftovers) are at the back.
  @return			The index at which the pending elements start in `lst`.
 					All elements from this index onward belong to the pending chain.
 */
-int PmergeMe::rearrangeList(std::list<int>& lst, int blockSize)
+int	PmergeMe::rearrangeList(std::list<int>& lst, int blockSize)
 {
 	std::list<int>::iterator	it = lst.begin();
-	int							idx = 0;
 	int							posPending = 0;
+	size_t						idx = 0;
 
-	// Move non-main-chain elements to the end of the list
-	while (it != lst.end())
+	// Move main-chain elements to the front of the list
+	while (idx + blockSize < lst.size())
 	{
-		std::list<int>::iterator	next = it;
-		++next; // store next because we may splice
+		std::list<int>::iterator	blockEnd = it;
+		std::advance(blockEnd, blockSize);
 
-		if (!isMainChain(idx, blockSize, lst.size()))
-			lst.splice(lst.end(), lst, it); // move 'it' to the end
-		else
-			++posPending; // main chain element, increment count
+		idx = std::distance(lst.begin(), it);
 
-		it = next;
-		++idx;
+		if (isMainChain(idx, blockSize, lst.size()))
+		{
+			std::list<int>::iterator	mainEnd = lst.begin();
+			for (int i = 0; i < posPending; ++i)
+				++mainEnd;
+			lst.splice(mainEnd, lst, it, blockEnd); // move main-chain block to the front
+			posPending += blockSize;
+		}
+
+		it = blockEnd;
 	}
 
 	return posPending;
 }
 
 /**
-Inserts pending blocks into the main chain within a vector.
+Inserts pending blocks into the main chain within a list.
 
 The function uses the Jacobsthal sequence and Ford–Johnson logic to
 determine the order and number of comparisons needed for insertion.
@@ -182,14 +177,12 @@ last element of each block. The main chain grows as blocks are inserted.
 void	PmergeMe::insertPendingBlocksList(std::list<int>& lst, int blockSize, int numPending,
 			const std::list<int>& jacSeq, int& numComp)
 {
-	int							posPending = rearrangeList(lst, blockSize);
-	std::list<int>				insertionOrder = buildInsertOrder(numPending, jacSeq);
+	int				posPending = rearrangeList(lst, blockSize);
+	std::list<int>	insertionOrder = buildInsertOrder(numPending, jacSeq);
 
-	for (std::list<int>::iterator itOrder = insertionOrder.begin(); itOrder != insertionOrder.end(); ++itOrder)
+	for (std::list<int>::const_iterator itOrder = insertionOrder.begin(); itOrder != insertionOrder.end(); ++itOrder)
 	{
 		int		pendIdx = *itOrder; // get current pending block index
-
-		// compute how many pending blocks are smaller
 		size_t	numMovedBefore = PmergeMe::countSmallerPending(insertionOrder, itOrder, pendIdx);
 
 		// locate the start of the pending block in the main list
@@ -213,34 +206,57 @@ void	PmergeMe::insertPendingBlocksList(std::list<int>& lst, int blockSize, int n
 												: lst.begin(); // first pending element (b1) can be inserted right away to top of main chain
 
 		if (insertIt != startIt) // move the block if needed
-			lst.splice(insertIt, lst, startIt, ++blockEndIt	); // move the whole pending block
+			lst.splice(insertIt, lst, startIt, blockEndIt); // move the whole pending block
 
 		posPending += blockSize;
 	}
 }
 
+/**
+Finds the insertion position for a pending block in a main chain of blocks.
+
+Uses binary search to locate the position of the pending block based on its
+last element, comparing it only with the last element of each main chain block.
+Counts comparisons in `numComp`.
+
+ @param lst			List containing main chain blocks (assumed sorted by last element of each block).
+ @param value		The representative value of the pending block (usually its last element).
+ @param blockSize	Number of elements per block.
+ @param numBlocks	Number of useful main chain blocks to consider for insertion.
+ @param numComp		Counter for the number of comparisons made.
+ @return			Iterator pointing to the position in `lst` where the pending block should be inserted.
+*/
 std::list<int>::iterator	PmergeMe::binaryInsertBlockList(std::list<int>& lst, int value,
 								int blockSize, size_t numBlocks, int& numComp)
 {
-    std::list<int>::iterator left = lst.begin();
-    std::list<int>::iterator right = lst.begin();
-    std::advance(right, numBlocks * blockSize);
+	size_t left = 0;			// inclusive
+	size_t right = numBlocks;	// exclusive
 
-    while (std::distance(left, right) > 0)
-    {
-        std::list<int>::iterator mid = left;
-        std::advance(mid, (std::distance(left, right) / blockSize / 2) * blockSize);
-        std::list<int>::iterator midValueIt = mid;
-        std::advance(midValueIt, blockSize - 1);
+	while (left < right)
+	{
+		size_t mid = (left + right) / 2;
 
-        ++numComp;
-        if (value < *midValueIt)
-            right = mid;
-        else
-            std::advance(left, std::distance(mid, left) + blockSize);
-    }
-    return left;
+		// move an iterator to the last element of the mid-block
+		std::list<int>::iterator	midIt = lst.begin();
+		std::advance(midIt, (blockSize - 1) + mid*blockSize);
+
+		++numComp;
+		if (value < *midIt)
+			right = mid;
+		else
+			left = mid + 1;
+	}
+
+	// Now left * blockSize is the correct insertion position
+	std::list<int>::iterator	insertPos = lst.begin();
+	std::advance(insertPos, left * blockSize);
+
+	return insertPos;
 }
+
+////////////
+// HELPER //
+////////////
 
 // Builds a list from command line arguments
 static std::list<int>	buildListFromArgs(int argc, char** argv)

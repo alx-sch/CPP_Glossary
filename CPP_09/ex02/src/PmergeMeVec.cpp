@@ -5,12 +5,11 @@
 #include <cstdlib>		// atoi()
 #include <algorithm>	// swap_ranges(), std::rotate()
 #include <vector>
-#include <iostream>
 
 #include "../include/PmergeMe.hpp"
 #include "../include/debug.hpp" // debug print fcts
 
-static std::vector<int> buildVecFromArgs(int argc, char** argv);
+static std::vector<int>	buildVecFromArgs(int argc, char** argv);
 
 /**
 Sorts a vector of integers using the Ford–Johnson (Merge-Insertion) algorithm.
@@ -216,9 +215,9 @@ size_t	PmergeMe::binaryInsertBlockVec(	const std::vector<int>& vec, int value,
 		size_t	mid = (left + right) / 2;
 		int		midValue = vec[(blockSize - 1) + mid*blockSize];
 
+		DEBUG_PRINT("comparing with val: " + toString(midValue) + " (block: " + toString(mid + 1)
+			+ ", pos: " + toString((mid + 1) * blockSize - 1) + ")");
 		++numComp;
-		DEBUG_PRINT("comparing with val: " << midValue << " (block: " << (mid + 1) << ", pos: "
-		<< (mid + 1) * blockSize - 1 << ")");
 		if (value < midValue)
 			right = mid;
 		else
