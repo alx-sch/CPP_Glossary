@@ -2,12 +2,12 @@
 // https://dev.to/emuminov/human-explanation-and-step-by-step-visualisation-of-the-ford-johnson-algorithm-5g91
 // https://medium.com/@mohammad.ali.ibrahim.525/ford-johnson-algorithm-merge-insertion-4b024f0c3d42
 
+#include "../include/PmergeMe.hpp"
+#include "../include/debug.hpp" // debug print fcts
+
 #include <cstdlib>		// atoi()
 #include <algorithm>	// swap_ranges(), std::rotate()
 #include <vector>
-
-#include "../include/PmergeMe.hpp"
-#include "../include/debug.hpp" // debug print fcts
 
 static std::vector<int>	buildVecFromArgs(int argc, char** argv);
 

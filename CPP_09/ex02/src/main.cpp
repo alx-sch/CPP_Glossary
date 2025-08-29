@@ -1,10 +1,10 @@
-#include <iostream>
-#include <vector>
-#include <list>
-
 #include "../include/PmergeMe.hpp"
 #include "../include/utils.hpp"
 #include "../include/define.hpp"
+
+#include <iostream>
+#include <vector>
+#include <list>
 
 /**
 Handles sorting of integer arguments using both VECTOR and LIST containers.

@@ -1,10 +1,10 @@
+#include "../include/PmergeMe.hpp"
+
 #include <string>
 #include <cstdlib>		// strtol()
 #include <climits>		// INT_MAX
 #include <cerrno>		// errno, ERANGE
 #include <stdexcept>	// runtime_error()
-
-#include "../include/PmergeMe.hpp"
 
 // Checks if the provided arguments are valid integers.
 // Throws exceptions for non-numeric values, non-positive numbers,

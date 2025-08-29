@@ -1,10 +1,10 @@
+#include "../include/utils.hpp"
+#include "../include/define.hpp"	// for color codes, WIDTH_N, WIDTH_C
+
 #include <iostream>
 #include <iomanip>		// setw()
 #include <sstream>		// for std::ostringstream
 #include <cmath>		// ceil(), log2()
-
-#include "../include/utils.hpp"
-#include "../include/define.hpp"	// for color codes, WIDTH_N, WIDTH_C
 
 // Returns `timeval` struct representing the current time.
 timeval	getCurrentTimeStruct()

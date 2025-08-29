@@ -1,8 +1,8 @@
 #ifndef DEBUG_TPP
 # define DEBUG_TPP
 
- #include <iostream>	// std::cout, std::endl
 # include "utils.hpp"	// toString(), returnContainerDebug()
+# include <iostream>	// std::cout, std::endl
 
 // compile with 'make debug' to print debug output
 // 'do/while(0)' ensures the macro behaves like a single statement

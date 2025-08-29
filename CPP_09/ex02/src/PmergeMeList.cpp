@@ -2,11 +2,11 @@
 // https://dev.to/emuminov/human-explanation-and-step-by-step-visualisation-of-the-ford-johnson-algorithm-5g91
 // https://medium.com/@mohammad.ali.ibrahim.525/ford-johnson-algorithm-merge-insertion-4b024f0c3d42
 
+#include "../include/PmergeMe.hpp"
+
 #include <cstdlib>	// atoi()
 #include <list>
-#include <iterator>	// std::distance()
-
-#include "../include/PmergeMe.hpp"
+#include <iterator>	// std::distance(), std::advance()
 
 static std::list<int>	buildListFromArgs(int argc, char** argv);
 

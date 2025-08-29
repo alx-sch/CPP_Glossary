@@ -6,13 +6,6 @@
 
 class	PmergeMe
 {
-	private:
-		// Private as to prevent instantiation --> PmergeMe is pure utility / static class
-		PmergeMe();
-		PmergeMe(const PmergeMe& other);
-		PmergeMe& operator=(const PmergeMe& other);
-		~PmergeMe();
-
 	public:
 		// PmergeMeVec.cpp
 
@@ -31,8 +24,8 @@ class	PmergeMe
 		static int				rearrangeList(std::list<int>& lst, int blockSize);
 		static void				insertPendingBlocksList(std::list<int>& lst, int blockSize, int numPending,
 									const std::list<int>& jacSeq, int& numComp);
-		static std::list<int>::iterator	binaryInsertBlockList(std::list<int>& lst, int value,
-											int blockSize, size_t numBlocks, int& numComp);
+		static std::list<int>::iterator	binaryInsertBlockList(std::list<int>& lst, int value, int blockSize,
+											size_t numBlocks, int& numComp);
 
 		// PmergeMeUtils.cpp
 
@@ -55,6 +48,13 @@ class	PmergeMe
 
 		template<typename Container>
 		static int				computeK(int pendIdx, const Container& jacSeq);
+
+	private:
+		// Private as to prevent instantiation --> PmergeMe is pure utility / static class
+		PmergeMe();
+		PmergeMe(const PmergeMe& other);
+		PmergeMe& operator=(const PmergeMe& other);
+		~PmergeMe();
 };
 
 # include "PmergeMe.tpp"
