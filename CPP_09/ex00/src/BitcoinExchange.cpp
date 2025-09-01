@@ -68,6 +68,7 @@ void	BitcoinExchange::parseDb()
 	double				rate;
 
 	std::getline(file, line); // Skip header line
+	++lineCounter;
 
 	while (std::getline(file, line)) {
 		++lineCount;
@@ -132,6 +133,7 @@ void	BitcoinExchange::processInput() const
 	}
 
 	std::getline(file, line); // Skip header line
+	++lineCount;
 
 	while (std::getline(file, line)) {
 		++lineCount;
