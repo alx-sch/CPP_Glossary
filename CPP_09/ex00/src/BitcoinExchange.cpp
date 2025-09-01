@@ -68,7 +68,7 @@ void	BitcoinExchange::parseDb()
 	double				rate;
 
 	std::getline(file, line); // Skip header line
-	++lineCounter;
+	++lineCount;
 
 	while (std::getline(file, line)) {
 		++lineCount;
