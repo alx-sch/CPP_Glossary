@@ -1741,8 +1741,11 @@ All `<algorithms>` functions are listed here: [https://cplusplus.com/reference/a
 
 ### Ford-Johnson Algorithm 
 
-The Ford-Johnson algorithm, or merge insertion algorithm, is well described by Donald E. Knuth in *The Art of Computer Programming*<a href="#footnote1">[1]</a></sup>, referencing 
-a method discovered by Lester Ford, Jr. and Selmer Johnson<sup><a href="#footnote2">[2]</a></sup>
+The Ford–Johnson algorithm, also known as the merge-insertion algorithm, is well described by Donald E. Knuth in *The Art of Computer Programming*<sup><a href="#footnote1">[1]</a></sup>, referencing a method discovered by Lester Ford, Jr. and Selmer Johnson<sup><a href="#footnote2">[2]</a></sup>.  
+It is a minimum-comparison sorting method, which was shown to result in the optimum (least) number of comparisons needed to sort sequences of 1–11 elements, as well as for 20 and 21 elements. While it is certainly interesting in theoretical mathematics, this method of sorting is less attractive when the goal is to optimize computational efficiency.
+
+Implementing the Ford-Johnson algorithm, these following two articles help to understand the algorithm better by visualizing the recursive nature of the method and by further specifying the insertion order of pending elements into the main chain (an "expanded" Jacobsthal Sequence, effectively:  `1, 3, 2, 5, 4, 11, 10, 9, 8, 7, 16, 15, 14, 13 ` for n = 16).
+
 
 <div align="right">
   <b><a href="#top">↥ back to top</a></b>
@@ -1752,5 +1755,5 @@ a method discovered by Lester Ford, Jr. and Selmer Johnson<sup><a href="#footnot
 
 ## References
 
-<a name="footnote1">[1]</a> [Knuth, D.E. (1998). *The Art of Computer Programming, Vol. 3*. Addison Wesley Longman. 184–186](https://seriouscomputerist.atariverse.com/media/pdf/book/Art%20of%20Computer%20Programming%20-%20Volume%203%20(Sorting%20&%20Searching).pdf) <br>
-<a name="footnote2">[1]</a> [Ford, Lester R. Jr.; Johnson, Selmer M. (1959). *A tournament problem*. American Mathematical Monthly. **66**: 387–389. doi:10.2307/2308750](https://sci-hub.se/10.1080/00029890.1959.11989306) <br>
+<a name="footnote1">[1]</a> [Knuth, D.E. (1998). *The Art of Computer Programming, Vol. 3*. Addison Wesley Longman. 184–86](https://seriouscomputerist.atariverse.com/media/pdf/book/Art%20of%20Computer%20Programming%20-%20Volume%203%20(Sorting%20&%20Searching).pdf) <br>
+<a name="footnote2">[2]</a> [Ford, Lester R. Jr.; Johnson, Selmer M. (1959). *A tournament problem*. American Mathematical Monthly. **66**: 387–89. doi:10.2307/2308750](https://sci-hub.se/10.1080/00029890.1959.11989306) <br>
