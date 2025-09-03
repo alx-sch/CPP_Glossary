@@ -48,7 +48,7 @@ class	PmergeMe
 									typename Container::const_iterator endIt, int pendIdx);
 
 		template<typename Container>
-		static int				computeK(int pendIdx, const Container& jacSeq);
+		static int				computeG(int pendIdx, const Container& jacSeq);
 
 	private:
 		// Private as to prevent instantiation --> PmergeMe is pure utility / static class

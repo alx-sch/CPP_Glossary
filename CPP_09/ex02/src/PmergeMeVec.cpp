@@ -175,10 +175,10 @@ void	PmergeMe::insertPendingBlocksVec(std::vector<int>& vec, int blockSize, int 
 		size_t	start = posPending + (pendIdx - 1 - numMovedBefore) * blockSize;
 		size_t	end = start + blockSize;
 
-		int		k = computeK(pendIdx, jacSeq);
-		size_t	numMainBlocks = computeUsefulMainEnd(k, posPending, blockSize);
+		int		g = computeG(pendIdx, jacSeq);
+		size_t	numMainBlocks = computeUsefulMainEnd(g, posPending, blockSize);
 
-		debugPreInsert(vec, pendIdx, end, k, numMainBlocks, numComp);
+		debugPreInsert(vec, pendIdx, end, g, numMainBlocks, numComp);
 		size_t	insertPos =	(pendIdx != 1)
 							? binaryInsertBlockVec(vec, vec[end-1], blockSize, numMainBlocks, numComp)
 							: 0; // first pending element (b1) can be inserted right away to top of main chain

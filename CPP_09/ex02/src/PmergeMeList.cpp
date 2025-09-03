@@ -194,8 +194,8 @@ void	PmergeMe::insertPendingBlocksList(std::list<int>& lst, int blockSize, int n
 		std::list<int>::iterator	blockEndIt = startIt;
 		std::advance(blockEndIt, blockSize);
 
-		int		k = computeK(pendIdx, jacSeq);
-		size_t	numMainBlocks = computeUsefulMainEnd(k, posPending, blockSize);
+		int		g = computeG(pendIdx, jacSeq);
+		size_t	numMainBlocks = computeUsefulMainEnd(g, posPending, blockSize);
 
 		// iterator to last element of pending block
 		std::list<int>::iterator	lastPendIt = blockEndIt;
