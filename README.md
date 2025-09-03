@@ -1742,15 +1742,53 @@ All `<algorithms>` functions are listed here: [https://cplusplus.com/reference/a
 ### Ford-Johnson Algorithm 
 
 The Ford–Johnson algorithm, also known as the merge-insertion algorithm, is well described by Donald E. Knuth in *The Art of Computer Programming*<sup><a href="#footnote1">[1]</a></sup>, referencing a method discovered by Lester Ford, Jr. and Selmer Johnson<sup><a href="#footnote2">[2]</a></sup>.  
-It is a minimum-comparison sorting method, which was shown to result in the optimum (least) number of comparisons needed to sort sequences of 1–11 elements, as well as for 20 and 21 elements. While it is certainly interesting in theoretical mathematics, this method of sorting is less attractive when the goal is to optimize computational efficiency.
+It is a minimum-comparison sorting method, which has been shown to result in the optimal (least) number of comparisons needed to sort sequences of 1–11 elements, as well as for 20 and 21 elements. While it is certainly interesting in theoretical mathematics, this method of sorting is less attractive when the goal is to optimize computational efficiency.
 
 When implementing the Ford–Johnson algorithm, the following two articles are especially helpful as they visualize the recursive nature of the method and clarify the insertion order of pending elements into the main chain:
-- by emuminov, *Human explanation and step-by-step visualisation of the Ford-Johnson algorithm* (Nov 13, 2024) [on DEV Community](https://dev.to/emuminov/human-explanation-and-step-by-step-visualisation-of-the-ford-johnson-algorithm-5g91).
-- by Mohammad A. Ibrahim, *Ford-Johnson Algorithm (Merge-insertion)* (Jul 22, 2025) [on Medium](https://medium.com/@mohammad.ali.ibrahim.525/ford-johnson-algorithm-merge-insertion-4b024f0c3d42).
+- by emuminov, *Human explanation and step-by-step visualisation of the Ford-Johnson algorithm* (Nov 13, 2024), [DEV Community](https://dev.to/emuminov/human-explanation-and-step-by-step-visualisation-of-the-ford-johnson-algorithm-5g91).
+- by Mohammad A. Ibrahim, *Ford-Johnson Algorithm (Merge-insertion)* (Jul 22, 2025), [Medium](https://medium.com/@mohammad.ali.ibrahim.525/ford-johnson-algorithm-merge-insertion-4b024f0c3d42).
+
+However, these implementations — and many others I’ve seen — tend to overcomplicate the binary insertion step by keeping track of every single element in the main chain. While it makes sense to use *a<sub>x</sub>* as the last exclusive end when inserting *b<sub>x</sub>* into the main chain, this is not necessary to achieve the minimum number of comparisons in the worst case, as described here<sup><a href="#footnote1">[1]</a></sup>:
+
+<p align="center">
+    <img src="https://github.com/alx-sch/42_CPP_00-04/blob/main/.assets/max_comp.png" alt="max_comp.png" width="650"/>
+</p>
+
+This means that any sequence of `n` numbers can be sorted by the Ford–Johnson algorithm with at most `F(n)` comparisons. For example, 21 numbers can be sorted in no more than 66 comparisons.
+
+While Knuth does initially describe inserting *b<sub>x</sub>* before *a<sub>x</sub>* here:
+
+<p align="center">
+    <img src="https://github.com/alx-sch/42_CPP_00-04/blob/main/.assets/FJ.png" alt="FJ.png" width="650"/>
+</p>
+
+He later generalizes this procedure in a way that is analogous to the insights shared by Ford and Johnson in their paper:
+
+<p align="center">
+    <img src="https://github.com/alx-sch/42_CPP_00-04/blob/main/.assets/FJ_generalized.png" alt="FJ_generalized.png" width="650" />
+</p>
+
+Meaning that the Ford-Johnson algorithm 'merely' requires inserting pending elements "in such a way that each of *b<sub>k<sub>t</sub></sub>*, *b<sub>k<sub>t</sub>-1</sub>*, ..., *b<sub>k<sub>t-1</sub>+1</sub>* can be inserted
+into the main chain with at most k comparisons"<sup><a href="#footnote1">[1]</a></sup>.    
+
+For example when inserting 13 pending elements (*b<sub>1<sub>*–*b<sub>13<sub>*) in the following order: 
+
+```
+b1; b3, b2; b5, b4; b11, b10, b9, b8, b7, b6; b13, b12 
+```
+
+You have 5 insertion groups:
+- group *t<sub>1<sub>*, k = 1: b1
+- group *t<sub>2<sub>*, k = 3: b3, b2
+- group *t<sub>3<sub>*, k = 5: b5, b4
+- group *t<sub>4<sub>*, k = 11: b11, b10, b9, b8, b7, b6
+- group *t<sub>5<sub>*, k = : b13, b12
+
+The max
 
 
 <div align="right">
-  <b><a href="#top">↥ back to top</a></b>
+<b><a href="#top">↥ back to top</a></b>
 </div>
 
 ---
