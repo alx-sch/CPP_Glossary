@@ -1762,7 +1762,7 @@ While Knuth does describe inserting *b<sub>2</sub>* before *a<sub>2</sub>* here:
     <img src="https://github.com/alx-sch/42_CPP_00-04/blob/main/.assets/FJ.png" alt="FJ.png" width="650"/>
 </p>
 
-He later generalizes this procedure in a way that is analogous to the insights shared by Ford and Johnson in their paper:
+He later generalizes this procedure in a way that is analogous to the insights originally shared by Ford and Johnson in their paper:
 
 <p align="center">
     <img src="https://github.com/alx-sch/42_CPP_00-04/blob/main/.assets/FJ_generalized.png" alt="FJ_generalized.png" width="650" />
