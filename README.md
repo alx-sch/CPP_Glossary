@@ -1741,20 +1741,20 @@ All `<algorithms>` functions are listed here: [https://cplusplus.com/reference/a
 
 ### Ford-Johnson Algorithm 
 
-The Ford–Johnson algorithm, also known as the merge-insertion algorithm, is well described by Donald E. Knuth in *The Art of Computer Programming*<sup><a href="#footnote1">[1]</a></sup>, referencing a method discovered by Lester Ford, Jr. and Selmer Johnson<sup><a href="#footnote2">[2]</a></sup>.  
+The Ford-Johnson algorithm, also known as the merge-insertion algorithm, is well described by Donald E. Knuth in *The Art of Computer Programming*<sup><a href="#footnote1">[1]</a></sup>, referencing a method discovered by Lester Ford, Jr. and Selmer Johnson<sup><a href="#footnote2">[2]</a></sup>.  
 It is a minimum-comparison sorting method, which has been shown to result in the optimal (least) number of comparisons needed to sort sequences of 1–11 elements, as well as for 20 and 21 elements. It should be noted that while this method offers valuable insight in theoretical mathematics, alternative approaches may be better suited when optimizing for computational efficiency.
 
-When implementing the Ford–Johnson algorithm, the following two articles are especially helpful as they visualize the recursive nature of the method and clarify the insertion order of pending elements into the main chain:
+When implementing the Ford-Johnson algorithm, the following two articles are especially helpful as they visualize the recursive nature of the method and clarify the insertion order of pending elements into the main chain:
 - by emuminov, *Human explanation and step-by-step visualisation of the Ford-Johnson algorithm* (Nov 13, 2024), [DEV Community](https://dev.to/emuminov/human-explanation-and-step-by-step-visualisation-of-the-ford-johnson-algorithm-5g91).
 - by Mohammad A. Ibrahim, *Ford-Johnson Algorithm (Merge-insertion)* (Jul 22, 2025), [Medium](https://medium.com/@mohammad.ali.ibrahim.525/ford-johnson-algorithm-merge-insertion-4b024f0c3d42).
 
-However, these implementations — and many others I’ve seen — tend to overcomplicate the binary insertion step by keeping track of every single element in the main chain. While it makes sense to use *a<sub>x</sub>* as the last exclusive end when inserting *b<sub>x</sub>* into the main chain, this is not necessary to achieve the minimum number of comparisons in the worst case, as described here<sup><a href="#footnote1">[1]</a></sup>:
+However, these implementations — and many others I’ve seen — tend to overcomplicate the binary insertion step by keeping track of every single element in the main chain. While it might make sense (and a lot of work) to use *a<sub>x</sub>* as the last exclusive end when inserting *b<sub>x</sub>* into the main chain, this is not necessary to achieve the minimum number of comparisons in the worst case, as described here<sup><a href="#footnote1">[1]</a></sup>:
 
 <p align="center">
     <img src="https://github.com/alx-sch/42_CPP_00-04/blob/main/.assets/max_comp.png" alt="max_comp.png" width="650"/>
 </p>
 
-This means that any sequence of `n` numbers can be sorted by the Ford–Johnson algorithm with at most `F(n)` comparisons. For example, 21 numbers can be sorted in no more than 66 comparisons.
+This means that any sequence of `n` numbers can be sorted by the Ford-Johnson algorithm with at most `F(n)` comparisons. For example, 21 numbers can be sorted in no more than 66 comparisons.
 
 While Knuth does initially describe inserting *b<sub>x</sub>* before *a<sub>x</sub>* here:
 
