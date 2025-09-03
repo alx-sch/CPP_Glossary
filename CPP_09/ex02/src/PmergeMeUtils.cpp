@@ -81,18 +81,18 @@ The number of blocks is limited by the maximum allowed by the insertion group `k
 (`2^k - 1`), and cannot exceed the number of blocks currently available in
 the main chain.
 
- @param k			Insertion group from `computeK()`
+ @param g			Insertion group from `computeK()`
  @param posPending	Number of elements currently in main chain
  @param blockSize	Size of each block
  @return			Number of "useful" blocks to consider in binary search
 */
 size_t	PmergeMe::computeUsefulMainEnd(int k, size_t posPending, size_t blockSize)
 {
-	size_t	maxBlocks = (1u << k) - 1; // 2^k - 1 blocks allowed according to FJ
+	size_t	usefulEnd = (1u << k) - 1; // 2^k - 1 blocks allowed according to FJ
 	size_t	availableBlocks = posPending / blockSize; // blocks in main chain
 
-	if (maxBlocks > availableBlocks)
-		maxBlocks = availableBlocks;
+	if (usefulEnd > availableBlocks)
+		usefulEnd = availableBlocks;
 
-	return maxBlocks;
+	return usefulEnd;
 }

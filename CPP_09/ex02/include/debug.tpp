@@ -37,16 +37,16 @@ void	debugVecRearranged(const Container& c, const Container& insertionOrder, int
 
 // Debug information before inserting a pending block
 template <typename Container>
-void	debugPreInsert(const Container& c, int pendIdx, int end, int g, int numMainBlocks, int numComp)
+void	debugPreInsert(const Container& c, int pendIdx, int end, int k, int numMainBlocks, int numComp)
 {
-	(void)c; (void)pendIdx; (void)end; (void)g; (void)numMainBlocks; (void)numComp;
+	(void)c; (void)pendIdx; (void)end; (void)k; (void)numMainBlocks; (void)numComp;
 
 	// Get the element at "end-1" position generically
 	typename Container::const_iterator	it = c.begin();
 	std::advance(it, end - 1);
 
 	DEBUG_PRINT("looking at b" + toString(pendIdx) + ", value: " + toString(*it));
-	DEBUG_PRINT("insertion group: " + toString(g));
+	DEBUG_PRINT("insertion group k: " + toString(k));
 	DEBUG_PRINT("last useful main chain block: " + toString(numMainBlocks));
 	DEBUG_PRINT("num of comps BEFORE insert: " + toString(numComp));
 }

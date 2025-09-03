@@ -120,7 +120,7 @@ size_t	PmergeMe::countSmallerPending(const Container& insertionOrder, typename C
 }
 
 /**
-Computes the "insertion group" `g` for a given pending element index.
+Computes the "insertion group" `k` for a given pending element index.
 
 The maximum number of main chain elements that may need to be compared when
 inserting this element is `(2^k) - 1`; this also defines the "useful main chain"
@@ -128,10 +128,10 @@ considered for binary search.
 
  @param pendIdx	1-based index of the pending element (starting from b1)
  @param jacSeq	Jacobsthal sequence (no duplicates, starting with 0: 0, 1, 3, 5, ...)
- @return		1-based index of the insertion group (starting from g1)
+ @return		1-based index of the insertion group
 */
 template <typename Container>
-int	PmergeMe::computeG(int pendIdx, const Container& jacSeq)
+int	PmergeMe::computeK(int pendIdx, const Container& jacSeq)
 {
 	typename Container::const_iterator	it = jacSeq.begin();
 	int									i = 0;

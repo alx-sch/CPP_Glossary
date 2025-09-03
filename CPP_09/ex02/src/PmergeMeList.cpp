@@ -194,8 +194,8 @@ void	PmergeMe::insertPendingBlocksList(std::list<int>& lst, int blockSize, int n
 		std::list<int>::iterator	blockEndIt = startIt;
 		std::advance(blockEndIt, blockSize);
 
-		int		g = computeG(pendIdx, jacSeq);
-		size_t	numMainBlocks = computeUsefulMainEnd(g, posPending, blockSize);
+		int		k = computeK(pendIdx, jacSeq);
+		size_t	usefulMainElements = computeUsefulMainEnd(k, posPending, blockSize);
 
 		// iterator to last element of pending block
 		std::list<int>::iterator	lastPendIt = blockEndIt;
@@ -203,7 +203,7 @@ void	PmergeMe::insertPendingBlocksList(std::list<int>& lst, int blockSize, int n
 
 		// find insertion point in main chain
 		std::list<int>::iterator	insertIt =	(pendIdx != 1)
-												? binaryInsertBlockList(lst, *lastPendIt, blockSize, numMainBlocks, numComp)
+												? binaryInsertBlockList(lst, *lastPendIt, blockSize, usefulMainElements, numComp)
 												: lst.begin(); // first pending element (b1) can be inserted right away to top of main chain
 
 		if (insertIt != startIt) // move the block if needed
