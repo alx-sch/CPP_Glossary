@@ -1744,7 +1744,9 @@ All `<algorithms>` functions are listed here: [https://cplusplus.com/reference/a
 The Ford–Johnson algorithm, also known as the merge-insertion algorithm, is well described by Donald E. Knuth in *The Art of Computer Programming*<sup><a href="#footnote1">[1]</a></sup>, referencing a method discovered by Lester Ford, Jr. and Selmer Johnson<sup><a href="#footnote2">[2]</a></sup>.  
 It is a minimum-comparison sorting method, which was shown to result in the optimum (least) number of comparisons needed to sort sequences of 1–11 elements, as well as for 20 and 21 elements. While it is certainly interesting in theoretical mathematics, this method of sorting is less attractive when the goal is to optimize computational efficiency.
 
-Implementing the Ford-Johnson algorithm, these following two articles help to understand the algorithm better by visualizing the recursive nature of the method and by further specifying the insertion order of pending elements into the main chain (an "expanded" Jacobsthal Sequence, effectively:  `1, 3, 2, 5, 4, 11, 10, 9, 8, 7, 16, 15, 14, 13 ` for n = 16).
+When implementing the Ford–Johnson algorithm, the following two articles are especially helpful as they visualize the recursive nature of the method and clarify the insertion order of pending elements into the main chain:
+- by emuminov, *Human explanation and step-by-step visualisation of the Ford-Johnson algorithm* (Nov 13, 2024) [on DEV Community](https://dev.to/emuminov/human-explanation-and-step-by-step-visualisation-of-the-ford-johnson-algorithm-5g91).
+- by Mohammad A. Ibrahim, *Ford-Johnson Algorithm (Merge-insertion)* (Jul 22, 2025) [on Medium](https://medium.com/@mohammad.ali.ibrahim.525/ford-johnson-algorithm-merge-insertion-4b024f0c3d42).
 
 
 <div align="right">
