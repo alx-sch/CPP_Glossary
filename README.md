@@ -1737,11 +1737,16 @@ All `<algorithms>` functions are listed here: [https://cplusplus.com/reference/a
 
 ### Ford-Johnson Algorithm 
 
-
-XXX
+The Ford-Johnson algorithm, or merge insertion algorithm, is well described by Donald E. Knuth in *The Art of Computer Programming*<a href="#footnote1">[1]</a></sup>, referencing 
+a method discovered by Lester Ford, Jr. and Selmer Johnson<sup><a href="#footnote2">[2]</a></sup>
 
 <div align="right">
   <b><a href="#top">↥ back to top</a></b>
 </div>
 
 ---
+
+## References
+
+<a name="footnote1">[1]</a> [Knuth, D.E. (1998). *The Art of Computer Programming, Vol. 3*. Addison Wesley Longman. 184–186](https://seriouscomputerist.atariverse.com/media/pdf/book/Art%20of%20Computer%20Programming%20-%20Volume%203%20(Sorting%20&%20Searching).pdf) <br>
+<a name="footnote2">[1]</a> [Ford, Lester R. Jr.; Johnson, Selmer M. (1959). *A tournament problem*. American Mathematical Monthly. **66**: 387–389. doi:10.2307/2308750](https://sci-hub.se/10.1080/00029890.1959.11989306) <br>
