@@ -1777,15 +1777,18 @@ For example when inserting 13 pending elements (*b<sub>1<sub>*–*b<sub>13<sub>*
 b1; b3, b2; b5, b4; b11, b10, b9, b8, b7, b6; b13, b12 
 ```
 
-You have 5 insertion groups:
-- group *t<sub>1<sub>*, k = 1: b1
-- group *t<sub>2<sub>*, k = 3: b3, b2
-- group *t<sub>3<sub>*, k = 5: b5, b4
-- group *t<sub>4<sub>*, k = 11: b11, b10, b9, b8, b7, b6
-- group *t<sub>5<sub>*, k = : b13, b12
+You obtain 5 insertion groups:
+- group *t<sub>1<sub>*, `k = 1`: b1
+- group *t<sub>2<sub>*, `k = 3`: b3, b2
+- group *t<sub>3<sub>*, `k = 5`: b5, b4
+- group *t<sub>4<sub>*, `k = 11`: b11, b10, b9, b8, b7, b6
+- group *t<sub>5<sub>*, `k = 21`: b13, b12
 
-The max
+Note that the values of `k ` follow the terms of the (cleaned) Jacobsthal sequence (1, 2, 3, 5, 11, 21, ...).
 
+Thus, pending elements `b3` and `b2` should be inserted into the main chain in no more than 3 comparisons, `b5` and `b4`  in no more than 5 comparisons, and so on. The exception is `b1`, which requires no comparisons at all: It is always inserted first, at the very top of the main chain (`b1 < a1 < a2 < ...`).
+
+This can be achieved by 
 
 <div align="right">
 <b><a href="#top">↥ back to top</a></b>
