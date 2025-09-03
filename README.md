@@ -1790,7 +1790,7 @@ To determine the number of main chain elements that need to be considered for in
 
 For insertion groups `k >= 4`, `2^k - 1` quickly exceeds the number of actually available elements in the main chain. In such cases, the size of the main chain itself serves as the inclusive upper limit for the number of elements to consider during insertion.   
 
-My implementation of the Ford–Johnson algorithm ([found here](https://github.com/alx-sch/CPP_Glossary/tree/main/CPP_09/ex02)) follows the procedure described above and does not rely on the identities of specific main chain elements. This greatly simplifies the computation of insertion positions. It also avoids splitting the sequence into separate main and pending chains; instead, the original container is rearranged in-place to distinguish between main chain, pending elements, and leftovers. This approach reduces memory overhead and keeps the algorithm efficient and straightforward to implement.
+My implementation of the Ford-Johnson algorithm ([found here](https://github.com/alx-sch/CPP_Glossary/tree/main/CPP_09/ex02)) follows the procedure described above and does not rely on the identities of specific main chain elements. This greatly simplifies the computation of insertion positions. It also avoids splitting the sequence into separate main and pending chains; instead, the original container is rearranged in-place to distinguish between main chain, pending elements, and leftovers. This approach reduces memory overhead and keeps the algorithm efficient and straightforward to implement.
 
 <div align="right">
 <b><a href="#top">↥ back to top</a></b>
