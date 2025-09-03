@@ -1769,7 +1769,7 @@ He later generalizes this procedure in a way that is analogous to the insights s
 </p>
 
 Meaning that the Ford-Johnson algorithm 'merely' requires inserting pending elements "in such a way that each of *b<sub>k<sub>t</sub></sub>*, *b<sub>k<sub>t</sub>-1</sub>*, ..., *b<sub>k<sub>t-1</sub>+1</sub>* can be inserted
-into the main chain with at most k comparisons"<sup><a href="#footnote1">[1]</a></sup>.    
+into the main chain with at most *k* comparisons"<sup><a href="#footnote1">[1]</a></sup>.    
 
 For example when inserting 13 pending elements (*b<sub>1<sub>*–*b<sub>13<sub>*) in the following order: 
 
