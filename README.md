@@ -18,6 +18,7 @@ The object-oriented programming principles featured in this glossary are covered
 - **C++ Module 06**: Casting
 - **C++ Module 07**: Templates
 - **C++ Module 08**: STL containers, STL Algorithms
+- **C++ Module 09**: Programs using STL containers (esp. Ford-Johnson algorithm)
 
 ---
 
@@ -46,6 +47,7 @@ The object-oriented programming principles featured in this glossary are covered
 - [Templates](#templates)
 - [STL Containers](#stl-containers)
 - [STL Algorithms](#stl-algorithms)
+- [Ford-Johnson Algorithm](#ford-johnson-algorithm)
  
 ---
 
@@ -1015,6 +1017,10 @@ public:
 
 ```
 
+<div align="right">
+  <b><a href="#top">↥ back to top</a></b>
+</div>
+
 ---
 
 ### Exceptions
@@ -1728,7 +1734,69 @@ All `<algorithms>` functions are listed here: [https://cplusplus.com/reference/a
     ```
 
 <div align="right">
-  <b><a href="#top">↥ back to top</a></b>
+<b><a href="#top">↥ back to top</a></b>
 </div>
 
 ---
+
+### Ford-Johnson Algorithm 
+
+The Ford–Johnson algorithm, also known as the merge-insertion algorithm, is well described by Donald E. Knuth in *The Art of Computer Programming*<sup><a href="#footnote1">[1]</a></sup>, referencing a method discovered by Lester Ford, Jr. and Selmer Johnson<sup><a href="#footnote2">[2]</a></sup>.  
+It is a minimum-comparison sorting method, which has been shown to result in the optimal (least) number of comparisons needed to sort sequences of 1–11 elements, as well as for 20 and 21 elements. It should be noted that while this method offers valuable insight in theoretical mathematics, alternative approaches may be better suited when optimizing for computational efficiency.
+
+When implementing the Ford–Johnson algorithm, the following two articles are especially helpful as they visualize the recursive nature of the method and clarify the insertion order of pending elements into the main chain:
+- by emuminov, *Human explanation and step-by-step visualisation of the Ford-Johnson algorithm* (Nov 13, 2024), [DEV Community](https://dev.to/emuminov/human-explanation-and-step-by-step-visualisation-of-the-ford-johnson-algorithm-5g91).
+- by Mohammad A. Ibrahim, *Ford-Johnson Algorithm (Merge-insertion)* (Jul 22, 2025), [Medium](https://medium.com/@mohammad.ali.ibrahim.525/ford-johnson-algorithm-merge-insertion-4b024f0c3d42).
+
+However, these implementations — and many others I’ve seen — tend to overcomplicate the binary insertion step by keeping track of every single element in the main chain. While it makes sense to use *a<sub>x</sub>* as the last exclusive end when inserting *b<sub>x</sub>* into the main chain, this is not necessary to achieve the minimum number of comparisons in the worst case, as described here<sup><a href="#footnote1">[1]</a></sup>:
+
+<p align="center">
+    <img src="https://github.com/alx-sch/42_CPP_00-04/blob/main/.assets/max_comp.png" alt="max_comp.png" width="650"/>
+</p>
+
+This means that any sequence of `n` numbers can be sorted by the Ford–Johnson algorithm with at most `F(n)` comparisons. For example, 21 numbers can be sorted in no more than 66 comparisons.
+
+While Knuth does initially describe inserting *b<sub>x</sub>* before *a<sub>x</sub>* here:
+
+<p align="center">
+    <img src="https://github.com/alx-sch/42_CPP_00-04/blob/main/.assets/FJ.png" alt="FJ.png" width="650"/>
+</p>
+
+He later generalizes this procedure in a way that is analogous to the insights shared by Ford and Johnson in their paper:
+
+<p align="center">
+    <img src="https://github.com/alx-sch/42_CPP_00-04/blob/main/.assets/FJ_generalized.png" alt="FJ_generalized.png" width="650" />
+</p>
+
+Meaning that the Ford-Johnson algorithm 'merely' requires inserting pending elements "in such a way that each of *b<sub>k<sub>t</sub></sub>*, *b<sub>k<sub>t</sub>-1</sub>*, ..., *b<sub>k<sub>t-1</sub>+1</sub>* can be inserted
+into the main chain with at most *k* comparisons"<sup><a href="#footnote1">[1]</a></sup>.    
+
+For example when inserting 13 pending elements (*b<sub>1<sub>*–*b<sub>13<sub>*) in the following order: 
+
+```
+b1; b3, b2; b5, b4; b11, b10, b9, b8, b7, b6; b13, b12 
+```
+
+You obtain 5 insertion groups:
+- group *t<sub>1<sub>*, `k = 1`: b1
+- group *t<sub>2<sub>*, `k = 3`: b3, b2
+- group *t<sub>3<sub>*, `k = 5`: b5, b4
+- group *t<sub>4<sub>*, `k = 11`: b11, b10, b9, b8, b7, b6
+- group *t<sub>5<sub>*, `k = 21`: b13, b12
+
+Note that the values of `k ` follow the terms of the (cleaned) Jacobsthal sequence (1, 2, 3, 5, 11, 21, ...).
+
+Thus, pending elements `b3` and `b2` should be inserted into the main chain in no more than 3 comparisons, `b5` and `b4`  in no more than 5 comparisons, and so on. The exception is `b1`, which requires no comparisons at all: It is always inserted first, at the very top of the main chain (`b1 < a1 < a2 < ...`).
+
+This can be achieved by 
+
+<div align="right">
+<b><a href="#top">↥ back to top</a></b>
+</div>
+
+---
+
+## References
+
+<a name="footnote1">[1]</a> [Knuth, D.E. (1998). *The Art of Computer Programming, Vol. 3*. Addison Wesley Longman. 184–86](https://seriouscomputerist.atariverse.com/media/pdf/book/Art%20of%20Computer%20Programming%20-%20Volume%203%20(Sorting%20&%20Searching).pdf) <br>
+<a name="footnote2">[2]</a> [Ford, Lester R. Jr.; Johnson, Selmer M. (1959). *A tournament problem*. American Mathematical Monthly. **66**: 387–89. doi:10.2307/2308750](https://sci-hub.se/10.1080/00029890.1959.11989306) <br>
