@@ -1748,7 +1748,7 @@ When implementing the Ford-Johnson algorithm, the following two articles are esp
 - by emuminov, *Human explanation and step-by-step visualisation of the Ford-Johnson algorithm* (Nov 13, 2024), [DEV Community](https://dev.to/emuminov/human-explanation-and-step-by-step-visualisation-of-the-ford-johnson-algorithm-5g91).
 - by Mohammad A. Ibrahim, *Ford-Johnson Algorithm (Merge-insertion)* (Jul 22, 2025), [Medium](https://medium.com/@mohammad.ali.ibrahim.525/ford-johnson-algorithm-merge-insertion-4b024f0c3d42).
 
-However, these implementations — and many others I’ve seen — tend to overcomplicate the binary insertion step by keeping track of every single element in the main chain. While it might make sense (and a lot of work) to use *a<sub>x</sub>* as the last exclusive end when inserting *b<sub>x</sub>* into the main chain, this is not necessary to achieve the minimum number of comparisons as described here<sup><a href="#footnote1">[1]</a></sup>:
+However, these implementations — and many others I’ve seen — tend to overcomplicate the step of inserting via binary search by keeping track of every element in the main chain. While it might seem logical (and requires considerable effort) to use *a<sub>x</sub>* as the last exclusive end when inserting *b<sub>x</sub>* into the main chain, this is not necessary to stay within the allowed number of comparisons, as described here<sup><a href="#footnote1">[1]</a></sup>:
 
 <p align="center">
     <img src="https://github.com/alx-sch/42_CPP_00-04/blob/main/.assets/max_comp.png" alt="max_comp.png" width="650"/>
