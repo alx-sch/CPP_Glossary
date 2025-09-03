@@ -47,7 +47,7 @@ The object-oriented programming principles featured in this glossary are covered
 - [Templates](#templates)
 - [STL Containers](#stl-containers)
 - [STL Algorithms](#stl-algorithms)
-- [Ford-Johnson Algorithm](#stl-algorithms)
+- [Ford-Johnson Algorithm](#ford-johnson-algorithm)
  
 ---
 
