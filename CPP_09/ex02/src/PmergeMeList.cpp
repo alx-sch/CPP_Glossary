@@ -221,7 +221,7 @@ last element, comparing it only with the last element of each main chain block.
 Counts comparisons in `numComp`.
 
  @param lst			List containing main chain blocks (assumed sorted by last element of each block).
- @param value		The representative value of the pending block (usually its last element).
+ @param value		The representative value of the pending block (last element).
  @param blockSize	Number of elements per block.
  @param numBlocks	Number of useful main chain blocks to consider for insertion.
  @param numComp		Counter for the number of comparisons made.
@@ -230,6 +230,7 @@ Counts comparisons in `numComp`.
 std::list<int>::iterator	PmergeMe::binaryInsertBlockList(std::list<int>& lst, int value,
 								int blockSize, size_t numBlocks, int& numComp)
 {
+	// Use block indices instead of block number
 	size_t left = 0;			// inclusive
 	size_t right = numBlocks;	// exclusive
 

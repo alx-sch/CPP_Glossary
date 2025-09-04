@@ -199,15 +199,16 @@ last element, comparing it only with the last element of each main chain block.
 Counts comparisons in `numComp`.
 
  @param vec			Vector containing main chain blocks (assumed sorted by last element of each block).
- @param value		The representative value of the pending block (usually its last element).
+ @param value		The representative value of the pending block (last element).
  @param blockSize	Number of elements per block.
  @param numBlocks	Number of useful main chain blocks to consider for insertion.
  @param numComp		Counter for the number of comparisons made.
- @return			Element index in `vec` at which the pending block should be inserted.
+ @return			Index in `vec` at which the pending block should be inserted.
 */
 size_t	PmergeMe::binaryInsertBlockVec(	const std::vector<int>& vec, int value,
 										size_t blockSize, size_t numBlocks, int& numComp)
 {
+	// use block indices instead of block number
 	size_t	left = 0;			// inclusive
 	size_t	right = numBlocks;	// exclusive
 

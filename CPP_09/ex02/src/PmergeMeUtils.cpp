@@ -77,11 +77,11 @@ bool	PmergeMe::isMainChain(int index, int blockSize, int totalSize)
 Computes the number of main chain blocks that should be considered when inserting
 a pending block.
 
-The number of blocks is limited by the maximum allowed by the insertion group `k`
-(`2^k - 1`), and cannot exceed the number of blocks currently available in
-the main chain.
+The number of blocks in the main chain to be used during insertion is defined by
+the insertion group `k` (`2^k - 1`), and cannot exceed the number of blocks currently
+available in the main chain.
 
- @param g			Insertion group from `computeK()`
+ @param k			Insertion group index, also the number of comparisons allowed
  @param posPending	Number of elements currently in main chain
  @param blockSize	Size of each block
  @return			Number of "useful" blocks to consider in binary search

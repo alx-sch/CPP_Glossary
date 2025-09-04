@@ -121,6 +121,8 @@ size_t	PmergeMe::countSmallerPending(const Container& insertionOrder, typename C
 
 /**
 Computes the "insertion group" `k` for a given pending element index.
+This value is equivalent to the number of comparisons allowed by Ford-Johnson
+for this element during the insertion process.
 
 The maximum number of main chain elements that may need to be compared when
 inserting this element is `(2^k) - 1`; this also defines the "useful main chain"
