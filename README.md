@@ -1762,7 +1762,8 @@ Although Knuth briefly notes inserting b<sub>2</sub> before a<sub>2</sub> here:
     <img src="https://github.com/alx-sch/42_CPP_00-04/blob/main/.assets/FJ.png" alt="FJ.png" width="650"/>
     <br>
     <sup>
-        There is likely an error in the chain configuration <b>(8)</b>: the main chain should have seven elements (<i>c<sub>1</sub></i>–<i>c<sub>7</sub></i>), <br>   
+        There is likely an error in the chain configuration <b>(8)</b>: the main chain should have seven elements (<i>c<sub>1</sub></i>–<i>c<sub>7</sub></i>)
+        as the insertion range, <br>   
         so that "first compare <i>c<sub>4</sub></i>, then <i>c<sub>2</sub></i> or <i>c<sub>6</sub></i>" makes sense when inserting <i>b<sub>5</sub></i> via binary search. 
     </sup>
 </p>
