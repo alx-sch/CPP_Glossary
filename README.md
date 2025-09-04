@@ -1806,4 +1806,6 @@ My implementation of the Ford–Johnson algorithm ([found here](https://github.c
 ## References
 
 <a name="footnote1">[1]</a> [Knuth, D.E. (1998). *The Art of Computer Programming, Vol. 3*. Addison Wesley Longman. 184–86](https://seriouscomputerist.atariverse.com/media/pdf/book/Art%20of%20Computer%20Programming%20-%20Volume%203%20(Sorting%20&%20Searching).pdf) <br>
-<a name="footnote2">[2]</a> [Ford, Lester R. Jr.; Johnson, Selmer M. (1959). *A tournament problem*. American Mathematical Monthly. **66**: 387–89. doi:10.2307/2308750](https://sci-hub.se/10.1080/00029890.1959.11989306) <br>
+<a name="footnote2">[2]</a> [Ford, Lester R. Jr.; Johnson, Selmer M. (1959). *A tournament problem*. American Mathematical Monthly. **66**: 387–89. doi:10.2307/2308750](https://sci-hub.se/10.1080/00029890.1959.11989306) <br>   
+
+The project badge is from [this repository](https://github.com/ayogun/42-project-badges) by Ali Ogun.
