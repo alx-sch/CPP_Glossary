@@ -1756,7 +1756,7 @@ However, these implementations — and many others I’ve seen — tend to overc
 
 This means that any sequence of `n` numbers can be sorted by the Ford-Johnson algorithm with at most `F(n)` comparisons. For example, 21 numbers can be sorted in no more than 66 comparisons.
 
-Although Knuth briefly notes inserting b<sub>2</sub> before a<sub>2</sub>, the main chain shown for insertion uses `c` and `d` instead of the actual `a`'s and `b`'s:
+Although Knuth briefly notes inserting b<sub>2</sub> before a<sub>2</sub> here:
 
 <p align="center">
     <img src="https://github.com/alx-sch/42_CPP_00-04/blob/main/.assets/FJ.png" alt="FJ.png" width="650"/>
