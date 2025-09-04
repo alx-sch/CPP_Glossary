@@ -1762,7 +1762,8 @@ Although Knuth briefly notes inserting b<sub>2</sub> before a<sub>2</sub> here:
     <img src="https://github.com/alx-sch/42_CPP_00-04/blob/main/.assets/FJ.png" alt="FJ.png" width="650"/>
     <br>
     <sup>
-        There is likely an error in the chain configuration <b>(8)</b>: the main chain should have seven elements (<i>c<sub>1</sub></i>–<i>c<sub>7</sub></i>), <br>   
+        There is likely an error in the chain configuration <b>(8)</b>: the main chain should have seven elements (<i>c<sub>1</sub></i>–<i>c<sub>7</sub></i>)
+        as the insertion range, <br>   
         so that "first compare <i>c<sub>4</sub></i>, then <i>c<sub>2</sub></i> or <i>c<sub>6</sub></i>" makes sense when inserting <i>b<sub>5</sub></i> via binary search. 
     </sup>
 </p>
@@ -1782,7 +1783,7 @@ For example when inserting 13 pending elements (*b<sub>1<sub>*–*b<sub>13<sub>*
 b1; b3, b2; b5, b4; b11, b10, b9, b8, b7, b6; b13, b12 
 ```
 
-You obtain 5 insertion groups:
+You obtain 5 insertion groups (each covering *b<sub>k<sub>t</sub></sub>*, *b<sub>k<sub>t</sub>-1</sub>*, ..., *b<sub>k<sub>t-1</sub>+1</sub>*):
 - group *t<sub>1<sub>*, `k = 1`: b1
 - group *t<sub>2<sub>*, `k = 2`: b3, b2
 - group *t<sub>3<sub>*, `k = 3`: b5, b4
@@ -1806,4 +1807,6 @@ My implementation of the Ford–Johnson algorithm ([found here](https://github.c
 ## References
 
 <a name="footnote1">[1]</a> [Knuth, D.E. (1998). *The Art of Computer Programming, Vol. 3*. Addison Wesley Longman. 184–86](https://seriouscomputerist.atariverse.com/media/pdf/book/Art%20of%20Computer%20Programming%20-%20Volume%203%20(Sorting%20&%20Searching).pdf) <br>
-<a name="footnote2">[2]</a> [Ford, Lester R. Jr.; Johnson, Selmer M. (1959). *A tournament problem*. American Mathematical Monthly. **66**: 387–89. doi:10.2307/2308750](https://sci-hub.se/10.1080/00029890.1959.11989306) <br>
+<a name="footnote2">[2]</a> [Ford, Lester R. Jr.; Johnson, Selmer M. (1959). *A tournament problem*. American Mathematical Monthly. **66**: 387–89. doi:10.2307/2308750](https://sci-hub.se/10.1080/00029890.1959.11989306) <br>   
+
+The project badge is from [this repository](https://github.com/ayogun/42-project-badges) by Ali Ogun.
