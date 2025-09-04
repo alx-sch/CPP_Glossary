@@ -10,6 +10,12 @@ in the Ford–Johnson merge-insertion algorithm.
 
 The Jacobsthal sequence is defined as:
 J(0) = 0, J(1) = 1; J(n) = J(n-1) + 2 * J(n-2) for n > 1
+
+It's probably an overkill to have the sequence dynamically computed,
+just hardcoding the first few numbers would do the trick, but this is more fun ;)
+
+ @param numPending	Number of pending elements
+ @return			Container with Jacobsthal sequence (no duplicates)
 */
 template <typename Container>
 Container	PmergeMe::buildJacobsthalSeq(int numPending)
