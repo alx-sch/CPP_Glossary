@@ -1783,7 +1783,7 @@ For example when inserting 13 pending elements (*b<sub>1<sub>*–*b<sub>13<sub>*
 b1; b3, b2; b5, b4; b11, b10, b9, b8, b7, b6; b13, b12 
 ```
 
-You obtain 5 insertion groups (each covering the range *b<sub>k<sub>t</sub></sub>*, *b<sub>k<sub>t</sub>-1</sub>*, ..., *b<sub>k<sub>t-1</sub>+1</sub>*):
+You obtain 5 insertion groups (each covering *b<sub>k<sub>t</sub></sub>*, *b<sub>k<sub>t</sub>-1</sub>*, ..., *b<sub>k<sub>t-1</sub>+1</sub>*):
 - group *t<sub>1<sub>*, `k = 1`: b1
 - group *t<sub>2<sub>*, `k = 2`: b3, b2
 - group *t<sub>3<sub>*, `k = 3`: b5, b4
