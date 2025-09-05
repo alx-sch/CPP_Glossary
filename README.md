@@ -1814,7 +1814,7 @@ Assuming the main chain starts with 13 `a`’s and grows by 1 after each `b`-ins
 |12 | b13 | t5 (5) | 31 | 24 | 24 |
 |13 | b12 | t5 (5) | 31 | 25 | 25 |
 
-\* b1 is the special case: it’s placed at the very top with 0 comparisons
+\* b1 is always placed at the very top with 0 comparisons
 
 My implementation of the Ford–Johnson algorithm ([found here](https://github.com/alx-sch/CPP_Glossary/tree/main/CPP_09/ex02)) follows the procedure described above and does not rely on the identities of specific main chain elements, thereby avoiding the need to track `a_x`/`b_x` pairs. This greatly simplifies the computation of insertion positions. The implementation also avoids splitting the sequence into separate main and pending chains; instead, the original container is rearranged in-place to distinguish between main chain, pending elements, and leftovers. This approach reduces memory overhead and keeps the algorithm efficient and straightforward to implement.
 
