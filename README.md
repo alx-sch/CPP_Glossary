@@ -1794,7 +1794,27 @@ Thus, pending elements `b3` and `b2` should be inserted into the main chain in n
 
 To determine the number of main chain elements that need to be considered for inserting a pending element, the formula `2^k - 1` is used<sup><a href="#footnote1">[1]</a></sup>, where `k` is the index of the insertion group, equivalent to the maximum number of comparisons allowed. This value defines the "useful portion" of the main chain for binary search: by considering at most `2^k - 1` elements, the algorithm guarantees that each element can be inserted in the minimal number of comparisons required by the Ford-Johnson procedure.   
 
-For insertion groups `k >= 4`, `2^k - 1` quickly exceeds the number of actually available elements in the main chain. In such cases, the size of the main chain itself serves as the inclusive upper limit for the number of elements to consider during insertion.   
+For insertion groups `k >= 4`, `2^k - 1` can quickly exceed the number of actually available elements in the main chain. In such cases, the size of the main chain itself serves as the inclusive upper limit for the number of elements to consider during insertion.
+
+Assuming the main chain starts with 13 `a`’s and grows by 1 after each `b`-insert, you get the following insertion steps:
+
+| Step | Insert | Group (k) | 2^k − 1 | Main chain size before insert | Useful main chain elements to consider |
+|-----:|:------:|:---------:|:-------:|:------------------------------:|:---------------------------:|
+| 1 | b1  | t1 (1) | 1  | 13 | 0* |
+| 2 | b3  | t2 (2) | 3  | 14 | 3 |
+| 3 | b2  | t2 (2) | 3  | 15 | 3 |
+| 4 | b5  | t3 (3) | 7  | 16 | 7 |
+| 5 | b4  | t3 (3) | 7  | 17 | 7 |
+| 6 | b11 | t4 (4) | 15 | 18 | 15 |
+| 7 | b10 | t4 (4) | 15 | 19 | 15 |
+| 8 | b9  | t4 (4) | 15 | 20 | 15 |
+| 9 | b8  | t4 (4) | 15 | 21 | 15 |
+|10 | b7  | t4 (4) | 15 | 22 | 15 |
+|11 | b6  | t4 (4) | 15 | 23 | 15 |
+|12 | b13 | t5 (5) | 31 | 24 | 24 |
+|13 | b12 | t5 (5) | 31 | 25 | 25 |
+
+\* b1 is the special case: it’s placed at the very top with 0 comparisons
 
 My implementation of the Ford–Johnson algorithm ([found here](https://github.com/alx-sch/CPP_Glossary/tree/main/CPP_09/ex02)) follows the procedure described above and does not rely on the identities of specific main chain elements, thereby avoiding the need to track `a_x`/`b_x` pairs. This greatly simplifies the computation of insertion positions. The implementation also avoids splitting the sequence into separate main and pending chains; instead, the original container is rearranged in-place to distinguish between main chain, pending elements, and leftovers. This approach reduces memory overhead and keeps the algorithm efficient and straightforward to implement.
 
