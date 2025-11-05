@@ -1,7 +1,7 @@
 ## C++ Glossary
 
 <p align="center">
-    <img src="https://github.com/alx-sch/42_CPP_00-04/blob/main/.assets/cpp_badge.png" alt="cpp_badge.png" />
+    <img src="https://raw.githubusercontent.com/alx-sch/CPP_Glossary/refs/heads/main/.assets/cpp_badge.png" alt="cpp_badge.png" />
 </p>
 
 [cplusplus.com](https://cplusplus.com/) is a great resource for all things C++.   
@@ -1751,7 +1751,7 @@ When implementing the Ford-Johnson algorithm, the following two articles are esp
 However, these implementations — and many others I’ve seen — tend to overcomplicate the step of inserting via binary search by tracking every main chain–pending element pair. While it might seem logical (and requires considerable effort) to use *a<sub>x</sub>* as the last exclusive end when inserting *b<sub>x</sub>* into the main chain, this isn’t required to remain within the allowed number of comparisons, as shown here<sup><a href="#footnote1">[1]</a></sup>:
 
 <p align="center">
-    <img src="https://github.com/alx-sch/42_CPP_00-04/blob/main/.assets/max_comp.png" alt="max_comp.png" width="650"/>
+    <img src="https://raw.githubusercontent.com/alx-sch/CPP_Glossary/refs/heads/main/.assets/max_comp.png" alt="max_comp.png" width="650"/>
 </p>
 
 This means that any sequence of `n` numbers can be sorted by the Ford-Johnson algorithm with at most `F(n)` comparisons. For example, 21 numbers can be sorted in no more than 66 comparisons.
@@ -1759,7 +1759,7 @@ This means that any sequence of `n` numbers can be sorted by the Ford-Johnson al
 Although Knuth briefly notes inserting b<sub>2</sub> before a<sub>2</sub> here:
 
 <p align="center">
-    <img src="https://github.com/alx-sch/42_CPP_00-04/blob/main/.assets/FJ.png" alt="FJ.png" width="650"/>
+    <img src="https://raw.githubusercontent.com/alx-sch/CPP_Glossary/refs/heads/main/.assets/FJ.png" alt="FJ.png" width="650"/>
     <br>
     <sup>
         There is likely an error in the chain configuration <b>(8)</b>: the main chain should have seven elements (<i>c<sub>1</sub></i>–<i>c<sub>7</sub></i>)
@@ -1771,7 +1771,7 @@ Although Knuth briefly notes inserting b<sub>2</sub> before a<sub>2</sub> here:
 He later generalizes this procedure in a way that is analogous to the insights originally shared by Ford and Johnson in their paper<sup><a href="#footnote2">[2]</a></sup>:
 
 <p align="center">
-    <img src="https://github.com/alx-sch/42_CPP_00-04/blob/main/.assets/FJ_generalized.png" alt="FJ_generalized.png" width="650" />
+    <img src="https://raw.githubusercontent.com/alx-sch/CPP_Glossary/refs/heads/main/.assets/FJ_generalized.png" alt="FJ_generalized.png" width="650" />
 </p>
 
 Meaning that the Ford-Johnson algorithm 'merely' requires inserting pending elements "in such a way that each of *b<sub>k<sub>t</sub></sub>*, *b<sub>k<sub>t</sub>-1</sub>*, ..., *b<sub>k<sub>t-1</sub>+1</sub>* can be inserted
